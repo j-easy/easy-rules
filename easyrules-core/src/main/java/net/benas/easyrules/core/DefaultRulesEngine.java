@@ -84,23 +84,11 @@ public class DefaultRulesEngine implements RulesEngine {
 
         for (Rule rule : rules) {
 
-            //ensure that rule has a valid condition trigger
-            if (rule.getConditionTrigger() == null ) {
-                logger.warning("Rule '" + rule.getName() + "' has not a condition trigger set, it is skipped.");
-                continue;
-            }
-
-            //ensure that rule has a valid action performer
-            if (rule.getActionPerformer() == null ) {
-                logger.warning("Rule '" + rule.getName() + "' has not an action performer set, it is skipped.");
-                continue;
-            }
-
             //apply rule
-            if (rule.getConditionTrigger().triggerCondition()) {
+            if (rule.evaluateConditions()) {
                 logger.info("Rule '" + rule.getName() + "' triggered.");
                 try {
-                    rule.getActionPerformer().performAction();
+                    rule.performActions();
                     logger.info("Rule '" + rule.getName() + "' performed successfully.");
 
                     if (skipOnFirstAppliedRule) {

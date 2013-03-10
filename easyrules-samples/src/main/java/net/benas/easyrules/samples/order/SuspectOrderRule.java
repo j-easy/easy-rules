@@ -33,13 +33,30 @@ import net.benas.easyrules.core.Rule;
  */
 class SuspectOrderRule extends Rule {
 
-    public SuspectOrderRule(Order order, Customer customer) {
-        super("Suspect Order",
-                "Send alert if a new customer checks out an order with amount greater than 1000$",
-                1,
-                new SuspectOrderConditionTrigger(order, customer),
-                new SuspectOrderActionPerformer(order, customer)
-        );
+    private Order order;
+
+    private Customer customer;
+
+    SuspectOrderRule(String name, String description, int priority) {
+        super(name, description, priority);
     }
 
+    @Override
+    public boolean evaluateConditions() {
+        return order.getAmount() > Order.ORDER_AMOUNT_THRESHOLD && customer.isNew();
+    }
+
+    @Override
+    public void performActions() throws Exception {
+        System.out.println("Alert : A new customer [id=" + customer.getCustomerId() + "] has checked out an order [id=" +
+                order.getOrderId() + "] with amount " + order.getAmount() + " > " + Order.ORDER_AMOUNT_THRESHOLD);
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }

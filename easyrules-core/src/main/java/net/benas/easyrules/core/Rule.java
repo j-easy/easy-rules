@@ -24,8 +24,7 @@
 
 package net.benas.easyrules.core;
 
-import net.benas.easyrules.api.ActionPerformer;
-import net.benas.easyrules.api.ConditionTrigger;
+import net.benas.easyrules.util.EasyRulesConstants;
 
 /**
  * Class representing a rule than can be fired by the rules engine.<br/>
@@ -55,22 +54,32 @@ public class Rule implements Comparable<Rule> {
      */
     private int priority;
 
-    /**
-     * The rule trigger.
-     */
-    private ConditionTrigger conditionTrigger;
+    public Rule() {
+        this.name = EasyRulesConstants.DEFAULT_RULE_NAME;
+        this.description = EasyRulesConstants.DEFAULT_RULE_DESCRIPTION;
+        this.priority = EasyRulesConstants.DEFAULT_RULE_PRIORITY;
+    }
 
-    /**
-     * The rule action performer.
-     */
-    private ActionPerformer actionPerformer;
-
-    public Rule(String name, String description, int priority, ConditionTrigger conditionTrigger, ActionPerformer actionPerformer) {
+    public Rule(String name, String description, int priority) {
         this.name = name;
         this.description = description;
         this.priority = priority;
-        this.conditionTrigger = conditionTrigger;
-        this.actionPerformer = actionPerformer;
+    }
+
+    /**
+     * Rule conditions abstraction : this method encapsulates the rule's conditions.
+     * @return true if the rule should be applied, false else
+     */
+    public boolean evaluateConditions(){
+        return false;
+    }
+
+    /**
+     * Rule actions abstraction : this methods encapsulates the rule's actions.
+     * @throws Exception thrown if an exception occurs during actions performing
+     */
+    public void performActions() throws Exception {
+        //no op
     }
 
     public String getName() {
@@ -85,14 +94,6 @@ public class Rule implements Comparable<Rule> {
         return priority;
     }
 
-    public ConditionTrigger getConditionTrigger() {
-        return conditionTrigger;
-    }
-
-    public ActionPerformer getActionPerformer() {
-        return actionPerformer;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -103,14 +104,6 @@ public class Rule implements Comparable<Rule> {
 
     public void setPriority(int priority) {
         this.priority = priority;
-    }
-
-    public void setConditionTrigger(ConditionTrigger conditionTrigger) {
-        this.conditionTrigger = conditionTrigger;
-    }
-
-    public void setActionPerformer(ActionPerformer actionPerformer) {
-        this.actionPerformer = actionPerformer;
     }
 
     @Override

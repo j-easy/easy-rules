@@ -39,8 +39,8 @@ public class RulePriorityComparisonTest {
 
     @Before
     public void setup(){
-        rule1 = new RuleBuilder().priority(1).build();
-        rule2 = new RuleBuilder().priority(2).build();
+        rule1 = new Rule("r1","d1",1);
+        rule2 = new Rule("r2","d2",2);
     }
 
     @Test

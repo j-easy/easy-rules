@@ -22,7 +22,7 @@ Most business rules can be represented by the following rule definition :
 
 Easy Rules simply provides an abstraction for each of these key points that define a business rule.
 
-### Easy Rules Key APIs
+### Easy Rules Key API
 
 A rule in Easy Rules is an instance of the `Rule` class :
 
@@ -35,9 +35,9 @@ public class Rule implements Comparable<Rule> {
 
     private int priority;
 
-    private ConditionTrigger conditionTrigger;
+    public boolean evaluateConditions() {return false;}
 
-    private ActionPerformer actionPerformer;
+    public void performActions() throws Exception {}
 
     //getters, setters and compareTo methods omitted
 
@@ -46,47 +46,11 @@ public class Rule implements Comparable<Rule> {
 
 The `name`, `description` and `priority` attributes are self explanatory.
 
-The `ConditionTrigger` interface is an abstraction of all conditions that trigger the rule :
+The `evaluateConditions` method encapsulates conditions that must evaluate to TRUE to trigger the rule.
 
-```java
-public interface ConditionTrigger {
+The `performActions` method encapsulates actions that should be performed when rule's conditions are satisfied.
 
-    /**
-     * The condition that triggers the rule.
-     * @return true if the rule should be applied, false else
-     */
-    boolean triggerCondition();
-
-}
-```
-
-Implementations of this interface should encapsulate conditions logic that should be satisfied to apply the rule's actions.
-
-The `ActionPerformer` interface is an abstraction of all actions that should be performed when rule's conditions are satisfied :
-
-```java
-public interface ActionPerformer {
-
-    /**
-     * Perform an action when a rule is triggered.
-     * @throws Exception if an exception occurs during action performing
-     */
-    void performAction() throws Exception;
-
-}
-```
-
-Easy Rules provides a rule builder to create rules easily like the following snippet :
-
-```java
-Rule rule = new RuleBuilder()
-        .name("Hello World Rule")
-        .description("Say Hello to only duke's friends")
-        .conditionTrigger(new HelloWorldConditionTrigger(input.trim()))
-        .actionPerformer(new HelloWorldActionPerformer())
-        .build();
-```
-
+Of course, evaluating conditions and performing actions should be delegated to other objects if used across multiple rules.
 
 ### Easy Rules engine
 
@@ -106,6 +70,40 @@ Easy Rules provide the following parameters:
 This sample shows how to use Easy Rules to say Hello to only duke's friends.
 The program asks the user if he/she is a friend of duke and says Hello only if he/she responds yes!
 
+The rule class is the following :
+
+```java
+public class HelloWorldRule extends Rule {
+
+    /**
+     * The user input
+     */
+    private String input;
+
+    public HelloWorldRule(String name, String description, int priority) {
+        super(name, description, priority);
+    }
+
+    @Override
+    public boolean evaluateConditions() {
+        //The rule should be applied only if the user's response is yes (duke friend)
+        return input.equalsIgnoreCase("yes");
+    }
+
+    @Override
+    public void performActions() throws Exception {
+        //When rule conditions are satisfied, prints 'Hello duke's friend!' to the console
+        System.out.println("Hello duke's friend!");
+    }
+
+    public void setInput(String input) {
+        this.input = input;
+    }
+}
+```
+
+The launcher class is the following :
+
 ```java
 public class HelloWorldSampleLauncher {
 
@@ -118,18 +116,18 @@ public class HelloWorldSampleLauncher {
         /**
          * Define the rule
          */
-        Rule rule = new RuleBuilder()
-                .name("Hello World Rule")
-                .description("Say Hello to only duke's friends")
-                .conditionTrigger(new HelloWorldConditionTrigger(input.trim()))
-                .actionPerformer(new HelloWorldActionPerformer())
-                .build();
+        HelloWorldRule helloWorldRule = new HelloWorldRule("Hello World rule", "Say Hello to only duke's friends", 1);
+
+        /**
+         * Set data to operates on
+         */
+        helloWorldRule.setInput(input.trim());
 
         /**
          * Create a default rules engine and register the business rule
          */
         RulesEngine rulesEngine = new DefaultRulesEngine();
-        rulesEngine.registerRule(rule);
+        rulesEngine.registerRule(helloWorldRule);
 
         /**
          * Fire rules
@@ -140,57 +138,10 @@ public class HelloWorldSampleLauncher {
 }
 ```
 
-`HelloWorldConditionTrigger` encapsulates the logic that checks if the user responded 'yes' to the question:
-
-```java
-public class HelloWorldConditionTrigger implements ConditionTrigger {
-
-    private String input;
-
-    public HelloWorldConditionTrigger(String input) {
-        this.input = input;
-    }
-
-    public boolean triggerCondition() {
-        //The rule should be applied only if the user's response is yes (duke friend)
-        return input.equalsIgnoreCase("yes");
-    }
-
-}
-```
-
-`HelloWorldActionPerformer` encapsulates the logic of the action to perform when the condition is satisfied, in this sample, simply prints 'Hello duke's friend!' to the console:
-
-```java
-public class HelloWorldActionPerformer implements ActionPerformer {
-
-    @Override
-    public void performAction()  {
-        System.out.println("Hello duke's friend!");
-    }
-
-}
-```
-
 More samples of how to use Easy Rules can be found [here][].
-
-
-## Roadmap
-
- * Annotation support : Condition and Action can be defined in any POJO
-
- * Spring support : Easy Rules should be easily configured and used in a Spring container
 
 ## License
 Easy Rules is released under the [MIT License][].
 
-## Contribution
-Your feedback is highly appreciated! For any issue, please use the [issue tracker][].
-
-You can also contribute with pull requests on github.
-
-Many thanks upfront!
-
 [here]: https://github.com/benas/easy-rules/tree/master/easyrules-samples
 [MIT License]: http://opensource.org/licenses/mit-license.php/
-[issue tracker]: https://github.com/benas/easy-rules/issues

@@ -26,7 +26,6 @@ package net.benas.easyrules.samples.order;
 
 import net.benas.easyrules.api.RulesEngine;
 import net.benas.easyrules.core.DefaultRulesEngine;
-import net.benas.easyrules.core.Rule;
 
 /**
  * Launcher class of the order sample.
@@ -43,7 +42,16 @@ public class OrderSampleLauncher {
         /**
          * Create a business rule instance
          */
-        Rule suspectOrderRule = new SuspectOrderRule(order, customer);
+        SuspectOrderRule suspectOrderRule = new SuspectOrderRule(
+                "Suspect Order",
+                "Send alert if a new customer checks out an order with amount greater than 1000$",
+                1);
+
+        /**
+         * Set data to operates on
+         */
+        suspectOrderRule.setOrder(order);
+        suspectOrderRule.setCustomer(customer);
 
         /**
          * Create a default rules engine and register the business rule
