@@ -14,7 +14,8 @@
     <packaging>pom</packaging>
 
     <name>Easy Rules</name>
-    <description>Easy Rules parent module</description>
+    <description>Easy Rules is a simple yet powerful Java Rules Engine</description>
+    <url>https://github.com/benas/easy-rules</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
