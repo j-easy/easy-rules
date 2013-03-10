@@ -187,11 +187,10 @@ Easy Rules is released under the [MIT License][].
 ## Contribution
 Your feedback is highly appreciated! For any issue, please use the [issue tracker][].
 
-You can also contribute with pull requests on github or by contacting the author directly [by mail][].
+You can also contribute with pull requests on github.
 
 Many thanks upfront!
 
 [here]: https://github.com/benas/easy-rules/tree/master/easyrules-samples
 [MIT License]: http://opensource.org/licenses/mit-license.php/
 [issue tracker]: https://github.com/benas/easy-rules/issues
-[by mail]: mailto:md.benhassine@gmail.com?subject=[Easy Rules]
