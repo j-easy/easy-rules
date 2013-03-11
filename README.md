@@ -119,7 +119,7 @@ public class HelloWorldSampleLauncher {
         HelloWorldRule helloWorldRule = new HelloWorldRule("Hello World rule", "Say Hello to only duke's friends", 1);
 
         /**
-         * Set data to operates on
+         * Set data to operate on
          */
         helloWorldRule.setInput(input.trim());
 
