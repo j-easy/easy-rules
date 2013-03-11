@@ -48,7 +48,7 @@ public class OrderSampleLauncher {
                 1);
 
         /**
-         * Set data to operates on
+         * Set data to operate on
          */
         suspectOrderRule.setOrder(order);
         suspectOrderRule.setCustomer(customer);
