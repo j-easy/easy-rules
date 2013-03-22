@@ -31,7 +31,9 @@ import net.benas.easyrules.core.Rule;
  *
  * @author benas (md.benhassine@gmail.com)
  */
-class SuspectOrderRule extends Rule {
+class SuspectOrderRule extends Rule implements SuspectOrderJmxManagedRule {
+
+    private float suspectOrderAmountThreshold = 1000;
 
     private Order order;
 
@@ -43,13 +45,13 @@ class SuspectOrderRule extends Rule {
 
     @Override
     public boolean evaluateConditions() {
-        return order.getAmount() > Order.ORDER_AMOUNT_THRESHOLD && customer.isNew();
+        return order.getAmount() > suspectOrderAmountThreshold && customer.isNew();
     }
 
     @Override
     public void performActions() throws Exception {
         System.out.println("Alert : A new customer [id=" + customer.getCustomerId() + "] has checked out an order [id=" +
-                order.getOrderId() + "] with amount " + order.getAmount() + " > " + Order.ORDER_AMOUNT_THRESHOLD);
+                order.getOrderId() + "] with amount " + order.getAmount() + " > " + suspectOrderAmountThreshold);
     }
 
     public void setOrder(Order order) {
@@ -59,4 +61,13 @@ class SuspectOrderRule extends Rule {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+    public float getSuspectOrderAmountThreshold() {
+        return suspectOrderAmountThreshold;
+    }
+
+    public void setSuspectOrderAmountThreshold(float suspectOrderAmountThreshold) {
+        this.suspectOrderAmountThreshold = suspectOrderAmountThreshold;
+    }
+
 }

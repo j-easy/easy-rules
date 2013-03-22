@@ -34,7 +34,7 @@ import net.benas.easyrules.core.DefaultRulesEngine;
  */
 public class OrderSampleLauncher {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         Order order = new Order(6654, 1200);
         Customer customer = new Customer(2356, true);
@@ -44,7 +44,7 @@ public class OrderSampleLauncher {
          */
         SuspectOrderRule suspectOrderRule = new SuspectOrderRule(
                 "Suspect Order",
-                "Send alert if a new customer checks out an order with amount greater than 1000$",
+                "Send alert if a new customer checks out an order with amount greater than a threshold",
                 1);
 
         /**
@@ -57,11 +57,20 @@ public class OrderSampleLauncher {
          * Create a default rules engine and register the business rule
          */
         RulesEngine rulesEngine = new DefaultRulesEngine();
-        rulesEngine.registerRule(suspectOrderRule);
+        rulesEngine.registerJmxManagedRule(suspectOrderRule, true, SuspectOrderJmxManagedRule.class);
 
         /**
          * Fire rules
          */
+        rulesEngine.fireRules();
+
+        // Suspend execution for 30s to have time to update suspect order amount threshold via a JMX client.
+        Thread.sleep(30000);
+
+        System.out.println("**************************************************************");
+        System.out.println("Re fire rules after updating suspect order amount threshold...");
+        System.out.println("**************************************************************");
+
         rulesEngine.fireRules();
 
     }

@@ -31,8 +31,6 @@ package net.benas.easyrules.samples.order;
  */
 class Order {
 
-    public static float ORDER_AMOUNT_THRESHOLD = 1000;
-
     private long orderId;
 
     private float amount;
