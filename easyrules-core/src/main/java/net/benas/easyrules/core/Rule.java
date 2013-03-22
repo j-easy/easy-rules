@@ -55,9 +55,9 @@ public class Rule implements Comparable<Rule> {
     private int priority;
 
     public Rule() {
-        this.name = EasyRulesConstants.DEFAULT_RULE_NAME;
-        this.description = EasyRulesConstants.DEFAULT_RULE_DESCRIPTION;
-        this.priority = EasyRulesConstants.DEFAULT_RULE_PRIORITY;
+        this(EasyRulesConstants.DEFAULT_RULE_NAME,
+                EasyRulesConstants.DEFAULT_RULE_DESCRIPTION,
+                EasyRulesConstants.DEFAULT_RULE_PRIORITY);
     }
 
     public Rule(String name, String description, int priority) {
