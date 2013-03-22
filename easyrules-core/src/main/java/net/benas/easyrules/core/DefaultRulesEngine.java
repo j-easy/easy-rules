@@ -27,6 +27,7 @@ package net.benas.easyrules.core;
 import net.benas.easyrules.api.RulesEngine;
 import net.benas.easyrules.util.EasyRulesConstants;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -84,6 +85,11 @@ public class DefaultRulesEngine implements RulesEngine {
 
         for (Rule rule : rules) {
 
+            if (rule.getPriority() > rulePriorityThreshold) {
+                logger.info("Rules priority threshold " + rulePriorityThreshold + " exceeded at " + rule.getName() + ", next applicable rules will be skipped.");
+                break;
+            }
+
             //apply rule
             if (rule.evaluateConditions()) {
                 logger.info("Rule '" + rule.getName() + "' triggered.");
@@ -96,10 +102,6 @@ public class DefaultRulesEngine implements RulesEngine {
                         break;
                     }
 
-                    if (rule.getPriority() > rulePriorityThreshold) {
-                        logger.info("Rules priority threshold exceeded, next applicable rules will be skipped.");
-                        break;
-                    }
                 } catch (Exception exception) {
                     logger.log(Level.SEVERE,"Rule '" + rule.getName() + "' performed with error.", exception);
                 }
