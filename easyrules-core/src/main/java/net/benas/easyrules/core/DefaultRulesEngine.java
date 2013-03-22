@@ -27,7 +27,6 @@ package net.benas.easyrules.core;
 import net.benas.easyrules.api.RulesEngine;
 import net.benas.easyrules.util.EasyRulesConstants;
 
-import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -115,11 +114,14 @@ public class DefaultRulesEngine implements RulesEngine {
         logger.info("Rules cleared.");
     }
 
+    @Override
     public void setSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
     }
 
+    @Override
     public void setRulePriorityThreshold(int rulePriorityThreshold) {
         this.rulePriorityThreshold = rulePriorityThreshold;
     }
+
 }
