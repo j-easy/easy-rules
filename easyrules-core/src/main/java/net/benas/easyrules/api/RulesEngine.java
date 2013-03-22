@@ -42,6 +42,22 @@ public interface RulesEngine {
     void registerRule(Rule rule);
 
     /**
+     * Register a rule in the rules engine registry. If the rule is set to be managed via JMX, the default JMX MBean
+     * type is {@link JmxManagedRule}
+     * @param rule the rule to register
+     * @param jmxManagedRule true if the rule should managed via JMX
+     */
+    void registerJmxManagedRule(Rule rule, boolean jmxManagedRule);
+
+    /**
+     * Register a rule in the rules engine registry. The rule can be managed via a JMX MBean of type clazz.
+     * @param rule the rule to register
+     * @param jmxManagedRule true if the rule should managed via JMX
+     * @param clazz the interface type of JMX MBean to be registered for the rule
+     */
+    void registerJmxManagedRule(Rule rule, boolean jmxManagedRule, Class clazz);
+
+    /**
      * Register a set of rules in the rules engine registry.
      * @param rules rules to register
      */

@@ -24,9 +24,13 @@
 
 package net.benas.easyrules.core;
 
+import net.benas.easyrules.api.JmxManagedRule;
 import net.benas.easyrules.api.RulesEngine;
 import net.benas.easyrules.util.EasyRulesConstants;
 
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import java.lang.management.ManagementFactory;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -58,15 +62,34 @@ public class DefaultRulesEngine implements RulesEngine {
      */
     private int rulePriorityThreshold;
 
+    /**
+     * The JMX server instance in which rule MBeans will be registered.
+     */
+    private MBeanServer mBeanServer;
+
     public DefaultRulesEngine() {
         rules = new TreeSet<Rule>();
         skipOnFirstAppliedRule = false;
         rulePriorityThreshold = EasyRulesConstants.DEFAULT_RULE_PRIORITY_THRESHOLD;
+        mBeanServer = ManagementFactory.getPlatformMBeanServer();
     }
 
     @Override
     public void registerRule(Rule rule) {
         rules.add(rule);
+    }
+
+    @Override
+    public void registerJmxManagedRule(Rule rule, boolean jmxManagedRule) {
+        registerJmxManagedRule(rule, jmxManagedRule, JmxManagedRule.class);
+    }
+
+    @Override
+    public void registerJmxManagedRule(Rule rule, boolean jmxManagedRule, Class clazz) {
+        rules.add(rule);
+        if (jmxManagedRule) {
+            configureJmxMBean(rule, clazz);
+        }
     }
 
     @Override
@@ -81,6 +104,9 @@ public class DefaultRulesEngine implements RulesEngine {
             logger.warning("No rules registered! Nothing to apply.");
             return;
         }
+
+        //resort rules in case priorities were modified via JMX
+        rules = new TreeSet<Rule>(rules);
 
         for (Rule rule : rules) {
 
@@ -122,6 +148,23 @@ public class DefaultRulesEngine implements RulesEngine {
     @Override
     public void setRulePriorityThreshold(int rulePriorityThreshold) {
         this.rulePriorityThreshold = rulePriorityThreshold;
+    }
+
+    /*
+    * Configure a JMX MBean for a rule.
+    */
+    private void configureJmxMBean(Rule rule, Class clazz) {
+
+        ObjectName name;
+        try {
+            name = new ObjectName("net.benas.easyrules.jmx:type=" + clazz.getSimpleName() + ",name=" + rule.getName());
+            if (!mBeanServer.isRegistered(name)) {
+                mBeanServer.registerMBean(rule, name);
+                logger.info("JMX MBean registered successfully as: " + name.getCanonicalName() + " for rule : " + rule.getName());
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Unable to register JMX MBean for rule : " + rule.getName(), e);
+        }
     }
 
 }

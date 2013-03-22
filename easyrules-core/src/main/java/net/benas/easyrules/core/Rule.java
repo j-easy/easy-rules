@@ -24,6 +24,7 @@
 
 package net.benas.easyrules.core;
 
+import net.benas.easyrules.api.JmxManagedRule;
 import net.benas.easyrules.util.EasyRulesConstants;
 
 /**
@@ -37,7 +38,7 @@ import net.benas.easyrules.util.EasyRulesConstants;
  *
  * @author benas (md.benhassine@gmail.com)
  */
-public class Rule implements Comparable<Rule> {
+public class Rule implements Comparable<Rule>, JmxManagedRule {
 
     /**
      * Rule name.
