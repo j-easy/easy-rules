@@ -76,7 +76,7 @@ public class Rule implements Comparable<Rule>, JmxManagedRule {
     }
 
     /**
-     * Rule actions abstraction : this methods encapsulates the rule's actions.
+     * Rule actions abstraction : this method encapsulates the rule's actions.
      * @throws Exception thrown if an exception occurs during actions performing
      */
     public void performActions() throws Exception {
