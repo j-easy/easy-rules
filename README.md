@@ -10,10 +10,10 @@ Easy Rules is a simple yet powerful Java Rules Engine providing the following fe
 
 ## Documentation
 
-All documentation and tutorials about Easy rules can be found at [doc][benas.github.com/easy-rules/].
+All documentation and tutorials about Easy rules can be found at [benas.github.com/easy-rules/][].
 
 ## License
 Easy Rules is released under the [MIT License][].
 
-[doc]: http://benas.github.com/easy-rules/
+[benas.github.com/easy-rules/]: http://benas.github.com/easy-rules/
 [MIT License]: http://opensource.org/licenses/mit-license.php/
