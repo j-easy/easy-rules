@@ -57,7 +57,7 @@ public class OrderSampleLauncher {
          * Create a default rules engine and register the business rule
          */
         RulesEngine rulesEngine = new DefaultRulesEngine();
-        rulesEngine.registerJmxManagedRule(suspectOrderRule, true, SuspectOrderJmxManagedRule.class);
+        rulesEngine.registerJmxManagedRule(suspectOrderRule);
 
         /**
          * Fire rules

@@ -1,13 +1,13 @@
 package net.benas.easyrules.samples.helloworld;
 
-import net.benas.easyrules.core.Rule;
+import net.benas.easyrules.core.BasicRule;
 
 /**
  * Hello World rule class.
  *
  * @author benas (md.benhassine@gmail.com)
  */
-public class HelloWorldRule extends Rule {
+public class HelloWorldRule extends BasicRule {
 
     /**
      * The user input
