@@ -24,21 +24,17 @@
 
 package net.benas.easyrules.core;
 
-import net.benas.easyrules.api.JmxManagedRule;
+import net.benas.easyrules.api.Rule;
 import net.benas.easyrules.util.EasyRulesConstants;
 
 /**
- * Class representing a rule than can be fired by the rules engine.<br/>
- *
- * Rules are registered in the rules engine registry and must have a <strong>unique</strong> name.<br/>
- *
- * Rules are fired according to their priority. By default, lower values represent higher priorities. To override
- * this default behavior, override {@link net.benas.easyrules.core.Rule#compareTo(net.benas.easyrules.core.Rule)} and
- * provide custom priority strategy.
+ * Basic rule implementation class that provide common methods.<br/>
+ * You can extend this class and override {@link BasicRule#evaluateConditions()} and {@link BasicRule#performActions()}
+ * to provide rule conditions and actions logic.
  *
  * @author benas (md.benhassine@gmail.com)
  */
-public class Rule implements Comparable<Rule>, JmxManagedRule {
+public class BasicRule implements Comparable<Rule>, Rule {
 
     /**
      * Rule name.
@@ -55,13 +51,13 @@ public class Rule implements Comparable<Rule>, JmxManagedRule {
      */
     private int priority;
 
-    public Rule() {
+    public BasicRule() {
         this(EasyRulesConstants.DEFAULT_RULE_NAME,
                 EasyRulesConstants.DEFAULT_RULE_DESCRIPTION,
                 EasyRulesConstants.DEFAULT_RULE_PRIORITY);
     }
 
-    public Rule(String name, String description, int priority) {
+    public BasicRule(String name, String description, int priority) {
         this.name = name;
         this.description = description;
         this.priority = priority;
@@ -95,10 +91,6 @@ public class Rule implements Comparable<Rule>, JmxManagedRule {
         return priority;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -114,7 +106,7 @@ public class Rule implements Comparable<Rule>, JmxManagedRule {
 
         Rule rule = (Rule) o;
 
-        return name.equals(rule.name);
+        return name.equals(rule.getName());
 
     }
 

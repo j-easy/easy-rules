@@ -10,30 +10,6 @@ import javax.management.MXBean;
  */
 
 @MXBean
-public interface JmxManagedRule {
-
-    /**
-     * Getter for rule name.
-     * @return the rule name
-     */
-    String getName();
-
-    /**
-     * Getter for rule description.
-     * @return rule description
-     */
-    String getDescription();
-
-    /**
-     * Getter for rule priority.
-     * @return rule priority
-     */
-    int getPriority();
-
-    /**
-     * Setter for rule priority.
-     * @param priority the priority to set
-     */
-    void setPriority(int priority);
+public interface JmxManagedRule extends Rule {
 
 }

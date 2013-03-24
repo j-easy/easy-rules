@@ -24,8 +24,6 @@
 
 package net.benas.easyrules.api;
 
-import net.benas.easyrules.core.Rule;
-
 import java.util.Set;
 
 /**
@@ -42,26 +40,22 @@ public interface RulesEngine {
     void registerRule(Rule rule);
 
     /**
-     * Register a rule in the rules engine registry. If the rule is set to be managed via JMX, the default JMX MBean
-     * type is {@link JmxManagedRule}
+     * Register a JMX managed rule in the rules engine registry. By default, the JMX MBean type is {@link JmxManagedRule}
      * @param rule the rule to register
-     * @param jmxManagedRule true if the rule should managed via JMX
      */
-    void registerJmxManagedRule(Rule rule, boolean jmxManagedRule);
-
-    /**
-     * Register a rule in the rules engine registry. The rule can be managed via a JMX MBean of type clazz.
-     * @param rule the rule to register
-     * @param jmxManagedRule true if the rule should managed via JMX
-     * @param clazz the interface type of JMX MBean to be registered for the rule
-     */
-    void registerJmxManagedRule(Rule rule, boolean jmxManagedRule, Class clazz);
+    void registerJmxManagedRule(JmxManagedRule rule);
 
     /**
      * Register a set of rules in the rules engine registry.
      * @param rules rules to register
      */
     void registerRules(Set<Rule> rules);
+
+    /**
+     * Register a set of JMX managed rules in the rules engine registry.
+     * @param rules JMX managed rules to register
+     */
+    void registerJmxManagedRules(Set<JmxManagedRule> rules);
 
     /**
      * Fire all registered rules.
@@ -81,7 +75,6 @@ public interface RulesEngine {
 
     /**
      * Set the maximum rule priority over which rules should be skipped.
-     * Default value is {@link net.benas.easyrules.util.EasyRulesConstants#DEFAULT_RULE_PRIORITY_THRESHOLD}
      * @param rulePriorityThreshold rule priority threshold
      */
     public void setRulePriorityThreshold(int rulePriorityThreshold);

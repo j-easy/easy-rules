@@ -25,6 +25,7 @@
 package net.benas.easyrules.core;
 
 import net.benas.easyrules.api.JmxManagedRule;
+import net.benas.easyrules.api.Rule;
 import net.benas.easyrules.api.RulesEngine;
 import net.benas.easyrules.util.EasyRulesConstants;
 
@@ -80,21 +81,21 @@ public class DefaultRulesEngine implements RulesEngine {
     }
 
     @Override
-    public void registerJmxManagedRule(Rule rule, boolean jmxManagedRule) {
-        registerJmxManagedRule(rule, jmxManagedRule, JmxManagedRule.class);
-    }
-
-    @Override
-    public void registerJmxManagedRule(Rule rule, boolean jmxManagedRule, Class clazz) {
+    public void registerJmxManagedRule(JmxManagedRule rule) {
         rules.add(rule);
-        if (jmxManagedRule) {
-            configureJmxMBean(rule, clazz);
-        }
+        registerJmxMBean(rule);
     }
 
     @Override
     public void registerRules(Set<Rule> rules) {
         this.rules.addAll(rules);
+    }
+
+    @Override
+    public void registerJmxManagedRules(Set<JmxManagedRule> rules) {
+        for (JmxManagedRule rule : rules) {
+            registerJmxManagedRule(rule);
+        }
     }
 
     @Override
@@ -151,13 +152,13 @@ public class DefaultRulesEngine implements RulesEngine {
     }
 
     /*
-    * Configure a JMX MBean for a rule.
+    * Register a JMX MBean for a rule.
     */
-    private void configureJmxMBean(Rule rule, Class clazz) {
+    private void registerJmxMBean(Rule rule) {
 
         ObjectName name;
         try {
-            name = new ObjectName("net.benas.easyrules.jmx:type=" + clazz.getSimpleName() + ",name=" + rule.getName());
+            name = new ObjectName("net.benas.easyrules.jmx:type=" + JmxManagedRule.class.getSimpleName() + ",name=" + rule.getName());
             if (!mBeanServer.isRegistered(name)) {
                 mBeanServer.registerMBean(rule, name);
                 logger.info("JMX MBean registered successfully as: " + name.getCanonicalName() + " for rule : " + rule.getName());

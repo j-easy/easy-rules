@@ -24,34 +24,21 @@
 
 package net.benas.easyrules.core;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import net.benas.easyrules.api.JmxManagedRule;
 
 /**
- * Test class of rules priority comparison.
+ * Basic class for JMX managed rules.<br/>
  *
  * @author benas (md.benhassine@gmail.com)
  */
-public class RulePriorityComparisonTest {
+public class BasicJmxManagedRule extends BasicRule implements JmxManagedRule {
 
-    private BasicRule rule1, rule2;
-
-    @Before
-    public void setup(){
-        rule1 = new BasicRule("r1","d1",1);
-        rule2 = new BasicRule("r2","d2",2);
+    protected BasicJmxManagedRule() {
+        super();
     }
 
-    @Test
-    public void testDifferentRulePriorityComparison() {
-        assertEquals(-1,rule1.compareTo(rule2));
-    }
-
-    @Test
-    public void testSameRulePriorityComparison() {
-        rule1.setPriority(2);
-        assertEquals(0,rule1.compareTo(rule2));
+    protected BasicJmxManagedRule(String name, String description, int priority) {
+        super(name, description, priority);
     }
 
 }
