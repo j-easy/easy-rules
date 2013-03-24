@@ -219,7 +219,7 @@ To make your rule manageable via JMX, you can extend this class and register it 
 
 ```java
 RulesEngine rulesEngine = new DefaultRulesEngine();
-rulesEngine.registerJmxManagedRules(myJmxManagedRule);
+rulesEngine.registerJmxManagedRule(myJmxManagedRule);
 ```
 
 By default, rule description and priority are exposed as JMX manageable attributes. If you need to expose more specific
