@@ -12,6 +12,18 @@ Easy Rules is a simple yet powerful Java Rules Engine providing the following fe
 
 ## Documentation
 
+### Getting started
+
+Easy Rules core is a single jar file with no dependencies. To build Easy Rules from sources, you need to have maven installed and set up.
+
+To use Easy Rules, please follow these instructions :
+
+ * $>`git clone https://github.com/benas/easy-rules.git`
+
+ * $>`mvn package`
+
+ * Add the generated jar `target/easyrules-core-${version}.jar` to your application's classpath
+
 ### Quick introduction
 
 Most business rules can be represented by the following rule definition :
