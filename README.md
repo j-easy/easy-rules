@@ -10,6 +10,10 @@ Easy Rules is a simple yet powerful Java Rules Engine providing the following fe
 
  * Dynamic rule reconfiguration at runtime using JMX
 
+## Presentation
+
+You can find some slides about Easy Rules at [speaker deck][].
+
 ## Documentation
 
 ### Getting started
@@ -243,6 +247,7 @@ An example of using dynamic rule reconfiguration at runtime is provided in the [
 ## License
 Easy Rules is released under the [MIT License][].
 
+[speaker deck]: https://speakerdeck.com/benas/easy-rules
 [here]: https://github.com/benas/easy-rules/tree/master/easyrules-samples
 [order tutorial]: https://github.com/benas/easy-rules/tree/master/easyrules-samples/src/main/java/net/benas/easyrules/samples/order
 [MIT License]: http://opensource.org/licenses/mit-license.php/
