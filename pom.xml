@@ -22,8 +22,6 @@
     </properties>
 
     <scm>
-        <url>scm:git:https://github.com/benas/easy-rules.git</url>
-        <connection>scm:git:https://github.com/benas/easy-rules.git</connection>
         <developerConnection>scm:git:https://github.com/benas/easy-rules.git</developerConnection>
     </scm>
 
