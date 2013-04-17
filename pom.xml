@@ -22,7 +22,7 @@
     </properties>
 
     <scm>
-        <developerConnection>scm:git:https://github.com/benas/easy-rules.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:benas/easy-rules.git</developerConnection>
     </scm>
 
     <developers>
