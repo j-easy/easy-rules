@@ -52,36 +52,6 @@ A rule in Easy Rules is an implementation of the `Rule` interface :
 public interface Rule {
 
     /**
-     * Getter for rule name.
-     * @return the rule name
-     */
-    String getName();
-
-    /**
-     * Getter for rule description.
-     * @return rule description
-     */
-    String getDescription();
-
-    /**
-     * Getter for rule priority.
-     * @return rule priority
-     */
-    int getPriority();
-
-    /**
-     * Setter for rule priority.
-     * @param priority the priority to set
-     */
-    void setPriority(int priority);
-
-    /**
-     * Setter for rule description.
-     * @param description new rule description
-     */
-    void setDescription(String description);
-
-    /**
      * Rule conditions abstraction : this method encapsulates the rule's conditions.
      * @return true if the rule should be applied, false else
      */
@@ -93,10 +63,10 @@ public interface Rule {
      */
     void performActions() throws Exception;
 
+    //Getters and setters for rule name, description and priority omitted.
+
 }
 ```
-
-Getters and setters of `name`, `description` and `priority` attributes are self explanatory.
 
 The `evaluateConditions` method encapsulates conditions that must evaluate to TRUE to trigger the rule.
 
@@ -126,7 +96,7 @@ Easy Rules provide the following parameters:
 ### Hello World Sample
 
 This sample shows how to use Easy Rules to say Hello to only duke's friends.
-The program asks the user if he/she is a friend of duke and says Hello only if he/she responds yes!
+The program asks the user if he is a friend of duke and says Hello only if he responds yes!
 
 The rule class is the following :
 
