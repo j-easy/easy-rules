@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>net.benas.easyrules.core.BasicRule</OriginalElement>
+  <nodes>
+    <node x="655.0" y="279.0">net.benas.easyrules.core.CompositeRule</node>
+    <node x="347.5" y="463.0">java.lang.Comparable</node>
+    <node x="249.0" y="238.5">net.benas.easyrules.core.BasicRule</node>
+    <node x="26.5" y="126.0">net.benas.easyrules.api.JmxManagedRule</node>
+    <node x="277.0" y="74.5">net.benas.easyrules.api.Rule</node>
+    <node x="13.0" y="320.0">net.benas.easyrules.core.BasicJmxManagedRule</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="net.benas.easyrules.core.BasicRule" target="java.lang.Comparable">
+      <point x="0.0" y="-94.5" />
+      <point x="0.0" y="24.0" />
+    </edge>
+    <edge source="net.benas.easyrules.core.BasicJmxManagedRule" target="net.benas.easyrules.core.BasicRule">
+      <point x="82.0" y="-0.0" />
+      <point x="-168.0" y="-0.0" />
+    </edge>
+    <edge source="net.benas.easyrules.core.BasicJmxManagedRule" target="net.benas.easyrules.api.JmxManagedRule">
+      <point x="0.0" y="14.0" />
+      <point x="0.0" y="-14.0" />
+    </edge>
+    <edge source="net.benas.easyrules.core.CompositeRule" target="net.benas.easyrules.api.Rule">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.benas.easyrules.api.JmxManagedRule" target="net.benas.easyrules.api.Rule">
+      <point x="67.5" y="-0.0" />
+      <point x="-138.0" y="-0.0" />
+    </edge>
+    <edge source="net.benas.easyrules.core.BasicRule" target="net.benas.easyrules.api.Rule">
+      <point x="0.0" y="94.5" />
+      <point x="0.0" y="-64.5" />
+    </edge>
+    <edge source="net.benas.easyrules.core.CompositeRule" target="net.benas.easyrules.core.BasicRule">
+      <point x="-128.0" y="-0.0" />
+      <point x="168.0" y="-0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="474.0" y="293.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
