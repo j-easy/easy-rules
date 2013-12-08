@@ -44,7 +44,7 @@ public class OrderSampleLauncher {
          */
         SuspectOrderRule suspectOrderRule = new SuspectOrderRule(
                 "Suspect Order",
-                "Send alert if a new customer checks out an order with amount greater than a threshold",
+                "Send alert if a new customer places an order with amount greater than a threshold",
                 1);
 
         /**

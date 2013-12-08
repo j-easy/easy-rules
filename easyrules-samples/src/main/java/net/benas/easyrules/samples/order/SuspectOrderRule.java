@@ -50,7 +50,7 @@ public class SuspectOrderRule extends BasicJmxManagedRule implements SuspectOrde
 
     @Override
     public void performActions() throws Exception {
-        System.out.println("Alert : A new customer [id=" + customer.getCustomerId() + "] has checked out an order [id=" +
+        System.out.println("Alert : A new customer [id=" + customer.getCustomerId() + "] has placed an order [id=" +
                 order.getOrderId() + "] with amount " + order.getAmount() + " > " + suspectOrderAmountThreshold);
     }
 
