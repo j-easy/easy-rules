@@ -20,4 +20,39 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+    <profile>
+        <id>runHelloWorldTutorial</id>
+        <build>
+            <defaultGoal>exec:java</defaultGoal>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.2.1</version>
+                    <configuration>
+                        <mainClass>net.benas.easyrules.samples.helloworld.HelloWorldSampleLauncher</mainClass>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+    <profile>
+        <id>runOnlineShopTutorial</id>
+        <build>
+            <defaultGoal>exec:java</defaultGoal>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.2.1</version>
+                    <configuration>
+                        <mainClass>net.benas.easyrules.samples.order.OrderSampleLauncher</mainClass>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+    </profiles>
+
 </project>
