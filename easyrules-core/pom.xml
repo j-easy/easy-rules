@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.benas</groupId>
+        <groupId>io.github.benas</groupId>
         <artifactId>easyrules</artifactId>
         <version>1.1.0</version>
     </parent>
