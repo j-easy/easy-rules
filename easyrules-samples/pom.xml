@@ -12,6 +12,27 @@
 
     <name>Easy Rules samples module</name>
 
+    <scm>
+        <url>git@github.com:benas/easy-rules.git</url>
+        <connection>scm:git:git@github.com:benas/easy-rules.git</connection>
+        <developerConnection>scm:git:git@github.com:benas/easy-rules.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>benas</id>
+            <email>md.benhassine@gmail.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
     <dependencies>
         <dependency>
             <groupId>io.github.benas</groupId>
