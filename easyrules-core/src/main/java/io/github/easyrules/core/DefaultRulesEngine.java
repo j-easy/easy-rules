@@ -76,23 +76,23 @@ public class DefaultRulesEngine implements RulesEngine {
     }
 
     @Override
-    public void registerRule(Rule rule) {
+    public void registerRule(final Rule rule) {
         rules.add(rule);
     }
 
     @Override
-    public void registerJmxManagedRule(JmxManagedRule rule) {
+    public void registerJmxManagedRule(final JmxManagedRule rule) {
         rules.add(rule);
         registerJmxMBean(rule);
     }
 
     @Override
-    public void registerRules(Set<Rule> rules) {
+    public void registerRules(final Set<Rule> rules) {
         this.rules.addAll(rules);
     }
 
     @Override
-    public void registerJmxManagedRules(Set<JmxManagedRule> rules) {
+    public void registerJmxManagedRules(final Set<JmxManagedRule> rules) {
         for (JmxManagedRule rule : rules) {
             registerJmxManagedRule(rule);
         }
@@ -129,7 +129,7 @@ public class DefaultRulesEngine implements RulesEngine {
                     }
 
                 } catch (Exception exception) {
-                    logger.log(Level.SEVERE,"Rule '" + rule.getName() + "' performed with error.", exception);
+                    logger.log(Level.SEVERE, "Rule '" + rule.getName() + "' performed with error.", exception);
                 }
             }
         }
@@ -142,19 +142,19 @@ public class DefaultRulesEngine implements RulesEngine {
     }
 
     @Override
-    public void setSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule) {
+    public void setSkipOnFirstAppliedRule(final boolean skipOnFirstAppliedRule) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
     }
 
     @Override
-    public void setRulePriorityThreshold(int rulePriorityThreshold) {
+    public void setRulePriorityThreshold(final int rulePriorityThreshold) {
         this.rulePriorityThreshold = rulePriorityThreshold;
     }
 
     /*
     * Register a JMX MBean for a rule.
     */
-    private void registerJmxMBean(Rule rule) {
+    private void registerJmxMBean(final Rule rule) {
 
         ObjectName name;
         try {

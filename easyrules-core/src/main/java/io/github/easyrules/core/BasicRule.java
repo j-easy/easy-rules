@@ -57,7 +57,7 @@ public class BasicRule implements Comparable<Rule>, Rule {
                 EasyRulesConstants.DEFAULT_RULE_PRIORITY);
     }
 
-    public BasicRule(String name, String description, int priority) {
+    public BasicRule(final String name, final String description, final int priority) {
         this.name = name;
         this.description = description;
         this.priority = priority;
@@ -67,7 +67,7 @@ public class BasicRule implements Comparable<Rule>, Rule {
      * Rule conditions abstraction : this method encapsulates the rule's conditions.
      * @return true if the rule should be applied, false else
      */
-    public boolean evaluateConditions(){
+    public boolean evaluateConditions() {
         return false;
     }
 
@@ -116,7 +116,7 @@ public class BasicRule implements Comparable<Rule>, Rule {
     }
 
     @Override
-    public int compareTo(Rule rule) {
+    public int compareTo(final Rule rule) {
         if (priority < rule.getPriority()) {
             return -1;
         } else if (priority == rule.getPriority()) {

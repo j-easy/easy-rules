@@ -52,7 +52,7 @@ public class CompositeRule extends BasicRule {
         rules = new TreeSet<Rule>();
     }
 
-    public CompositeRule(String name, String description, int priority) {
+    public CompositeRule(final String name, final String description, final int priority) {
         super(name, description, priority);
         rules = new TreeSet<Rule>();
     }
@@ -63,9 +63,9 @@ public class CompositeRule extends BasicRule {
      */
     @Override
     public boolean evaluateConditions() {
-        if (!rules.isEmpty()){
+        if (!rules.isEmpty()) {
             for (Rule rule : rules) {
-                if (!rule.evaluateConditions()){
+                if (!rule.evaluateConditions()) {
                     return false;
                 }
             }
@@ -76,7 +76,7 @@ public class CompositeRule extends BasicRule {
 
     /**
      * When a composite rule is applied, <strong>ALL</strong> actions of composing rules are performed in the order
-     * of rules priorities
+     * of rules priorities.
      *
      * @throws Exception thrown if an exception occurs during actions performing
      */
@@ -91,7 +91,7 @@ public class CompositeRule extends BasicRule {
      * Add a rule to the composite rule.
      * @param rule the rule to add
      */
-    public void addRule(Rule rule) {
+    public void addRule(final Rule rule) {
         rules.add(rule);
     }
 
@@ -99,7 +99,7 @@ public class CompositeRule extends BasicRule {
      * Remove a rule from the composite rule.
      * @param rule the rule to remove
      */
-    public void removeRule(Rule rule) {
+    public void removeRule(final Rule rule) {
         rules.remove(rule);
     }
 

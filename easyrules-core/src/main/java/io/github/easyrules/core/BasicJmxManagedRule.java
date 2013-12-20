@@ -37,7 +37,7 @@ public class BasicJmxManagedRule extends BasicRule implements JmxManagedRule {
         super();
     }
 
-    protected BasicJmxManagedRule(String name, String description, int priority) {
+    protected BasicJmxManagedRule(final String name, final String description, final int priority) {
         super(name, description, priority);
     }
 

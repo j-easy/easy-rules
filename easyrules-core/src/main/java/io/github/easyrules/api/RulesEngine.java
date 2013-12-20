@@ -71,12 +71,12 @@ public interface RulesEngine {
      * Specify if next rules should be skipped after the first applied rule.
      * @param skipOnFirstAppliedRule true if next rules should be skipped after the first applied rule, false else.
      */
-    public void setSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule);
+    void setSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule);
 
     /**
      * Set the maximum rule priority over which rules should be skipped.
      * @param rulePriorityThreshold rule priority threshold
      */
-    public void setRulePriorityThreshold(int rulePriorityThreshold);
+    void setRulePriorityThreshold(int rulePriorityThreshold);
 
 }
