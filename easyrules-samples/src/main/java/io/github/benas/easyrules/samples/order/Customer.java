@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2014, benas (md.benhassine@gmail.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -22,32 +22,30 @@
  *  THE SOFTWARE.
  */
 
-package io.github.easyrules.samples.order;
-
-import io.github.easyrules.api.JmxManagedRule;
-
-import javax.management.MXBean;
+package io.github.benas.easyrules.samples.order;
 
 /**
- * Interface to make suspect order rule manageable via JMX.<br/>
- * Suspect order threshold should be changed at runtime.
+ * Customer java bean.
  *
  * @author benas (md.benhassine@gmail.com)
  */
+class Customer {
 
-@MXBean
-public interface SuspectOrderJmxManagedRule extends JmxManagedRule {
+    private long customerId;
 
-    /**
-     * Get the current suspect order amount threshold
-     * @return current suspect order amount threshold
-     */
-    float getSuspectOrderAmountThreshold();
+    private boolean isNew;
 
-    /**
-     * Set the suspect order amount threshold
-     * @param suspectOrderAmountThreshold the new suspect order amount threshold
-     */
-    void setSuspectOrderAmountThreshold(float suspectOrderAmountThreshold);
+    public Customer(long customerId, boolean isNew) {
+        this.customerId = customerId;
+        this.isNew = isNew;
+    }
+
+    public long getCustomerId() {
+        return customerId;
+    }
+
+    public boolean isNew() {
+        return isNew;
+    }
 
 }

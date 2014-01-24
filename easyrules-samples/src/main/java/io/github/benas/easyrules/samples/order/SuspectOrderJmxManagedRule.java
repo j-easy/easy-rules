@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2014, benas (md.benhassine@gmail.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -22,46 +22,32 @@
  *  THE SOFTWARE.
  */
 
-package io.github.easyrules.samples.helloworld;
+package io.github.benas.easyrules.samples.order;
 
-import io.github.easyrules.api.RulesEngine;
-import io.github.easyrules.core.DefaultRulesEngine;
+import io.github.benas.easyrules.api.JmxManagedRule;
 
-import java.util.Scanner;
+import javax.management.MXBean;
 
 /**
- * Launcher class of the Hello World sample.
+ * Interface to make suspect order rule manageable via JMX.<br/>
+ * Suspect order threshold should be changed at runtime.
  *
  * @author benas (md.benhassine@gmail.com)
  */
-public class HelloWorldSampleLauncher {
 
-    public static void main(String[] args) {
+@MXBean
+public interface SuspectOrderJmxManagedRule extends JmxManagedRule {
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Are you a friend of duke? [yes/no]:");
-        String input = scanner.nextLine();
+    /**
+     * Get the current suspect order amount threshold
+     * @return current suspect order amount threshold
+     */
+    float getSuspectOrderAmountThreshold();
 
-        /**
-         * Define the rule
-         */
-        HelloWorldRule helloWorldRule = new HelloWorldRule("Hello World rule", "Say Hello to only duke's friends", 1);
+    /**
+     * Set the suspect order amount threshold
+     * @param suspectOrderAmountThreshold the new suspect order amount threshold
+     */
+    void setSuspectOrderAmountThreshold(float suspectOrderAmountThreshold);
 
-        /**
-         * Set data to operate on
-         */
-        helloWorldRule.setInput(input.trim());
-
-        /**
-         * Create a default rules engine and register the business rule
-         */
-        RulesEngine rulesEngine = new DefaultRulesEngine();
-        rulesEngine.registerRule(helloWorldRule);
-
-        /**
-         * Fire rules
-         */
-        rulesEngine.fireRules();
-
-    }
 }

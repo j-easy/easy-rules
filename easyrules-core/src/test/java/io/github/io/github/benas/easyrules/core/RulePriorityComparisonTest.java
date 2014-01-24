@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2014, benas (md.benhassine@gmail.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -22,30 +22,37 @@
  *  THE SOFTWARE.
  */
 
-package io.github.easyrules.samples.order;
+package io.github.io.github.benas.easyrules.core;
+
+import io.github.benas.easyrules.core.BasicRule;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
- * Customer java bean.
+ * Test class of rules priority comparison.
  *
  * @author benas (md.benhassine@gmail.com)
  */
-class Customer {
+public class RulePriorityComparisonTest {
 
-    private long customerId;
+    private BasicRule rule1, rule2;
 
-    private boolean isNew;
-
-    public Customer(long customerId, boolean isNew) {
-        this.customerId = customerId;
-        this.isNew = isNew;
+    @Before
+    public void setup(){
+        rule1 = new BasicRule("r1","d1",1);
+        rule2 = new BasicRule("r2","d2",2);
     }
 
-    public long getCustomerId() {
-        return customerId;
+    @Test
+    public void testDifferentRulePriorityComparison() {
+        assertEquals(-1, rule1.compareTo(rule2));
     }
 
-    public boolean isNew() {
-        return isNew;
+    @Test
+    public void testSameRulePriorityComparison() {
+        rule1.setPriority(2);
+        assertEquals(0, rule1.compareTo(rule2));
     }
 
 }

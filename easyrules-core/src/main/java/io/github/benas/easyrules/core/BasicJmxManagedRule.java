@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2014, benas (md.benhassine@gmail.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -22,30 +22,23 @@
  *  THE SOFTWARE.
  */
 
-package io.github.easyrules.samples.order;
+package io.github.benas.easyrules.core;
+
+import io.github.benas.easyrules.api.JmxManagedRule;
 
 /**
- * Order java bean.
+ * Basic class for JMX managed rules.<br/>
  *
  * @author benas (md.benhassine@gmail.com)
  */
-class Order {
+public class BasicJmxManagedRule extends BasicRule implements JmxManagedRule {
 
-    private long orderId;
-
-    private float amount;
-
-    public Order(long orderId, float amount) {
-        this.orderId = orderId;
-        this.amount = amount;
+    protected BasicJmxManagedRule() {
+        super();
     }
 
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public float getAmount() {
-        return amount;
+    protected BasicJmxManagedRule(final String name, final String description, final int priority) {
+        super(name, description, priority);
     }
 
 }

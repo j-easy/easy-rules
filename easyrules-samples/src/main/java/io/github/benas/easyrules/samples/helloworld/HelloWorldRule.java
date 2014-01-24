@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2014, benas (md.benhassine@gmail.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -22,52 +22,39 @@
  *  THE SOFTWARE.
  */
 
-package io.github.easyrules.samples.order;
+package io.github.benas.easyrules.samples.helloworld;
 
-import io.github.easyrules.core.BasicJmxManagedRule;
+import io.github.benas.easyrules.core.BasicRule;
 
 /**
- * Business rule class that defines suspect order rule.
+ * Hello World rule class.
  *
  * @author benas (md.benhassine@gmail.com)
  */
-public class SuspectOrderRule extends BasicJmxManagedRule implements SuspectOrderJmxManagedRule {
+public class HelloWorldRule extends BasicRule {
 
-    private float suspectOrderAmountThreshold = 1000;
+    /**
+     * The user input
+     */
+    private String input;
 
-    private Order order;
-
-    private Customer customer;
-
-    SuspectOrderRule(String name, String description, int priority) {
+    public HelloWorldRule(String name, String description, int priority) {
         super(name, description, priority);
     }
 
     @Override
     public boolean evaluateConditions() {
-        return order.getAmount() > suspectOrderAmountThreshold && customer.isNew();
+        //The rule should be applied only if the user's response is yes (duke friend)
+        return input.equalsIgnoreCase("yes");
     }
 
     @Override
     public void performActions() throws Exception {
-        System.out.println("Alert : A new customer [id=" + customer.getCustomerId() + "] has placed an order [id=" +
-                order.getOrderId() + "] with amount " + order.getAmount() + " > " + suspectOrderAmountThreshold);
+        //When rule conditions are satisfied, prints 'Hello duke's friend!' to the console
+        System.out.println("Hello duke's friend!");
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setInput(String input) {
+        this.input = input;
     }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public float getSuspectOrderAmountThreshold() {
-        return suspectOrderAmountThreshold;
-    }
-
-    public void setSuspectOrderAmountThreshold(float suspectOrderAmountThreshold) {
-        this.suspectOrderAmountThreshold = suspectOrderAmountThreshold;
-    }
-
 }

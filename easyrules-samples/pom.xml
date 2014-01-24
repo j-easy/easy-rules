@@ -52,7 +52,7 @@
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>1.2.1</version>
                     <configuration>
-                        <mainClass>io.github.easyrules.samples.helloworld.HelloWorldSampleLauncher</mainClass>
+                        <mainClass>io.github.benas.easyrules.samples.helloworld.HelloWorldSampleLauncher</mainClass>
                     </configuration>
                 </plugin>
             </plugins>
@@ -68,7 +68,7 @@
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>1.2.1</version>
                     <configuration>
-                        <mainClass>io.github.easyrules.samples.order.OrderSampleLauncher</mainClass>
+                        <mainClass>io.github.benas.easyrules.samples.order.OrderSampleLauncher</mainClass>
                     </configuration>
                 </plugin>
             </plugins>

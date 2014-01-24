@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2014, benas (md.benhassine@gmail.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,30 @@
  *  THE SOFTWARE.
  */
 
+package io.github.benas.easyrules.samples.order;
+
 /**
- * This package contains Easy Rules utility classes.
+ * Order java bean.
+ *
+ * @author benas (md.benhassine@gmail.com)
  */
-package io.github.easyrules.util;
+class Order {
+
+    private long orderId;
+
+    private float amount;
+
+    public Order(long orderId, float amount) {
+        this.orderId = orderId;
+        this.amount = amount;
+    }
+
+    public long getOrderId() {
+        return orderId;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+}

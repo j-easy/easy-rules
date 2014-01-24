@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2014, benas (md.benhassine@gmail.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -22,10 +22,10 @@
  *  THE SOFTWARE.
  */
 
-package io.github.easyrules.core;
+package io.github.benas.easyrules.core;
 
-import io.github.easyrules.api.Rule;
-import io.github.easyrules.util.EasyRulesConstants;
+import io.github.benas.easyrules.api.Rule;
+import io.github.benas.easyrules.util.EasyRulesConstants;
 
 /**
  * Basic rule implementation class that provide common methods.<br/>

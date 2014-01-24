@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2014, benas (md.benhassine@gmail.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -22,55 +22,45 @@
  *  THE SOFTWARE.
  */
 
-package io.github.easyrules.samples.order;
+package io.github.benas.easyrules.samples.helloworld;
 
-import io.github.easyrules.api.RulesEngine;
-import io.github.easyrules.core.DefaultRulesEngine;
+import io.github.benas.easyrules.api.RulesEngine;
+import io.github.benas.easyrules.core.DefaultRulesEngine;
+
+import java.util.Scanner;
 
 /**
- * Launcher class of the order sample.
+ * Launcher class of the Hello World sample.
  *
  * @author benas (md.benhassine@gmail.com)
  */
-public class OrderSampleLauncher {
+public class HelloWorldSampleLauncher {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
-        Order order = new Order(6654, 1200);
-        Customer customer = new Customer(2356, true);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Are you a friend of duke? [yes/no]:");
+        String input = scanner.nextLine();
 
         /**
-         * Create a business rule instance
+         * Define the rule
          */
-        SuspectOrderRule suspectOrderRule = new SuspectOrderRule(
-                "Suspect Order",
-                "Send alert if a new customer places an order with amount greater than a threshold",
-                1);
+        HelloWorldRule helloWorldRule = new HelloWorldRule("Hello World rule", "Say Hello to only duke's friends", 1);
 
         /**
          * Set data to operate on
          */
-        suspectOrderRule.setOrder(order);
-        suspectOrderRule.setCustomer(customer);
+        helloWorldRule.setInput(input.trim());
 
         /**
          * Create a default rules engine and register the business rule
          */
         RulesEngine rulesEngine = new DefaultRulesEngine();
-        rulesEngine.registerJmxManagedRule(suspectOrderRule);
+        rulesEngine.registerRule(helloWorldRule);
 
         /**
          * Fire rules
          */
-        rulesEngine.fireRules();
-
-        // Suspend execution for 30s to have time to update suspect order amount threshold via a JMX client.
-        Thread.sleep(300000);
-
-        System.out.println("**************************************************************");
-        System.out.println("Re fire rules after updating suspect order amount threshold...");
-        System.out.println("**************************************************************");
-
         rulesEngine.fireRules();
 
     }

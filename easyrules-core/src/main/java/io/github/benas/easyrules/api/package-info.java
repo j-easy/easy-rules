@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2014, benas (md.benhassine@gmail.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -22,40 +22,7 @@
  *  THE SOFTWARE.
  */
 
-package io.github.easyrules.util;
-
 /**
- * Easy Rules constants class.
- *
- * @author benas (md.benhassine@gmail.com)
+ * This package contains main Easy Rules public API.
  */
-public class EasyRulesConstants {
-
-    private EasyRulesConstants() { }
-
-    /**
-     * EasyRules logger name;
-     */
-    public static final String LOGGER_NAME = "easyRulesLogger";
-
-    /**
-     * Default rule name.
-     */
-    public static final String DEFAULT_RULE_NAME = "rule";
-
-    /**
-     * Default rule description.
-     */
-    public static final String DEFAULT_RULE_DESCRIPTION = "description";
-
-    /**
-     * Default rule priority.
-     */
-    public static final int DEFAULT_RULE_PRIORITY = 9999;
-
-    /**
-     * Default rule priority threshold.
-     */
-    public static final int DEFAULT_RULE_PRIORITY_THRESHOLD = 10000;
-
-}
+package io.github.benas.easyrules.api;
