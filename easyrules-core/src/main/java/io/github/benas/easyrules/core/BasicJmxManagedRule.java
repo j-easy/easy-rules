@@ -29,7 +29,7 @@ import io.github.benas.easyrules.api.JmxManagedRule;
 /**
  * Basic class for JMX managed rules.<br/>
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class BasicJmxManagedRule extends BasicRule implements JmxManagedRule {
 

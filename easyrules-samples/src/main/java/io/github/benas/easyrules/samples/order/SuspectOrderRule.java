@@ -29,7 +29,7 @@ import io.github.benas.easyrules.core.BasicJmxManagedRule;
 /**
  * Business rule class that defines suspect order rule.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class SuspectOrderRule extends BasicJmxManagedRule implements SuspectOrderJmxManagedRule {
 

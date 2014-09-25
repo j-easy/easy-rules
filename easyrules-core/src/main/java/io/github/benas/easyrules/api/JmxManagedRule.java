@@ -30,7 +30,7 @@ import javax.management.MXBean;
  * Interface to make rules manageable via JMX.<br/>
  * This interface can be extended with additional methods to add more specific rule properties.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 
 @MXBean

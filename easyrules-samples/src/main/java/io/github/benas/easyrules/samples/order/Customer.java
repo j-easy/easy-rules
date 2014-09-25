@@ -27,7 +27,7 @@ package io.github.benas.easyrules.samples.order;
 /**
  * Customer java bean.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 class Customer {
 

@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
 /**
  * Test class of rules priority comparison.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class RulePriorityComparisonTest {
 

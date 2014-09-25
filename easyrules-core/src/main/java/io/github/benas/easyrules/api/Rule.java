@@ -29,7 +29,7 @@ package io.github.benas.easyrules.api;
  *
  * Rules are registered in the rules engine registry and must have a <strong>unique</strong> name.<br/>
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public interface Rule {
 

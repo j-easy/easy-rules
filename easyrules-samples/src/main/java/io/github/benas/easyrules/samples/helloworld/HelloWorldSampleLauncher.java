@@ -32,7 +32,7 @@ import java.util.Scanner;
 /**
  * Launcher class of the Hello World sample.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class HelloWorldSampleLauncher {
 

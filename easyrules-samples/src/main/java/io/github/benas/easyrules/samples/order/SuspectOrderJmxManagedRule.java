@@ -32,7 +32,7 @@ import javax.management.MXBean;
  * Interface to make suspect order rule manageable via JMX.<br/>
  * Suspect order threshold should be changed at runtime.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 
 @MXBean

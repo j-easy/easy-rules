@@ -27,7 +27,7 @@ package io.github.benas.easyrules.util;
 /**
  * Easy Rules constants class.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class EasyRulesConstants {
 

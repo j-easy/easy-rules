@@ -42,7 +42,7 @@ import java.util.logging.Logger;
  * This implementation handles a set of rules with unique name. Rules are fired according to their priority (lower
  * values represent higher priorities).
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class DefaultRulesEngine implements RulesEngine {
 

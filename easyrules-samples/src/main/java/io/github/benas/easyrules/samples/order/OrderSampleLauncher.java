@@ -30,7 +30,7 @@ import io.github.benas.easyrules.core.DefaultRulesEngine;
 /**
  * Launcher class of the order sample.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class OrderSampleLauncher {
 

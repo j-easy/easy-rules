@@ -29,7 +29,7 @@ import io.github.benas.easyrules.core.BasicRule;
 /**
  * Hello World rule class.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class HelloWorldRule extends BasicRule {
 

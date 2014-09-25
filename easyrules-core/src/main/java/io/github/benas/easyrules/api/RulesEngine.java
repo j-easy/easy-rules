@@ -29,7 +29,7 @@ import java.util.Set;
 /**
  * Rules engine interface.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public interface RulesEngine {
 

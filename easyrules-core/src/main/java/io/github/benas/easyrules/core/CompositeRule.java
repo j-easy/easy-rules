@@ -36,7 +36,7 @@ import java.util.TreeSet;
  * When a composite rule is applied, actions of <strong>ALL</strong> composing rules are performed
  * in the natural order of rules which is rules priorities by default.
  *
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class CompositeRule extends BasicRule {
 
