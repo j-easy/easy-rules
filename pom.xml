@@ -36,7 +36,12 @@
     <developers>
         <developer>
             <id>benas</id>
+            <name>Mahmoud Ben Hassine</name>
+            <url>http://www.mahmoudbenhassine.com</url>
             <email>md.benhassine@gmail.com</email>
+            <roles>
+                <role>Project founder</role>
+            </roles>
         </developer>
     </developers>
 
