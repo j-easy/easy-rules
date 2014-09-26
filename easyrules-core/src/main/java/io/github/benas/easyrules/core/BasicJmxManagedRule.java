@@ -33,11 +33,7 @@ import io.github.benas.easyrules.api.JmxManagedRule;
  */
 public class BasicJmxManagedRule extends BasicRule implements JmxManagedRule {
 
-    protected BasicJmxManagedRule() {
-        super();
-    }
-
-    protected BasicJmxManagedRule(final String name, final String description, final int priority) {
+    public BasicJmxManagedRule(final String name, final String description, final int priority) {
         super(name, description, priority);
     }
 
