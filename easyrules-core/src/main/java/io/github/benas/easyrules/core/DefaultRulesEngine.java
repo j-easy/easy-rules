@@ -46,7 +46,7 @@ import java.util.logging.Logger;
  */
 public class DefaultRulesEngine implements RulesEngine {
 
-    private final Logger logger = Logger.getLogger(EasyRulesConstants.LOGGER_NAME);
+    private static final Logger LOGGER = Logger.getLogger(EasyRulesConstants.LOGGER_NAME);
 
     /**
      * Rules registry.
@@ -102,7 +102,7 @@ public class DefaultRulesEngine implements RulesEngine {
     public final void fireRules() {
 
         if (rules.isEmpty()) {
-            logger.warning("No rules registered! Nothing to apply.");
+            LOGGER.warning("No rules registered! Nothing to apply.");
             return;
         }
 
@@ -112,24 +112,24 @@ public class DefaultRulesEngine implements RulesEngine {
         for (Rule rule : rules) {
 
             if (rule.getPriority() > rulePriorityThreshold) {
-                logger.info("Rules priority threshold " + rulePriorityThreshold + " exceeded at " + rule.getName() + ", next applicable rules will be skipped.");
+                LOGGER.info("Rules priority threshold " + rulePriorityThreshold + " exceeded at " + rule.getName() + " (priority=" + rule.getPriority() + "), next applicable rules will be skipped.");
                 break;
             }
 
             //apply rule
             if (rule.evaluateConditions()) {
-                logger.info("Rule '" + rule.getName() + "' triggered.");
+                LOGGER.info("Rule '" + rule.getName() + "' triggered.");
                 try {
                     rule.performActions();
-                    logger.info("Rule '" + rule.getName() + "' performed successfully.");
+                    LOGGER.info("Rule '" + rule.getName() + "' performed successfully.");
 
                     if (skipOnFirstAppliedRule) {
-                        logger.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
+                        LOGGER.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
                         break;
                     }
 
                 } catch (Exception exception) {
-                    logger.log(Level.SEVERE, "Rule '" + rule.getName() + "' performed with error.", exception);
+                    LOGGER.log(Level.SEVERE, "Rule '" + rule.getName() + "' performed with error.", exception);
                 }
             }
         }
@@ -138,7 +138,7 @@ public class DefaultRulesEngine implements RulesEngine {
     @Override
     public final void clearRules() {
         rules.clear();
-        logger.info("Rules cleared.");
+        LOGGER.info("Rules cleared.");
     }
 
     @Override
@@ -161,10 +161,10 @@ public class DefaultRulesEngine implements RulesEngine {
             name = new ObjectName("io.github.benas.easyrules.jmx:type=" + JmxManagedRule.class.getSimpleName() + ",name=" + rule.getName());
             if (!mBeanServer.isRegistered(name)) {
                 mBeanServer.registerMBean(rule, name);
-                logger.info("JMX MBean registered successfully as: " + name.getCanonicalName() + " for rule : " + rule.getName());
+                LOGGER.info("JMX MBean registered successfully as: " + name.getCanonicalName() + " for rule : " + rule.getName());
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Unable to register JMX MBean for rule : " + rule.getName(), e);
+            LOGGER.log(Level.SEVERE, "Unable to register JMX MBean for rule : " + rule.getName(), e);
         }
     }
 
