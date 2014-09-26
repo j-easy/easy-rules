@@ -112,16 +112,17 @@ public class DefaultRulesEngine implements RulesEngine {
         for (Rule rule : rules) {
 
             if (rule.getPriority() > rulePriorityThreshold) {
-                LOGGER.info("Rules priority threshold " + rulePriorityThreshold + " exceeded at " + rule.getName() + " (priority=" + rule.getPriority() + "), next applicable rules will be skipped.");
+                LOGGER.log(Level.INFO, "Rules priority threshold {} exceeded at rule {} (priority={}), next applicable rules will be skipped.",
+                        new Object[] {rulePriorityThreshold, rule.getName(), rule.getPriority()});
                 break;
             }
 
             //apply rule
             if (rule.evaluateConditions()) {
-                LOGGER.info("Rule '" + rule.getName() + "' triggered.");
+                LOGGER.log(Level.INFO, "Rule '{}' triggered.", new Object[]{rule.getName()});
                 try {
                     rule.performActions();
-                    LOGGER.info("Rule '" + rule.getName() + "' performed successfully.");
+                    LOGGER.log(Level.INFO, "Rule '" + rule.getName() + "' performed successfully.", new Object[]{rule.getName()});
 
                     if (skipOnFirstAppliedRule) {
                         LOGGER.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
@@ -161,10 +162,10 @@ public class DefaultRulesEngine implements RulesEngine {
             name = new ObjectName("io.github.benas.easyrules.jmx:type=" + JmxManagedRule.class.getSimpleName() + ",name=" + rule.getName());
             if (!mBeanServer.isRegistered(name)) {
                 mBeanServer.registerMBean(rule, name);
-                LOGGER.info("JMX MBean registered successfully as: " + name.getCanonicalName() + " for rule : " + rule.getName());
+                LOGGER.log(Level.INFO, "JMX MBean registered successfully as: {} for rule: {}", new Object[]{name.getCanonicalName(), rule.getName()});
             }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Unable to register JMX MBean for rule : " + rule.getName(), e);
+            LOGGER.log(Level.SEVERE, "Unable to register JMX MBean for rule: " + rule.getName(), e);
         }
     }
 
