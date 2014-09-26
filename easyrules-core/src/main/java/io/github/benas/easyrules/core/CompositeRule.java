@@ -43,7 +43,7 @@ public class CompositeRule extends BasicRule {
     /**
      * The set of composing rules.
      */
-    private Set<Rule> rules;
+    protected Set<Rule> rules;
 
     public CompositeRule() {
         this(EasyRulesConstants.DEFAULT_RULE_NAME,
