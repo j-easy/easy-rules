@@ -15,7 +15,8 @@ import org.junit.runners.Suite;
         RulePriorityComparisonTest.class,
         RulePriorityThresholdTest.class,
         SkipOnFirstAppliedRuleTest.class,
-        JmxRuleRegistrationTest.class})
+        JmxRuleRegistrationTest.class,
+        CompositeRuleTest.class})
 public class EasyRulesTestSuite extends TestSuite {
 
 }
