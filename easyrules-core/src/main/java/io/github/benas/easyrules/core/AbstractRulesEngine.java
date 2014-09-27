@@ -30,21 +30,19 @@ public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
     protected boolean skipOnFirstAppliedRule;
 
     /**
-     * The JMX server instance in which rule MBeans will be registered.
+     * The JMX server instance in which rule's MBeans will be registered.
      */
     protected MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
 
     @Override
     public void registerRule(R rule) {
         rules.add(rule);
-        registerJmxMBean(rule);
     }
 
     @Override
-    public void registerRules(Set<R> rules) {
-        for (R rule : rules) {
-            registerRule(rule);
-        }
+    public void registerJmxRule(R rule) {
+        rules.add(rule);
+        registerJmxMBean(rule);
     }
 
     @Override

@@ -24,8 +24,6 @@
 
 package io.github.benas.easyrules.api;
 
-import java.util.Set;
-
 /**
  * Rules engine interface.
  * @param <R> The rule type
@@ -41,10 +39,13 @@ public interface RulesEngine<R> {
     void registerRule(R rule);
 
     /**
-     * Register a set of rules in the rules engine registry.
-     * @param rules rules to register
+     * Register a rule in the rules engine registry.
+     * This method also registers the rules as a Jmx bean.
+     * The rule object <strong>must</strong> be JMX compliant.
+     *
+     * @param rule the rule to register
      */
-    void registerRules(Set<R> rules);
+    void registerJmxRule(R rule);
 
     /**
      * Fire all registered rules.

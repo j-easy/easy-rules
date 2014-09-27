@@ -24,7 +24,6 @@
 
 package io.github.benas.easyrules.samples.order;
 
-import io.github.benas.easyrules.api.RulesEngine;
 import io.github.benas.easyrules.core.DefaultRulesEngine;
 
 import java.util.Scanner;
@@ -58,7 +57,7 @@ public class OrderSampleLauncher {
          * Create a default rules engine and register the business rule
          */
         DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
-        rulesEngine.registerRule(suspectOrderRule);
+        rulesEngine.registerJmxRule(suspectOrderRule);
 
         /**
          * Fire rules

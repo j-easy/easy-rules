@@ -30,7 +30,7 @@ public class JmxRuleRegistrationTest {
     @Before
     public void setup(){
 
-        rule = new BasicPriorityRule("rule","description", 1);
+        rule = new BasicPriorityRule();
 
         rulesEngine = new PriorityRulesEngine();
     }
@@ -38,7 +38,7 @@ public class JmxRuleRegistrationTest {
     @Test
     public void testRulePriorityThreshold() throws MalformedObjectNameException, IntrospectionException, InstanceNotFoundException, ReflectionException {
 
-        rulesEngine.registerRule(rule);
+        rulesEngine.registerJmxRule(rule);
 
         //assert that the rule has been successfully registered within JMX registry
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
