@@ -1,8 +1,8 @@
-package io.github.io.github.benas.easyrules.core;
+package io.github.benas.easyrules.core.test;
 
-import io.github.benas.easyrules.api.JmxManagedRule;
+import io.github.benas.easyrules.api.Rule;
 import io.github.benas.easyrules.api.RulesEngine;
-import io.github.benas.easyrules.core.BasicJmxManagedRule;
+import io.github.benas.easyrules.core.BasicRule;
 import io.github.benas.easyrules.core.DefaultRulesEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,14 +20,14 @@ import static org.junit.Assert.assertNotNull;
  */
 public class JmxRuleRegistrationTest {
 
-    private JmxManagedRule rule;
+    private BasicRule rule;
 
     private RulesEngine rulesEngine;
 
     @Before
     public void setup(){
 
-        rule = new BasicJmxManagedRule("rule","description",1);
+        rule = new BasicRule("rule","description",1);
 
         rulesEngine = new DefaultRulesEngine();
     }
@@ -35,11 +35,11 @@ public class JmxRuleRegistrationTest {
     @Test
     public void testRulePriorityThreshold() throws MalformedObjectNameException, IntrospectionException, InstanceNotFoundException, ReflectionException {
 
-        rulesEngine.registerJmxManagedRule(rule);
+        rulesEngine.registerRule(rule);
 
         //assert that the rule has been successfully registered within JMX registry
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-        ObjectName name = new ObjectName("io.github.benas.easyrules.jmx:type=" + JmxManagedRule.class.getSimpleName() + ",name=" + rule.getName());
+        ObjectName name = new ObjectName("io.github.benas.easyrules.jmx:type=" + Rule.class.getSimpleName() + ",name=" + rule.getName());
         MBeanInfo mBeanInfo = mBeanServer.getMBeanInfo(name);
         assertNotNull(mBeanInfo);
 

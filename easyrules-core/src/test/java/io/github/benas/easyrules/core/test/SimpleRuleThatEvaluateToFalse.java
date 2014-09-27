@@ -1,4 +1,4 @@
-package io.github.io.github.benas.easyrules.core;
+package io.github.benas.easyrules.core.test;
 
 /**
  * Simple rule class used for tests.

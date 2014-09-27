@@ -1,4 +1,4 @@
-package io.github.io.github.benas.easyrules.core;
+package io.github.benas.easyrules.core.test;
 
 import io.github.benas.easyrules.core.CompositeRule;
 
