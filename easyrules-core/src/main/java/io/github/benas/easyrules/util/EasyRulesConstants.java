@@ -51,11 +51,11 @@ public class EasyRulesConstants {
     /**
      * Default rule priority.
      */
-    public static final int DEFAULT_RULE_PRIORITY = 9999;
+    public static final int DEFAULT_RULE_PRIORITY = Integer.MAX_VALUE - 1;
 
     /**
      * Default rule priority threshold.
      */
-    public static final int DEFAULT_RULE_PRIORITY_THRESHOLD = 10000;
+    public static final int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
 
 }
