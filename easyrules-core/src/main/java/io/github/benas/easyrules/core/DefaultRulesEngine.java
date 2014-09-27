@@ -24,7 +24,6 @@
 
 package io.github.benas.easyrules.core;
 
-import io.github.benas.easyrules.api.JmxManagedRule;
 import io.github.benas.easyrules.api.Rule;
 import io.github.benas.easyrules.api.RulesEngine;
 import io.github.benas.easyrules.util.EasyRulesConstants;
@@ -78,23 +77,13 @@ public class DefaultRulesEngine implements RulesEngine {
     @Override
     public void registerRule(final Rule rule) {
         rules.add(rule);
-    }
-
-    @Override
-    public void registerJmxManagedRule(final JmxManagedRule rule) {
-        rules.add(rule);
         registerJmxMBean(rule);
     }
 
     @Override
     public void registerRules(final Set<Rule> rules) {
-        this.rules.addAll(rules);
-    }
-
-    @Override
-    public void registerJmxManagedRules(final Set<JmxManagedRule> rules) {
-        for (JmxManagedRule rule : rules) {
-            registerJmxManagedRule(rule);
+        for (Rule rule : rules) {
+            registerRule(rule);
         }
     }
 
@@ -159,7 +148,7 @@ public class DefaultRulesEngine implements RulesEngine {
 
         ObjectName name;
         try {
-            name = new ObjectName("io.github.benas.easyrules.jmx:type=" + JmxManagedRule.class.getSimpleName() + ",name=" + rule.getName());
+            name = new ObjectName("io.github.benas.easyrules.jmx:type=" + Rule.class.getSimpleName() + ",name=" + rule.getName());
             if (!mBeanServer.isRegistered(name)) {
                 mBeanServer.registerMBean(rule, name);
                 LOGGER.log(Level.INFO, "JMX MBean registered successfully as: {0} for rule: {1}", new Object[]{name.getCanonicalName(), rule.getName()});
