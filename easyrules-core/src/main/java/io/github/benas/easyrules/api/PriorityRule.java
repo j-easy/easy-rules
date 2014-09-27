@@ -27,44 +27,26 @@ package io.github.benas.easyrules.api;
 import javax.management.MXBean;
 
 /**
- * Abstraction for a rule that can be fired by the rules engine.<br/>
+ * Abstraction for a priority rule : rules registered in a PriorityRulesEngine will be fired
+ * according to their natural order.<br/>
  *
- * Rules are registered in the rules engine registry and must have a <strong>unique</strong> name.<br/>
+ * Priority rules are by default manageable via JMX to allow changing their priorities dynamically at runtime.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-
 @MXBean
-public interface Rule {
+public interface PriorityRule extends Rule {
 
     /**
-     * Getter for rule name.
-     * @return the rule name
+     * Getter for rule priority.
+     * @return rule priority
      */
-    String getName();
+    int getPriority();
 
     /**
-     * Getter for rule description.
-     * @return rule description
+     * Setter for rule priority.
+     * @param priority the priority to set
      */
-    String getDescription();
-
-    /**
-     * Setter for rule description.
-     * @param description new rule description
-     */
-    void setDescription(String description);
-
-    /**
-     * Rule conditions abstraction : this method encapsulates the rule's conditions.
-     * @return true if the rule should be applied, false else
-     */
-    boolean evaluateConditions();
-
-    /**
-     * Rule actions abstraction : this method encapsulates the rule's actions.
-     * @throws Exception thrown if an exception occurs during actions performing
-     */
-    void performActions() throws Exception;
+    void setPriority(int priority);
 
 }
