@@ -28,13 +28,13 @@ import io.github.benas.easyrules.api.Rule;
 import io.github.benas.easyrules.util.EasyRulesConstants;
 
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 /**
  * Class representing a composite rule composed of a set of rules.<br/>
+ *
  * A composite rule is triggered if <strong>ALL</strong> conditions of its composing rules are satisfied.
- * When a composite rule is applied, actions of <strong>ALL</strong> composing rules are performed
- * in the natural order of rules which is rules priorities by default.
+ * When a composite rule is applied, actions of <strong>ALL</strong> composing rules are performed.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
@@ -47,14 +47,16 @@ public class CompositeRule extends BasicRule {
 
     public CompositeRule() {
         this(EasyRulesConstants.DEFAULT_RULE_NAME,
-                EasyRulesConstants.DEFAULT_RULE_DESCRIPTION,
-                EasyRulesConstants.DEFAULT_RULE_PRIORITY);
-        rules = new TreeSet<Rule>();
+                EasyRulesConstants.DEFAULT_RULE_DESCRIPTION);
     }
 
-    public CompositeRule(final String name, final String description, final int priority) {
-        super(name, description, priority);
-        rules = new TreeSet<Rule>();
+    public CompositeRule(final String name) {
+        this(name, EasyRulesConstants.DEFAULT_RULE_DESCRIPTION);
+    }
+
+    public CompositeRule(final String name, final String description) {
+        super(name, description);
+        rules = new HashSet<Rule>();
     }
 
     /**
@@ -75,8 +77,7 @@ public class CompositeRule extends BasicRule {
     }
 
     /**
-     * When a composite rule is applied, <strong>ALL</strong> actions of composing rules are performed in the order
-     * of rules priorities.
+     * When a composite rule is applied, <strong>ALL</strong> actions of composing rules are performed.
      *
      * @throws Exception thrown if an exception occurs during actions performing
      */

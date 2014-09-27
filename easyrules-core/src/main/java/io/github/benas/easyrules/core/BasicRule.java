@@ -28,52 +28,48 @@ import io.github.benas.easyrules.api.Rule;
 import io.github.benas.easyrules.util.EasyRulesConstants;
 
 /**
- * Basic rule implementation class that provide common methods.<br/>
+ * Basic rule implementation class that provides common methods.<br/>
+ *
  * You can extend this class and override {@link BasicRule#evaluateConditions()} and {@link BasicRule#performActions()}
  * to provide rule conditions and actions logic.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class BasicRule implements Comparable<Rule>, Rule {
+public class BasicRule implements Rule {
 
     /**
      * Rule name.
      */
-    private String name;
+    protected String name;
 
     /**
      * Rule description.
      */
-    private String description;
-
-    /**
-     * Rule priority.
-     */
-    private int priority;
+    protected String description;
 
     public BasicRule() {
         this(EasyRulesConstants.DEFAULT_RULE_NAME,
-                EasyRulesConstants.DEFAULT_RULE_DESCRIPTION,
-                EasyRulesConstants.DEFAULT_RULE_PRIORITY);
+                EasyRulesConstants.DEFAULT_RULE_DESCRIPTION);
     }
 
-    public BasicRule(final String name, final String description, final int priority) {
+    public BasicRule(final String name) {
+        this(name, EasyRulesConstants.DEFAULT_RULE_DESCRIPTION);
+    }
+
+    public BasicRule(final String name, final String description) {
         this.name = name;
         this.description = description;
-        this.priority = priority;
     }
 
     /**
-     * Rule conditions abstraction : this method encapsulates the rule's conditions.
-     * @return true if the rule should be applied, false else
+     * {@inheritDoc}
      */
     public boolean evaluateConditions() {
         return false;
     }
 
     /**
-     * Rule actions abstraction : this method encapsulates the rule's actions.
-     * @throws Exception thrown if an exception occurs during actions performing
+     * {@inheritDoc}
      */
     public void performActions() throws Exception {
         //no op
@@ -87,17 +83,13 @@ public class BasicRule implements Comparable<Rule>, Rule {
         return description;
     }
 
-    public int getPriority() {
-        return priority;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
+    /*
+     * Rules are unique according to their names within a rules engine registry.
+     */
 
     @Override
     public boolean equals(Object o) {
@@ -116,14 +108,8 @@ public class BasicRule implements Comparable<Rule>, Rule {
     }
 
     @Override
-    public int compareTo(final Rule rule) {
-        if (priority < rule.getPriority()) {
-            return -1;
-        } else if (priority == rule.getPriority()) {
-            return 0;
-        } else {
-            return 1;
-        }
+    public String toString() {
+        return name;
     }
 
 }
