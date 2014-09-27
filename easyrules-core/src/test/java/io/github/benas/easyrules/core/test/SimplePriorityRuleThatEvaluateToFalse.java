@@ -5,10 +5,10 @@ package io.github.benas.easyrules.core.test;
  * 
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class SimpleRuleThatEvaluateToFalse extends SimpleRule {
+public class SimplePriorityRuleThatEvaluateToFalse extends SimplePriorityRule {
 
-    public SimpleRuleThatEvaluateToFalse(String name, String description) {
-        super(name, description);
+    public SimplePriorityRuleThatEvaluateToFalse(String name, String description, int priority) {
+        super(name, description, priority);
     }
 
     @Override

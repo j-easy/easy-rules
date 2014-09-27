@@ -7,8 +7,8 @@ package io.github.benas.easyrules.core.test;
  */
 public class SimpleRuleThatThrowsException extends SimpleRule {
 
-    public SimpleRuleThatThrowsException(String name, String description, int priority) {
-        super(name, description, priority);
+    public SimpleRuleThatThrowsException(String name, String description) {
+        super(name, description);
     }
 
     @Override

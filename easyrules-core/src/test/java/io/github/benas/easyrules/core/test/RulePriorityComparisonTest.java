@@ -24,6 +24,8 @@
 
 package io.github.benas.easyrules.core.test;
 
+import io.github.benas.easyrules.api.PriorityRule;
+import io.github.benas.easyrules.core.BasicPriorityRule;
 import io.github.benas.easyrules.core.BasicRule;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,17 +38,22 @@ import static org.junit.Assert.*;
  */
 public class RulePriorityComparisonTest {
 
-    private BasicRule rule1, rule2;
+    private BasicPriorityRule rule1, rule2;
 
     @Before
     public void setup(){
-        rule1 = new BasicRule("r1","d1",1);
-        rule2 = new BasicRule("r2","d2",2);
+        rule1 = new BasicPriorityRule("r1","d1",1);
+        rule2 = new BasicPriorityRule("r2","d2",2);
     }
 
     @Test
-    public void testDifferentRulePriorityComparison() {
+    public void testLessThanRulePriorityComparison() {
         assertEquals(-1, rule1.compareTo(rule2));
+    }
+
+    @Test
+    public void testGreaterThanRulePriorityComparison() {
+        assertEquals(1, rule2.compareTo(rule1));
     }
 
     @Test

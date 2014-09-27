@@ -1,35 +1,34 @@
 package io.github.benas.easyrules.core.test;
 
 import io.github.benas.easyrules.api.RulesEngine;
-import io.github.benas.easyrules.core.BasicRule;
-import io.github.benas.easyrules.core.DefaultRulesEngine;
+import io.github.benas.easyrules.core.PriorityRulesEngine;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test class for composite rule execution.
+ * Test class for composite priority rule execution.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class CompositeRuleTest {
+public class CompositePriorityRuleTest {
 
-    private SimpleRule rule1, rule2;
+    private SimplePriorityRule rule1, rule2;
 
-    private SimpleCompositeRule compositeRule;
+    private SimpleCompositePriorityRule compositeRule;
 
     private RulesEngine rulesEngine;
 
     @Before
     public void setup(){
 
-        rule1 = new SimpleRule("r1","d1");
-        rule2 = new SimpleRule("r2","d2");
+        rule1 = new SimplePriorityRule("r1","d1",1);
+        rule2 = new SimplePriorityRule("r2","d2",2);
 
-        compositeRule = new SimpleCompositeRule("cp", "crd");
+        compositeRule = new SimpleCompositePriorityRule("cp", "crd");
 
-        rulesEngine = new DefaultRulesEngine();
+        rulesEngine = new PriorityRulesEngine();
     }
 
     @Test
@@ -58,7 +57,7 @@ public class CompositeRuleTest {
 
         compositeRule.addRule(rule1);
 
-        rule2 = new SimpleRuleThatEvaluateToFalse("r2","d2");
+        rule2 = new SimplePriorityRuleThatEvaluateToFalse("r2","d2",2);
 
         compositeRule.addRule(rule2);
 

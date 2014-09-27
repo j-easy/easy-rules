@@ -1,22 +1,21 @@
 package io.github.benas.easyrules.core.test;
 
 import io.github.benas.easyrules.core.BasicPriorityRule;
-import io.github.benas.easyrules.core.BasicRule;
 
 /**
- * Simple rule class used for tests.
+ * Simple priority rule class used for tests.
  * 
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class SimpleRule extends BasicRule {
+public class SimplePriorityRule extends BasicPriorityRule {
 
     /**
      * Has the rule been executed? .
      */
     protected boolean executed;
 
-    public SimpleRule(String name, String description) {
-        super(name, description);
+    public SimplePriorityRule(String name, String description, int priority) {
+        super(name, description, priority);
     }
 
     @Override

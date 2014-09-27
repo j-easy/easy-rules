@@ -25,7 +25,7 @@
 package io.github.benas.easyrules.core.test;
 
 import io.github.benas.easyrules.api.RulesEngine;
-import io.github.benas.easyrules.core.DefaultRulesEngine;
+import io.github.benas.easyrules.core.PriorityRulesEngine;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,27 +38,26 @@ import static org.junit.Assert.assertEquals;
  */
 public class SkipOnFirstAppliedRuleTest {
 
-    private SimpleRule rule1, rule2;
+    private SimplePriorityRule rule1, rule2;
 
-    private SimpleRuleThatThrowsException rule0;
+    private SimplePriorityRuleThatThrowsException rule0;
 
     private RulesEngine rulesEngine;
 
     @Before
     public void setup(){
 
-        rule1 = new SimpleRule("r1","d1",1);
-        rule2 = new SimpleRule("r2","d2",2);
+        rule1 = new SimplePriorityRule("r1","d1",1);
+        rule2 = new SimplePriorityRule("r2","d2",2);
 
-        rule0 = new SimpleRuleThatThrowsException("r0","d0",0);
+        rule0 = new SimplePriorityRuleThatThrowsException("r0","d0",0);
 
-        rulesEngine = new DefaultRulesEngine();
+        rulesEngine = new PriorityRulesEngine(true);
     }
 
     @Test
     public void testSkipOnFirstAppliedRule() {
 
-        rulesEngine.setSkipOnFirstAppliedRule(true);
         rulesEngine.registerRule(rule1);
         rulesEngine.registerRule(rule2);
 
@@ -75,7 +74,6 @@ public class SkipOnFirstAppliedRuleTest {
     @Test
     public void testSkipOnFirstAppliedRuleWithException() {
 
-        rulesEngine.setSkipOnFirstAppliedRule(true);
         rulesEngine.registerRule(rule0);
         rulesEngine.registerRule(rule1);
 

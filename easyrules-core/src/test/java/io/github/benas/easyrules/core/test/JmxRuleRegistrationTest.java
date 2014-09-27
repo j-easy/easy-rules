@@ -1,9 +1,12 @@
 package io.github.benas.easyrules.core.test;
 
+import io.github.benas.easyrules.api.PriorityRule;
 import io.github.benas.easyrules.api.Rule;
 import io.github.benas.easyrules.api.RulesEngine;
+import io.github.benas.easyrules.core.BasicPriorityRule;
 import io.github.benas.easyrules.core.BasicRule;
 import io.github.benas.easyrules.core.DefaultRulesEngine;
+import io.github.benas.easyrules.core.PriorityRulesEngine;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,16 +23,16 @@ import static org.junit.Assert.assertNotNull;
  */
 public class JmxRuleRegistrationTest {
 
-    private BasicRule rule;
+    private PriorityRule rule;
 
-    private RulesEngine rulesEngine;
+    private PriorityRulesEngine rulesEngine;
 
     @Before
     public void setup(){
 
-        rule = new BasicRule("rule","description",1);
+        rule = new BasicPriorityRule("rule","description", 1);
 
-        rulesEngine = new DefaultRulesEngine();
+        rulesEngine = new PriorityRulesEngine();
     }
 
     @Test
@@ -39,7 +42,7 @@ public class JmxRuleRegistrationTest {
 
         //assert that the rule has been successfully registered within JMX registry
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-        ObjectName name = new ObjectName("io.github.benas.easyrules.jmx:type=" + Rule.class.getSimpleName() + ",name=" + rule.getName());
+        ObjectName name = new ObjectName("io.github.benas.easyrules.jmx:type=" + rule.getClass().getSimpleName() + ",name=" + rule.getName());
         MBeanInfo mBeanInfo = mBeanServer.getMBeanInfo(name);
         assertNotNull(mBeanInfo);
 

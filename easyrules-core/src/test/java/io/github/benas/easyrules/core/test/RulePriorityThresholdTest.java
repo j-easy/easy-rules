@@ -25,36 +25,35 @@
 package io.github.benas.easyrules.core.test;
 
 import io.github.benas.easyrules.api.RulesEngine;
-import io.github.benas.easyrules.core.DefaultRulesEngine;
+import io.github.benas.easyrules.core.PriorityRulesEngine;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test class of "Rule Priority Threshold" parameter of Easy Rules default engine.
+ * Test class of "Rule Priority Threshold" parameter of Easy Rules engine.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class RulePriorityThresholdTest {
 
-    private SimpleRule rule1, rule2;
+    private SimplePriorityRule rule1, rule2;
 
     private RulesEngine rulesEngine;
 
     @Before
     public void setup(){
 
-        rule1 = new SimpleRule("r1","d1",1);
-        rule2 = new SimpleRule("r2","d2",2);
+        rule1 = new SimplePriorityRule("r1","d1",1);
+        rule2 = new SimplePriorityRule("r2","d2",2);
 
-        rulesEngine = new DefaultRulesEngine();
+        rulesEngine = new PriorityRulesEngine(1);
     }
 
     @Test
     public void testRulePriorityThreshold() {
 
-        rulesEngine.setRulePriorityThreshold(1);
         rulesEngine.registerRule(rule1);
         rulesEngine.registerRule(rule2);
 
