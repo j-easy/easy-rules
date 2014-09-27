@@ -26,11 +26,14 @@ package io.github.benas.easyrules.samples.order;
 
 import io.github.benas.easyrules.core.BasicRule;
 
+import javax.management.MXBean;
+
 /**
  * Business rule class that defines suspect order rule.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
+@MXBean
 public class SuspectOrderRule extends BasicRule implements SuspectOrderJmxManagedRule {
 
     private float suspectOrderAmountThreshold = 1000;
@@ -39,8 +42,8 @@ public class SuspectOrderRule extends BasicRule implements SuspectOrderJmxManage
 
     private Customer customer;
 
-    SuspectOrderRule(String name, String description, int priority) {
-        super(name, description, priority);
+    SuspectOrderRule(String name, String description) {
+        super(name, description);
     }
 
     @Override

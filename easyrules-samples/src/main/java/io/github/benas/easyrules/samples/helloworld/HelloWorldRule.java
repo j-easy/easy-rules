@@ -34,12 +34,12 @@ import io.github.benas.easyrules.core.BasicRule;
 public class HelloWorldRule extends BasicRule {
 
     /**
-     * The user input
+     * The user input which represents the data that the rule will operate on.
      */
     private String input;
 
-    public HelloWorldRule(String name, String description, int priority) {
-        super(name, description, priority);
+    public HelloWorldRule(String name, String description) {
+        super(name, description);
     }
 
     @Override

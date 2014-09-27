@@ -24,7 +24,6 @@
 
 package io.github.benas.easyrules.samples.helloworld;
 
-import io.github.benas.easyrules.api.RulesEngine;
 import io.github.benas.easyrules.core.DefaultRulesEngine;
 
 import java.util.Scanner;
@@ -45,7 +44,7 @@ public class HelloWorldSampleLauncher {
         /**
          * Define the rule
          */
-        HelloWorldRule helloWorldRule = new HelloWorldRule("Hello World rule", "Say Hello to only duke's friends", 1);
+        HelloWorldRule helloWorldRule = new HelloWorldRule("Hello World rule", "Say Hello to only duke's friends");
 
         /**
          * Set data to operate on
@@ -55,7 +54,7 @@ public class HelloWorldSampleLauncher {
         /**
          * Create a default rules engine and register the business rule
          */
-        RulesEngine rulesEngine = new DefaultRulesEngine();
+        DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.registerRule(helloWorldRule);
 
         /**

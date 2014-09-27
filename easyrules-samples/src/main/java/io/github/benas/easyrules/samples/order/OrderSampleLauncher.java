@@ -46,8 +46,7 @@ public class OrderSampleLauncher {
          */
         SuspectOrderRule suspectOrderRule = new SuspectOrderRule(
                 "Suspect Order",
-                "Send alert if a new customer places an order with amount greater than a threshold",
-                1);
+                "Send alert if a new customer places an order with amount greater than a threshold");
 
         /**
          * Set data to operate on
@@ -58,7 +57,7 @@ public class OrderSampleLauncher {
         /**
          * Create a default rules engine and register the business rule
          */
-        RulesEngine rulesEngine = new DefaultRulesEngine();
+        DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.registerRule(suspectOrderRule);
 
         /**
