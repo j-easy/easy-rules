@@ -28,22 +28,23 @@ import java.util.Set;
 
 /**
  * Rules engine interface.
+ * @param <R> The rule type
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public interface RulesEngine {
+public interface RulesEngine<R> {
 
     /**
      * Register a rule in the rules engine registry.
      * @param rule the rule to register
      */
-    void registerRule(Rule rule);
+    void registerRule(R rule);
 
     /**
      * Register a set of rules in the rules engine registry.
      * @param rules rules to register
      */
-    void registerRules(Set<Rule> rules);
+    void registerRules(Set<R> rules);
 
     /**
      * Fire all registered rules.
@@ -54,17 +55,5 @@ public interface RulesEngine {
      * Clear rules engine registry.
      */
     void clearRules();
-
-    /**
-     * Specify if next rules should be skipped after the first applied rule.
-     * @param skipOnFirstAppliedRule true if next rules should be skipped after the first applied rule, false else.
-     */
-    void setSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule);
-
-    /**
-     * Set the maximum rule priority over which rules should be skipped.
-     * @param rulePriorityThreshold rule priority threshold
-     */
-    void setRulePriorityThreshold(int rulePriorityThreshold);
 
 }
