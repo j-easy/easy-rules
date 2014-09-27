@@ -24,7 +24,7 @@
 
 package io.github.benas.easyrules.samples.order;
 
-import io.github.benas.easyrules.api.JmxManagedRule;
+import io.github.benas.easyrules.api.Rule;
 
 import javax.management.MXBean;
 
@@ -36,7 +36,7 @@ import javax.management.MXBean;
  */
 
 @MXBean
-public interface SuspectOrderJmxManagedRule extends JmxManagedRule {
+public interface SuspectOrderJmxManagedRule extends Rule {
 
     /**
      * Get the current suspect order amount threshold

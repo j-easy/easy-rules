@@ -27,6 +27,8 @@ package io.github.benas.easyrules.samples.order;
 import io.github.benas.easyrules.api.RulesEngine;
 import io.github.benas.easyrules.core.DefaultRulesEngine;
 
+import java.util.Scanner;
+
 /**
  * Launcher class of the order sample.
  *
@@ -57,15 +59,17 @@ public class OrderSampleLauncher {
          * Create a default rules engine and register the business rule
          */
         RulesEngine rulesEngine = new DefaultRulesEngine();
-        rulesEngine.registerJmxManagedRule(suspectOrderRule);
+        rulesEngine.registerRule(suspectOrderRule);
 
         /**
          * Fire rules
          */
         rulesEngine.fireRules();
 
-        // Suspend execution for 30s to have time to update suspect order amount threshold via a JMX client.
-        Thread.sleep(300000);
+        // Update suspect order amount threshold via a JMX client.
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Change suspect order amount threshold to a value > 1200 via a JMX client and then press enter");
+        scanner.nextLine();
 
         System.out.println("**************************************************************");
         System.out.println("Re fire rules after updating suspect order amount threshold...");

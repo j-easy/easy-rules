@@ -24,14 +24,14 @@
 
 package io.github.benas.easyrules.samples.order;
 
-import io.github.benas.easyrules.core.BasicJmxManagedRule;
+import io.github.benas.easyrules.core.BasicRule;
 
 /**
  * Business rule class that defines suspect order rule.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class SuspectOrderRule extends BasicJmxManagedRule implements SuspectOrderJmxManagedRule {
+public class SuspectOrderRule extends BasicRule implements SuspectOrderJmxManagedRule {
 
     private float suspectOrderAmountThreshold = 1000;
 
