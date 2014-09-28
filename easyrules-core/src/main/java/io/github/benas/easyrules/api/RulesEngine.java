@@ -40,7 +40,7 @@ public interface RulesEngine<R> {
 
     /**
      * Register a rule in the rules engine registry.
-     * This method also registers the rules as a Jmx bean.
+     * This method also registers the rule as a Jmx bean.
      * The rule object <strong>must</strong> be JMX compliant.
      *
      * @param rule the rule to register
