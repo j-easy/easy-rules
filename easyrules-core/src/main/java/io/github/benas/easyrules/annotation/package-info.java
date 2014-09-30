@@ -22,31 +22,7 @@
  *  THE SOFTWARE.
  */
 
-package io.github.benas.easyrules.api;
-
-import javax.management.MXBean;
-
 /**
- * Abstraction for a priority rule : rules registered in a PriorityRulesEngine will be fired
- * according to their natural order.<br/>
- *
- * Priority rules are by default manageable via JMX to allow changing their priorities dynamically at runtime.
- *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * This package contains Easy Rules annotations.
  */
-@MXBean
-public interface PriorityRule extends Rule {
-
-    /**
-     * Getter for rule priority.
-     * @return rule priority
-     */
-    int getPriority();
-
-    /**
-     * Setter for rule priority.
-     * @param priority the priority to set
-     */
-    void setPriority(int priority);
-
-}
+package io.github.benas.easyrules.annotation;
