@@ -1,12 +1,9 @@
-package io.github.benas.easyrules.core.test;
+package io.github.benas.easyrules.core.test.jmx;
 
-import io.github.benas.easyrules.api.PriorityRule;
 import io.github.benas.easyrules.api.Rule;
 import io.github.benas.easyrules.api.RulesEngine;
-import io.github.benas.easyrules.core.BasicPriorityRule;
 import io.github.benas.easyrules.core.BasicRule;
 import io.github.benas.easyrules.core.DefaultRulesEngine;
-import io.github.benas.easyrules.core.PriorityRulesEngine;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,16 +20,16 @@ import static org.junit.Assert.assertNotNull;
  */
 public class JmxRuleRegistrationTest {
 
-    private PriorityRule rule;
+    private Rule rule;
 
-    private PriorityRulesEngine rulesEngine;
+    private RulesEngine<Rule> rulesEngine;
 
     @Before
     public void setup(){
 
-        rule = new BasicPriorityRule();
+        rule = new BasicRule();
 
-        rulesEngine = new PriorityRulesEngine();
+        rulesEngine = new DefaultRulesEngine();
     }
 
     @Test

@@ -11,6 +11,10 @@ public class SimpleRuleThatThrowsException extends SimpleRule {
         super(name, description);
     }
 
+    public SimpleRuleThatThrowsException(String name, String description, int priority) {
+        super(name, description, priority);
+    }
+
     @Override
     public void performActions() throws Exception {
         throw new Exception("An exception occurred in SimpleRuleThatThrowsException.performActions");

@@ -1,17 +1,17 @@
-package io.github.benas.easyrules.core.test;
+package io.github.benas.easyrules.core.test.composite;
 
-import io.github.benas.easyrules.core.CompositePriorityRule;
+import io.github.benas.easyrules.core.CompositeRule;
 
 /**
  * Simple composite rule class used for tests.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class SimpleCompositePriorityRule extends CompositePriorityRule {
+public class SimpleCompositeRule extends CompositeRule {
 
     protected boolean executed;
 
-    public SimpleCompositePriorityRule(String name, String description) {
+    public SimpleCompositeRule(String name, String description) {
         super(name, description);
     }
 

@@ -22,44 +22,51 @@
  *  THE SOFTWARE.
  */
 
-package io.github.benas.easyrules.core.test;
+package io.github.benas.easyrules.core.test.parameters;
 
-import io.github.benas.easyrules.api.PriorityRule;
-import io.github.benas.easyrules.core.BasicPriorityRule;
-import io.github.benas.easyrules.core.BasicRule;
+import io.github.benas.easyrules.api.Rule;
+import io.github.benas.easyrules.api.RulesEngine;
+import io.github.benas.easyrules.core.DefaultRulesEngine;
+import io.github.benas.easyrules.core.test.SimpleRule;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- * Test class of rules priority comparison.
+ * Test class of "Rule Priority Threshold" parameter of Easy Rules engine.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class RulePriorityComparisonTest {
+public class RulePriorityThresholdTest {
 
-    private BasicPriorityRule rule1, rule2;
+    private SimpleRule rule1, rule2;
+
+    private RulesEngine<Rule> defaultRulesEngine;
 
     @Before
     public void setup(){
-        rule1 = new BasicPriorityRule("r1","d1",1);
-        rule2 = new BasicPriorityRule("r2","d2",2);
+
+        rule1 = new SimpleRule("r1","d1");
+        rule2 = new SimpleRule("r2","d2");
+
+        defaultRulesEngine = new DefaultRulesEngine();
     }
 
     @Test
-    public void testLessThanRulePriorityComparison() {
-        assertEquals(-1, rule1.compareTo(rule2));
-    }
+    public void rulesThatExceedPriorityThresholdMustNotBeExecuted() {
 
-    @Test
-    public void testGreaterThanRulePriorityComparison() {
-        assertEquals(1, rule2.compareTo(rule1));
-    }
+        defaultRulesEngine.registerRule(rule1);
+        defaultRulesEngine.registerRule(rule2);
 
-    @Test
-    public void testSameRulePriorityComparison() {
-        rule1.setPriority(2);
-        assertEquals(0, rule1.compareTo(rule2));
+        defaultRulesEngine.fireRules();
+
+        //Rule 1 should be executed
+        assertEquals(true, rule1.isExecuted());
+
+        //Rule 2 should be skipped since its priority (2) exceeds priority threshold (1)
+        assertEquals(false, rule2.isExecuted());
+
     }
 
 }

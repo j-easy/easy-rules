@@ -1,6 +1,5 @@
 package io.github.benas.easyrules.core.test;
 
-import io.github.benas.easyrules.core.BasicPriorityRule;
 import io.github.benas.easyrules.core.BasicRule;
 
 /**
@@ -17,6 +16,10 @@ public class SimpleRule extends BasicRule {
 
     public SimpleRule(String name, String description) {
         super(name, description);
+    }
+
+    public SimpleRule(String name, String description, int priority) {
+        super(name, description, priority);
     }
 
     @Override

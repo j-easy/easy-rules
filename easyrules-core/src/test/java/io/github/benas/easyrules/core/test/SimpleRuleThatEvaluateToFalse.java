@@ -11,6 +11,10 @@ public class SimpleRuleThatEvaluateToFalse extends SimpleRule {
         super(name, description);
     }
 
+    public SimpleRuleThatEvaluateToFalse(String name, String description, int priority) {
+        super(name, description, priority);
+    }
+
     @Override
     public boolean evaluateConditions() {
         return false;

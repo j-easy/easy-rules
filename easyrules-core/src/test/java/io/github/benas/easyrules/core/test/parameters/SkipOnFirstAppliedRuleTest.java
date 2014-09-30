@@ -22,37 +22,44 @@
  *  THE SOFTWARE.
  */
 
-package io.github.benas.easyrules.core.test;
+package io.github.benas.easyrules.core.test.parameters;
 
+import io.github.benas.easyrules.api.Rule;
 import io.github.benas.easyrules.api.RulesEngine;
-import io.github.benas.easyrules.core.PriorityRulesEngine;
+import io.github.benas.easyrules.core.DefaultRulesEngine;
+import io.github.benas.easyrules.core.test.SimpleRule;
+import io.github.benas.easyrules.core.test.SimpleRuleThatThrowsException;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test class of "Rule Priority Threshold" parameter of Easy Rules engine.
+ * Test class of "skip on first applied rule" parameter of Easy Rules default engine.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class RulePriorityThresholdTest {
+public class SkipOnFirstAppliedRuleTest {
 
-    private SimplePriorityRule rule1, rule2;
+    private SimpleRule rule1, rule2;
 
-    private RulesEngine rulesEngine;
+    private SimpleRuleThatThrowsException rule0;
+
+    private RulesEngine<Rule> rulesEngine;
 
     @Before
     public void setup(){
 
-        rule1 = new SimplePriorityRule("r1","d1",1);
-        rule2 = new SimplePriorityRule("r2","d2",2);
+        rule1 = new SimpleRule("r1","d1",1);
+        rule2 = new SimpleRule("r2","d2",2);
 
-        rulesEngine = new PriorityRulesEngine(1);
+        rule0 = new SimpleRuleThatThrowsException("r0","d0",0);
+
+        rulesEngine = new DefaultRulesEngine(true);
     }
 
     @Test
-    public void testRulePriorityThreshold() {
+    public void testSkipOnFirstAppliedRule() {
 
         rulesEngine.registerRule(rule1);
         rulesEngine.registerRule(rule2);
@@ -62,8 +69,26 @@ public class RulePriorityThresholdTest {
         //Rule 1 should be executed
         assertEquals(true, rule1.isExecuted());
 
-        //Rule 2 should be skipped since its priority (2) exceeds priority threshold (1)
+        //Rule 2 should be skipped since Rule 1 has been executed
         assertEquals(false, rule2.isExecuted());
+
+    }
+
+    @Test
+    public void testSkipOnFirstAppliedRuleWithException() {
+
+        rulesEngine.registerRule(rule0);
+        rulesEngine.registerRule(rule1);
+
+        rulesEngine.fireRules();
+
+        //If an exception occurs when executing Rule 0, Rule 1 should still be applied
+
+        //Rule 0 should throw an exception, hence not executed
+        assertEquals(false, rule0.isExecuted());
+
+        //Rule 1 should be applied since there is no "firstAppliedRule" yet (Rule 0 has not been applied)
+        assertEquals(true, rule1.isExecuted());
 
     }
 

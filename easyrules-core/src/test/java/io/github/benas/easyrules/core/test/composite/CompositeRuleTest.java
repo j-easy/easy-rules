@@ -1,8 +1,10 @@
-package io.github.benas.easyrules.core.test;
+package io.github.benas.easyrules.core.test.composite;
 
+import io.github.benas.easyrules.api.Rule;
 import io.github.benas.easyrules.api.RulesEngine;
-import io.github.benas.easyrules.core.BasicRule;
 import io.github.benas.easyrules.core.DefaultRulesEngine;
+import io.github.benas.easyrules.core.test.SimpleRule;
+import io.github.benas.easyrules.core.test.SimpleRuleThatEvaluateToFalse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +21,7 @@ public class CompositeRuleTest {
 
     private SimpleCompositeRule compositeRule;
 
-    private RulesEngine rulesEngine;
+    private RulesEngine<Rule> rulesEngine;
 
     @Before
     public void setup(){
@@ -33,7 +35,7 @@ public class CompositeRuleTest {
     }
 
     @Test
-    public void testCompositeRule() {
+    public void compositeRuleAndComposingRulesMustBeExecuted() {
 
         compositeRule.addRule(rule1);
         compositeRule.addRule(rule2);
@@ -54,7 +56,7 @@ public class CompositeRuleTest {
     }
 
     @Test
-    public void testCompositeRuleWithARuleThatEvaluateToFalse() {
+    public void compositeRuleMustNotBeExecutedIfAComposingRuleEvaluatesToFalse() {
 
         compositeRule.addRule(rule1);
 
