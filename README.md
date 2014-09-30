@@ -4,6 +4,8 @@ Easy Rules is a simple yet powerful Java Rules Engine providing the following fe
 
  * Lightweight framework and easy to learn API
 
+ * POJO based development with annotation programming model
+
  * Useful abstractions to define business rules and apply them easily using Java
 
  * The ability to create composite rules from primitive ones
