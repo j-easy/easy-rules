@@ -35,7 +35,7 @@ import io.github.benas.easyrules.util.EasyRulesConstants;
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class BasicRule implements Rule {
+public class BasicRule implements Rule, Comparable<Rule> {
 
     /**
      * Rule name.
@@ -47,18 +47,29 @@ public class BasicRule implements Rule {
      */
     protected String description;
 
+    /**
+     * Rule priority.
+     */
+    private int priority;
+
     public BasicRule() {
         this(EasyRulesConstants.DEFAULT_RULE_NAME,
-                EasyRulesConstants.DEFAULT_RULE_DESCRIPTION);
+                EasyRulesConstants.DEFAULT_RULE_DESCRIPTION,
+                EasyRulesConstants.DEFAULT_RULE_PRIORITY);
     }
 
     public BasicRule(final String name) {
-        this(name, EasyRulesConstants.DEFAULT_RULE_DESCRIPTION);
+        this(name, EasyRulesConstants.DEFAULT_RULE_DESCRIPTION, EasyRulesConstants.DEFAULT_RULE_PRIORITY);
     }
 
     public BasicRule(final String name, final String description) {
+        this(name, description, EasyRulesConstants.DEFAULT_RULE_PRIORITY);
+    }
+
+    public BasicRule(final String name, final String description, final int priority) {
         this.name = name;
         this.description = description;
+        this.priority = priority;
     }
 
     /**
@@ -87,6 +98,14 @@ public class BasicRule implements Rule {
         this.description = description;
     }
 
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     /*
      * Rules are unique according to their names within a rules engine registry.
      */
@@ -110,6 +129,17 @@ public class BasicRule implements Rule {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public int compareTo(final Rule rule) {
+        if (priority < rule.getPriority()) {
+            return -1;
+        } else if (priority == rule.getPriority()) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
 }

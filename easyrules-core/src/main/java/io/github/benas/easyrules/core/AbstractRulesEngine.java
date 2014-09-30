@@ -30,6 +30,11 @@ public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
     protected boolean skipOnFirstAppliedRule;
 
     /**
+     * Parameter to skip next rules if priority exceeds a user defined threshold.
+     */
+    protected int rulePriorityThreshold;
+
+    /**
      * The JMX server instance in which rule's MBeans will be registered.
      */
     protected MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
@@ -57,7 +62,7 @@ public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
     /*
     * Register a JMX MBean for a rule.
     */
-    private void registerJmxMBean(final R rule) {
+    protected void registerJmxMBean(final R rule) {
 
         ObjectName name;
         try {

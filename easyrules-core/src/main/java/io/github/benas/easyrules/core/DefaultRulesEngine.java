@@ -26,8 +26,9 @@ package io.github.benas.easyrules.core;
 
 import io.github.benas.easyrules.api.Rule;
 import io.github.benas.easyrules.api.RulesEngine;
+import io.github.benas.easyrules.util.EasyRulesConstants;
 
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.logging.Level;
 
 /**
@@ -35,17 +36,44 @@ import java.util.logging.Level;
  *
  * This implementation handles a set of rules with unique name.
  *
+ * Rules are fired according to their natural order which is priority by default.
+ *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
 
+    /**
+     * Construct a default rules engine with default values.
+     */
     public DefaultRulesEngine() {
-        this(false);
+        this(false, EasyRulesConstants.DEFAULT_RULE_PRIORITY_THRESHOLD);
     }
 
+    /**
+     * Constructs a default rules engine.
+     * @param skipOnFirstAppliedRule true if the engine should skip next rule after the first applied rule
+     */
     public DefaultRulesEngine(boolean skipOnFirstAppliedRule) {
-        rules = new HashSet<Rule>();
+        this(skipOnFirstAppliedRule, EasyRulesConstants.DEFAULT_RULE_PRIORITY_THRESHOLD);
+    }
+
+    /**
+     * Constructs a default rules engine.
+     * @param rulePriorityThreshold rule priority threshold
+     */
+    public DefaultRulesEngine(int rulePriorityThreshold) {
+        this(false, rulePriorityThreshold);
+    }
+
+    /**
+     * Constructs a default rules engine.
+     * @param skipOnFirstAppliedRule true if the engine should skip next rule after the first applied rule
+     * @param rulePriorityThreshold rule priority threshold
+     */
+    public DefaultRulesEngine(boolean skipOnFirstAppliedRule, int rulePriorityThreshold) {
+        rules = new TreeSet<Rule>();
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
+        this.rulePriorityThreshold = rulePriorityThreshold;
     }
 
     @Override
@@ -56,7 +84,16 @@ public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
             return;
         }
 
+        //resort rules in case priorities were modified via JMX
+        rules = new TreeSet<Rule>(rules);
+
         for (Rule rule : rules) {
+
+            if (rule.getPriority() > rulePriorityThreshold) {
+                LOGGER.log(Level.INFO, "Rule priority threshold {0} exceeded at rule {1} (priority={2}), next applicable rules will be skipped.",
+                        new Object[] {rulePriorityThreshold, rule.getName(), rule.getPriority()});
+                break;
+            }
 
             if (rule.evaluateConditions()) {
                 LOGGER.log(Level.INFO, "Rule {0} triggered.", new Object[]{rule.getName()});

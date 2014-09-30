@@ -77,7 +77,8 @@ public class CompositeRule extends BasicRule {
     }
 
     /**
-     * When a composite rule is applied, <strong>ALL</strong> actions of composing rules are performed.
+     * When a composite rule is applied, <strong>ALL</strong> actions of composing rules are performed
+     * in their natural order.
      *
      * @throws Exception thrown if an exception occurs during actions performing
      */

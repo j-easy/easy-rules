@@ -56,6 +56,18 @@ public interface Rule {
     void setDescription(String description);
 
     /**
+     * Getter for rule priority.
+     * @return rule priority
+     */
+    int getPriority();
+
+    /**
+     * Setter for rule priority.
+     * @param priority the priority to set
+     */
+    void setPriority(int priority);
+
+    /**
      * Rule conditions abstraction : this method encapsulates the rule's conditions.
      * @return true if the rule should be applied, false else
      */
