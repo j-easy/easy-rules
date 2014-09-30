@@ -24,32 +24,31 @@
 
 package io.github.benas.easyrules.samples.helloworld;
 
-import io.github.benas.easyrules.core.BasicRule;
+import io.github.benas.easyrules.annotation.Action;
+import io.github.benas.easyrules.annotation.Condition;
+import io.github.benas.easyrules.annotation.Rule;
 
 /**
  * Hello World rule class.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class HelloWorldRule extends BasicRule {
+@Rule(name = "Hello World rule", description = "Say Hello to only duke's friends")
+public class HelloWorldRule {
 
     /**
      * The user input which represents the data that the rule will operate on.
      */
     private String input;
 
-    public HelloWorldRule(String name, String description) {
-        super(name, description);
-    }
-
-    @Override
-    public boolean evaluateConditions() {
+    @Condition
+    public boolean checkInput() {
         //The rule should be applied only if the user's response is yes (duke friend)
         return input.equalsIgnoreCase("yes");
     }
 
-    @Override
-    public void performActions() throws Exception {
+    @Action
+    public void sayHelloToDukeFriend() throws Exception {
         //When rule conditions are satisfied, prints 'Hello duke's friend!' to the console
         System.out.println("Hello duke's friend!");
     }
@@ -57,4 +56,5 @@ public class HelloWorldRule extends BasicRule {
     public void setInput(String input) {
         this.input = input;
     }
+
 }
