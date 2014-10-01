@@ -36,7 +36,7 @@ import javax.management.MXBean;
  */
 
 @MXBean
-public interface SuspectOrderJmxManagedRule extends Rule {
+public interface SuspectOrderJmxRule extends Rule {
 
     /**
      * Get the current suspect order amount threshold
