@@ -1,0 +1,12 @@
+<ul>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+  <li class="{% if page.overview %}current{% endif %}">
+    <a href="{{ site.url }}/index.html">Home</a>
+  </li>
+  <li class="{% if page.doc %}current{% endif %}">
+    <a href="{{ site.url }}/about/overview.html">Documentation</a>
+  </li>
+  <li>
+    <a target="_blank" href="https://github.com/{{ site.author.github }}/{{ site.project.github }}">View on GitHub</a>
+  </li>
+</ul>

@@ -1,0 +1,20 @@
+version: 1.1.0
+highlighter: pygments
+url: http://www.easyrules.org
+google_analytics_id: UA-46301888-1
+exclude: ["CNAME", "README"]
+
+author :
+  name : Mahmoud Ben Hassine
+  email : md.benhassine@gmail.com
+  github : benas
+  twitter : md_benhassine
+  web : http://www.mahmoudbenhassine.com
+
+project:
+  name: Easy Rules
+  github: easy-rules
+  
+markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "superscript", "with_toc_data"]

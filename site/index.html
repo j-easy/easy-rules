@@ -1,0 +1,95 @@
+---
+layout: default
+title: Easy rules &bull; Xml-free open source Java&trade; rules engine.
+overview: true
+---
+
+<section class="intro">
+    <div class="grid">
+        <div class="unit whole">
+            <p class="first">Xml-free open source Java™ rules engine.</p>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="grid">
+        <div class="unit one-third">
+            <h2>Lightweight</h2>
+            <p>
+                A tiny jar with no dependencies and a lot of features!
+            </p>
+            <a href="{{ site.url }}/about/getting-started.html" class="">Get started &rarr;</a>
+        </div>
+        <div class="unit one-third">
+            <h2>POJO based</h2>
+            <p>
+                Turn your POJOs into business rules with a couple of annotations.
+            </p>
+            <a href="{{ site.url }}/about/overview.html" class="">Read documentation &rarr;</a>
+        </div>
+        <div class="unit one-third">
+            <h2>Simple yet powerful</h2>
+            <p>
+                Easy rules provides a simple API to get you up and running quickly.
+            </p>
+            <a href="{{ site.url }}/tutorials/hello-world.html" class="">2 minutes tutorial &rarr;</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section class="quickstart">
+    <div class="grid">
+        <div class="unit code" style="width: 50%">
+            <p class="title">Then, fire it!</p>
+            <div class="shell">
+                <div class="highlight"><pre><code class="language-java" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 16px"><span class="kd">public class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public static void</span> <span class="nf">main</span><span class="o">(</span>String<span class="o">[]</span> args<span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// create a rules engine</span>
+        AnnotatedRulesEngine rulesEngine <span class="o">=</span>
+                            <span class="k">new</span> AnnotatedRulesEngine<span class="o">();</span>
+        <span class="c1">//register the rule</span>
+        rulesEngine<span class="o">.</span><span class="na">registerRule</span><span class="o">(</span><span class="k">new</span> MyRule<span class="o">());</span>
+        <span class="c1">//fire rules!</span>
+        rulesEngine<span class="o">.</span><span class="na">fireRules</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+            </div>
+        </div>
+        <div class="unit code" style="width: 50%">
+            <p class="title">First, define your rule..</p>
+            <div class="shell">
+                <div class="highlight"><pre><code class="language-java" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 16px"><span class="nd">@Rule</span> <span class="o">(</span>name <span class="o">=</span> <span class="s">"my awesome rule"</span> <span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRule</span> <span class="o">{</span>
+    <span class="nd">@Condition</span>
+    <span class="kd">public boolean</span> <span class="nf">when</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> true<span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Action</span>
+    <span class="kd">public void</span> <span class="nf">then</span><span class="o">()</span> <span class="o">{</span>
+        System<span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Easy Rules rocks!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section class="free-hosting">
+    <div class="grid">
+        <div class="unit whole">
+            <div class="grid pane">
+                <div class="unit whole center-on-mobiles">
+                    <div class="pane-content">
+                        <h2>License</h2>
+                        <p>Easy Rules is open source, hosted on <a target="_blank" href="https://github.com/benas/easy-rules">GitHub</a> and is released under the <a target="_blank" href="http://opensource.org/licenses/mit-license.php/">MIT License</a>.</p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
