@@ -99,10 +99,10 @@ If you run this tutorial, you would get the following output:
 ```
 Are you a friend of duke? [yes/no]:
 yes
-10 sep. 2014 13:26:19 io.github.benas.easyrules.core.DefaultRulesEngine fireRules
+10 sep. 2014 13:26:19 org.easyrules.core.DefaultRulesEngine fireRules
 INFO: Rule 'Hello World rule' triggered.
 Hello duke's friend!
-10 sep. 2014 13:26:19 io.github.benas.easyrules.core.DefaultRulesEngine fireRules
+10 sep. 2014 13:26:19 org.easyrules.core.DefaultRulesEngine fireRules
 INFO: Rule 'Hello World rule' performed successfully.
 ```
 

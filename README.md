@@ -18,11 +18,11 @@ You can find some slides about Easy Rules on [speaker deck][].
 
 ## Documentation
 
-All Easy Rules documentation can be found here : [http://benas.github.io/easy-rules/][]
+All Easy Rules documentation can be found here : [http://www.easyrules.org][]
 
 ## License
 Easy Rules is released under the [MIT License][].
 
 [speaker deck]: https://speakerdeck.com/benas/easy-rules
-[http://benas.github.io/easy-rules/]: http://benas.github.io/easy-rules/
+[http://www.easyrules.org]: http://www.easyrules.org
 [MIT License]: http://opensource.org/licenses/mit-license.php/
