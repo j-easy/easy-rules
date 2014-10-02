@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.easyrules</groupId>
         <artifactId>easyrules</artifactId>
-        <version>1.1.0</version>
+        <version>1.1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>easyrules-core</artifactId>
@@ -16,7 +16,7 @@
         <url>git@github.com:benas/easy-rules.git</url>
         <connection>scm:git:git@github.com:benas/easy-rules.git</connection>
         <developerConnection>scm:git:git@github.com:benas/easy-rules.git</developerConnection>
-        <tag>easyrules-1.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <developers>
