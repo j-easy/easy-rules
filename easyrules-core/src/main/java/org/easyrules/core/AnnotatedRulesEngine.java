@@ -122,6 +122,24 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
     }
 
     @Override
+    public void unregisterRule(Object rule) {
+        try {
+            //rule priority method has been checked at registration time
+            int priority = (Integer) getPriorityMethods(rule).get(0).invoke(rule);
+            ruleBeans.remove(new RuleBean(priority, rule));
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Unable to unregister rule " + rule, e);
+        }
+
+    }
+
+    @Override
+    public void unregisterJmxRule(Object rule) {
+        unregisterRule(rule);
+        unregisterJmxMBean(rule);
+    }
+
+    @Override
     public void fireRules() {
 
         if (ruleBeans.isEmpty()) {

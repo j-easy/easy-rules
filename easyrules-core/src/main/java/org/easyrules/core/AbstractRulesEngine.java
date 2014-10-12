@@ -45,9 +45,20 @@ public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
     }
 
     @Override
+    public void unregisterRule(R rule) {
+        rules.remove(rule);
+    }
+
+    @Override
     public void registerJmxRule(R rule) {
         rules.add(rule);
         registerJmxMBean(rule);
+    }
+
+    @Override
+    public void unregisterJmxRule(R rule) {
+        rules.remove(rule);
+        unregisterJmxMBean(rule);
     }
 
     @Override
@@ -73,6 +84,24 @@ public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Unable to register JMX MBean for rule: " + rule.toString(), e);
+        }
+
+    }
+
+    /*
+    * Unregister the JMX MBean of a rule.
+    */
+    protected void unregisterJmxMBean(final R rule) {
+
+        ObjectName name;
+        try {
+            name = new ObjectName("org.easyrules.core.jmx:type=" + rule.getClass().getSimpleName() + ",name=" + rule.toString());
+            if (mBeanServer.isRegistered(name)) {
+                mBeanServer.unregisterMBean(name);
+                LOGGER.log(Level.INFO, "JMX MBean unregistered successfully for rule: {0}", new Object[]{rule.toString()});
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Unable to unregister JMX MBean for rule: " + rule.toString(), e);
         }
 
     }
