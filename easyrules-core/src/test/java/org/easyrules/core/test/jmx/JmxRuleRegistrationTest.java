@@ -33,7 +33,7 @@ public class JmxRuleRegistrationTest {
     }
 
     @Test
-    public void testRulePriorityThreshold() throws MalformedObjectNameException, IntrospectionException, InstanceNotFoundException, ReflectionException {
+    public void testJmxRuleRegistration() throws MalformedObjectNameException, IntrospectionException, InstanceNotFoundException, ReflectionException {
 
         rulesEngine.registerJmxRule(rule);
 
