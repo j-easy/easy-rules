@@ -3,7 +3,7 @@ layout: docs
 title: Hello World
 header: Hello World tutorial
 prev_section: user-guide/managing-rules
-next_section: tutorials/dynamic-configuration
+next_section: tutorials/rule-priority
 doc: true
 ---
 

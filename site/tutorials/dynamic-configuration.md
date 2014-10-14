@@ -2,7 +2,7 @@
 layout: docs
 title: Dynamic configuration
 header: Online shop tutorial
-prev_section: tutorials/hello-world
+prev_section: tutorials/rule-priority
 next_section: get-involved/release-notes
 doc: true
 ---
