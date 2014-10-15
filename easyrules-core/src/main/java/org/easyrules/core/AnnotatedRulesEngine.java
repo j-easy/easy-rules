@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Annotated rules engine implementation.
@@ -18,6 +19,8 @@ import java.util.logging.Level;
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
+
+    private static final Logger LOGGER = Logger.getLogger(EasyRulesConstants.LOGGER_NAME);
 
     private List<RuleBean> ruleBeans;
 

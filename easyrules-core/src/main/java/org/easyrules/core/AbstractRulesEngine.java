@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
 
-    protected static final Logger LOGGER = Logger.getLogger(EasyRulesConstants.LOGGER_NAME);
+    private static final Logger LOGGER = Logger.getLogger(EasyRulesConstants.LOGGER_NAME);
 
     /**
      * The rules set.

@@ -29,6 +29,7 @@ import org.easyrules.util.EasyRulesConstants;
 
 import java.util.TreeSet;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Default {@link org.easyrules.api.RulesEngine} implementation.<br/>
@@ -40,6 +41,8 @@ import java.util.logging.Level;
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
+
+    private static final Logger LOGGER = Logger.getLogger(EasyRulesConstants.LOGGER_NAME);
 
     /**
      * Construct a default rules engine with default values.
