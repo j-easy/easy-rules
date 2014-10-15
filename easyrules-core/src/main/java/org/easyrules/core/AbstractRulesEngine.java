@@ -4,6 +4,7 @@ import org.easyrules.api.RulesEngine;
 import org.easyrules.util.EasyRulesConstants;
 
 import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
 import java.util.Set;
@@ -77,7 +78,7 @@ public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
 
         ObjectName name;
         try {
-            name = new ObjectName("org.easyrules.core.jmx:type=" + rule.getClass().getSimpleName() + ",name=" + rule.toString());
+            name = getObjectName(rule);
             if (!mBeanServer.isRegistered(name)) {
                 mBeanServer.registerMBean(rule, name);
                 LOGGER.log(Level.INFO, "JMX MBean registered successfully as: {0} for rule: {1}", new Object[]{name.getCanonicalName(), rule.toString()});
@@ -95,7 +96,7 @@ public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
 
         ObjectName name;
         try {
-            name = new ObjectName("org.easyrules.core.jmx:type=" + rule.getClass().getSimpleName() + ",name=" + rule.toString());
+            name = getObjectName(rule);
             if (mBeanServer.isRegistered(name)) {
                 mBeanServer.unregisterMBean(name);
                 LOGGER.log(Level.INFO, "JMX MBean unregistered successfully for rule: {0}", new Object[]{rule.toString()});
@@ -104,6 +105,13 @@ public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
             LOGGER.log(Level.SEVERE, "Unable to unregister JMX MBean for rule: " + rule.toString(), e);
         }
 
+    }
+
+    /*
+     * Utility method to get rule's JMX Object name
+     */
+    private ObjectName getObjectName(R rule) throws MalformedObjectNameException {
+        return new ObjectName("org.easyrules.core.jmx:type=" + rule.getClass().getSimpleName() + ",name=" + rule.toString());
     }
 
 }
