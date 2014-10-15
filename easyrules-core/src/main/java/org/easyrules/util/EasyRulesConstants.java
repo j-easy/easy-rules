@@ -31,8 +31,6 @@ package org.easyrules.util;
  */
 public class EasyRulesConstants {
 
-    private EasyRulesConstants() { }
-
     /**
      * EasyRules logger name;
      */
@@ -57,5 +55,9 @@ public class EasyRulesConstants {
      * Default rule priority threshold.
      */
     public static final int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
+
+    private EasyRulesConstants() {
+
+    }
 
 }
