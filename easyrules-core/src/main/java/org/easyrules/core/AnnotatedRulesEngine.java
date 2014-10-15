@@ -303,6 +303,26 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
             }
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof ActionMethodBean)) return false;
+
+            ActionMethodBean that = (ActionMethodBean) o;
+
+            if (order != that.order) return false;
+            if (!method.equals(that.method)) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = method.hashCode();
+            result = 31 * result + order;
+            return result;
+        }
+
     }
 
     /**
@@ -336,6 +356,26 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
             } else {
                 return 1;
             }
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof RuleBean)) return false;
+
+            RuleBean ruleBean = (RuleBean) o;
+
+            if (priority != ruleBean.priority) return false;
+            if (!rule.equals(ruleBean.rule)) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = priority;
+            result = 31 * result + rule.hashCode();
+            return result;
         }
 
     }
