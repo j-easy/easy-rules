@@ -1,4 +1,5 @@
 ## What is Easy Rules?
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/benas/easy-rules?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Easy Rules is a simple yet powerful Java Rules Engine providing the following features :
 
