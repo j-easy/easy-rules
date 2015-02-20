@@ -24,8 +24,6 @@
 
 package org.easyrules.samples.order;
 
-import javax.management.MXBean;
-
 import org.easyrules.jmx.api.JMXRule;
 
 /**
@@ -35,7 +33,6 @@ import org.easyrules.jmx.api.JMXRule;
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
 
-@MXBean
 public interface SuspectOrderJmxRule extends JMXRule {
 
     /**
