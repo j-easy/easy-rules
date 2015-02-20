@@ -6,7 +6,10 @@ import org.easyrules.jmx.api.JMXRulesEngine;
 import org.easyrules.jmx.util.MBeanManager;
 
 /**
- * @author drem
+ * An extension of {@link org.easyrules.core.AnnotatedRulesEngine} that also handles
+ * JMX rules.
+ * 
+ * @author Drem Darios (drem.darios@gmail.com)
  */
 public class AnnotatedJMXRulesEngine extends AnnotatedRulesEngine implements
 		JMXRulesEngine<Object> {
