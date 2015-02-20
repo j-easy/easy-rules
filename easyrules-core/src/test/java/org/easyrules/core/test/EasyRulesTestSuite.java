@@ -1,12 +1,12 @@
 package org.easyrules.core.test;
 
+import junit.framework.TestSuite;
+
 import org.easyrules.core.test.annotation.EasyRulesAnnotationTestSuite;
 import org.easyrules.core.test.composite.CompositeRuleTest;
-import org.easyrules.core.test.jmx.JmxRuleRegistrationTest;
 import org.easyrules.core.test.parameters.RulePriorityComparisonTest;
 import org.easyrules.core.test.parameters.RulePriorityThresholdTest;
 import org.easyrules.core.test.parameters.SkipOnFirstAppliedRuleTest;
-import junit.framework.TestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -21,7 +21,6 @@ import org.junit.runners.Suite;
         RulePriorityComparisonTest.class,
         RulePriorityThresholdTest.class,
         SkipOnFirstAppliedRuleTest.class,
-        JmxRuleRegistrationTest.class,
         CompositeRuleTest.class,
         EasyRulesAnnotationTestSuite.class})
 public class EasyRulesTestSuite extends TestSuite {

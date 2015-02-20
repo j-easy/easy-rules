@@ -24,17 +24,14 @@
 
 package org.easyrules.api;
 
-import javax.management.MXBean;
 
 /**
- * Abstraction for a rule that can be fired by the rules engine.<br/>
+ * Abstraction for a rule that can be fired by the rules engine.
  *
- * Rules are registered in the rules engine registry and must have a <strong>unique</strong> name.<br/>
+ * Rules are registered in the rules engine registry and must have a <strong>unique</strong> name.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-
-@MXBean
 public interface Rule {
 
     /**

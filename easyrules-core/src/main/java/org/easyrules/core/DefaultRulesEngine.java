@@ -86,9 +86,6 @@ public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
             return;
         }
 
-        //resort rules in case priorities were modified via JMX
-        rules = new TreeSet<Rule>(rules);
-
         for (Rule rule : rules) {
 
             if (rule.getPriority() > rulePriorityThreshold) {

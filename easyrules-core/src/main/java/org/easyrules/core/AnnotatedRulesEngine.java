@@ -63,12 +63,6 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
     }
 
     @Override
-    public void registerJmxRule(Object rule) {
-        registerRule(rule);
-        registerJmxMBean(rule);
-    }
-
-    @Override
     public void registerRule(Object rule) {
 
         //check if rule class is annotated with @Rule
@@ -134,12 +128,6 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
             LOGGER.log(Level.WARNING, "Unable to unregister rule " + rule, e);
         }
 
-    }
-
-    @Override
-    public void unregisterJmxRule(Object rule) {
-        unregisterRule(rule);
-        unregisterJmxMBean(rule);
     }
 
     @Override
