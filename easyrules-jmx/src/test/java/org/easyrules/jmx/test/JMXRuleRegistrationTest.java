@@ -1,41 +1,48 @@
-package org.easyrules.core.test.jmx;
+package org.easyrules.jmx.test;
 
-import org.easyrules.api.Rule;
-import org.easyrules.api.RulesEngine;
-import org.easyrules.core.BasicRule;
-import org.easyrules.core.DefaultRulesEngine;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.management.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.management.ManagementFactory;
 
-import static org.junit.Assert.*;
+import javax.management.InstanceNotFoundException;
+import javax.management.IntrospectionException;
+import javax.management.MBeanInfo;
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import javax.management.ReflectionException;
+
+import org.easyrules.jmx.BasicJMXRule;
+import org.easyrules.jmx.DefaultJMXRulesEngine;
+import org.easyrules.jmx.api.JMXRule;
+import org.easyrules.jmx.api.JMXRulesEngine;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test class for JMX managed rule registration.
  *
  * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
  */
-public class JmxRuleRegistrationTest {
+public class JMXRuleRegistrationTest {
 
-    private Rule rule;
+    private JMXRule rule;
 
-    private RulesEngine<Rule> rulesEngine;
+    private JMXRulesEngine<JMXRule> rulesEngine;
 
     @Before
     public void setup(){
 
-        rule = new BasicRule();
-
-        rulesEngine = new DefaultRulesEngine();
+        rule = new BasicJMXRule();
+        rulesEngine = new DefaultJMXRulesEngine();
     }
 
     @Test
     public void testJmxRuleRegistration() throws MalformedObjectNameException, IntrospectionException, InstanceNotFoundException, ReflectionException {
 
-        rulesEngine.registerJmxRule(rule);
+        rulesEngine.registerJMXRule(rule);
 
         //assert that the rule has been successfully registered within the JMX registry
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
@@ -49,7 +56,7 @@ public class JmxRuleRegistrationTest {
     @Test
     public void testJmxRuleUnregistration() throws MalformedObjectNameException, IntrospectionException, InstanceNotFoundException, ReflectionException {
 
-        rulesEngine.unregisterJmxRule(rule);
+        rulesEngine.unregisterJMXRule(rule);
 
         //assert that the rule has been successfully unregistered form the JMX registry
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
