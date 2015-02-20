@@ -24,9 +24,9 @@
 
 package org.easyrules.samples.order;
 
-import org.easyrules.api.Rule;
-
 import javax.management.MXBean;
+
+import org.easyrules.jmx.api.JMXRule;
 
 /**
  * Interface to make suspect order rule manageable via JMX.<br/>
@@ -36,7 +36,7 @@ import javax.management.MXBean;
  */
 
 @MXBean
-public interface SuspectOrderJmxRule extends Rule {
+public interface SuspectOrderJmxRule extends JMXRule {
 
     /**
      * Get the current suspect order amount threshold

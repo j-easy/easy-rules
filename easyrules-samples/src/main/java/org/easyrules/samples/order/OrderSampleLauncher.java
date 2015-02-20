@@ -24,9 +24,9 @@
 
 package org.easyrules.samples.order;
 
-import org.easyrules.core.DefaultRulesEngine;
-
 import java.util.Scanner;
+
+import org.easyrules.jmx.DefaultJMXRulesEngine;
 
 /**
  * Launcher class of the order sample.
@@ -56,8 +56,8 @@ public class OrderSampleLauncher {
         /**
          * Create a default rules engine and register the business rule
          */
-        DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
-        rulesEngine.registerJmxRule(suspectOrderRule);
+        DefaultJMXRulesEngine rulesEngine = new DefaultJMXRulesEngine();
+        rulesEngine.registerJMXRule(suspectOrderRule);
 
         /**
          * Fire rules
