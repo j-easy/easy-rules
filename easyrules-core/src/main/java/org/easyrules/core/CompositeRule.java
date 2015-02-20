@@ -31,7 +31,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 /**
- * Class representing a composite rule composed of a set of rules.<br/>
+ * Class representing a composite rule composed of a set of rules.
  *
  * A composite rule is triggered if <strong>ALL</strong> conditions of its composing rules are satisfied.
  * When a composite rule is applied, actions of <strong>ALL</strong> composing rules are performed.

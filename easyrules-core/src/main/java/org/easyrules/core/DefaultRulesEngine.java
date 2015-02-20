@@ -24,15 +24,15 @@
 
 package org.easyrules.core;
 
-import org.easyrules.api.Rule;
-import org.easyrules.util.EasyRulesConstants;
-
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.easyrules.api.Rule;
+import org.easyrules.util.EasyRulesConstants;
+
 /**
- * Default {@link org.easyrules.api.RulesEngine} implementation.<br/>
+ * Default {@link org.easyrules.api.RulesEngine} implementation.
  *
  * This implementation handles a set of rules with unique name.
  *

@@ -28,7 +28,7 @@ import org.easyrules.api.Rule;
 import org.easyrules.util.EasyRulesConstants;
 
 /**
- * Basic rule implementation class that provides common methods.<br/>
+ * Basic rule implementation class that provides common methods.
  *
  * You can extend this class and override {@link BasicRule#evaluateConditions()} and {@link BasicRule#performActions()}
  * to provide rule conditions and actions logic.
