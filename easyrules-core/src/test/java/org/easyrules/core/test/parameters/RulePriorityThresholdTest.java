@@ -47,10 +47,10 @@ public class RulePriorityThresholdTest {
     @Before
     public void setup(){
 
-        rule1 = new SimpleRule("r1","d1");
-        rule2 = new SimpleRule("r2","d2");
+        rule1 = new SimpleRule("r1","d1",1);
+        rule2 = new SimpleRule("r2","d2",2);
 
-        defaultRulesEngine = new DefaultRulesEngine();
+        defaultRulesEngine = new DefaultRulesEngine(1);
     }
 
     @Test

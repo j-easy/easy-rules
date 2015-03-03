@@ -136,7 +136,7 @@ public class BasicRule implements Rule, Comparable<Rule> {
         if (priority < rule.getPriority()) {
             return -1;
         } else if (priority == rule.getPriority()) {
-            return 0;
+            return name.compareTo(rule.getName());
         } else {
             return 1;
         }

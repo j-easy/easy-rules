@@ -57,7 +57,7 @@ public class RulePriorityComparisonTest {
     @Test
     public void testSameRulePriorityComparison() {
         rule1.setPriority(2);
-        assertEquals(0, rule1.compareTo(rule2));
+        assertEquals(-1, rule1.compareTo(rule2));
     }
 
 }
