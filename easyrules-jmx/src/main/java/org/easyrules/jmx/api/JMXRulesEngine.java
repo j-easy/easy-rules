@@ -22,32 +22,33 @@
  *  THE SOFTWARE.
  */
 
-package org.easyrules.samples.order;
+package org.easyrules.jmx.api;
 
-import javax.management.MXBean;
-
-import org.easyrules.jmx.api.JMXRule;
+import org.easyrules.api.RulesEngine;
 
 /**
- * Interface to make suspect order rule manageable via JMX.<br/>
- * Suspect order threshold should be changed at runtime.
- *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * Decorates {@link org.easyrules.api.RulesEngine} to add handling of JMX 
+ * rules.
+ * @param <R> The rule type
+ * 
+ * @author Drem Darios (drem.darios@gmail.com)
  */
+public interface JMXRulesEngine<R> extends RulesEngine<R> {
 
-@MXBean
-public interface SuspectOrderJmxRule extends JMXRule {
+	/**
+     * Register a rule in the rules engine registry.
+     * This method also registers the rule as a JMX bean.
+     * The rule object <strong>must</strong> be JMX compliant.
+     *
+     * @param rule the rule to register
+     */
+    void registerJMXRule(R rule);
 
     /**
-     * Get the current suspect order amount threshold
-     * @return current suspect order amount threshold
+     * Unegister a rule from the rules engine registry.
+     * This method also unregisters the rule from MBean server.
+     *
+     * @param rule the rule to register
      */
-    float getSuspectOrderAmountThreshold();
-
-    /**
-     * Set the suspect order amount threshold
-     * @param suspectOrderAmountThreshold the new suspect order amount threshold
-     */
-    void setSuspectOrderAmountThreshold(float suspectOrderAmountThreshold);
-
+    void unregisterJMXRule(R rule);
 }

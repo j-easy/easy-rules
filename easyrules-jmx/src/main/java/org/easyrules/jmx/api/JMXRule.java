@@ -22,32 +22,18 @@
  *  THE SOFTWARE.
  */
 
-package org.easyrules.samples.order;
+package org.easyrules.jmx.api;
 
 import javax.management.MXBean;
 
-import org.easyrules.jmx.api.JMXRule;
+import org.easyrules.api.Rule;
 
 /**
- * Interface to make suspect order rule manageable via JMX.<br/>
- * Suspect order threshold should be changed at runtime.
- *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * This is simply a Marker interface that decorates {@link org.easyrules.api.Rule} as being an MXBean interface.
+ * 
+ * @author Drem Darios (drem.darios@gmail.com)
  */
-
 @MXBean
-public interface SuspectOrderJmxRule extends JMXRule {
-
-    /**
-     * Get the current suspect order amount threshold
-     * @return current suspect order amount threshold
-     */
-    float getSuspectOrderAmountThreshold();
-
-    /**
-     * Set the suspect order amount threshold
-     * @param suspectOrderAmountThreshold the new suspect order amount threshold
-     */
-    void setSuspectOrderAmountThreshold(float suspectOrderAmountThreshold);
+public interface JMXRule extends Rule {
 
 }

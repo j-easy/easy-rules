@@ -45,23 +45,6 @@ public interface RulesEngine<R> {
     void unregisterRule(R rule);
 
     /**
-     * Register a rule in the rules engine registry.
-     * This method also registers the rule as a Jmx bean.
-     * The rule object <strong>must</strong> be JMX compliant.
-     *
-     * @param rule the rule to register
-     */
-    void registerJmxRule(R rule);
-
-    /**
-     * Unegister a rule from the rules engine registry.
-     * This method also unregisters the rule from MBean server.
-     *
-     * @param rule the rule to register
-     */
-    void unregisterJmxRule(R rule);
-
-    /**
      * Fire all registered rules.
      */
     void fireRules();
