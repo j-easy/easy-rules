@@ -1,15 +1,14 @@
 package org.easyrules.jmx.util;
 
-import java.lang.management.ManagementFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.easyrules.jmx.api.JMXRule;
+import org.easyrules.util.EasyRulesConstants;
 
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
-
-import org.easyrules.jmx.api.JMXRule;
-import org.easyrules.util.EasyRulesConstants;
+import java.lang.management.ManagementFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Handles keeping track of MBeans and helps reduce Boilerplate code.
@@ -37,15 +36,11 @@ public class MBeanManager {
 			name = getObjectName(rule);
 			if (mBeanServer.isRegistered(name)) {
 				mBeanServer.unregisterMBean(name);
-				LOGGER.log(Level.INFO,
-						"JMX MBean unregistered successfully for rule: {0}",
-						new Object[] { rule.toString() });
+				LOGGER.log(Level.INFO, "JMX MBean unregistered successfully for rule: \"{0}\"", rule);
 			}
 		} catch (Exception e) {
 			LOGGER.log(
-					Level.SEVERE,
-					"Unable to unregister JMX MBean for rule: "
-							+ rule.toString(), e);
+					Level.SEVERE, "Unable to unregister JMX MBean for rule: \"" + rule + "\"", e);
 		}
 	}
 
@@ -61,12 +56,11 @@ public class MBeanManager {
 				mBeanServer.registerMBean(rule, name);
 				LOGGER.log(
 						Level.INFO,
-						"JMX MBean registered successfully as: {0} for rule: {1}",
+						"JMX MBean registered successfully as: \"{0}\" for rule: \"{1}\"",
 						new Object[] { name.getCanonicalName(), rule.toString() });
 			}
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "Unable to register JMX MBean for rule: "
-					+ rule.toString(), e);
+			LOGGER.log(Level.SEVERE, "Unable to register JMX MBean for rule: \"" + rule + "\"", e);
 		}
 
 	}
@@ -77,6 +71,6 @@ public class MBeanManager {
 	private ObjectName getObjectName(JMXRule rule)
 			throws MalformedObjectNameException {
 		return new ObjectName("org.easyrules.core.jmx:type="
-				+ rule.getClass().getSimpleName() + ",name=" + rule.toString());
+				+ rule.getClass().getSimpleName() + ",name=" + rule);
 	}
 }

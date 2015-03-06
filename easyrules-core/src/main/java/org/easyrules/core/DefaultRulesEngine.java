@@ -24,12 +24,12 @@
 
 package org.easyrules.core;
 
+import org.easyrules.api.Rule;
+import org.easyrules.util.EasyRulesConstants;
+
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.easyrules.api.Rule;
-import org.easyrules.util.EasyRulesConstants;
 
 /**
  * Default {@link org.easyrules.api.RulesEngine} implementation.
@@ -89,22 +89,22 @@ public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
         for (Rule rule : rules) {
 
             if (rule.getPriority() > rulePriorityThreshold) {
-                LOGGER.log(Level.INFO, "Rule priority threshold {0} exceeded at rule {1} (priority={2}), next applicable rules will be skipped.",
+                LOGGER.log(Level.INFO, "Rule priority threshold {0} exceeded at rule \"{1}\" (priority={2}), next applicable rules will be skipped.",
                         new Object[] {rulePriorityThreshold, rule.getName(), rule.getPriority()});
                 break;
             }
 
             if (rule.evaluateConditions()) {
-                LOGGER.log(Level.INFO, "Rule {0} triggered.", new Object[]{rule.getName()});
+                LOGGER.log(Level.INFO, "Rule \"{0}\" triggered.", rule.getName());
                 try {
                     rule.performActions();
-                    LOGGER.log(Level.INFO, "Rule {0} performed successfully.", new Object[]{rule.getName()});
+                    LOGGER.log(Level.INFO, "Rule \"{0}\" performed successfully.", rule.getName());
                     if (skipOnFirstAppliedRule) {
                         LOGGER.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
                         break;
                     }
                 } catch (Exception exception) {
-                    LOGGER.log(Level.SEVERE, "Rule '" + rule.getName() + "' performed with error.", exception);
+                    LOGGER.log(Level.SEVERE, "Rule \"" + rule.getName() + "\" performed with error.", exception);
                 }
             }
 

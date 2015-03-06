@@ -9,7 +9,10 @@ import org.easyrules.util.EasyRulesConstants;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -125,7 +128,7 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
             int priority = (Integer) getPriorityMethods(rule).get(0).invoke(rule);
             ruleBeans.remove(new RuleBean(priority, rule));
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Unable to unregister rule " + rule, e);
+            LOGGER.log(Level.WARNING, "Unable to unregister rule \"" + rule + "\"", e);
         }
 
     }
@@ -167,13 +170,13 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
 
                 //apply the rule
                 if (shouldApplyRule) {
-                    LOGGER.log(Level.INFO, "Rule {0} triggered.", new Object[]{name});
+                    LOGGER.log(Level.INFO, "Rule \"{0}\" triggered.", name);
                     try {
                         //execute all actions in the defined order
                         for (ActionMethodBean actionMethodBean : actionMethods) {
                             actionMethodBean.getMethod().invoke(rule);
                         }
-                        LOGGER.log(Level.INFO, "Rule {0} performed successfully.", new Object[]{name});
+                        LOGGER.log(Level.INFO, "Rule \"{0}\" performed successfully.", name);
 
                         if (skipOnFirstAppliedRule) {
                             LOGGER.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
@@ -181,13 +184,13 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
                         }
 
                     } catch (Exception exception) {
-                        LOGGER.log(Level.SEVERE, "Rule '" + name + "' performed with error.", exception);
+                        LOGGER.log(Level.SEVERE, "Rule \"" + name + "\" performed with error.", exception);
                     }
                 }
             } catch (IllegalAccessException e) {
-                LOGGER.log(Level.SEVERE, "Unable to access method on rule " + rule, e);
+                LOGGER.log(Level.SEVERE, "Unable to access method on rule \"" + rule + "\"", e);
             } catch (InvocationTargetException e) {
-                LOGGER.log(Level.SEVERE, "Unable to invoke method on rule " + rule, e);
+                LOGGER.log(Level.SEVERE, "Unable to invoke method on rule \"" + rule + "\"", e);
             }
 
         }
