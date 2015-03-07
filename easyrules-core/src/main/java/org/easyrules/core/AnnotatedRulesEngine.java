@@ -92,55 +92,11 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
     @Override
     public void registerRule(Object rule) {
 
-        //check if rule class is annotated with @Rule
-        if (!isRuleClassWellDefined(rule)) {
-            throw new IllegalArgumentException("Rule " + rule + " is not annotated with " + Rule.class.getClass());
-        }
+        checkRuleClass(rule);
+        checkConditionMethod(rule);
+        checkActionMethods(rule);
 
-        //check if condition method is well defined
-        Method conditionMethod = getConditionMethod(rule);
-        if (null == conditionMethod) {
-            throw new IllegalArgumentException("Rule " + rule + " does not have a public method annotated with " + Condition.class.getClass());
-        }
-
-        if (!isConditionMethodWellDefined(conditionMethod)) {
-            throw new IllegalArgumentException("Condition method " + conditionMethod + " defined in rule " + rule + " must be public, have no parameters and return boolean type.");
-        }
-
-        //check if action methods are well defined
-        List<ActionMethodBean> actionMethods = getActionMethodBeans(rule);
-        if (actionMethods.isEmpty()) {
-            throw new IllegalArgumentException("Rule " + rule + " does not have a public method annotated with " + Action.class.getClass());
-        }
-
-        for (ActionMethodBean actionMethodBean : actionMethods) {
-            Method actionMethod = actionMethodBean.getMethod();
-            if (!isActionMethodWellDefined(actionMethod)) {
-                throw new IllegalArgumentException("Action method " + actionMethod + " defined in rule " + rule + " must be public and have no parameters.");
-            }
-        }
-
-        //get rule priority for later use
-        List<Method> priorityMethods = getPriorityMethods(rule);
-        int priority = EasyRulesConstants.DEFAULT_RULE_PRIORITY;
-        // more than one method annotated with @Priority
-        if (priorityMethods.size() > 1) {
-            throw new IllegalArgumentException("Rule " + rule + " have more than one method annotated with " + Priority.class.getClass());
-        }
-        //exactly one method annotated with @Priority
-        if (!priorityMethods.isEmpty()) {
-            Method priorityMethod = priorityMethods.get(0);
-            if (!isPriorityMethodWellDefined(priorityMethod)) {
-                throw new IllegalArgumentException("Priority method " + priorityMethod + " defined in rule " + rule + " must be public, have no parameters and return integer type.");
-            }
-            try {
-                priority = (Integer) priorityMethod.invoke(rule);
-            } catch (IllegalAccessException e) {
-                throw new IllegalArgumentException("Unable to access method " + priorityMethod + " to get priority of rule " + rule, e);
-            } catch (InvocationTargetException e) {
-                throw new IllegalArgumentException("Unable to invoke method " + priorityMethod + " to get priority of rule " + rule, e);
-            }
-        }
+        int priority = getPriority(rule);
 
         ruleBeans.add(new RuleBean(priority, rule));
     }
@@ -230,6 +186,72 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
     /*
      * Private Utility methods
      */
+
+    private void checkRuleClass(Object rule) {
+        //check if the rule class is annotated with @Rule
+        if (!isRuleClassWellDefined(rule)) {
+            throw new IllegalArgumentException(String.format("Rule '%s' is not annotated with '%s'", rule, Rule.class.getClass()));
+        }
+    }
+
+    private void checkConditionMethod(Object rule) {
+        //check if condition method is well defined
+        Method conditionMethod = getConditionMethod(rule);
+        if (null == conditionMethod) {
+            throw new IllegalArgumentException(String.format("Rule '%s' does not have a public method annotated with '%s'", rule, Condition.class.getClass()));
+        }
+
+        if (!isConditionMethodWellDefined(conditionMethod)) {
+            throw new IllegalArgumentException(String.format("Condition method '%s' defined in rule '%s' must be public, have no parameters and return boolean type.", conditionMethod, rule));
+        }
+    }
+
+    private void checkActionMethods(Object rule) {
+        //check if action methods are well defined
+        List<ActionMethodBean> actionMethods = getActionMethodBeans(rule);
+        if (actionMethods.isEmpty()) {
+            throw new IllegalArgumentException(String.format("Rule '%s' does not have a public method annotated with '%s'", rule, Action.class.getClass()));
+        }
+
+        for (ActionMethodBean actionMethodBean : actionMethods) {
+            Method actionMethod = actionMethodBean.getMethod();
+            if (!isActionMethodWellDefined(actionMethod)) {
+                throw new IllegalArgumentException(String.format("Action method '%s' defined in rule '%s' must be public and have no parameters.", actionMethod, rule));
+            }
+        }
+    }
+
+    private int getPriority(Object rule) {
+
+        int priority = EasyRulesConstants.DEFAULT_RULE_PRIORITY;
+
+        List<Method> priorityMethods = getPriorityMethods(rule);
+
+        checkRulePriority(rule, priorityMethods);
+
+        //exactly one method annotated with @Priority
+        if (!priorityMethods.isEmpty()) {
+            Method priorityMethod = priorityMethods.get(0);
+            if (!isPriorityMethodWellDefined(priorityMethod)) {
+                throw new IllegalArgumentException(String.format("Priority method '%s' defined in rule '%s' must be public, have no parameters and return integer type.", priorityMethod, rule));
+            }
+            try {
+                priority = (Integer) priorityMethod.invoke(rule);
+            } catch (IllegalAccessException e) {
+                throw new IllegalArgumentException(String.format("Unable to access method '%s' to get priority of rule '%s'", priorityMethod, rule), e);
+            } catch (InvocationTargetException e) {
+                throw new IllegalArgumentException(String.format("Unable to invoke method '%s' to get priority of rule '%s'", priorityMethod, rule), e);
+            }
+        }
+        return priority;
+    }
+
+    private void checkRulePriority(Object rule, List<Method> priorityMethods) {
+        // more than one method annotated with @Priority
+        if (priorityMethods.size() > 1) {
+            throw new IllegalArgumentException(String.format("Rule '%s' has more than one method annotated with '%s'", rule, Priority.class.getClass()));
+        }
+    }
 
     private Method getConditionMethod(Object rule) {
         Method[] methods = rule.getClass().getMethods();
