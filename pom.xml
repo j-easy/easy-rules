@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -16,7 +17,7 @@
         <module>easyrules-core</module>
         <module>easyrules-samples</module>
         <module>easyrules-jmx</module>
-  </modules>
+    </modules>
 
     <packaging>pom</packaging>
 
@@ -26,6 +27,17 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>4.12</junit.version>
+        <assertj.version>1.7.1</assertj.version>
+        <mockito.version>1.10.19</mockito.version>
+        <maven-checkstyle-plugin.version>2.13</maven-checkstyle-plugin.version>
+        <maven-pmd-plugin.version>3.3</maven-pmd-plugin.version>
+        <findbugs-maven-plugin.version>3.0.0</findbugs-maven-plugin.version>
+        <cobertura-maven-plugin.version>2.6</cobertura-maven-plugin.version>
+        <maven-release-plugin.version>2.5.1</maven-release-plugin.version>
+        <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.18</maven-surefire-plugin.version>
+        <maven-javadoc-plugin.version>2.10.1</maven-javadoc-plugin.version>
     </properties>
 
     <scm>
@@ -33,7 +45,7 @@
         <connection>scm:git:git@github.com:benas/easy-rules.git</connection>
         <developerConnection>scm:git:git@github.com:benas/easy-rules.git</developerConnection>
         <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <issueManagement>
         <system>GitHub</system>
@@ -49,8 +61,8 @@
         <developer>
             <id>benas</id>
             <name>Mahmoud Ben Hassine</name>
-            <url>http://www.mahmoudbenhassine.com</url>
-            <email>md.benhassine@gmail.com</email>
+            <url>http://www.mahmoud-benhassine.fr</url>
+            <email>mahmoud@benhassine.fr</email>
             <roles>
                 <role>Project founder</role>
             </roles>
@@ -75,14 +87,91 @@
         </license>
     </licenses>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.easyrules</groupId>
+                <artifactId>easyrules-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.easyrules</groupId>
+                <artifactId>easyrules-jmx</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5</version>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <verbose>true</verbose>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                        <showWarnings>true</showWarnings>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*Test*.java</include>
+                        </includes>
+                        <reportFormat>html</reportFormat>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <configuration>
+                        <stylesheet>maven</stylesheet>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>javadoc</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>
