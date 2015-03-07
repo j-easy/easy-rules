@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  * Annotation to mark a method as a rule condition.
  * Must annotate any public method with no arguments and that returns a boolean value.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

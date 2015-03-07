@@ -5,7 +5,7 @@ import org.easyrules.core.AnnotatedRulesEngine;
 /**
  * Launcher class for rule priority tutorial.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class Launcher {
 

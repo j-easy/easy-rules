@@ -28,7 +28,7 @@ package org.easyrules.api;
  * Rules engine interface.
  * @param <R> The rule type
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public interface RulesEngine<R> {
 

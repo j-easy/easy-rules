@@ -1,14 +1,13 @@
 package org.easyrules.core.test.annotation.action;
 
 import org.easyrules.core.AnnotatedRulesEngine;
-
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Test class for action method definition.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class ActionMethodDefinitionTest {
 

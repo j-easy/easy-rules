@@ -34,7 +34,7 @@ import java.lang.annotation.Target;
  * Must annotate any public method with no arguments.
  * The method return value will be ignored by the engine.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

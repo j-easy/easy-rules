@@ -33,7 +33,7 @@ import org.easyrules.util.EasyRulesConstants;
  * You can extend this class and override {@link BasicRule#evaluateConditions()} and {@link BasicRule#performActions()}
  * to provide rule conditions and actions logic.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class BasicRule implements Rule, Comparable<Rule> {
 

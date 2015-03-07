@@ -1,7 +1,6 @@
 package org.easyrules.core.test;
 
 import junit.framework.TestSuite;
-
 import org.easyrules.core.test.annotation.EasyRulesAnnotationTestSuite;
 import org.easyrules.core.test.composite.CompositeRuleTest;
 import org.easyrules.core.test.parameters.DefaultRulesEngineTest;
@@ -14,7 +13,7 @@ import org.junit.runners.Suite;
 /**
  * Test suite for Easy Rules core module.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
 @RunWith(Suite.class)

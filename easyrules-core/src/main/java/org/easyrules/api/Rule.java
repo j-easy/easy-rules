@@ -30,7 +30,7 @@ package org.easyrules.api;
  *
  * Rules are registered in the rules engine registry and must have a <strong>unique</strong> name.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public interface Rule {
 

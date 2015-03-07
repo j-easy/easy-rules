@@ -43,7 +43,7 @@ import java.util.logging.Logger;
 /**
  * Annotated rules engine implementation.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
 

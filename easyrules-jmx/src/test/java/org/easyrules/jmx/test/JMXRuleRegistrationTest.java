@@ -1,19 +1,5 @@
 package org.easyrules.jmx.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.lang.management.ManagementFactory;
-
-import javax.management.InstanceNotFoundException;
-import javax.management.IntrospectionException;
-import javax.management.MBeanInfo;
-import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
-import javax.management.ReflectionException;
-
 import org.easyrules.jmx.BasicJMXRule;
 import org.easyrules.jmx.DefaultJMXRulesEngine;
 import org.easyrules.jmx.api.JMXRule;
@@ -21,10 +7,15 @@ import org.easyrules.jmx.api.JMXRulesEngine;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.management.*;
+import java.lang.management.ManagementFactory;
+
+import static org.junit.Assert.*;
+
 /**
  * Test class for JMX managed rule registration.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class JMXRuleRegistrationTest {
 

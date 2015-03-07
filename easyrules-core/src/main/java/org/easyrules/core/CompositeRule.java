@@ -27,8 +27,8 @@ package org.easyrules.core;
 import org.easyrules.api.Rule;
 import org.easyrules.util.EasyRulesConstants;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class representing a composite rule composed of a set of rules.
@@ -36,7 +36,7 @@ import java.util.HashSet;
  * A composite rule is triggered if <strong>ALL</strong> conditions of its composing rules are satisfied.
  * When a composite rule is applied, actions of <strong>ALL</strong> composing rules are performed.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class CompositeRule extends BasicRule {
 

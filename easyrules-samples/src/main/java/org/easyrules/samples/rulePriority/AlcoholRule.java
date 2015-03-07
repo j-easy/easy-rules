@@ -8,7 +8,7 @@ import org.easyrules.annotation.Rule;
 /**
  * Rule class that prohibits children from buying alcohol.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 @Rule(name = "alcoholRule", description = "Children are not allowed to buy alcohol.")
 public class AlcoholRule {

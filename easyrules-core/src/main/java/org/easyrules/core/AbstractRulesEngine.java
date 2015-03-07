@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 /**
  * Abstract rules engine class.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
 

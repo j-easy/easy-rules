@@ -38,7 +38,7 @@ import java.util.logging.Logger;
  *
  * Rules are fired according to their natural order which is priority by default.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
 

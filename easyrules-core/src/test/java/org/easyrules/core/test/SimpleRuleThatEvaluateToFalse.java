@@ -3,7 +3,7 @@ package org.easyrules.core.test;
 /**
  * Simple priority rule class used for tests.
  * 
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class SimpleRuleThatEvaluateToFalse extends SimpleRule {
 

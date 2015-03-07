@@ -1,16 +1,16 @@
 package org.easyrules.core.test.annotation;
 
+import junit.framework.TestSuite;
 import org.easyrules.core.test.annotation.action.ActionMethodDefinitionTest;
 import org.easyrules.core.test.annotation.condition.ConditionMethodDefinitionTest;
 import org.easyrules.core.test.annotation.priority.PriorityMethodDefinitionTest;
-import junit.framework.TestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
  * Test suite for Easy Rules annotations.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
 @RunWith(Suite.class)

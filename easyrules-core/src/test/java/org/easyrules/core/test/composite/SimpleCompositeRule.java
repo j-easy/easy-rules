@@ -5,7 +5,7 @@ import org.easyrules.core.CompositeRule;
 /**
  * Simple composite rule class used for tests.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class SimpleCompositeRule extends CompositeRule {
 

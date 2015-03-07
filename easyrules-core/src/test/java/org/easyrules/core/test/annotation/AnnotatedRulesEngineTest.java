@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Test class for annotated rules engine execution.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class AnnotatedRulesEngineTest {
 

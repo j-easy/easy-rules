@@ -8,7 +8,7 @@ import org.easyrules.annotation.Rule;
 /**
  * A rule class that marks a person as adult if it's age is greater than 18.
  *
- * @author Mahmoud Ben Hassine (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 @Rule(name = "AgeRule", description = "Check if person's age is > 18 and marks the person as adult")
 public class AgeRule {
