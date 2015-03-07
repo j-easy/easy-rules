@@ -35,6 +35,16 @@
         <tag>HEAD</tag>
   </scm>
 
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/benas/easy-rules/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://buildhive.cloudbees.com/job/benas/job/easy-rules/</url>
+    </ciManagement>
+
     <developers>
         <developer>
             <id>benas</id>
@@ -46,6 +56,17 @@
             </roles>
         </developer>
     </developers>
+
+    <contributors>
+        <contributor>
+            <name>Becca Gaspard</name>
+            <url>https://github.com/beccagaspard</url>
+        </contributor>
+        <contributor>
+            <name>Drem Darios</name>
+            <url>https://github.com/drem-darios</url>
+        </contributor>
+    </contributors>
 
     <licenses>
         <license>
