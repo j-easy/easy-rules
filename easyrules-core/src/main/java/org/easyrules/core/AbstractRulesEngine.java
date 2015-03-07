@@ -24,11 +24,10 @@
 
 package org.easyrules.core;
 
+import org.easyrules.api.RulesEngine;
+
 import java.util.Set;
 import java.util.logging.Logger;
-
-import org.easyrules.api.RulesEngine;
-import org.easyrules.util.EasyRulesConstants;
 
 /**
  * Abstract rules engine class.
@@ -37,7 +36,7 @@ import org.easyrules.util.EasyRulesConstants;
  */
 public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
 
-    private static final Logger LOGGER = Logger.getLogger(EasyRulesConstants.LOGGER_NAME);
+    private static final Logger LOGGER = Logger.getLogger(AbstractRulesEngine.class.getName());
 
     /**
      * The rules set.

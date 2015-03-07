@@ -43,11 +43,9 @@ import java.util.logging.Logger;
  * 
  * @author Drem Darios (drem.darios@gmail.com)
  */
-public class DefaultJMXRulesEngine extends AbstractRulesEngine<JMXRule>
-		implements JMXRulesEngine<JMXRule> {
+public class DefaultJMXRulesEngine extends AbstractRulesEngine<JMXRule> implements JMXRulesEngine<JMXRule> {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(EasyRulesConstants.LOGGER_NAME);
+	private static final Logger LOGGER = Logger.getLogger(DefaultJMXRulesEngine.class.getName());
 
 	private MBeanManager beanManager = new MBeanManager();
 	
@@ -112,22 +110,22 @@ public class DefaultJMXRulesEngine extends AbstractRulesEngine<JMXRule>
 
             if (rule.getPriority() > rulePriorityThreshold) {
                 LOGGER.log(Level.INFO,
-                        "Rule priority threshold {0} exceeded at rule {1} (priority={2}), next applicable rules will be skipped.",
+                        "Rule priority threshold {0} exceeded at rule ''{1}'' (priority={2}), next applicable rules will be skipped.",
                         new Object[] {rulePriorityThreshold, rule.getName(), rule.getPriority()});
                 break;
             }
 
             if (rule.evaluateConditions()) {
-                LOGGER.log(Level.INFO, "Rule \"{0}\" triggered.", rule.getName());
+                LOGGER.log(Level.INFO, "Rule ''{0}'' triggered.", rule.getName());
                 try {
                     rule.performActions();
-                    LOGGER.log(Level.INFO, "Rule \"{0}\" performed successfully.", rule.getName());
+                    LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully.", rule.getName());
                     if (skipOnFirstAppliedRule) {
                         LOGGER.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
                         break;
                     }
                 } catch (Exception exception) {
-                    LOGGER.log(Level.SEVERE, "Rule \"" + rule.getName() + "\" performed with error.", exception);
+                    LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error.", rule.getName()), exception);
                 }
             }
 

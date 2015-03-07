@@ -47,12 +47,12 @@ import java.util.logging.Logger;
  */
 public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
 
-    private static final Logger LOGGER = Logger.getLogger(EasyRulesConstants.LOGGER_NAME);
+    private static final Logger LOGGER = Logger.getLogger(AnnotatedRulesEngine.class.getName());
 
     private List<RuleBean> ruleBeans;
 
     /**
-     * Construct an annotated rules engine with default values.
+     * Constructs an annotated rules engine with default values.
      */
     public AnnotatedRulesEngine() {
         this(false, EasyRulesConstants.DEFAULT_RULE_PRIORITY_THRESHOLD);
@@ -108,7 +108,7 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
             int priority = (Integer) getPriorityMethods(rule).get(0).invoke(rule);
             ruleBeans.remove(new RuleBean(priority, rule));
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Unable to unregister rule \"" + rule + "\"", e);
+            LOGGER.log(Level.WARNING, String.format("Unable to unregister rule '%s'", rule), e);
         }
 
     }
@@ -141,22 +141,21 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
 
                 int priority = ruleBean.getPriority();
                 if (priority > rulePriorityThreshold) {
-                    LOGGER.log(Level.INFO, "Rule priority threshold {0} exceeded at rule {1} (priority={2}), next applicable rules will be skipped.",
+                    LOGGER.log(Level.INFO, "Rule priority threshold {0} exceeded at rule ''{1}'' (priority={2}), next applicable rules will be skipped.",
                             new Object[]{rulePriorityThreshold, name, priority});
                     break;
                 }
 
                 Boolean shouldApplyRule = (Boolean) conditionMethod.invoke(rule);
 
-                //apply the rule
                 if (shouldApplyRule) {
-                    LOGGER.log(Level.INFO, "Rule \"{0}\" triggered.", name);
+                    LOGGER.log(Level.INFO, "Rule ''{0}'' triggered.", name);
                     try {
                         //execute all actions in the defined order
                         for (ActionMethodBean actionMethodBean : actionMethods) {
                             actionMethodBean.getMethod().invoke(rule);
                         }
-                        LOGGER.log(Level.INFO, "Rule \"{0}\" performed successfully.", name);
+                        LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully.", name);
 
                         if (skipOnFirstAppliedRule) {
                             LOGGER.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
@@ -164,13 +163,13 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
                         }
 
                     } catch (Exception exception) {
-                        LOGGER.log(Level.SEVERE, "Rule \"" + name + "\" performed with error.", exception);
+                        LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error.", name), exception);
                     }
                 }
             } catch (IllegalAccessException e) {
-                LOGGER.log(Level.SEVERE, "Unable to access method on rule \"" + rule + "\"", e);
+                LOGGER.log(Level.SEVERE, String.format("Unable to access method on rule '%s'", rule), e);
             } catch (InvocationTargetException e) {
-                LOGGER.log(Level.SEVERE, "Unable to invoke method on rule \"" + rule + "\"", e);
+                LOGGER.log(Level.SEVERE, String.format("Unable to invoke method on rule '%s'", rule), e);
             }
 
         }

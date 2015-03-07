@@ -32,11 +32,6 @@ package org.easyrules.util;
 public class EasyRulesConstants {
 
     /**
-     * EasyRules logger name;
-     */
-    public static final String LOGGER_NAME = "easyRulesLogger";
-
-    /**
      * Default rule name.
      */
     public static final String DEFAULT_RULE_NAME = "rule";
