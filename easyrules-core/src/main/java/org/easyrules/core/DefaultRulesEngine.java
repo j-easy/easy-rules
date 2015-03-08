@@ -86,6 +86,8 @@ public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
             return;
         }
 
+        logEngineParameters();
+
         applyRules();
 
     }

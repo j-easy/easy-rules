@@ -38,9 +38,8 @@ import java.util.logging.Logger;
 /**
  * Default {@link org.easyrules.jmx.api.JMXRulesEngine} implementation.
  *
- * This implementation handles a set of JMX rules with unique name. All other
- * behavior 
- * 
+ * This implementation handles a set of JMX rules with unique names.
+ *
  * @author Drem Darios (drem.darios@gmail.com)
  */
 public class DefaultJMXRulesEngine extends AbstractRulesEngine<JMXRule> implements JMXRulesEngine<JMXRule> {
@@ -102,6 +101,8 @@ public class DefaultJMXRulesEngine extends AbstractRulesEngine<JMXRule> implemen
             LOGGER.warning("No rules registered! Nothing to apply.");
             return;
         }
+
+        logEngineParameters();
 
         //resort rules in case priorities were modified via JMX
         rules = new TreeSet<JMXRule>(rules);

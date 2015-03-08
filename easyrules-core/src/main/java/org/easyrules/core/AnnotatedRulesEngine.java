@@ -121,6 +121,8 @@ public class AnnotatedRulesEngine extends AbstractRulesEngine<Object> {
             return;
         }
 
+        logEngineParameters();
+
         //sort rules according to their priorities
         Collections.sort(ruleBeans);
 

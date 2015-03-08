@@ -27,6 +27,7 @@ package org.easyrules.core;
 import org.easyrules.api.RulesEngine;
 
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -70,6 +71,11 @@ public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
     public void clearRules() {
         rules.clear();
         LOGGER.info("Rules cleared.");
+    }
+
+    protected void logEngineParameters() {
+        LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", skipOnFirstAppliedRule);
+        LOGGER.log(Level.INFO, "Rule priority threshold: {0}", rulePriorityThreshold);
     }
 
 }
