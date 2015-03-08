@@ -50,7 +50,7 @@ public class DefaultJMXRulesEngine extends AbstractRulesEngine<JMXRule> implemen
 	private MBeanManager beanManager = new MBeanManager();
 	
     /**
-     * Construct a default rules engine with default values.
+     * Constructs a default rules engine with default values.
      */
     public DefaultJMXRulesEngine() {
         this(false, EasyRulesConstants.DEFAULT_RULE_PRIORITY_THRESHOLD);
@@ -106,31 +106,41 @@ public class DefaultJMXRulesEngine extends AbstractRulesEngine<JMXRule> implemen
         //resort rules in case priorities were modified via JMX
         rules = new TreeSet<JMXRule>(rules);
 
+        applyRules();
+
+    }
+
+    protected void applyRules() {
+
         for (Rule rule : rules) {
 
-            if (rule.getPriority() > rulePriorityThreshold) {
+            final String ruleName = rule.getName();
+
+            final int rulePriority = rule.getPriority();
+            if (rulePriority > rulePriorityThreshold) {
                 LOGGER.log(Level.INFO,
                         "Rule priority threshold {0} exceeded at rule ''{1}'' (priority={2}), next applicable rules will be skipped.",
-                        new Object[] {rulePriorityThreshold, rule.getName(), rule.getPriority()});
+                        new Object[] {rulePriorityThreshold, ruleName, rulePriority});
                 break;
             }
 
-            if (rule.evaluateConditions()) {
-                LOGGER.log(Level.INFO, "Rule ''{0}'' triggered.", rule.getName());
+            final boolean shouldApplyRule = rule.evaluateConditions();
+            if (shouldApplyRule) {
+                LOGGER.log(Level.INFO, "Rule ''{0}'' triggered.", ruleName);
                 try {
                     rule.performActions();
-                    LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully.", rule.getName());
+                    LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully.", ruleName);
+
                     if (skipOnFirstAppliedRule) {
                         LOGGER.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
                         break;
                     }
                 } catch (Exception exception) {
-                    LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error.", rule.getName()), exception);
+                    LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error.", ruleName), exception);
                 }
             }
 
         }
-
     }
-	
+
 }

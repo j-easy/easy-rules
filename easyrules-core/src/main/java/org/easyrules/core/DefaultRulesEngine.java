@@ -86,25 +86,37 @@ public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
             return;
         }
 
+        applyRules();
+
+    }
+
+    protected void applyRules() {
+
         for (Rule rule : rules) {
 
-            if (rule.getPriority() > rulePriorityThreshold) {
-                LOGGER.log(Level.INFO, "Rule priority threshold {0} exceeded at rule ''{1}'' (priority={2}), next applicable rules will be skipped.",
-                        new Object[] {rulePriorityThreshold, rule.getName(), rule.getPriority()});
+            final String ruleName = rule.getName();
+
+            final int rulePriority = rule.getPriority();
+            if (rulePriority > rulePriorityThreshold) {
+                LOGGER.log(Level.INFO,
+                        "Rule priority threshold {0} exceeded at rule ''{1}'' (priority={2}), next applicable rules will be skipped.",
+                        new Object[] {rulePriorityThreshold, ruleName, rulePriority});
                 break;
             }
 
-            if (rule.evaluateConditions()) {
-                LOGGER.log(Level.INFO, "Rule ''{0}'' triggered.", rule.getName());
+            final boolean shouldApplyRule = rule.evaluateConditions();
+            if (shouldApplyRule) {
+                LOGGER.log(Level.INFO, "Rule ''{0}'' triggered.", ruleName);
                 try {
                     rule.performActions();
-                    LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully.", rule.getName());
+                    LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully.", ruleName);
+
                     if (skipOnFirstAppliedRule) {
                         LOGGER.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
                         break;
                     }
                 } catch (Exception exception) {
-                    LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error.", rule.getName()), exception);
+                    LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error.", ruleName), exception);
                 }
             }
 
