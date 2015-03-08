@@ -368,7 +368,6 @@ body > footer a:hover img {
   .free-hosting .pane:after {
     content: " ";
     float: right;
-    background: url(../img/footer-arrow.png) top left no-repeat;
     width: 73px;
     height: 186px;
     position: absolute;
