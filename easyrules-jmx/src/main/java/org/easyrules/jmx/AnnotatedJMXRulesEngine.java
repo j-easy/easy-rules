@@ -35,8 +35,7 @@ import org.easyrules.jmx.util.MBeanManager;
  * 
  * @author Drem Darios (drem.darios@gmail.com)
  */
-public class AnnotatedJMXRulesEngine extends AnnotatedRulesEngine implements
-		JMXRulesEngine<Object> {
+public class AnnotatedJMXRulesEngine extends AnnotatedRulesEngine implements JMXRulesEngine<Object> {
 
 	/**
      * The MBean manager in which rule's MBeans will be registered.
@@ -46,14 +45,12 @@ public class AnnotatedJMXRulesEngine extends AnnotatedRulesEngine implements
 	@Override
 	public void registerJMXRule(Object rule) {
 		registerRule(rule);
-		rules.add(rule);
 		beanManager.registerJmxMBean((JMXRule)rule);
 	}
 
 	@Override
 	public void unregisterJMXRule(Object rule) {
 		unregisterRule(rule);
-		rules.remove(rule);
 		beanManager.unregisterJmxMBean((JMXRule)rule);
 	}
 
