@@ -1,18 +1,16 @@
-package org.easyrules.core.test.annotation.action;
-
-import org.easyrules.annotation.Condition;
-import org.easyrules.annotation.Rule;
+package org.easyrules.annotation;
 
 @Rule
-public class AnnotatedRuleWithoutActionMethod {
+public class AnnotatedRuleWithNotPublicConditionMethod {
 
     private boolean executed;
 
     @Condition
-    public boolean when() {
+    private boolean when() {
         return true;
     }
 
+    @Action
     public void then() throws Exception {
         executed = true;
     }

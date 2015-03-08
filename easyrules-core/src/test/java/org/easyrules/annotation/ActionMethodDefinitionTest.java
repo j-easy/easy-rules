@@ -1,4 +1,4 @@
-package org.easyrules.core.test.annotation.action;
+package org.easyrules.annotation;
 
 import org.easyrules.core.AnnotatedRulesEngine;
 import org.junit.Before;
@@ -20,19 +20,16 @@ public class ActionMethodDefinitionTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void actionMethodMustBeDefined() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithoutActionMethod());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void actionMethodMustBePublic() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithNotPublicActionMethod());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void actionMethodMustHaveNoArguments() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithActionMethodHavingArguments());
     }
 

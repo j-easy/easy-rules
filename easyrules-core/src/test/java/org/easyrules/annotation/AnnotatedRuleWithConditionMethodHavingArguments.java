@@ -1,8 +1,4 @@
-package org.easyrules.core.test.annotation.condition;
-
-import org.easyrules.annotation.Action;
-import org.easyrules.annotation.Condition;
-import org.easyrules.annotation.Rule;
+package org.easyrules.annotation;
 
 @Rule
 public class AnnotatedRuleWithConditionMethodHavingArguments {

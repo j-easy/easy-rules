@@ -1,4 +1,4 @@
-package org.easyrules.core.test.annotation.condition;
+package org.easyrules.annotation;
 
 import org.easyrules.core.AnnotatedRulesEngine;
 import org.junit.Before;
@@ -20,25 +20,21 @@ public class ConditionMethodDefinitionTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void conditionMethodMustBeDefined() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithoutCondition());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void conditionMethodMustBePublic() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithNotPublicConditionMethod());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void conditionMethodMustHaveNoArguments() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithConditionMethodHavingArguments());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void conditionMethodMustReturnBooleanType() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithConditionMethodHavingNonBooleanReturnType());
     }
 

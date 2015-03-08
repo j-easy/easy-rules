@@ -22,50 +22,58 @@
  *  THE SOFTWARE.
  */
 
-package org.easyrules.core.test.parameters;
+package org.easyrules.core;
 
 import org.easyrules.api.Rule;
 import org.easyrules.api.RulesEngine;
-import org.easyrules.core.DefaultRulesEngine;
-import org.easyrules.core.test.SimpleRule;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class of "Rule Priority Threshold" parameter of Easy Rules engine.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
+@RunWith(MockitoJUnitRunner.class)
 public class RulePriorityThresholdTest {
 
-    private SimpleRule rule1, rule2;
+    @Mock
+    private BasicRule rule1, rule2;
 
-    private RulesEngine<Rule> defaultRulesEngine;
+    private RulesEngine<Rule> rulesEngine;
 
     @Before
-    public void setup(){
+    public void setup() {
 
-        rule1 = new SimpleRule("r1","d1",1);
-        rule2 = new SimpleRule("r2","d2",2);
+        when(rule1.getName()).thenReturn("r1");
+        when(rule1.getPriority()).thenReturn(1);
+        when(rule1.evaluateConditions()).thenReturn(true);
 
-        defaultRulesEngine = new DefaultRulesEngine(1);
+        when(rule2.getName()).thenReturn("r2");
+        when(rule2.getPriority()).thenReturn(2);
+        when(rule2.evaluateConditions()).thenReturn(true);
+
+        rulesEngine = new DefaultRulesEngine(1);
     }
 
     @Test
-    public void rulesThatExceedPriorityThresholdMustNotBeExecuted() {
+    public void rulesThatExceedPriorityThresholdMustNotBeExecuted() throws Exception {
 
-        defaultRulesEngine.registerRule(rule1);
-        defaultRulesEngine.registerRule(rule2);
+        rulesEngine.registerRule(rule1);
+        rulesEngine.registerRule(rule2);
 
-        defaultRulesEngine.fireRules();
+        rulesEngine.fireRules();
 
         //Rule 1 should be executed
-        assertEquals(true, rule1.isExecuted());
+        verify(rule1).performActions();
 
         //Rule 2 should be skipped since its priority (2) exceeds priority threshold (1)
-        assertEquals(false, rule2.isExecuted());
+        verify(rule2, never()).performActions();
 
     }
 

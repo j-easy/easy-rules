@@ -1,11 +1,7 @@
-package org.easyrules.core.test.annotation.action;
-
-import org.easyrules.annotation.Action;
-import org.easyrules.annotation.Condition;
-import org.easyrules.annotation.Rule;
+package org.easyrules.annotation;
 
 @Rule
-public class AnnotatedRuleWithNotPublicActionMethod {
+public class AnnotatedRuleWithPriorityMethodHavingNonIntegerReturnType {
 
     private boolean executed;
 
@@ -21,6 +17,11 @@ public class AnnotatedRuleWithNotPublicActionMethod {
 
     public boolean isExecuted() {
         return executed;
+    }
+
+    @Priority
+    public String getPriority() {
+        return "1";
     }
 
 }

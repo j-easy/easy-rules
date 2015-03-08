@@ -22,44 +22,43 @@
  *  THE SOFTWARE.
  */
 
-package org.easyrules.core.test.parameters;
+package org.easyrules.core;
 
 import org.easyrules.api.Rule;
 import org.easyrules.api.RulesEngine;
-import org.easyrules.core.DefaultRulesEngine;
-import org.easyrules.core.test.SimpleRule;
-import org.easyrules.core.test.SimpleRuleThatThrowsException;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class of "skip on first applied rule" parameter of Easy Rules default engine.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
+@RunWith(MockitoJUnitRunner.class)
 public class SkipOnFirstAppliedRuleTest {
 
-    private SimpleRule rule1, rule2;
-
-    private SimpleRuleThatThrowsException rule0;
+    @Mock
+    private BasicRule rule0, rule1, rule2;
 
     private RulesEngine<Rule> rulesEngine;
 
     @Before
-    public void setup(){
+    public void setup() throws Exception {
 
-        rule1 = new SimpleRule("r1","d1",1);
-        rule2 = new SimpleRule("r2","d2",2);
-
-        rule0 = new SimpleRuleThatThrowsException("r0","d0",0);
+        setUpRule0();
+        setUpRule1();
+        setUpRule2();
 
         rulesEngine = new DefaultRulesEngine(true);
     }
 
     @Test
-    public void testSkipOnFirstAppliedRule() {
+    public void testSkipOnFirstAppliedRule() throws Exception {
 
         rulesEngine.registerRule(rule1);
         rulesEngine.registerRule(rule2);
@@ -67,29 +66,52 @@ public class SkipOnFirstAppliedRuleTest {
         rulesEngine.fireRules();
 
         //Rule 1 should be executed
-        assertEquals(true, rule1.isExecuted());
+        verify(rule1).performActions();
 
         //Rule 2 should be skipped since Rule 1 has been executed
-        assertEquals(false, rule2.isExecuted());
+        verify(rule2, never()).performActions();
 
     }
 
     @Test
-    public void testSkipOnFirstAppliedRuleWithException() {
+    public void testSkipOnFirstAppliedRuleWithException() throws Exception {
 
         rulesEngine.registerRule(rule0);
         rulesEngine.registerRule(rule1);
+        rulesEngine.registerRule(rule2);
 
         rulesEngine.fireRules();
 
         //If an exception occurs when executing Rule 0, Rule 1 should still be applied
+        verify(rule1).performActions();
 
-        //Rule 0 should throw an exception, hence not executed
-        assertEquals(false, rule0.isExecuted());
+        //Rule 2 should be skipped since Rule 1 has been executed
+        verify(rule2, never()).performActions();
 
-        //Rule 1 should be applied since there is no "firstAppliedRule" yet (Rule 0 has not been applied)
-        assertEquals(true, rule1.isExecuted());
+    }
 
+    private void setUpRule2() {
+        when(rule2.getName()).thenReturn("r2");
+        when(rule2.getPriority()).thenReturn(2);
+        when(rule2.evaluateConditions()).thenReturn(true);
+        when(rule2.compareTo(rule0)).thenReturn(1);
+        when(rule2.compareTo(rule1)).thenReturn(1);
+    }
+
+    private void setUpRule1() {
+        when(rule1.getName()).thenReturn("r1");
+        when(rule1.getPriority()).thenReturn(1);
+        when(rule1.evaluateConditions()).thenReturn(true);
+        when(rule1.compareTo(rule0)).thenReturn(1);
+    }
+
+    private void setUpRule0() throws Exception {
+        when(rule0.getName()).thenReturn("r0");
+        when(rule0.getPriority()).thenReturn(0);
+        when(rule0.evaluateConditions()).thenReturn(true);
+        final Exception exception = new Exception("fatal error!");
+        doThrow(exception).when(rule0).performActions();
+        when(rule0.compareTo(rule1)).thenReturn(-1);
     }
 
 }

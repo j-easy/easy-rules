@@ -1,10 +1,11 @@
-package org.easyrules.core.test.annotation;
+package org.easyrules.core;
 
-import org.easyrules.core.AnnotatedRulesEngine;
+import org.easyrules.annotation.SimpleAnnotatedRule;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -29,13 +30,13 @@ public class AnnotatedRulesEngineTest {
         rulesEngine.registerRule(simpleAnnotatedRule);
         rulesEngine.fireRules();
         //The annotated rule should be executed
-        assertEquals(true, simpleAnnotatedRule.isExecuted());
+        assertThat(simpleAnnotatedRule.isExecuted()).isTrue();
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void notAnnotatedRuleMustNotBeAccepted() {
-        //an exception should be throw at rule registration time
+        //an exception should be thrown at rule registration time
         rulesEngine.registerRule(new Object());
     }
 

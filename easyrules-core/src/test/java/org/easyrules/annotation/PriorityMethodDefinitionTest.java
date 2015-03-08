@@ -1,4 +1,4 @@
-package org.easyrules.core.test.annotation.priority;
+package org.easyrules.annotation;
 
 import org.easyrules.core.AnnotatedRulesEngine;
 import org.junit.Before;
@@ -20,25 +20,21 @@ public class PriorityMethodDefinitionTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void priorityMethodMustBeUnique() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithMoreThanOnePriorityMethod());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void priorityMethodMustBePublic() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithNotPublicPriorityMethod());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void priorityMethodMustHaveNoArguments() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithPriorityMethodHavingArguments());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void priorityMethodReturnTypeMustBeInteger() {
-        //an exception should be throw at rule registration time
         rulesEngine.registerRule(new AnnotatedRuleWithPriorityMethodHavingNonIntegerReturnType());
     }
 

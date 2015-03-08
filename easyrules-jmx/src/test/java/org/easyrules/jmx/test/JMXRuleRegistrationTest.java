@@ -10,7 +10,7 @@ import org.junit.Test;
 import javax.management.*;
 import java.lang.management.ManagementFactory;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test class for JMX managed rule registration.
@@ -39,8 +39,8 @@ public class JMXRuleRegistrationTest {
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
         ObjectName name = new ObjectName("org.easyrules.core.jmx:type=" + rule.getClass().getSimpleName() + ",name=" + rule.getName());
         MBeanInfo mBeanInfo = mBeanServer.getMBeanInfo(name);
-        assertNotNull(mBeanInfo);
-        assertTrue(mBeanServer.isRegistered(name));
+        assertThat(mBeanInfo).isNotNull();
+        assertThat(mBeanServer.isRegistered(name)).isTrue();
 
     }
 
@@ -52,7 +52,7 @@ public class JMXRuleRegistrationTest {
         //assert that the rule has been successfully unregistered form the JMX registry
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
         ObjectName name = new ObjectName("org.easyrules.core.jmx:type=" + rule.getClass().getSimpleName() + ",name=" + rule.getName());
-        assertFalse(mBeanServer.isRegistered(name));
+        assertThat(mBeanServer.isRegistered(name)).isFalse();
 
     }
 

@@ -22,13 +22,12 @@
  *  THE SOFTWARE.
  */
 
-package org.easyrules.core.test.parameters;
+package org.easyrules.core;
 
-import org.easyrules.core.BasicRule;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test class of rules priority comparison.
@@ -47,18 +46,18 @@ public class RulePriorityComparisonTest {
 
     @Test
     public void testLessThanRulePriorityComparison() {
-        assertEquals(-1, rule1.compareTo(rule2));
+        assertThat(rule1.compareTo(rule2)).isEqualTo(-1);
     }
 
     @Test
     public void testGreaterThanRulePriorityComparison() {
-        assertEquals(1, rule2.compareTo(rule1));
+        assertThat(rule2.compareTo(rule1)).isEqualTo(1);
     }
 
     @Test
     public void testSameRulePriorityComparison() {
         rule1.setPriority(2);
-        assertEquals(-1, rule1.compareTo(rule2));
+        assertThat(rule1.compareTo(rule2)).isEqualTo(-1);
     }
 
 }

@@ -1,13 +1,10 @@
-package org.easyrules.core.test.parameters;
+package org.easyrules.core;
 
 import org.easyrules.api.Rule;
 import org.easyrules.api.RulesEngine;
-import org.easyrules.core.DefaultRulesEngine;
-import org.easyrules.core.test.SimpleRule;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test class for {@link org.easyrules.core.DefaultRulesEngine}.
@@ -29,9 +26,9 @@ public class DefaultRulesEngineTest {
         engine.registerRule(rule3);
         engine.fireRules();
 
-        assertTrue(rule1.isExecuted());
-        assertTrue(rule2.isExecuted());
-        assertTrue(rule3.isExecuted());
+        assertThat(rule1.isExecuted()).isTrue();
+        assertThat(rule2.isExecuted()).isTrue();
+        assertThat(rule3.isExecuted()).isTrue();
 
     }
 
@@ -46,8 +43,39 @@ public class DefaultRulesEngineTest {
         engine.registerRule(rule2);
         engine.fireRules();
 
-        assertTrue(rule1.isExecuted());
-        assertFalse(rule2.isExecuted());
+        assertThat(rule1.isExecuted()).isTrue();
+        assertThat(rule2.isExecuted()).isFalse();
+
+    }
+
+    class SimpleRule extends BasicRule {
+
+        /**
+         * Has the rule been executed? .
+         */
+        protected boolean executed;
+
+        public SimpleRule(String name, String description) {
+            super(name, description);
+        }
+
+        public SimpleRule(String name, String description, int priority) {
+            super(name, description, priority);
+        }
+
+        @Override
+        public boolean evaluateConditions() {
+            return true;
+        }
+
+        @Override
+        public void performActions() throws Exception {
+            executed = true;
+        }
+
+        public boolean isExecuted() {
+            return executed;
+        }
 
     }
 }
