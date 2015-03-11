@@ -23,6 +23,6 @@
  */
 
 /**
- * This package contains Easy Rules public API.
+ * This package contains Easy Rules JMX support APIs.
  */
-package org.easyrules.api;
+package org.easyrules.jmx.api;

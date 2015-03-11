@@ -23,6 +23,6 @@
  */
 
 /**
- * This package contains the core Easy Rules implementation.
+ * This package contains Easy Rules core implementation.
  */
 package org.easyrules.core;
