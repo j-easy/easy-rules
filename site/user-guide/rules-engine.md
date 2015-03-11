@@ -7,7 +7,7 @@ next_section: user-guide/managing-rules
 doc: true
 ---
 
-Easy Rules engine handles a registry of rules with unique names. Each instance of Easy Rules engine can be seen as a separate namespace.
+Easy Rules engine holds a registry of rules with unique names. Each instance of Easy Rules engine can be seen as a separate namespace.
 
 Rules are applied according to their natural order.
 
@@ -46,7 +46,7 @@ You can specify these parameters at rules engine construction time.
 
 ## Create a default rules engine
 
-To create a default Easy Rules engine and register a rule, use the following snippet:
+To create a default rules engine and register a rule, use the following snippet:
 
 ```java
 RulesEngine<Rule> rulesEngine = new DefaultRulesEngine();
@@ -68,7 +68,7 @@ AnnotatedRulesEngine rulesEngine = new AnnotatedRulesEngine();
 rulesEngine.registerRule(myRule);
 ```
 
-As with default engine, you can fire rules using the following snippet :
+As with the default engine, you can fire rules using the following snippet :
 
 ```java
 rulesEngine.fireRules();

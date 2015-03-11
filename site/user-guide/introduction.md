@@ -17,5 +17,5 @@ Most business rules can be represented by the following rule definition:
 
 Easy Rules provides an abstraction for each of these key points that define a business rule.
 
-Next section will show you how to define a rule in Easy Rules either by extending a base class or by annotating your
+Next section will show you how to define a rule either by extending a base class provided by Easy Rules or by annotating your
 own domain class.

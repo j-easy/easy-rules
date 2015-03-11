@@ -20,6 +20,17 @@ All Easy Rules documentation can be found here : [http://www.easyrules.org](http
 
 You can find some slides about Easy Rules on [speaker deck](https://speakerdeck.com/benas/easy-rules).
 
+## Continuous integration
+[Jenkins job @ cloudbees.com](https://buildhive.cloudbees.com/job/benas/job/easy-rules/)
+
+## Current version
+
+* The current stable version is 1.3.0: [![Build Status](https://buildhive.cloudbees.com/job/benas/job/easy-rules/badge/icon)](https://buildhive.cloudbees.com/job/benas/job/easy-rules/)
+* The current development version is 1.3.1-SNAPSHOT
+
+## Agile Board
+[Backlog items @ waffle.io](https://waffle.io/benas/easy-rules)
+
 ## Contribution
 
 You are welcome to contribute to the project with pull requests on GitHub.
@@ -36,6 +47,11 @@ For any further question, you can use the [Gitter](https://gitter.im/benas/easy-
 * [Drem Darios](https://github.com/drem-darios)
 
 Thank you all for your contributions!
+
+## Credits
+
+Many thanks to [YourKit, LLC](https://www.yourkit.com/) for providing a free license of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/index.jsp) to kindly support the development of Easy Rules.
+![YourKit Java Profiler](https://www.yourkit.com/images/yklogo.png)
 
 ## License
 Easy Rules is released under the [MIT License](http://opensource.org/licenses/mit-license.php/):

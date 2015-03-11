@@ -1004,3 +1004,14 @@ code.option, code.flag, code.filter, code.output {
         display: inline;
     }
 }
+
+/* miscellaneous */
+
+.logo {
+    height: 80% !important;
+    width: 90% !important;
+    margin-top: 20px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+}

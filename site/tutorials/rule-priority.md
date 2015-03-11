@@ -78,7 +78,7 @@ The `markAsAdult` method annotated with `@Action` will mark the person as adult 
 
 Finally, the `getPriority` method annotated with `@Priority` tells Easy Rules engine to fire this rule in first order.
 
-Now, let's a class for rule 2:
+Now, let's create a class for rule 2:
 
 ```java
 @Rule(name = "alcoholRule",
@@ -152,12 +152,10 @@ If you run this tutorial, you would get the following output:
 
 ```
 Tom: Hi! can I have some Vodka please?
-Oct 13, 2014 9:37:14 PM org.easyrules.core.AnnotatedRulesEngine fireRules
 INFO: Rule alcoholRule triggered.
 Sorry Tom, you are not allowed to buy alcohol.
-Oct 13, 2014 9:37:14 PM org.easyrules.core.AnnotatedRulesEngine fireRules
 INFO: Rule alcoholRule performed successfully.
 ```
 
-As you can see, since Tom's age is under 18, he has not been allowed to buy alcohol as expected.
+As expected, since Tom's age is under 18, he has not been allowed to buy alcohol.
 

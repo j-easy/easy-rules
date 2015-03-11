@@ -46,6 +46,7 @@ overview: true
             <div class="shell">
                 <div class="highlight"><pre><code class="language-java" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 16px"><span class="kd">public class</span> <span class="nc">Test</span> <span class="o">{</span>
     <span class="kd">public static void</span> <span class="nf">main</span><span class="o">(</span>String<span class="o">[]</span> args<span class="o">)</span> <span class="o">{</span>
+
         <span class="c1">// create a rules engine</span>
         AnnotatedRulesEngine rulesEngine <span class="o">=</span>
                             <span class="k">new</span> AnnotatedRulesEngine<span class="o">();</span>
@@ -62,6 +63,7 @@ overview: true
             <div class="shell">
                 <div class="highlight"><pre><code class="language-java" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 16px"><span class="nd">@Rule</span> <span class="o">(</span>name <span class="o">=</span> <span class="s">"my awesome rule"</span> <span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRule</span> <span class="o">{</span>
+
     <span class="nd">@Condition</span>
     <span class="kd">public boolean</span> <span class="nf">when</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> true<span class="o">;</span>
@@ -84,7 +86,7 @@ overview: true
                 <div class="unit whole">
                     <div class="pane-content">
                         <h2>License</h2>
-                        <p>Easy Rules is open source, hosted on <a target="_blank" href="https://github.com/benas/easy-rules">GitHub</a> and is released under the <a target="_blank" href="http://opensource.org/licenses/mit-license.php/">MIT License</a>.</p>
+                        <p>Easy Rules is open source, hosted on <a target="_blank" href="https://github.com/benas/easy-rules">GitHub</a> and is released under the terms of the<a target="_blank" href="http://opensource.org/licenses/mit-license.php/">MIT License</a>.</p>
                     </div>
 
                     <div class="pane-content align-center">
@@ -94,6 +96,18 @@ overview: true
                                 allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
                         <iframe src="http://ghbtns.com/github-btn.html?user=benas&type=follow&count=true"
                                 allowtransparency="true" frameborder="0" scrolling="0" width="165" height="20"></iframe>
+                    </div>
+                    <div class="pane-content">
+                        <h2>Credits</h2>
+                        <div class="grid">
+                            <div class="unit four-fifths">
+                                <p>Many thanks to <a href="https://www.yourkit.com/" target="_blank">YourKit, LLC</a> for providing a free license of
+                                <a href="https://www.yourkit.com/java/profiler/index.jsp" target="_blank">YourKit Java Profiler</a> to kindly support the development of Easy Rules.</p>
+                            </div>
+                            <div class="unit one-fifth">
+                                <img class="logo" src="{{ site.url }}/img/yourkit.png" alt="yourkit profiler"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="clear"></div>

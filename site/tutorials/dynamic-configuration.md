@@ -18,7 +18,32 @@ In the second part, we will add JMX capability to the business rule developed in
 
 ## Part 1 : Implementing the business rule
 
-In this application, orders and customers are represented by the _Order_ and _Customer_ classes.
+In this application, orders and customers are represented by the _Order_ and _Customer_ classes:
+
+```java
+class Order {
+
+    private long orderId;
+
+    private float amount;
+
+    //getters and setters
+
+}
+```
+<br/>
+
+```java
+class Customer {
+
+    private long customerId;
+
+    private boolean isNew;
+
+    //getters and setters
+
+}
+```
 
 First, let's implement the rule's logic by extending the `BasicRule` class:
 
@@ -47,7 +72,7 @@ public class SuspectOrderRule extends BasicRule {
                 customer.getCustomerId(), order.getOrderId(), order.getAmount(), suspectOrderAmountThreshold);
     }
 
-    // getters and setters for customer and order fields omitted
+    // getters and setters for customer and order fields
 
 }
 ```
@@ -112,7 +137,7 @@ In this tutorial, we need to expose the order amount threshold as a JMX attribut
 
 ```java
 @javax.management.MXBean
-public interface SuspectOrderJmxRule extends Rule {
+public interface SuspectOrderJmxRule extends JMXRule {
 
     /**
      * Get the current suspect order amount threshold

@@ -71,14 +71,19 @@ public class MyRule {
     private BusinessData myBusinessData; //data to operate on
 
     @Condition
-    public boolean checkConditions() {
+    public boolean when() {
         //my rule conditions
         return true;
     }
 
-    @Action
-    public void performActions() throws Exception {
+    @Action(order = 1)
+    public void then() throws Exception {
         //my actions
+    }
+
+    @Action(order = 2)
+    public void finally() throws Exception {
+        //my final actions
     }
 
 }
@@ -98,16 +103,16 @@ respectively.
 
 Easy Rules allows you to create complex rules from primitive ones. A `CompositeRule` is composed of a set of rules.
 
-This is typically an implementation of the [composite design pattern](http://en.wikipedia.org/wiki/Composite_pattern).
+This is typically an implementation of the <a href="http://en.wikipedia.org/wiki/Composite_pattern" target="_blank">composite design pattern</a>.
 
-A composite rule is triggered if _all_ conditions of its composing rules are satisfied.
-When a composite rule is applied, actions of _all_ composing rules are performed in the natural order of
+A composite rule is triggered if **_all_** conditions of its composing rules are satisfied.
+When a composite rule is applied, actions of **_all_** composing rules are performed in the natural order of
 rules which is rules priorities by default.
 
 To create a composite rule from two primitive rules, you can use the following snippet:
 
 ```java
-//Create the composite rule from two primitive rules
+//Create a composite rule from two primitive rules
 CompositeRule myCompositeRule =
     new CompositeRule("myCompositeRule", "a composite rule");
 myCompositeRule.addRule(myRule1);

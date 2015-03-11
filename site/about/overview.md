@@ -14,7 +14,7 @@ Easy Rules is a simple yet powerful Java rules engine providing the following fe
 * The ability to create composite rules from primitive ones
 * Dynamic rule configuration at runtime using JMX
 
-In a very interesting [article](http://martinfowler.com/bliki/RulesEngine.html) about rules engines, [Martin Fowler](http://martinfowler.com/) says the following :
+In a very interesting <a href="http://martinfowler.com/bliki/RulesEngine.html" target="_blank">article</a> about rules engines, <a href="http://martinfowler.com/" target="_blank">Martin Fowler</a> says:
 
 >You can build a simple rules engine yourself. All you need is to create a bunch of objects with conditions and actions, store them in a collection, and run through them to evaluate the conditions and execute the actions.
 
