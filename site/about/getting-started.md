@@ -9,7 +9,7 @@ doc: true
 
 Easy Rules is a Java library. It requires a Java 1.5+ runtime.
 
-## Building form source
+## Building from source
 
 To build Easy Rules from sources, you need to have [git](http://www.git-scm.com) and [maven](http://maven.apache.org/) installed and set up.
 
