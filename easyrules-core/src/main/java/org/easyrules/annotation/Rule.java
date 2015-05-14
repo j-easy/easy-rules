@@ -44,12 +44,12 @@ public @interface Rule {
      * The rule name which must be unique within an rules registry.
      * @return The rule name
      */
-    public String name() default EasyRulesConstants.DEFAULT_RULE_NAME;
+    String name() default EasyRulesConstants.DEFAULT_RULE_NAME;
 
     /**
      * The rule description.
      * @return The rule description
      */
-    public String description() default  EasyRulesConstants.DEFAULT_RULE_DESCRIPTION;
+    String description() default  EasyRulesConstants.DEFAULT_RULE_DESCRIPTION;
 
 }
