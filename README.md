@@ -26,7 +26,7 @@ You can find some slides about Easy Rules on [speaker deck](https://speakerdeck.
 ## Current version
 
 * The current stable version is 1.3.0: [![Build Status](https://buildhive.cloudbees.com/job/benas/job/easy-rules/badge/icon)](https://buildhive.cloudbees.com/job/benas/job/easy-rules/)
-* The current development version is 1.4.0-SNAPSHOT. In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
+* The current development version is 2.0.0-SNAPSHOT. In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
 
 ```xml
 <repositories>
