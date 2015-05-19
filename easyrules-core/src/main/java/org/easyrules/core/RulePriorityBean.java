@@ -26,7 +26,13 @@ class RulePriorityBean implements Comparable<RulePriorityBean> {
 
     @Override
     public int compareTo(RulePriorityBean ruleBean) {
-        return new Integer(priority).compareTo(ruleBean.getPriority());
+        if (priority < ruleBean.getPriority()) {
+            return -1;
+        } else if (priority > ruleBean.getPriority()) {
+            return 1;
+        } else {
+            return rule.equals(ruleBean.getRule()) ? 0 : 1;
+        }
     }
 
     @Override

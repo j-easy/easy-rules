@@ -28,7 +28,13 @@ class ActionMethodOrderBean implements Comparable<ActionMethodOrderBean> {
 
     @Override
     public int compareTo(ActionMethodOrderBean actionMethodOrderBean) {
-        return new Integer(order).compareTo(actionMethodOrderBean.getOrder());
+        if (order < actionMethodOrderBean.getOrder()) {
+            return -1;
+        } else if (order > actionMethodOrderBean.getOrder()) {
+            return 1;
+        } else {
+            return method.equals(actionMethodOrderBean.getMethod()) ? 0 : 1;
+        }
     }
 
     @Override
