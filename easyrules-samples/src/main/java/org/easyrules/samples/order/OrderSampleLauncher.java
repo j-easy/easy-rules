@@ -24,9 +24,11 @@
 
 package org.easyrules.samples.order;
 
-import org.easyrules.jmx.DefaultJMXRulesEngine;
+import org.easyrules.api.JmxRulesEngine;
 
 import java.util.Scanner;
+
+import static org.easyrules.core.JmxRulesEngineBuilder.aNewJmxRulesEngine;
 
 /**
  * Launcher class of the order sample.
@@ -37,8 +39,8 @@ public class OrderSampleLauncher {
 
     public static void main(String[] args) throws InterruptedException {
 
-        Order order = new Order(6654, 1200);
-        Customer customer = new Customer(2356, true);
+        Order order = new Order(1234, 1200);
+        Customer customer = new Customer(5678, true);
 
         /**
          * Create a business rule instance
@@ -56,8 +58,8 @@ public class OrderSampleLauncher {
         /**
          * Create a default rules engine and register the business rule
          */
-        DefaultJMXRulesEngine rulesEngine = new DefaultJMXRulesEngine();
-        rulesEngine.registerJMXRule(suspectOrderRule);
+        JmxRulesEngine rulesEngine = aNewJmxRulesEngine().build();
+        rulesEngine.registerJmxRule(suspectOrderRule);
 
         /**
          * Fire rules

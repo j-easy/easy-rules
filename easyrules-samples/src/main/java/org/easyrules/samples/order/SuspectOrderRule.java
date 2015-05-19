@@ -44,12 +44,12 @@ public class SuspectOrderRule extends BasicRule implements SuspectOrderJmxRule {
     }
 
     @Override
-    public boolean evaluateConditions() {
+    public boolean evaluate() {
         return order.getAmount() > suspectOrderAmountThreshold && customer.isNew();
     }
 
     @Override
-    public void performActions() throws Exception {
+    public void execute() throws Exception {
         System.out.printf("Alert : A new customer [id=%s] has placed an order [id=%s] with amount %s > %s\n",
                 customer.getCustomerId(), order.getOrderId(), order.getAmount(), suspectOrderAmountThreshold);
     }

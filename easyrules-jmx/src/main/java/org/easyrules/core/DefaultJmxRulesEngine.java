@@ -24,58 +24,33 @@
 
 package org.easyrules.core;
 
-import org.easyrules.api.RulesEngine;
-
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.easyrules.api.JmxRulesEngine;
 
 /**
- * Abstract rules engine class.
+ * Default {@link JmxRulesEngine} implementation.
+ * <p/>
+ * This implementation handles a set of JMX rules with unique names.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Drem Darios (drem.darios@gmail.com)
  */
-public abstract class AbstractRulesEngine<R> implements RulesEngine<R> {
+public class DefaultJmxRulesEngine extends DefaultRulesEngine implements JmxRulesEngine {
 
-    private static final Logger LOGGER = Logger.getLogger(AbstractRulesEngine.class.getName());
+    private MBeanManager beanManager = new MBeanManager();
 
-    /**
-     * The rules set.
-     */
-    protected Set<R> rules;
-
-    /**
-     * Parameter to skip next applicable rules when a rule is applied.
-     */
-    protected boolean skipOnFirstAppliedRule;
-
-    /**
-     * Parameter to skip next rules if priority exceeds a user defined threshold.
-     */
-    protected int rulePriorityThreshold;
-
-    @Override
-    public void registerRule(R rule) {
-        rules.add(rule);
+    DefaultJmxRulesEngine(boolean skipOnFirstAppliedRule, int rulePriorityThreshold) {
+        super(skipOnFirstAppliedRule, rulePriorityThreshold);
     }
 
     @Override
-    public void unregisterRule(R rule) {
-        rules.remove(rule);
+    public void registerJmxRule(Object rule) {
+        super.registerRule(rule);
+        beanManager.registerJmxMBean(rule);
     }
 
     @Override
-    public abstract void fireRules();
-
-    @Override
-    public void clearRules() {
-        rules.clear();
-        LOGGER.info("Rules cleared.");
-    }
-
-    protected void logEngineParameters() {
-        LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", skipOnFirstAppliedRule);
-        LOGGER.log(Level.INFO, "Rule priority threshold: {0}", rulePriorityThreshold);
+    public void unregisterJmxRule(Object rule) {
+        super.unregisterRule(rule);
+        beanManager.unregisterJmxMBean(rule);
     }
 
 }

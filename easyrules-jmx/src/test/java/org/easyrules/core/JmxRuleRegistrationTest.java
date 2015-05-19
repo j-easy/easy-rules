@@ -1,9 +1,8 @@
-package org.easyrules.jmx.test;
+package org.easyrules.core;
 
-import org.easyrules.jmx.BasicJMXRule;
-import org.easyrules.jmx.DefaultJMXRulesEngine;
-import org.easyrules.jmx.api.JMXRule;
-import org.easyrules.jmx.api.JMXRulesEngine;
+import org.easyrules.api.JmxRule;
+import org.easyrules.api.JmxRulesEngine;
+import org.easyrules.api.Rule;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,29 +10,30 @@ import javax.management.*;
 import java.lang.management.ManagementFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.easyrules.core.JmxRulesEngineBuilder.aNewJmxRulesEngine;
 
 /**
  * Test class for JMX managed rule registration.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-public class JMXRuleRegistrationTest {
+public class JmxRuleRegistrationTest {
 
-    private JMXRule rule;
+    private JmxRule rule;
 
-    private JMXRulesEngine<JMXRule> rulesEngine;
+    private JmxRulesEngine rulesEngine;
 
     @Before
-    public void setup(){
+    public void setup() {
 
-        rule = new BasicJMXRule();
-        rulesEngine = new DefaultJMXRulesEngine();
+        rule = new BasicJmxRule();
+        rulesEngine = aNewJmxRulesEngine().build();
     }
 
     @Test
     public void testJmxRuleRegistration() throws MalformedObjectNameException, IntrospectionException, InstanceNotFoundException, ReflectionException {
 
-        rulesEngine.registerJMXRule(rule);
+        rulesEngine.registerJmxRule(rule);
 
         //assert that the rule has been successfully registered within the JMX registry
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
@@ -47,7 +47,7 @@ public class JMXRuleRegistrationTest {
     @Test
     public void testJmxRuleUnregistration() throws MalformedObjectNameException, IntrospectionException, InstanceNotFoundException, ReflectionException {
 
-        rulesEngine.unregisterJMXRule(rule);
+        rulesEngine.unregisterJmxRule(rule);
 
         //assert that the rule has been successfully unregistered form the JMX registry
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();

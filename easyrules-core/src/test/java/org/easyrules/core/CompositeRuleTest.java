@@ -1,6 +1,5 @@
 package org.easyrules.core;
 
-import org.easyrules.api.Rule;
 import org.easyrules.api.RulesEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,20 +22,26 @@ public class CompositeRuleTest {
 
     private CompositeRule compositeRule;
 
-    private RulesEngine<Rule> rulesEngine;
+    private RulesEngine rulesEngine;
 
     @Before
-    public void setup(){
+    public void setup() throws Exception {
 
         when(rule1.getName()).thenReturn("r1");
-        when(rule1.evaluateConditions()).thenReturn(true);
+        when(rule1.getDescription()).thenReturn("d1");
+        when(rule1.getPriority()).thenReturn(1);
+        when(rule1.evaluate()).thenReturn(true);
+        when(rule1.compareTo(rule2)).thenCallRealMethod();
 
         when(rule2.getName()).thenReturn("r2");
-        when(rule2.evaluateConditions()).thenReturn(true);
+        when(rule2.getDescription()).thenReturn("d2");
+        when(rule1.getPriority()).thenReturn(2);
+        when(rule2.evaluate()).thenReturn(true);
+        when(rule2.compareTo(rule1)).thenCallRealMethod();
 
         compositeRule = new CompositeRule("cr");
 
-        rulesEngine = new DefaultRulesEngine();
+        rulesEngine = new RulesEngineBuilder().build();
     }
 
     @Test
@@ -49,18 +54,16 @@ public class CompositeRuleTest {
 
         rulesEngine.fireRules();
 
-        //Rule 1 should be executed
-        verify(rule1).performActions();
+        verify(rule1).execute();
 
-        //Rule 2 should be executed
-        verify(rule2).performActions();
+        verify(rule2).execute();
 
     }
 
     @Test
     public void compositeRuleMustNotBeExecutedIfAComposingRuleEvaluatesToFalse() throws Exception {
 
-        when(rule2.evaluateConditions()).thenReturn(false);
+        when(rule2.evaluate()).thenReturn(false);
 
         compositeRule.addRule(rule1);
         compositeRule.addRule(rule2);
@@ -75,10 +78,10 @@ public class CompositeRuleTest {
          */
 
         //Rule 1 should not be executed
-        verify(rule1, never()).performActions();
+        verify(rule1, never()).execute();
 
         //Rule 2 should not be executed
-        verify(rule2, never()).performActions();
+        verify(rule2, never()).execute();
 
     }
 

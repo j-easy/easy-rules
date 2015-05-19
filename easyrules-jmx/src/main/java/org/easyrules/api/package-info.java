@@ -22,33 +22,7 @@
  *  THE SOFTWARE.
  */
 
-package org.easyrules.jmx.api;
-
-import org.easyrules.api.RulesEngine;
-
 /**
- * Decorates {@link org.easyrules.api.RulesEngine} to add handling of JMX 
- * rules.
- * @param <R> The rule type
- * 
- * @author Drem Darios (drem.darios@gmail.com)
+ * This package contains Easy Rules JMX support APIs.
  */
-public interface JMXRulesEngine<R> extends RulesEngine<R> {
-
-	/**
-     * Register a rule in the rules engine registry.
-     * This method also registers the rule as a JMX bean.
-     * The rule object <strong>must</strong> be JMX compliant.
-     *
-     * @param rule the rule to register
-     */
-    void registerJMXRule(R rule);
-
-    /**
-     * Unegister a rule from the rules engine registry.
-     * This method also unregisters the rule from MBean server.
-     *
-     * @param rule the rule to register
-     */
-    void unregisterJMXRule(R rule);
-}
+package org.easyrules.api;

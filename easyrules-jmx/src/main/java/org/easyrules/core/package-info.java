@@ -22,16 +22,7 @@
  *  THE SOFTWARE.
  */
 
-package org.easyrules.jmx;
-
-import org.easyrules.core.BasicRule;
-import org.easyrules.jmx.api.JMXRule;
-
 /**
- * An extension of {@link org.easyrules.core.BasicRule} that is supported by JMX.
- * 
- * @author Drem Darios (drem.darios@gmail.com)
+ * This package contains Easy Rules JMX support classes.
  */
-public class BasicJMXRule extends BasicRule implements JMXRule {
-
-}
+package org.easyrules.core;

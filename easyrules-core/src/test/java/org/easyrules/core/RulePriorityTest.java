@@ -24,7 +24,6 @@
 
 package org.easyrules.core;
 
-import org.easyrules.api.Rule;
 import org.easyrules.api.RulesEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,33 +31,39 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
- * Test class of "Rule Priority Threshold" parameter of Easy Rules engine.
+ * Test class of rules priority comparison.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 @RunWith(MockitoJUnitRunner.class)
-public class RulePriorityThresholdTest {
+public class RulePriorityTest {
 
     @Mock
     private BasicRule rule1, rule2;
 
-    private RulesEngine<Rule> rulesEngine;
+    private RulesEngine rulesEngine;
 
     @Before
     public void setup() {
 
         when(rule1.getName()).thenReturn("r1");
         when(rule1.getPriority()).thenReturn(1);
-        when(rule1.evaluateConditions()).thenReturn(true);
+        when(rule1.evaluate()).thenReturn(true);
+        when(rule1.compareTo(rule2)).thenReturn(-1);
 
         when(rule2.getName()).thenReturn("r2");
         when(rule2.getPriority()).thenReturn(2);
-        when(rule2.evaluateConditions()).thenReturn(true);
+        when(rule2.evaluate()).thenReturn(true);
+        when(rule2.compareTo(rule1)).thenReturn(1);
 
-        rulesEngine = new DefaultRulesEngine(1);
+        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
+                .withRulePriorityThreshold(1)
+                .build();
     }
 
     @Test
@@ -70,10 +75,10 @@ public class RulePriorityThresholdTest {
         rulesEngine.fireRules();
 
         //Rule 1 should be executed
-        verify(rule1).performActions();
+        verify(rule1).execute();
 
         //Rule 2 should be skipped since its priority (2) exceeds priority threshold (1)
-        verify(rule2, never()).performActions();
+        verify(rule2, never()).execute();
 
     }
 

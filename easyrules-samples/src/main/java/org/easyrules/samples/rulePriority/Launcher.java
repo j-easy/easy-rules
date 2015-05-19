@@ -1,6 +1,8 @@
 package org.easyrules.samples.rulePriority;
 
-import org.easyrules.core.AnnotatedRulesEngine;
+import org.easyrules.api.RulesEngine;
+
+import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 
 /**
  * Launcher class for rule priority tutorial.
@@ -16,14 +18,14 @@ public class Launcher {
         System.out.println("Tom: Hi! can I have some Vodka please?");
 
         //create a rules engine
-        AnnotatedRulesEngine annotatedRulesEngine = new AnnotatedRulesEngine();
+        RulesEngine rulesEngine = aNewRulesEngine().build();
 
         //register rules
-        annotatedRulesEngine.registerRule(new AgeRule(tom));
-        annotatedRulesEngine.registerRule(new AlcoholRule(tom));
+        rulesEngine.registerRule(new AgeRule(tom));
+        rulesEngine.registerRule(new AlcoholRule(tom));
 
         //fire rules
-        annotatedRulesEngine.fireRules();
+        rulesEngine.fireRules();
 
     }
 

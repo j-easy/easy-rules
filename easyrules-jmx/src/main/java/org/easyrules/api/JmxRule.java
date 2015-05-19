@@ -22,7 +22,16 @@
  *  THE SOFTWARE.
  */
 
+package org.easyrules.api;
+
+import javax.management.MXBean;
+
 /**
- * This package contains Easy Rules JMX support APIs.
+ * This is simply a Marker interface that decorates {@link org.easyrules.api.Rule} as being an MXBean interface.
+ * 
+ * @author Drem Darios (drem.darios@gmail.com)
  */
-package org.easyrules.jmx.api;
+@MXBean
+public interface JmxRule extends Rule {
+
+}

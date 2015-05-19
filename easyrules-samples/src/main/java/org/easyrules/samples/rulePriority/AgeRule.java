@@ -13,9 +13,9 @@ import org.easyrules.annotation.Rule;
 @Rule(name = "AgeRule", description = "Check if person's age is > 18 and marks the person as adult")
 public class AgeRule {
 
-    private Person person;
+    private static final int ADULT_AGE = 18;
 
-    private int adultAge = 18;
+    private Person person;
 
     public AgeRule(Person person) {
         this.person = person;
@@ -23,7 +23,7 @@ public class AgeRule {
 
     @Condition
     public boolean isAdult() {
-        return person.getAge() > adultAge;
+        return person.getAge() > ADULT_AGE;
     }
 
     @Action

@@ -22,37 +22,30 @@
  *  THE SOFTWARE.
  */
 
-package org.easyrules.jmx;
-
-import org.easyrules.core.AnnotatedRulesEngine;
-import org.easyrules.jmx.api.JMXRule;
-import org.easyrules.jmx.api.JMXRulesEngine;
-import org.easyrules.jmx.util.MBeanManager;
+package org.easyrules.api;
 
 /**
- * An extension of {@link org.easyrules.core.AnnotatedRulesEngine} that also handles
- * JMX rules.
- * 
+ * Decorates {@link org.easyrules.api.RulesEngine} to add handling of JMX
+ * rules.
+ *
  * @author Drem Darios (drem.darios@gmail.com)
  */
-public class AnnotatedJMXRulesEngine extends AnnotatedRulesEngine implements JMXRulesEngine<Object> {
+public interface JmxRulesEngine extends RulesEngine {
 
-	/**
-     * The MBean manager in which rule's MBeans will be registered.
+    /**
+     * Register a rule in the rules engine registry.
+     * This method also registers the rule as a JMX bean.
+     * The rule object <strong>must</strong> be JMX compliant.
+     *
+     * @param rule the rule to register
      */
-	private MBeanManager beanManager = new MBeanManager();
-    
-	@Override
-	public void registerJMXRule(Object rule) {
-		registerRule(rule);
-		beanManager.registerJmxMBean((JMXRule)rule);
-	}
+    void registerJmxRule(Object rule);
 
-	@Override
-	public void unregisterJMXRule(Object rule) {
-		unregisterRule(rule);
-		beanManager.unregisterJmxMBean((JMXRule)rule);
-	}
-
-
+    /**
+     * Unegister a rule from the rules engine registry.
+     * This method also unregisters the rule from MBean server.
+     *
+     * @param rule the rule to register
+     */
+    void unregisterJmxRule(Object rule);
 }

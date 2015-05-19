@@ -26,23 +26,22 @@ package org.easyrules.api;
 
 /**
  * Rules engine interface.
- * @param <R> The rule type
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-public interface RulesEngine<R> {
+public interface RulesEngine {
 
     /**
      * Register a rule in the rules engine registry.
      * @param rule the rule to register
      */
-    void registerRule(R rule);
+    void registerRule(Object rule);
 
     /**
      * Unregister a rule from the rules engine registry.
      * @param rule the rule to unregister
      */
-    void unregisterRule(R rule);
+    void unregisterRule(Object rule);
 
     /**
      * Fire all registered rules.

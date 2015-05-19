@@ -47,33 +47,21 @@ public interface Rule {
     String getDescription();
 
     /**
-     * Setter for rule description.
-     * @param description new rule description
-     */
-    void setDescription(String description);
-
-    /**
      * Getter for rule priority.
      * @return rule priority
      */
     int getPriority();
 
     /**
-     * Setter for rule priority.
-     * @param priority the priority to set
-     */
-    void setPriority(int priority);
-
-    /**
      * Rule conditions abstraction : this method encapsulates the rule's conditions.
      * @return true if the rule should be applied, false else
      */
-    boolean evaluateConditions();
+    boolean evaluate();
 
     /**
      * Rule actions abstraction : this method encapsulates the rule's actions.
      * @throws Exception thrown if an exception occurs during actions performing
      */
-    void performActions() throws Exception;
+    void execute() throws Exception;
 
 }

@@ -25,11 +25,13 @@
 package org.easyrules.core;
 
 import org.easyrules.api.Rule;
-import org.easyrules.util.EasyRulesConstants;
+import org.easyrules.api.RulesEngine;
 
-import java.util.TreeSet;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.util.Arrays.asList;
 
 /**
  * Default {@link org.easyrules.api.RulesEngine} implementation.
@@ -40,42 +42,45 @@ import java.util.logging.Logger;
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
+class DefaultRulesEngine implements RulesEngine {
 
-    private static final Logger LOGGER = Logger.getLogger(DefaultRulesEngine.class.getName());
-
-    /**
-     * Construct a default rules engine with default values.
-     */
-    public DefaultRulesEngine() {
-        this(false, EasyRulesConstants.DEFAULT_RULE_PRIORITY_THRESHOLD);
-    }
+    private static final Logger LOGGER = Logger.getLogger(RulesEngine.class.getName());
 
     /**
-     * Constructs a default rules engine.
-     * @param skipOnFirstAppliedRule true if the engine should skip next rule after the first applied rule
+     * The rules set.
      */
-    public DefaultRulesEngine(boolean skipOnFirstAppliedRule) {
-        this(skipOnFirstAppliedRule, EasyRulesConstants.DEFAULT_RULE_PRIORITY_THRESHOLD);
-    }
+    private Set<Rule> rules;
 
     /**
-     * Constructs a default rules engine.
-     * @param rulePriorityThreshold rule priority threshold
+     * Parameter to skip next applicable rules when a rule is applied.
      */
-    public DefaultRulesEngine(int rulePriorityThreshold) {
-        this(false, rulePriorityThreshold);
-    }
+    private boolean skipOnFirstAppliedRule;
 
     /**
-     * Constructs a default rules engine.
-     * @param skipOnFirstAppliedRule true if the engine should skip next rule after the first applied rule
-     * @param rulePriorityThreshold rule priority threshold
+     * Parameter to skip next rules if priority exceeds a user defined threshold.
      */
-    public DefaultRulesEngine(boolean skipOnFirstAppliedRule, int rulePriorityThreshold) {
+    private int rulePriorityThreshold;
+
+    DefaultRulesEngine(boolean skipOnFirstAppliedRule, int rulePriorityThreshold) {
         rules = new TreeSet<Rule>();
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
         this.rulePriorityThreshold = rulePriorityThreshold;
+    }
+
+    @Override
+    public void registerRule(Object rule) {
+        rules.add(asRule(rule));
+    }
+
+    @Override
+    public void unregisterRule(Object rule) {
+        rules.remove(asRule(rule));
+    }
+
+    @Override
+    public void clearRules() {
+        rules.clear();
+        LOGGER.info("Rules cleared.");
     }
 
     @Override
@@ -87,18 +92,22 @@ public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
         }
 
         logEngineParameters();
-
+        sortRules();
         applyRules();
 
     }
 
-    protected void applyRules() {
+    private void sortRules() {
+        rules = new TreeSet<Rule>(rules);
+    }
+
+    private void applyRules() {
 
         for (Rule rule : rules) {
 
             final String ruleName = rule.getName();
-
             final int rulePriority = rule.getPriority();
+
             if (rulePriority > rulePriorityThreshold) {
                 LOGGER.log(Level.INFO,
                         "Rule priority threshold {0} exceeded at rule ''{1}'' (priority={2}), next applicable rules will be skipped.",
@@ -106,11 +115,10 @@ public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
                 break;
             }
 
-            final boolean shouldApplyRule = rule.evaluateConditions();
-            if (shouldApplyRule) {
+            if (rule.evaluate()) {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' triggered.", ruleName);
                 try {
-                    rule.performActions();
+                    rule.execute();
                     LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully.", ruleName);
 
                     if (skipOnFirstAppliedRule) {
@@ -120,10 +128,37 @@ public class DefaultRulesEngine extends AbstractRulesEngine<Rule> {
                 } catch (Exception exception) {
                     LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error.", ruleName), exception);
                 }
+            } else {
+                LOGGER.log(Level.INFO, "Rule ''{0}'' has been evaluated to false, it has not been executed.", ruleName);
             }
 
         }
 
+    }
+
+    private void logEngineParameters() {
+        LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", skipOnFirstAppliedRule);
+        LOGGER.log(Level.INFO, "Rule priority threshold: {0}", rulePriorityThreshold);
+    }
+
+    private Rule asRule(Object rule) {
+        Rule result;
+        if (getInterfaces(rule).contains(Rule.class)) {
+            result = (Rule) rule;
+        } else {
+            result = RuleProxy.asRule(rule);
+        }
+        return result;
+    }
+
+    private List<Class> getInterfaces(Object rule) {
+        List<Class> interfaces = new ArrayList<Class>();
+        Class clazz = rule.getClass();
+        while(clazz.getSuperclass() != null) {
+            interfaces.addAll(asList(clazz.getInterfaces()));
+            clazz = clazz.getSuperclass();
+        }
+        return interfaces;
     }
 
 }

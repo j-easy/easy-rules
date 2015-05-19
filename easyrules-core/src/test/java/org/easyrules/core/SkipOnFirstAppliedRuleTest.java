@@ -24,7 +24,6 @@
 
 package org.easyrules.core;
 
-import org.easyrules.api.Rule;
 import org.easyrules.api.RulesEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +44,7 @@ public class SkipOnFirstAppliedRuleTest {
     @Mock
     private BasicRule rule0, rule1, rule2;
 
-    private RulesEngine<Rule> rulesEngine;
+    private RulesEngine rulesEngine;
 
     @Before
     public void setup() throws Exception {
@@ -54,7 +53,9 @@ public class SkipOnFirstAppliedRuleTest {
         setUpRule1();
         setUpRule2();
 
-        rulesEngine = new DefaultRulesEngine(true);
+        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
+                .withSkipOnFirstAppliedRule(true)
+                .build();
     }
 
     @Test
@@ -66,10 +67,10 @@ public class SkipOnFirstAppliedRuleTest {
         rulesEngine.fireRules();
 
         //Rule 1 should be executed
-        verify(rule1).performActions();
+        verify(rule1).execute();
 
         //Rule 2 should be skipped since Rule 1 has been executed
-        verify(rule2, never()).performActions();
+        verify(rule2, never()).execute();
 
     }
 
@@ -83,17 +84,17 @@ public class SkipOnFirstAppliedRuleTest {
         rulesEngine.fireRules();
 
         //If an exception occurs when executing Rule 0, Rule 1 should still be applied
-        verify(rule1).performActions();
+        verify(rule1).execute();
 
         //Rule 2 should be skipped since Rule 1 has been executed
-        verify(rule2, never()).performActions();
+        verify(rule2, never()).execute();
 
     }
 
     private void setUpRule2() {
         when(rule2.getName()).thenReturn("r2");
         when(rule2.getPriority()).thenReturn(2);
-        when(rule2.evaluateConditions()).thenReturn(true);
+        when(rule2.evaluate()).thenReturn(true);
         when(rule2.compareTo(rule0)).thenReturn(1);
         when(rule2.compareTo(rule1)).thenReturn(1);
     }
@@ -101,16 +102,16 @@ public class SkipOnFirstAppliedRuleTest {
     private void setUpRule1() {
         when(rule1.getName()).thenReturn("r1");
         when(rule1.getPriority()).thenReturn(1);
-        when(rule1.evaluateConditions()).thenReturn(true);
+        when(rule1.evaluate()).thenReturn(true);
         when(rule1.compareTo(rule0)).thenReturn(1);
     }
 
     private void setUpRule0() throws Exception {
         when(rule0.getName()).thenReturn("r0");
         when(rule0.getPriority()).thenReturn(0);
-        when(rule0.evaluateConditions()).thenReturn(true);
+        when(rule0.evaluate()).thenReturn(true);
         final Exception exception = new Exception("fatal error!");
-        doThrow(exception).when(rule0).performActions();
+        doThrow(exception).when(rule0).execute();
         when(rule0.compareTo(rule1)).thenReturn(-1);
     }
 

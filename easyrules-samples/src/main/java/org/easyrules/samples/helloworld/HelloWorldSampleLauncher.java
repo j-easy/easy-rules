@@ -24,9 +24,11 @@
 
 package org.easyrules.samples.helloworld;
 
-import org.easyrules.core.AnnotatedRulesEngine;
+import org.easyrules.api.RulesEngine;
 
 import java.util.Scanner;
+
+import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 
 /**
  * Launcher class of the Hello World sample.
@@ -54,7 +56,8 @@ public class HelloWorldSampleLauncher {
         /**
          * Create a rules engine and register the business rule
          */
-        AnnotatedRulesEngine rulesEngine = new AnnotatedRulesEngine();
+        RulesEngine rulesEngine = aNewRulesEngine().build();
+
         rulesEngine.registerRule(helloWorldRule);
 
         /**
