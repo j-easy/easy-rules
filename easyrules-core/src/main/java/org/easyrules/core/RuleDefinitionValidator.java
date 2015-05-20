@@ -4,7 +4,7 @@ import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Priority;
 import org.easyrules.annotation.Rule;
-import org.easyrules.util.EasyRulesConstants;
+import org.easyrules.util.Utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
@@ -70,7 +70,7 @@ class RuleDefinitionValidator {
         List<Method> priorityMethods = getMethodsAnnotatedWith(Priority.class, rule);
 
         if (priorityMethods.isEmpty()) {
-            return EasyRulesConstants.DEFAULT_RULE_PRIORITY;
+            return Utils.DEFAULT_RULE_PRIORITY;
         }
 
         if (priorityMethods.size() > 1) {

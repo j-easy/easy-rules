@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -28,7 +29,7 @@ public class DefaultRulesEngineTest {
     public void setup() {
         simpleRule = new SimpleRule();
         simpleAnnotatedRule = new SimpleAnnotatedRule();
-        rulesEngine = new RulesEngineBuilder().build();
+        rulesEngine = aNewRulesEngine().build();
     }
 
     @Test
@@ -70,7 +71,7 @@ public class DefaultRulesEngineTest {
         SimpleRule rule1 = new SimpleRule("rule 1", "description 1", 0);
         SimpleRule rule2 = new SimpleRule("rule 1", "description 1", 0);
 
-        RulesEngine engine = new RulesEngineBuilder().build();
+        RulesEngine engine = aNewRulesEngine().build();
         engine.registerRule(rule1);
         engine.registerRule(rule2);
         engine.fireRules();

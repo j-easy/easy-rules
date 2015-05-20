@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 import static org.mockito.Mockito.*;
 
 /**
@@ -41,7 +42,7 @@ public class CompositeRuleTest {
 
         compositeRule = new CompositeRule("cr");
 
-        rulesEngine = new RulesEngineBuilder().build();
+        rulesEngine = aNewRulesEngine().build();
     }
 
     @Test

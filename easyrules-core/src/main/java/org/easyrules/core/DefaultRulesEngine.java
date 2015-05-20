@@ -33,8 +33,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static java.util.Arrays.asList;
-
 /**
  * Default {@link org.easyrules.api.RulesEngine} implementation.
  *
@@ -136,7 +134,7 @@ class DefaultRulesEngine implements RulesEngine {
             if (rule.evaluate()) {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' triggered.", ruleName);
                 try {
-                    triggerListenersBefore(rule);
+                    triggerListenersBeforeExecute(rule);
                     rule.execute();
                     LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully.", ruleName);
                     triggerListenersOnSuccess(rule);
@@ -173,7 +171,7 @@ class DefaultRulesEngine implements RulesEngine {
         }
     }
 
-    private void triggerListenersBefore(Rule rule) {
+    private void triggerListenersBeforeExecute(Rule rule) {
         for (RuleListener ruleListener : ruleListeners) {
             ruleListener.beforeExecute(rule);
         }
@@ -187,22 +185,12 @@ class DefaultRulesEngine implements RulesEngine {
 
     private Rule asRule(Object rule) {
         Rule result;
-        if (getInterfaces(rule).contains(Rule.class)) {
+        if (Utils.getInterfaces(rule).contains(Rule.class)) {
             result = (Rule) rule;
         } else {
             result = RuleProxy.asRule(rule);
         }
         return result;
-    }
-
-    private List<Class> getInterfaces(Object rule) {
-        List<Class> interfaces = new ArrayList<Class>();
-        Class clazz = rule.getClass();
-        while(clazz.getSuperclass() != null) {
-            interfaces.addAll(asList(clazz.getInterfaces()));
-            clazz = clazz.getSuperclass();
-        }
-        return interfaces;
     }
 
 }

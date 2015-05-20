@@ -4,7 +4,7 @@ import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Priority;
 import org.easyrules.annotation.Rule;
-import org.easyrules.util.EasyRulesConstants;
+import org.easyrules.util.Utils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -84,7 +84,7 @@ class RuleProxy implements InvocationHandler {
     }
 
     private int getPriority() throws Exception {
-        int priority = EasyRulesConstants.DEFAULT_RULE_PRIORITY;
+        int priority = Utils.DEFAULT_RULE_PRIORITY;
 
         Method[] methods = getMethods();
         for (Method method : methods) {

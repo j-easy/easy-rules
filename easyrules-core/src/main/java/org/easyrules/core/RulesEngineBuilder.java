@@ -1,11 +1,16 @@
 package org.easyrules.core;
 
 import org.easyrules.api.RuleListener;
-import org.easyrules.util.EasyRulesConstants;
+import org.easyrules.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Builder for rules engine instances.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ */
 public class RulesEngineBuilder {
 
     private boolean skipOnFirstAppliedRule;
@@ -22,11 +27,11 @@ public class RulesEngineBuilder {
         return new RulesEngineBuilder();
     }
 
-    public RulesEngineBuilder() {
+    private RulesEngineBuilder() {
         skipOnFirstAppliedRule = false;
         skipOnFirstFailedRule = false;
         ruleListeners = new ArrayList<RuleListener>();
-        rulePriorityThreshold = EasyRulesConstants.DEFAULT_RULE_PRIORITY_THRESHOLD;
+        rulePriorityThreshold = Utils.DEFAULT_RULE_PRIORITY_THRESHOLD;
     }
 
     public RulesEngineBuilder withSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule) {

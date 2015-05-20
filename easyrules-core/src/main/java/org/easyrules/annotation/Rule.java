@@ -24,7 +24,7 @@
 
 package org.easyrules.annotation;
 
-import org.easyrules.util.EasyRulesConstants;
+import org.easyrules.util.Utils;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -44,12 +44,12 @@ public @interface Rule {
      * The rule name which must be unique within an rules registry.
      * @return The rule name
      */
-    String name() default EasyRulesConstants.DEFAULT_RULE_NAME;
+    String name() default Utils.DEFAULT_RULE_NAME;
 
     /**
      * The rule description.
      * @return The rule description
      */
-    String description() default  EasyRulesConstants.DEFAULT_RULE_DESCRIPTION;
+    String description() default  Utils.DEFAULT_RULE_DESCRIPTION;
 
 }

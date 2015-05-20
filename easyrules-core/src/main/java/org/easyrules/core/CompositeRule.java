@@ -25,7 +25,7 @@
 package org.easyrules.core;
 
 import org.easyrules.api.Rule;
-import org.easyrules.util.EasyRulesConstants;
+import org.easyrules.util.Utils;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -46,17 +46,15 @@ public class CompositeRule extends BasicRule {
     protected Set<Rule> rules;
 
     public CompositeRule() {
-        this(EasyRulesConstants.DEFAULT_RULE_NAME,
-                EasyRulesConstants.DEFAULT_RULE_DESCRIPTION,
-                EasyRulesConstants.DEFAULT_RULE_PRIORITY);
+        this(Utils.DEFAULT_RULE_NAME, Utils.DEFAULT_RULE_DESCRIPTION, Utils.DEFAULT_RULE_PRIORITY);
     }
 
     public CompositeRule(final String name) {
-        this(name, EasyRulesConstants.DEFAULT_RULE_DESCRIPTION, EasyRulesConstants.DEFAULT_RULE_PRIORITY);
+        this(name, Utils.DEFAULT_RULE_DESCRIPTION, Utils.DEFAULT_RULE_PRIORITY);
     }
 
     public CompositeRule(final String name, final String description) {
-        this(name, description, EasyRulesConstants.DEFAULT_RULE_PRIORITY);
+        this(name, description, Utils.DEFAULT_RULE_PRIORITY);
     }
 
     public CompositeRule(final String name, final String description, final int priority) {

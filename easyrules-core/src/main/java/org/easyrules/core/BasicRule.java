@@ -25,7 +25,7 @@
 package org.easyrules.core;
 
 import org.easyrules.api.Rule;
-import org.easyrules.util.EasyRulesConstants;
+import org.easyrules.util.Utils;
 
 import javax.management.MXBean;
 
@@ -56,17 +56,15 @@ public class BasicRule implements Rule, Comparable<Rule> {
     protected int priority;
 
     public BasicRule() {
-        this(EasyRulesConstants.DEFAULT_RULE_NAME,
-                EasyRulesConstants.DEFAULT_RULE_DESCRIPTION,
-                EasyRulesConstants.DEFAULT_RULE_PRIORITY);
+        this(Utils.DEFAULT_RULE_NAME, Utils.DEFAULT_RULE_DESCRIPTION, Utils.DEFAULT_RULE_PRIORITY);
     }
 
     public BasicRule(final String name) {
-        this(name, EasyRulesConstants.DEFAULT_RULE_DESCRIPTION, EasyRulesConstants.DEFAULT_RULE_PRIORITY);
+        this(name, Utils.DEFAULT_RULE_DESCRIPTION, Utils.DEFAULT_RULE_PRIORITY);
     }
 
     public BasicRule(final String name, final String description) {
-        this(name, description, EasyRulesConstants.DEFAULT_RULE_PRIORITY);
+        this(name, description, Utils.DEFAULT_RULE_PRIORITY);
     }
 
     public BasicRule(final String name, final String description, final int priority) {
