@@ -41,7 +41,7 @@ import static org.mockito.Mockito.when;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 @RunWith(MockitoJUnitRunner.class)
-public class RulePriorityTest {
+public class RulePriorityThresholdTest {
 
     @Mock
     private BasicRule rule1, rule2;

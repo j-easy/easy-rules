@@ -13,7 +13,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        RulePriorityTest.class,
+        RulePriorityThresholdTest.class,
         SkipOnFirstAppliedRuleTest.class,
         SkipOnFirstFailedRuleTest.class,
         RuleListenerTest.class,
