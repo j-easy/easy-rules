@@ -17,6 +17,7 @@ import org.junit.runners.Suite;
         SkipOnFirstAppliedRuleTest.class,
         SkipOnFirstFailedRuleTest.class,
         RuleListenerTest.class,
+        CustomRuleOrderingTest.class,
         CompositeRuleTest.class,
         RuleDefinitionValidatorTest.class,
         DefaultRulesEngineTest.class})
