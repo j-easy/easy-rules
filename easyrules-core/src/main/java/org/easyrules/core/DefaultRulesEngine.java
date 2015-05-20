@@ -27,6 +27,7 @@ package org.easyrules.core;
 import org.easyrules.api.Rule;
 import org.easyrules.api.RuleListener;
 import org.easyrules.api.RulesEngine;
+import org.easyrules.util.Utils;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -73,12 +74,15 @@ class DefaultRulesEngine implements RulesEngine {
     private List<RuleListener> ruleListeners;
 
     DefaultRulesEngine(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule,
-                       int rulePriorityThreshold, List<RuleListener> ruleListeners) {
+                       int rulePriorityThreshold, List<RuleListener> ruleListeners, boolean silentMode) {
         rules = new TreeSet<Rule>();
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
         this.rulePriorityThreshold = rulePriorityThreshold;
         this.ruleListeners = ruleListeners;
+        if (silentMode) {
+            Utils.muteLoggers();
+        }
     }
 
     @Override

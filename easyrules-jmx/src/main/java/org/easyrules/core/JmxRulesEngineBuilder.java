@@ -12,6 +12,8 @@ public class JmxRulesEngineBuilder {
 
     private boolean skipOnFirstFailedRule;
 
+    private boolean silentMode;
+
     private int rulePriorityThreshold;
 
     private List<RuleListener> ruleListeners;
@@ -47,8 +49,14 @@ public class JmxRulesEngineBuilder {
         return this;
     }
 
+    public JmxRulesEngineBuilder withSilentMode(boolean silentMode) {
+        this.silentMode = silentMode;
+        return this;
+    }
+
     public DefaultJmxRulesEngine build() {
-        return new DefaultJmxRulesEngine(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold, ruleListeners);
+        return new DefaultJmxRulesEngine(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold,
+                ruleListeners, silentMode);
     }
 
 }

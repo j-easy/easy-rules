@@ -12,6 +12,8 @@ public class RulesEngineBuilder {
 
     private boolean skipOnFirstFailedRule;
 
+    private boolean silentMode;
+
     private int rulePriorityThreshold;
 
     private List<RuleListener> ruleListeners;
@@ -47,8 +49,14 @@ public class RulesEngineBuilder {
         return this;
     }
 
+    public RulesEngineBuilder withSilentMode(boolean silentMode) {
+        this.silentMode = silentMode;
+        return this;
+    }
+
     public DefaultRulesEngine build() {
-        return new DefaultRulesEngine(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold, ruleListeners);
+        return new DefaultRulesEngine(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold,
+                ruleListeners, silentMode);
     }
 
 }
