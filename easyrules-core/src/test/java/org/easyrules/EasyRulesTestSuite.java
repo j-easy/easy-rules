@@ -12,9 +12,11 @@ import org.junit.runners.Suite;
  */
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses( {
+@Suite.SuiteClasses({
         RulePriorityTest.class,
         SkipOnFirstAppliedRuleTest.class,
+        SkipOnFirstFailedRuleTest.class,
+        RuleListenerTest.class,
         CompositeRuleTest.class,
         RuleDefinitionValidatorTest.class,
         DefaultRulesEngineTest.class})

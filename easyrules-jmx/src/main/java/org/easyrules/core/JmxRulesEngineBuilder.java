@@ -1,6 +1,10 @@
 package org.easyrules.core;
 
+import org.easyrules.api.RuleListener;
 import org.easyrules.util.EasyRulesConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class JmxRulesEngineBuilder {
 
@@ -10,12 +14,16 @@ public class JmxRulesEngineBuilder {
 
     private int rulePriorityThreshold;
 
+    private List<RuleListener> ruleListeners;
+
     public static JmxRulesEngineBuilder aNewJmxRulesEngine() {
         return new JmxRulesEngineBuilder();
     }
 
     public JmxRulesEngineBuilder() {
         skipOnFirstAppliedRule = false;
+        skipOnFirstFailedRule = false;
+        ruleListeners = new ArrayList<RuleListener>();
         rulePriorityThreshold = EasyRulesConstants.DEFAULT_RULE_PRIORITY_THRESHOLD;
     }
 
@@ -34,8 +42,13 @@ public class JmxRulesEngineBuilder {
         return this;
     }
 
+    public JmxRulesEngineBuilder withRuleListener(RuleListener ruleListener) {
+        this.ruleListeners.add(ruleListener);
+        return this;
+    }
+
     public DefaultJmxRulesEngine build() {
-        return new DefaultJmxRulesEngine(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold);
+        return new DefaultJmxRulesEngine(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold, ruleListeners);
     }
 
 }

@@ -25,6 +25,7 @@
 package org.easyrules.core;
 
 import org.easyrules.api.Rule;
+import org.easyrules.api.RuleListener;
 import org.easyrules.api.RulesEngine;
 
 import java.util.*;
@@ -66,11 +67,18 @@ class DefaultRulesEngine implements RulesEngine {
      */
     private int rulePriorityThreshold;
 
-    DefaultRulesEngine(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule,int rulePriorityThreshold) {
+    /**
+     * The registered rule listeners.
+     */
+    private List<RuleListener> ruleListeners;
+
+    DefaultRulesEngine(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule,
+                       int rulePriorityThreshold, List<RuleListener> ruleListeners) {
         rules = new TreeSet<Rule>();
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
         this.rulePriorityThreshold = rulePriorityThreshold;
+        this.ruleListeners = ruleListeners;
     }
 
     @Override
@@ -124,8 +132,10 @@ class DefaultRulesEngine implements RulesEngine {
             if (rule.evaluate()) {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' triggered.", ruleName);
                 try {
+                    triggerListenersBefore(rule);
                     rule.execute();
                     LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully.", ruleName);
+                    triggerListenersOnSuccess(rule);
 
                     if (skipOnFirstAppliedRule) {
                         LOGGER.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
@@ -133,6 +143,7 @@ class DefaultRulesEngine implements RulesEngine {
                     }
                 } catch (Exception exception) {
                     LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error.", ruleName), exception);
+                    triggerListenersOnFailure(rule, exception);
                     if (skipOnFirstFailedRule) {
                         LOGGER.info("Next rules will be skipped according to parameter skipOnFirstFailedRule.");
                         break;
@@ -144,6 +155,24 @@ class DefaultRulesEngine implements RulesEngine {
 
         }
 
+    }
+
+    private void triggerListenersOnFailure(Rule rule, Exception exception) {
+        for (RuleListener ruleListener : ruleListeners) {
+            ruleListener.onFailure(rule, exception);
+        }
+    }
+
+    private void triggerListenersOnSuccess(Rule rule) {
+        for (RuleListener ruleListener : ruleListeners) {
+            ruleListener.onSuccess(rule);
+        }
+    }
+
+    private void triggerListenersBefore(Rule rule) {
+        for (RuleListener ruleListener : ruleListeners) {
+            ruleListener.beforeExecute(rule);
+        }
     }
 
     private void logEngineParameters() {

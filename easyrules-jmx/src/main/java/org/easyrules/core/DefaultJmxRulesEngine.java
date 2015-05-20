@@ -25,6 +25,9 @@
 package org.easyrules.core;
 
 import org.easyrules.api.JmxRulesEngine;
+import org.easyrules.api.RuleListener;
+
+import java.util.List;
 
 /**
  * Default {@link JmxRulesEngine} implementation.
@@ -37,8 +40,9 @@ public class DefaultJmxRulesEngine extends DefaultRulesEngine implements JmxRule
 
     private MBeanManager beanManager = new MBeanManager();
 
-    DefaultJmxRulesEngine(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, int rulePriorityThreshold) {
-        super(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold);
+    DefaultJmxRulesEngine(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule,
+                          int rulePriorityThreshold, List<RuleListener> ruleListeners) {
+        super(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold, ruleListeners);
     }
 
     @Override
