@@ -2,83 +2,99 @@ package org.easyrules.core;
 
 import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
+import org.easyrules.annotation.Priority;
 import org.easyrules.annotation.Rule;
 import org.easyrules.api.RulesEngine;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InOrder;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for {@link org.easyrules.core.DefaultRulesEngine}.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultRulesEngineTest {
 
-    private SimpleRule simpleRule;
+    @Mock
+    private BasicRule rule, anotherRule;
 
-    private SimpleAnnotatedRule simpleAnnotatedRule;
+    private AnnotatedRule annotatedRule;
 
     private RulesEngine rulesEngine;
 
     @Before
     public void setup() {
-        simpleRule = new SimpleRule();
-        simpleAnnotatedRule = new SimpleAnnotatedRule();
+        when(rule.getName()).thenReturn("r");
+        when(rule.getDescription()).thenReturn("d");
+        when(rule.getPriority()).thenReturn(1);
+        annotatedRule = new AnnotatedRule();
         rulesEngine = aNewRulesEngine().build();
     }
 
     @Test
-    public void whenConditionIsTrue_thenActionShouldBeExecuted() {
-        rulesEngine.registerRule(simpleAnnotatedRule);
-        rulesEngine.fireRules();
-        assertThat(simpleAnnotatedRule.isExecuted()).isTrue();
+    public void whenConditionIsTrue_thenActionShouldBeExecuted() throws Exception {
+        when(rule.evaluate()).thenReturn(true);
+        rulesEngine.registerRule(rule);
 
+        rulesEngine.fireRules();
+
+        verify(rule).execute();
+    }
+
+    @Test
+    public void whenConditionIsFalse_thenActionShouldNotBeExecuted() throws Exception {
+        when(rule.evaluate()).thenReturn(false);
+        rulesEngine.registerRule(rule);
+
+        rulesEngine.fireRules();
+
+        verify(rule, never()).execute();
+    }
+
+    @Test
+    public void rulesMustBeTriggeredInTheirNaturalOrder() throws Exception {
+        when(rule.evaluate()).thenReturn(true);
+        when(anotherRule.evaluate()).thenReturn(true);
+        when(rule.compareTo(anotherRule)).thenReturn(-1);
+        when(anotherRule.compareTo(rule)).thenReturn(1);
+        rulesEngine.registerRule(rule);
+        rulesEngine.registerRule(anotherRule);
+
+        rulesEngine.fireRules();
+
+        InOrder inOrder = inOrder(rule, anotherRule);
+        inOrder.verify(rule).execute();
+        inOrder.verify(anotherRule).execute();
     }
 
     @Test
     public void actionsMustBeExecutedInTheDefinedOrder() {
-        rulesEngine.registerRule(simpleAnnotatedRule);
+        rulesEngine.registerRule(annotatedRule);
         rulesEngine.fireRules();
-        assertEquals("012", simpleAnnotatedRule.getActionSequence());
+        assertEquals("012", annotatedRule.getActionSequence());
     }
 
     @Test
-    public void testRulesWithDifferentNameAndDescriptionButWithSamePriority() throws Exception {
+    public void annotatedRulesAndNonAnnotatedRulesShouldBeUsableTogether() throws Exception {
+        when(rule.evaluate()).thenReturn(true);
+        rulesEngine.registerRule(rule);
+        rulesEngine.registerRule(annotatedRule);
 
-        SimpleRule rule1 = new SimpleRule("rule 1", "description 1", 0);
-        SimpleRule rule2 = new SimpleRule("rule 2", "description 2", 0);
-        SimpleRule rule3 = new SimpleRule("rule 3", "description 3", 1);
-
-        rulesEngine.registerRule(rule1);
-        rulesEngine.registerRule(rule2);
-        rulesEngine.registerRule(rule3);
         rulesEngine.fireRules();
 
-        assertThat(rule1.isExecuted()).isTrue();
-        assertThat(rule2.isExecuted()).isTrue();
-        assertThat(rule3.isExecuted()).isTrue();
-
-    }
-
-    @Test
-    public void testRulesWithSameNameAndDescriptionAndPriority() throws Exception {
-
-        SimpleRule rule1 = new SimpleRule("rule 1", "description 1", 0);
-        SimpleRule rule2 = new SimpleRule("rule 1", "description 1", 0);
-
-        RulesEngine engine = aNewRulesEngine().build();
-        engine.registerRule(rule1);
-        engine.registerRule(rule2);
-        engine.fireRules();
-
-        assertThat(rule1.isExecuted()).isTrue();
-        assertThat(rule2.isExecuted()).isFalse();
-
+        verify(rule).execute();
+        assertThat(annotatedRule.isExecuted()).isTrue();
     }
 
     @After
@@ -86,46 +102,8 @@ public class DefaultRulesEngineTest {
         rulesEngine.clearRules();
     }
 
-    class SimpleRule extends BasicRule {
-
-        /**
-         * Has the rule been executed? .
-         */
-        protected boolean executed;
-
-        public SimpleRule() {
-        }
-
-        public SimpleRule(String name) {
-            super(name);
-        }
-
-        public SimpleRule(String name, String description) {
-            super(name, description);
-        }
-
-        public SimpleRule(String name, String description, int priority) {
-            super(name, description, priority);
-        }
-
-        @Override
-        public boolean evaluate() {
-            return true;
-        }
-
-        @Override
-        public void execute() throws Exception {
-            executed = true;
-        }
-
-        public boolean isExecuted() {
-            return executed;
-        }
-
-    }
-
     @Rule(name = "myRule", description = "my rule description")
-    public class SimpleAnnotatedRule {
+    public class AnnotatedRule {
 
         private boolean executed;
 
@@ -133,18 +111,6 @@ public class DefaultRulesEngineTest {
 
         @Condition
         public boolean when() {
-            return condition1() && condition2() || condition3();
-        }
-
-        private boolean condition1() {
-            return true;
-        }
-
-        private boolean condition2() {
-            return false;
-        }
-
-        private boolean condition3() {
             return true;
         }
 
@@ -162,6 +128,11 @@ public class DefaultRulesEngineTest {
         public void then2() throws Exception {
             actionSequence += "2";
             executed = true;
+        }
+
+        @Priority
+        public int getPriority() {
+            return 0;
         }
 
         public boolean isExecuted() {
