@@ -6,6 +6,8 @@ public class RulesEngineBuilder {
 
     private boolean skipOnFirstAppliedRule;
 
+    private boolean skipOnFirstFailedRule;
+
     private int rulePriorityThreshold;
 
     public static RulesEngineBuilder aNewRulesEngine() {
@@ -14,11 +16,17 @@ public class RulesEngineBuilder {
 
     public RulesEngineBuilder() {
         skipOnFirstAppliedRule = false;
+        skipOnFirstFailedRule = false;
         rulePriorityThreshold = EasyRulesConstants.DEFAULT_RULE_PRIORITY_THRESHOLD;
     }
 
     public RulesEngineBuilder withSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
+        return this;
+    }
+
+    public RulesEngineBuilder withSkipOnFirstFailedRule(boolean skipOnFirstFailedRule) {
+        this.skipOnFirstFailedRule = skipOnFirstFailedRule;
         return this;
     }
 
@@ -28,7 +36,7 @@ public class RulesEngineBuilder {
     }
 
     public DefaultRulesEngine build() {
-        return new DefaultRulesEngine(skipOnFirstAppliedRule, rulePriorityThreshold);
+        return new DefaultRulesEngine(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold);
     }
 
 }

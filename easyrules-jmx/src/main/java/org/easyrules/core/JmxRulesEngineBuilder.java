@@ -6,6 +6,8 @@ public class JmxRulesEngineBuilder {
 
     private boolean skipOnFirstAppliedRule;
 
+    private boolean skipOnFirstFailedRule;
+
     private int rulePriorityThreshold;
 
     public static JmxRulesEngineBuilder aNewJmxRulesEngine() {
@@ -22,13 +24,18 @@ public class JmxRulesEngineBuilder {
         return this;
     }
 
+    public JmxRulesEngineBuilder withSkipOnFirstFailedRule(boolean skipOnFirstFailedRule) {
+        this.skipOnFirstFailedRule = skipOnFirstFailedRule;
+        return this;
+    }
+
     public JmxRulesEngineBuilder withRulePriorityThreshold(int rulePriorityThreshold) {
         this.rulePriorityThreshold = rulePriorityThreshold;
         return this;
     }
 
     public DefaultJmxRulesEngine build() {
-        return new DefaultJmxRulesEngine(skipOnFirstAppliedRule, rulePriorityThreshold);
+        return new DefaultJmxRulesEngine(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold);
     }
 
 }

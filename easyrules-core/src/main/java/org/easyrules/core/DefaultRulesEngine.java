@@ -57,13 +57,19 @@ class DefaultRulesEngine implements RulesEngine {
     private boolean skipOnFirstAppliedRule;
 
     /**
+     * Parameter to skip next applicable rules when a rule has failed.
+     */
+    private boolean skipOnFirstFailedRule;
+
+    /**
      * Parameter to skip next rules if priority exceeds a user defined threshold.
      */
     private int rulePriorityThreshold;
 
-    DefaultRulesEngine(boolean skipOnFirstAppliedRule, int rulePriorityThreshold) {
+    DefaultRulesEngine(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule,int rulePriorityThreshold) {
         rules = new TreeSet<Rule>();
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
+        this.skipOnFirstFailedRule = skipOnFirstFailedRule;
         this.rulePriorityThreshold = rulePriorityThreshold;
     }
 
@@ -127,6 +133,10 @@ class DefaultRulesEngine implements RulesEngine {
                     }
                 } catch (Exception exception) {
                     LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error.", ruleName), exception);
+                    if (skipOnFirstFailedRule) {
+                        LOGGER.info("Next rules will be skipped according to parameter skipOnFirstFailedRule.");
+                        break;
+                    }
                 }
             } else {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' has been evaluated to false, it has not been executed.", ruleName);
@@ -138,6 +148,7 @@ class DefaultRulesEngine implements RulesEngine {
 
     private void logEngineParameters() {
         LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", skipOnFirstAppliedRule);
+        LOGGER.log(Level.INFO, "Skip on first failed rule: {0}", skipOnFirstFailedRule);
         LOGGER.log(Level.INFO, "Rule priority threshold: {0}", rulePriorityThreshold);
     }
 
