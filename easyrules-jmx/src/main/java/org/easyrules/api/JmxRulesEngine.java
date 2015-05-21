@@ -25,8 +25,7 @@
 package org.easyrules.api;
 
 /**
- * Decorates {@link org.easyrules.api.RulesEngine} to add handling of JMX
- * rules.
+ * Decorates {@link org.easyrules.api.RulesEngine} to add handling of JMX rules.
  *
  * @author Drem Darios (drem.darios@gmail.com)
  */

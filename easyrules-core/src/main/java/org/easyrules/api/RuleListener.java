@@ -1,7 +1,7 @@
 package org.easyrules.api;
 
 /**
- * A listener on rules events.
+ * A listener for rules execution events.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
