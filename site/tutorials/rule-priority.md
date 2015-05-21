@@ -7,7 +7,7 @@ next_section: tutorials/dynamic-configuration
 doc: true
 ---
 
-This tutorial shows how define priority in which rules must be fired.
+This tutorial shows how to define priority in which rules must be fired.
 In Easy Rules, every rule has a priority. Rules are fired by default according to their priorities (this can be changed as described in the [user guide]({{site.url}}/user-guide/defining-rules.html#rules-priorities)).
 
 In this tutorial, we have an application that sells alcohol. The application must flag the customer as adult if his age is greater than 18,
@@ -29,8 +29,8 @@ public class Person {
 
 Based on these requirements, we can define the following rules:
 
-* Rule 1: This rule should operate an a `Person` instance, check that the peron age is greater than 18 and set the adult flag.
-* Rule 2: This rule should operate an a `Person` instance, check that the peron is adult and deny children (ie, non adult) from buying alcohol.
+* Rule 1: should operate an a `Person` instance, check that the person age is greater than 18 and set the adult flag.
+* Rule 2: should operate an a `Person` instance, check that the person is adult and deny children (ie, non adult) from buying alcohol.
 
 Rule 1 should be fired **_before_** rule 2. We will set rule 1 priority to 1 and rule 2 priority to 2 so that Easy Rules engine fire them in this order.
 
@@ -125,15 +125,14 @@ public class Launcher {
             "Tom: Hi! can I have some Vodka please?");
 
         //create a rules engine
-        AnnotatedRulesEngine annotatedRulesEngine =
-                                new AnnotatedRulesEngine();
+        RulesEngine rulesEngine = aNewRulesEngine().build();
 
         //register rules
-        annotatedRulesEngine.registerRule(new AgeRule(tom));
-        annotatedRulesEngine.registerRule(new AlcoholRule(tom));
+        rulesEngine.registerRule(new AgeRule(tom));
+        rulesEngine.registerRule(new AlcoholRule(tom));
 
         //fire rules
-        annotatedRulesEngine.fireRules();
+        rulesEngine.fireRules();
 
     }
 

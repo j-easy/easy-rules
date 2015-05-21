@@ -9,9 +9,26 @@ doc: true
 
 Easy Rules engine holds a registry of rules with unique names. Each instance of Easy Rules engine can be seen as a separate namespace.
 
-Rules are applied according to their natural order.
+Rules are applied according to their natural order (which is priority by default).
 
-Easy Rules engine provides the following parameters:
+## Create a rules engine
+
+To create a rules engine and register a rule, use the following snippet:
+
+```java
+RulesEngine rulesEngine = aNewEngineBuilder().build();
+rulesEngine.registerRule(myRule);
+```
+
+You can then fire registered rules as follows:
+
+```java
+rulesEngine.fireRules();
+```
+
+## Rules engine parameters
+
+Easy Rules engine can be configured with the following parameters:
 
 <table>
     <thead>
@@ -30,46 +47,41 @@ Easy Rules engine provides the following parameters:
         <td>false</td>
     </tr>
     <tr>
+        <td>skipOnFirstFailedRule</td>
+        <td>boolean</td>
+        <td>no</td>
+        <td>false</td>
+    </tr>
+    <tr>
         <td>rulePriorityThreshold</td>
         <td>int</td>
         <td>no</td>
         <td>Integer.MAX_VALUE</td>
     </tr>
+    <tr>
+        <td>silentMode</td>
+        <td>boolean</td>
+        <td>no</td>
+        <td>false</td>
+    </tr>
     </tbody>
 </table>
 
-The `skipOnFirstAppliedRule` parameter tells the engine to skip next applicable rules when a rule is applied.
+The `skipOnFirstAppliedRule` parameter tells the engine to skip next rules when a rule is applied.
 
-The `rulePriorityThreshold` parameters tells the engine to skip next rules if priority exceeds the defined threshold.
+The `skipOnFirstfailedRule` parameter tells the engine to skip next rules when a rule fails.
 
-You can specify these parameters at rules engine construction time.
+The `rulePriorityThreshold` parameter tells the engine to skip next rules if priority exceeds the defined threshold.
 
-## Create a default rules engine
+Silent mode allows you to mute all loggers when needed.
 
-To create a default rules engine and register a rule, use the following snippet:
-
-```java
-RulesEngine<Rule> rulesEngine = new DefaultRulesEngine();
-rulesEngine.registerRule(myRule);
-```
-
-You can fire registered rules as follows:
+You can specify these parameters through the RulesEngineBuilder API:
 
 ```java
-rulesEngine.fireRules();
-```
-
-## Create a annotated rules engine
-
-If your rules are annotated POJOs, you have to use the `AnnotatedRulesEngine` to register them:
-
-```java
-AnnotatedRulesEngine rulesEngine = new AnnotatedRulesEngine();
-rulesEngine.registerRule(myRule);
-```
-
-As with the default engine, you can fire rules using the following snippet :
-
-```java
-rulesEngine.fireRules();
+RulesEngine rulesEngine = aNewRulesEngine()
+    .withRulePriorityThreshold(10)
+    .withSkipOnFirstAppliedRule(true)
+    .withSkipOnFirstFailedRule(true)
+    .withSilentMode(true)
+    .build();
 ```

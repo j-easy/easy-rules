@@ -7,7 +7,7 @@ next_section: tutorials/rule-priority
 doc: true
 ---
 
-This tutorial shows how to use Easy Rules on a very simple application.
+This tutorial shows how to use Easy Rules in a very simple application.
  The program should ask the user if he is a friend of duke and says 'Hello duke's friend!' only if he replies 'yes'.
 
 Based on this requirement, the rule is pretty straightforward :
@@ -19,7 +19,7 @@ First, let's create a rule class:
 
 ```java
 @Rule(name = "Hello World rule",
-    description = "Say Hello to only duke's friends")
+    description = "Say Hello to duke's friends only")
 public class HelloWorldRule {
 
     /**
@@ -73,8 +73,8 @@ public class HelloWorldSampleLauncher {
         /**
          * Create a rules engine and register the business rule
          */
-        AnnotatedRulesEngine rulesEngine =
-                                new AnnotatedRulesEngine();
+        RulesEngine rulesEngine = aNewRulesEngine().build();
+        
         rulesEngine.registerRule(helloWorldRule);
 
         /**

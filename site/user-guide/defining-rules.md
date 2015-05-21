@@ -16,14 +16,14 @@ public interface Rule {
     * This method encapsulates the rule's conditions.
     * @return true if the rule should be applied, false else
     */
-    boolean evaluateConditions();
+    boolean evaluate();
 
     /**
     * This method encapsulates the rule's actions.
     * @throws Exception thrown if an exception occurs
     * during actions performing
     */
-    void performActions() throws Exception;
+    void execute() throws Exception;
 
     //Getters and setters for rule name,
     //description and priority omitted.
@@ -31,15 +31,20 @@ public interface Rule {
 }
 ```
 
-The `evaluateConditions` method encapsulates conditions that must evaluate to _TRUE_ to trigger the rule.
+The `evaluate` method encapsulates conditions that must evaluate to _TRUE_ to trigger the rule.
 
-The `performActions` method encapsulates actions that should be performed when rule's conditions are satisfied.
+The `execute` method encapsulates actions that should be performed when rule's conditions are satisfied.
+
+You can define rules in two ways:
+
+* By implementing the `Rule` interface or extending the `BasicRule` class
+* Adding annotations on a POJO
 
 ## Defining rules by extending _BasicRule_
 
 Easy Rules provides a simple implementation of the `Rule` interface named `BasicRule`. This class implements most of methods
-defined in the `Rule` interface. You can extends this class and override `evaluateConditions` and
-`performActions` methods to provide your conditions and actions logic. Here is an example:
+defined in the `Rule` interface. You can extends this class and override `evaluate` and
+`execute` methods to provide your conditions and actions logic. Here is an example:
 
 ```java
 public class MyRule extends BasicRule {
@@ -47,13 +52,13 @@ public class MyRule extends BasicRule {
     private BusinessData myBusinessData; //data to operate on
 
     @Override
-    public boolean evaluateConditions() {
+    public boolean evaluate() {
         //my rule conditions
         return true;
     }
 
     @Override
-    public void performActions() throws Exception {
+    public void execute() throws Exception {
         //my actions
     }
 
@@ -89,13 +94,15 @@ public class MyRule {
 }
 ```
 
-You can use `@Condition` and `@Action` annotations to mark methods to execute to check rule conditions and perform rule actions
-respectively.
+The `@Condition` annotation marks the method to execute to evaluate the rule conditions.
+This method must be public, have no parameters and return a boolean type. Only one method can be annotated with `@Condition` annotation.
+
+The `@Action` annotation marks methods to execute to perform rule actions. Rules can have multiple actions.
 
 <div class="note info">
-  <h5>Rules can have multiple actions</h5>
-  <p>You can annotate multiple methods with the <em>Action</em> annotation. You can also define the execution order of actions with the
-  <em>order</em> attribute: <em>@Action(order = 1)</em>.</p>
+  <h5>Actions can be executed in a specified order</h5>
+  <p>You can also define the execution order of actions with the
+  <em>order</em> attribute: <em>@Action(order = 1)</em>. By default, the order of an action is 0.</p>
 </div>
 
 
@@ -119,7 +126,7 @@ myCompositeRule.addRule(myRule1);
 myCompositeRule.addRule(myRule2);
 
 //Register the composite rule as a regular rule
-RulesEngine rulesEngine = new DefaultRulesEngine();
+RulesEngine rulesEngine = aNewRulesEngine().build();
 rulesEngine.registerRule(myCompositeRule);
 ```
 
@@ -134,3 +141,35 @@ the `getPriority()` method
 
 * If your rule is a annotated POJO, you should annotate the method that provides priority with `@Priority` annotation.
 This method must be public, have no arguments and return an Integer type
+
+## Rule listener
+
+You can listen to rule execution events through the `RuleListener` API:
+
+```java
+public interface RuleListener {
+    /**
+     * Triggered before a rule is executed.
+     */
+    void beforeExecute(Rule rule);
+    /**
+     * Triggered after a rule is executed successfully.
+     */
+    void onSuccess(Rule rule);
+    /**
+     * Triggered after a rule is executed with error.
+     */
+    void onFailure(Rule rule, Exception exception);
+}
+```
+
+You can implement this interface to provide custom behavior to execute before/after each rule.
+To register your listener, use the following snippet:
+ 
+```java
+RulesEngine rulesEngine = aNewRulesEngine()
+    .withRuleListener(myRuleListener)
+    .build();
+```
+
+You can register as many listeners as you want, they will be executed in their registration order.

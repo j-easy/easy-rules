@@ -12,6 +12,28 @@ doc: true
 
     <div class="release">
         <span class="post-category">
+            <span class="label">Version 2.0.0</span>
+        </span>
+        <div class="post-meta">
+            <span class="post-date">2015-05-21</span>
+        </div>
+        <div class="post-content">
+            <p>This is a major release of Easy Rules with some API breaking changes.</p>
+            <p>The most important change is the merge of <code>DefaultRulesEngine</code> and <code>AnnotatedRulesEngine</code>.
+                With version 1.x, rules that implement the <code>Rule</code> interface and rules that are annotated POJOs required to be used with different engines.
+                Version 2.0 removes this constraint and all types of rules can now be used in a consistent way through the single and unified <code>RulesEngine</code> interface.</p>
+            <p>This version also brings a lot of new features and improvements:</p>
+            <ul>
+                <li>Added a new <code>RulesEngineBuilder</code> as the main entry point to create rules engines</li>
+                <li>Added a new <code>RuleListener</code> to be able to add custom behavior before/after the execution of each rule (<a href="https://github.com/benas/easy-rules/issues/11" target="_blank">Issue #11</a>)</li>
+                <li>Added a new parameter <code>skipOnFirstFailedRule</code> to skip next rules when a rule fails (<a href="https://github.com/benas/easy-rules/issues/10" target="_blank">Issue #10</a>).</li>
+                <li>Added a new parameter <code>silentMode</code> to mute all loggers</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="release">
+        <span class="post-category">
             <span class="label">Version 1.3.0</span>
         </span>
         <div class="post-meta">

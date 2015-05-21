@@ -61,13 +61,13 @@ public class SuspectOrderRule extends BasicRule {
     }
 
     @Override
-    public boolean evaluateConditions() {
+    public boolean evaluate() {
         return order.getAmount() > suspectOrderAmountThreshold
                 && customer.isNew();
     }
 
     @Override
-    public void performActions() throws Exception {
+    public void execute() throws Exception {
         System.out.printf("Alert : A new customer [id=%s] has placed an order [id=%s] with amount %f > %f\n",
                 customer.getCustomerId(), order.getOrderId(), order.getAmount(), suspectOrderAmountThreshold);
     }
@@ -79,11 +79,11 @@ public class SuspectOrderRule extends BasicRule {
 
 This rule operates on an order and a customer instances which represent the business data to operate on.
 
-The `evaluateConditions` method evaluates to true when the customer is new and the order amount is greater than the defined threshold.
+The `evaluate` method evaluates to true when the customer is new and the order amount is greater than the defined threshold.
 
-The `performActions` method simply writes to the console the specified alert (this could be sending an email or another action in a real use case).
+The `execute` method simply writes to the console the specified alert (this could be sending an email or another action in a real use case).
 
-Then, let's create an Easy Rules engine and register the `SuspectOrderRule` rule:
+Then, let's create a `JmxRulesEngine` and register the `SuspectOrderRule` rule:
 
 ```java
 public class OrderSampleLauncher {
@@ -107,10 +107,10 @@ public class OrderSampleLauncher {
         suspectOrderRule.setCustomer(customer);
 
         /**
-         * Create a default rules engine and register the business rule
+         * Create a rules engine and register the business rule
          */
-        DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
-        rulesEngine.registerRule(suspectOrderRule);
+        JmxRulesEngine rulesEngine = aNewJmxRulesEngine().build();
+        rulesEngine.registerJmxRule(suspectOrderRule);
 
         /**
          * Fire rules
@@ -137,7 +137,7 @@ In this tutorial, we need to expose the order amount threshold as a JMX attribut
 
 ```java
 @javax.management.MXBean
-public interface SuspectOrderJmxRule extends JMXRule {
+public interface SuspectOrderJmxRule extends JmxRule {
 
     /**
      * Get the current suspect order amount threshold
@@ -198,9 +198,9 @@ public class OrderSampleLauncher {
         suspectOrderRule.setCustomer(customer);
 
         /**
-         * Create a default rules engine and register the business rule
+         * Create a Jmx rules engine and register the business rule
          */
-        DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
+        JmxRulesEngine rulesEngine = aNewJmxRulesEngine().build();
         rulesEngine.registerJmxRule(suspectOrderRule);
 
         /**

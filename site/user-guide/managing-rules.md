@@ -11,7 +11,7 @@ Being able to dynamically reconfigure business rules at runtime in production sy
 
 Thanks to JMX, Easy Rules can expose rules attributes to be managed via any JMX compliant client.
 
-To make your rule manageable via JMX, first you need to add the following dependency to your **_pom.xml_**:
+First, you need to add the following dependency to your **_pom.xml_**:
 
 ```xml
 <dependencies>
@@ -23,18 +23,20 @@ To make your rule manageable via JMX, first you need to add the following depend
 </dependencies>
 ```
 
-Then, you can register it in Easy Rules engine as a JMX managed rule:
+To make your rule manageable via JMX, it should:
+
+* implement the `JmxRule` interface or extend the `BasicJmxRule` class 
+* or be annotated with `javax.management.MXBean` if it is a annotated POJO
+
+Once you defined your rule as a Jmx Compliant object, you can register it in a `JmxRulesEngine` as a managed rule:
 
 ```java
-JMXRulesEngine rulesEngine = new DefaultJMXRulesEngine();
-rulesEngine.registerJmxRule(myRule);
+JmxRulesEngine rulesEngine = aNewJmxRulesEngine.build();
+rulesEngine.registerJmxRule(myJmxCompliantRule);
 ```
 
 This will register your rule as a JMX managed bean with the following object name:
 
 `org.easyrules.core.jmx:type=YourRuleClassName,name=YourRuleName`
-
-By default, rule description and priority are exposed as JMX manageable attributes.
-If you need to expose more specific attributes, you can extend the `JMXRule` interface and add getters and setters of your manageable attributes.
 
 An example of using dynamic rule reconfiguration at runtime is provided in the [online shop tutorial]({{site.url}}/tutorials/dynamic-configuration.html).
