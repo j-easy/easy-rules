@@ -126,7 +126,7 @@ class DefaultRulesEngine implements RulesEngine {
 
             if (rulePriority > rulePriorityThreshold) {
                 LOGGER.log(Level.INFO,
-                        "Rule priority threshold {0} exceeded at rule ''{1}'' (priority={2}), next applicable rules will be skipped.",
+                        "Rule priority threshold ({0}) exceeded at rule ''{1}'' (priority={2}), next rules will be skipped.",
                         new Object[] {rulePriorityThreshold, ruleName, rulePriority});
                 break;
             }
@@ -140,14 +140,14 @@ class DefaultRulesEngine implements RulesEngine {
                     triggerListenersOnSuccess(rule);
 
                     if (skipOnFirstAppliedRule) {
-                        LOGGER.info("Next rules will be skipped according to parameter skipOnFirstAppliedRule.");
+                        LOGGER.info("Next rules will be skipped since parameter skipOnFirstAppliedRule is set to true");
                         break;
                     }
                 } catch (Exception exception) {
                     LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error.", ruleName), exception);
                     triggerListenersOnFailure(rule, exception);
                     if (skipOnFirstFailedRule) {
-                        LOGGER.info("Next rules will be skipped according to parameter skipOnFirstFailedRule.");
+                        LOGGER.info("Next rules will be skipped since parameter skipOnFirstFailedRule is set to true");
                         break;
                     }
                 }
@@ -178,9 +178,9 @@ class DefaultRulesEngine implements RulesEngine {
     }
 
     private void logEngineParameters() {
+        LOGGER.log(Level.INFO, "Rule priority threshold: {0}", rulePriorityThreshold);
         LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", skipOnFirstAppliedRule);
         LOGGER.log(Level.INFO, "Skip on first failed rule: {0}", skipOnFirstFailedRule);
-        LOGGER.log(Level.INFO, "Rule priority threshold: {0}", rulePriorityThreshold);
     }
 
     private Rule asRule(Object rule) {
