@@ -84,6 +84,12 @@
                         <version>1.3</version>
                         <configuration>
                             <mainClass>org.easyrules.samples.helloworld.HelloWorldSampleLauncher</mainClass>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>java.util.logging.SimpleFormatter.format</key>
+                                    <value>[%1$tc] %4$s: %5$s%n</value>
+                                </systemProperty>
+                            </systemProperties>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -100,6 +106,12 @@
                         <version>1.3</version>
                         <configuration>
                             <mainClass>org.easyrules.samples.rulePriority.Launcher</mainClass>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>java.util.logging.SimpleFormatter.format</key>
+                                    <value>[%1$tc] %4$s: %5$s%n</value>
+                                </systemProperty>
+                            </systemProperties>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -116,6 +128,12 @@
                         <version>1.3</version>
                         <configuration>
                             <mainClass>org.easyrules.samples.order.OrderSampleLauncher</mainClass>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>java.util.logging.SimpleFormatter.format</key>
+                                    <value>[%1$tc] %4$s: %5$s%n</value>
+                                </systemProperty>
+                            </systemProperties>
                         </configuration>
                     </plugin>
                 </plugins>
