@@ -56,7 +56,7 @@ public class OrderSampleLauncher {
         suspectOrderRule.setCustomer(customer);
 
         /**
-         * Create a default rules engine and register the business rule
+         * Create a rules engine and register the business rule
          */
         JmxRulesEngine rulesEngine = aNewJmxRulesEngine().build();
         rulesEngine.registerJmxRule(suspectOrderRule);

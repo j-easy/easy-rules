@@ -33,7 +33,7 @@ import org.easyrules.annotation.Rule;
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-@Rule(name = "Hello World rule", description = "Say Hello to only duke's friends")
+@Rule(name = "Hello World rule", description = "Say Hello to duke's friends only")
 public class HelloWorldRule {
 
     /**
