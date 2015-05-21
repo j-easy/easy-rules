@@ -36,7 +36,7 @@ import java.util.logging.Logger;
  *
  * @author Drem Darios (drem.darios@gmail.com)
  */
-public class MBeanManager {
+class MBeanManager {
 
     private static final Logger LOGGER = Logger.getLogger(MBeanManager.class.getName());
 

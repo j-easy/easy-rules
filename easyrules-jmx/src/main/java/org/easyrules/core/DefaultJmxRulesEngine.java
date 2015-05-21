@@ -36,7 +36,7 @@ import java.util.List;
  *
  * @author Drem Darios (drem.darios@gmail.com)
  */
-public class DefaultJmxRulesEngine extends DefaultRulesEngine implements JmxRulesEngine {
+class DefaultJmxRulesEngine extends DefaultRulesEngine implements JmxRulesEngine {
 
     private MBeanManager beanManager = new MBeanManager();
 
