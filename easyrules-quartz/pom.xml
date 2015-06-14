@@ -1,20 +1,45 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>easyrules</artifactId>
-        <groupId>org.easyrules</groupId>
-        <version>2.0.1-SNAPSHOT</version>
-    </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quartz</artifactId>
+    <parent>
+        <groupId>org.easyrules</groupId>
+        <artifactId>easyrules</artifactId>
+        <version>2.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>easyrules-quartz</artifactId>
     <packaging>jar</packaging>
 
-    <name>Easy Rules Quartz</name>
-    <description>Easy Rules - Quartz integration module</description>
+    <name>Easy Rules Quartz module</name>
 
+    <scm>
+        <url>git@github.com:benas/easy-rules.git</url>
+        <connection>scm:git:git@github.com:benas/easy-rules.git</connection>
+        <developerConnection>scm:git:git@github.com:benas/easy-rules.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/benas/easy-rules/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://buildhive.cloudbees.com/job/benas/job/easy-rules/</url>
+    </ciManagement>
+
+    <developers>
+        <developer>
+            <id>benas</id>
+            <name>Mahmoud Ben Hassine</name>
+            <url>http://www.mahmoud-benhassine.fr</url>
+            <email>mahmoud@benhassine.fr</email>
+            <roles>
+                <role>Project founder</role>
+            </roles>
+        </developer>
+    </developers>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -32,9 +57,7 @@
         <dependency>
             <groupId>org.easyrules</groupId>
             <artifactId>easyrules-core</artifactId>
-            <version>2.0.0</version>
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -81,57 +104,13 @@
                     <linkXRef>true</linkXRef>
                     <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                     <minimumTokens>100</minimumTokens>
-                    <targetJdk>1.6</targetJdk>
+                    <targetJdk>1.5</targetJdk>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${findbugs-maven-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>${maven-jxr-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>taglist-maven-plugin</artifactId>
-                <version>${taglist-maven-plugin.version}</version>
-                <configuration>
-                    <tagListOptions>
-                        <tagClasses>
-                            <tagClass>
-                                <displayName>Todo</displayName>
-                                <tags>
-                                    <tag>
-                                        <matchString>todo</matchString>
-                                        <matchType>ignoreCase</matchType>
-                                    </tag>
-                                    <tag>
-                                        <matchString>FIXME</matchString>
-                                        <matchType>exact</matchType>
-                                    </tag>
-                                </tags>
-                            </tagClass>
-                        </tagClasses>
-                    </tagListOptions>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${maven-project-info-reports-plugin.version}</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>summary</report>
-                            <report>project-team</report>
-                            <report>license</report>
-                            <report>dependencies</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
