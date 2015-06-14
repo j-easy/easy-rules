@@ -41,17 +41,6 @@
         </developer>
     </developers>
 
-    <contributors>
-        <contributor>
-            <name>Becca Gaspard</name>
-            <url>https://github.com/beccagaspard</url>
-        </contributor>
-        <contributor>
-            <name>Drem Darios</name>
-            <url>https://github.com/drem-darios</url>
-        </contributor>
-    </contributors>
-
     <licenses>
         <license>
             <name>MIT License</name>
