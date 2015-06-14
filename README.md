@@ -54,6 +54,7 @@ For any further question, you can use the [Gitter](https://gitter.im/benas/easy-
 
 * [beccagaspard](https://github.com/beccagaspard)
 * [drem-darios](https://github.com/drem-darios)
+* [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [mrcritical](https://github.com/mrcritical)
 * [vinoct6](https://github.com/vinoct6)
 
