@@ -47,6 +47,11 @@ class DefaultRulesEngine implements RulesEngine {
     private static final Logger LOGGER = Logger.getLogger(RulesEngine.class.getName());
 
     /**
+     * The engine name
+     */
+    private String name;
+
+    /**
      * The rules set.
      */
     private Set<Rule> rules;
@@ -71,8 +76,9 @@ class DefaultRulesEngine implements RulesEngine {
      */
     private List<RuleListener> ruleListeners;
 
-    DefaultRulesEngine(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule,
+    DefaultRulesEngine(String name, boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule,
                        int rulePriorityThreshold, List<RuleListener> ruleListeners, boolean silentMode) {
+        this.name = name;
         rules = new TreeSet<Rule>();
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
@@ -81,6 +87,11 @@ class DefaultRulesEngine implements RulesEngine {
         if (silentMode) {
             Utils.muteLoggers();
         }
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

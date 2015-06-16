@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class JmxRulesEngineBuilder {
 
+    private String name;
+
     private boolean skipOnFirstAppliedRule;
 
     private boolean skipOnFirstFailedRule;
@@ -32,6 +34,12 @@ public class JmxRulesEngineBuilder {
         skipOnFirstFailedRule = false;
         ruleListeners = new ArrayList<RuleListener>();
         rulePriorityThreshold = Utils.DEFAULT_RULE_PRIORITY_THRESHOLD;
+        name = Utils.DEFAULT_ENGINE_NAME;
+    }
+
+    public JmxRulesEngineBuilder named(String name) {
+        this.name = name;
+        return this;
     }
 
     public JmxRulesEngineBuilder withSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule) {
@@ -60,7 +68,7 @@ public class JmxRulesEngineBuilder {
     }
 
     public DefaultJmxRulesEngine build() {
-        return new DefaultJmxRulesEngine(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold,
+        return new DefaultJmxRulesEngine(name, skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold,
                 ruleListeners, silentMode);
     }
 

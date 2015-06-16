@@ -22,6 +22,11 @@ public class Utils {
     public static final String DEFAULT_RULE_NAME = "rule";
 
     /**
+     * Default engine name.
+     */
+    public static final String DEFAULT_ENGINE_NAME = "engine";
+
+    /**
      * Default rule description.
      */
     public static final String DEFAULT_RULE_DESCRIPTION = "description";

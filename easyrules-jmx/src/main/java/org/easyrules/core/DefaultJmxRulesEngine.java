@@ -40,9 +40,9 @@ class DefaultJmxRulesEngine extends DefaultRulesEngine implements JmxRulesEngine
 
     private MBeanManager beanManager = new MBeanManager();
 
-    DefaultJmxRulesEngine(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule,
+    DefaultJmxRulesEngine(String name, boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule,
                           int rulePriorityThreshold, List<RuleListener> ruleListeners, boolean silentMode) {
-        super(skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold, ruleListeners, silentMode);
+        super(name, skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold, ruleListeners, silentMode);
     }
 
     @Override
