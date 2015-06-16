@@ -1,16 +1,17 @@
 package org.easyrules.quartz;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.easyrules.api.RulesEngine;
-import org.easyrules.core.RulesEngineBuilder;
-import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link RulesEngineScheduler}.
@@ -20,64 +21,56 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class RulesEngineSchedulerTest {
 
-    private RulesEngineScheduler rulesEngineScheduler;
+    private static final Date now = new Date();
 
-    @Test(timeout = 20000)
+    private static final int everyMinute = 1;
+
+    @Mock
+    private RulesEngine engine1, engine2;
+
+    @Before
+    public void setUp() throws Exception {
+        when(engine1.getName()).thenReturn("engine1");
+        when(engine2.getName()).thenReturn("engine2");
+    }
+
+    @Test
     public void testJobScheduling() throws Exception {
 
-        final HelloWorldRule helloWorldRule = new HelloWorldRule();
-        helloWorldRule.setInput("yes");
-
-        RulesEngine engine = RulesEngineBuilder.aNewRulesEngine().build();
-        engine.registerRule(helloWorldRule);
-
-        rulesEngineScheduler = new RulesEngineScheduler(engine);
-        Date futureDate = DateUtils.addSeconds(new Date(), 3);
-        rulesEngineScheduler.scheduleAt(futureDate);
+        RulesEngineScheduler rulesEngineScheduler = new RulesEngineScheduler(engine1);
+        rulesEngineScheduler.scheduleAtWithInterval(now, everyMinute);
         rulesEngineScheduler.start();
 
         assertThat(rulesEngineScheduler.isStarted()).isTrue();
+        verify(engine1).fireRules();
 
-        Thread.sleep(5000);
+        rulesEngineScheduler.stop();
+        assertThat(rulesEngineScheduler.isStopped()).isTrue();
+
     }
 
     @Test
     public void testMultipleJobsScheduling() throws Exception {
-        NumberPrintRule rule1 = new NumberPrintRule(10);
 
-        RulesEngine engine1 = RulesEngineBuilder.aNewRulesEngine().named("engine1").build();
-        engine1.registerRule(rule1);
+        RulesEngineScheduler rulesEngineScheduler1 = new RulesEngineScheduler(engine1);
+        rulesEngineScheduler1.scheduleAtWithInterval(now, everyMinute);
+        rulesEngineScheduler1.start();
 
-        RulesEngineScheduler scheduler1 = new RulesEngineScheduler(engine1);
-        Date futureDate1 = DateUtils.addSeconds(new Date(), 3);
-        scheduler1.scheduleAt(futureDate1);
-        scheduler1.start();
+        RulesEngineScheduler rulesEngineScheduler2 = new RulesEngineScheduler(engine2);
+        rulesEngineScheduler2.scheduleAtWithInterval(now, everyMinute);
+        rulesEngineScheduler2.start();
 
-        PrintRule rule2 = new PrintRule(20);
+        assertThat(rulesEngineScheduler1).isNotEqualTo(rulesEngineScheduler2);
 
-        RulesEngine engine2 = RulesEngineBuilder.aNewRulesEngine().named("engine2").withSkipOnFirstAppliedRule(true).build();
-        engine2.registerRule(rule2);
+        assertThat(rulesEngineScheduler1.isStarted()).isTrue();
+        assertThat(rulesEngineScheduler2.isStarted()).isTrue();
 
-        RulesEngineScheduler scheduler2 = new RulesEngineScheduler(engine2);
-        Date futureDate2 = DateUtils.addSeconds(new Date(), 3);
-        scheduler2.scheduleAt(futureDate2);
-        scheduler2.start();
+        verify(engine1).fireRules();
+        verify(engine2).fireRules();
 
-        assertThat(scheduler1.isStarted()).isTrue();
-        assertThat(scheduler2.isStarted()).isTrue();
-        Thread.sleep(5000);
+        rulesEngineScheduler1.stop();
+        rulesEngineScheduler2.stop();
 
-        scheduler1.stop();
-        scheduler2.stop();
-        assertThat(scheduler1.isStopped()).isTrue();
-        assertThat(scheduler2.isStopped()).isTrue();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        if(rulesEngineScheduler != null) {
-            rulesEngineScheduler.stop();
-        }
     }
 
 }
