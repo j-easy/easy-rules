@@ -10,7 +10,7 @@ import org.quartz.JobExecutionException;
  *
  * Created by Sunand on 6/8/2015.
  */
-public class RulesEngineJob implements Job {
+class RulesEngineJob implements Job {
 
     /**
      * Rules Engine instance

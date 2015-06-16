@@ -12,7 +12,7 @@ import org.quartz.spi.TriggerFiredBundle;
  *
  * Created by Sunand on 6/8/2015.
  */
-public class RulesEngineJobFactory implements JobFactory {
+class RulesEngineJobFactory implements JobFactory {
 
     @Override
     public Job newJob(TriggerFiredBundle triggerFiredBundle, Scheduler scheduler) throws SchedulerException {
