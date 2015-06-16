@@ -101,11 +101,11 @@ public class RulesEngineScheduler {
      * Setup a trigger to start at a fixed point of time and repeat with interval period.
      *
      * @param startTime the start time
-     * @param interval  the repeat interval in minutes
+     * @param interval  the repeat interval in seconds
      */
     public void scheduleAtWithInterval(final Date startTime, final int interval) {
         ScheduleBuilder scheduleBuilder = simpleSchedule()
-                .withIntervalInMinutes(interval)
+                .withIntervalInSeconds(interval)
                 .repeatForever();
         trigger = TriggerBuilder.newTrigger()
                 .withIdentity(triggerName)
@@ -113,7 +113,7 @@ public class RulesEngineScheduler {
                 .withSchedule(scheduleBuilder)
                 .forJob(jobName)
                 .build();
-        LOGGER.log(Level.INFO, "Building a scheduler for job {0} to start at {1} and every {2} minute(s)", new Object[]{jobName, startTime, interval});
+        LOGGER.log(Level.INFO, "Building a scheduler for job {0} to start at {1} and every {2} second(s)", new Object[]{jobName, startTime, interval});
     }
 
     /**

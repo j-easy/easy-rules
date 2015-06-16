@@ -23,7 +23,7 @@ public class RulesEngineSchedulerTest {
 
     private static final Date now = new Date();
 
-    private static final int everyMinute = 1;
+    private static final int everyMinute = 60;
 
     @Mock
     private RulesEngine engine1, engine2;
