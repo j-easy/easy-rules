@@ -16,6 +16,6 @@ public class RulesEngineJobFactory implements JobFactory {
 
     @Override
     public Job newJob(TriggerFiredBundle triggerFiredBundle, Scheduler scheduler) throws SchedulerException {
-        return new RulesEngineJob((RulesEngine) triggerFiredBundle.getJobDetail().getJobDataMap().get("reInstance"));
+        return new RulesEngineJob((RulesEngine) triggerFiredBundle.getJobDetail().getJobDataMap().get("engine"));
     }
 }

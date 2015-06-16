@@ -31,10 +31,10 @@ public class RulesEngineSchedulerTest {
         RulesEngine engine = RulesEngineBuilder.aNewRulesEngine().build();
         engine.registerRule(helloWorldRule);
 
-        rulesEngineScheduler = new RulesEngineScheduler();
+        rulesEngineScheduler = new RulesEngineScheduler(engine);
         Date futureDate = DateUtils.addSeconds(new Date(), 3);
         rulesEngineScheduler.scheduleAt(futureDate);
-        rulesEngineScheduler.start(engine);
+        rulesEngineScheduler.start();
 
         assertThat(rulesEngineScheduler.isStarted()).isTrue();
 
@@ -45,23 +45,23 @@ public class RulesEngineSchedulerTest {
     public void testMultipleJobsScheduling() throws Exception {
         NumberPrintRule rule1 = new NumberPrintRule(10);
 
-        RulesEngine engine1 = RulesEngineBuilder.aNewRulesEngine().build();
+        RulesEngine engine1 = RulesEngineBuilder.aNewRulesEngine().named("engine1").build();
         engine1.registerRule(rule1);
 
-        RulesEngineScheduler scheduler1 = new RulesEngineScheduler();
+        RulesEngineScheduler scheduler1 = new RulesEngineScheduler(engine1);
         Date futureDate1 = DateUtils.addSeconds(new Date(), 3);
         scheduler1.scheduleAt(futureDate1);
-        scheduler1.start(engine1);
+        scheduler1.start();
 
         PrintRule rule2 = new PrintRule(20);
 
-        RulesEngine engine2 = RulesEngineBuilder.aNewRulesEngine().withSkipOnFirstAppliedRule(true).build();
+        RulesEngine engine2 = RulesEngineBuilder.aNewRulesEngine().named("engine2").withSkipOnFirstAppliedRule(true).build();
         engine2.registerRule(rule2);
 
-        RulesEngineScheduler scheduler2 = new RulesEngineScheduler();
+        RulesEngineScheduler scheduler2 = new RulesEngineScheduler(engine2);
         Date futureDate2 = DateUtils.addSeconds(new Date(), 3);
         scheduler2.scheduleAt(futureDate2);
-        scheduler2.start(engine2);
+        scheduler2.start();
 
         assertThat(scheduler1.isStarted()).isTrue();
         assertThat(scheduler2.isStarted()).isTrue();

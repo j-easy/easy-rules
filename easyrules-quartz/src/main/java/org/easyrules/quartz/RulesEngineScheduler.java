@@ -30,7 +30,10 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.spi.JobFactory;
 
 import java.util.Date;
-import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
 /**
  * Quartz scheduler wrapper used to setup triggers.
@@ -39,13 +42,15 @@ import java.util.UUID;
  */
 public class RulesEngineScheduler {
 
+    private static final Logger LOGGER = Logger.getLogger(RulesEngineScheduler.class.getName());
+
     /**
-     * The name of easy rules job trigger.
+     * The name of job trigger.
      */
     private String triggerName;
 
     /**
-     * The name of easy rules job.
+     * The name of job.
      */
     private String jobName;
 
@@ -59,13 +64,19 @@ public class RulesEngineScheduler {
      */
     private Scheduler scheduler;
 
-    public RulesEngineScheduler() throws RulesEngineSchedulerException {
+    /**
+     * The engine to schedule.
+     */
+    private RulesEngine engine;
+
+    public RulesEngineScheduler(RulesEngine engine) throws RulesEngineSchedulerException {
+        this.engine = engine;
         JobFactory jobFactory = new RulesEngineJobFactory();
         SchedulerFactory schedulerFactory = new StdSchedulerFactory();
         try {
             scheduler = schedulerFactory.getScheduler();
             scheduler.setJobFactory(jobFactory);
-            jobName = "RE-job-" + UUID.randomUUID();
+            jobName = "re-job-" + engine.getName();
             triggerName = "trigger-for-" + jobName;
         } catch (SchedulerException e) {
             throw new RulesEngineSchedulerException("An exception occurred during scheduler setup", e);
@@ -83,6 +94,7 @@ public class RulesEngineScheduler {
                 .startAt(startTime)
                 .forJob(jobName)
                 .build();
+        LOGGER.log(Level.INFO, "Building a scheduler for job {0} to start at {1}", new Object[]{jobName, startTime});
     }
 
     /**
@@ -92,14 +104,16 @@ public class RulesEngineScheduler {
      * @param interval  the repeat interval in minutes
      */
     public void scheduleAtWithInterval(final Date startTime, final int interval) {
-        SimpleScheduleBuilder simpleScheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInMinutes(interval);
-        simpleScheduleBuilder = simpleScheduleBuilder.repeatForever();
+        ScheduleBuilder scheduleBuilder = simpleSchedule()
+                .withIntervalInMinutes(interval)
+                .repeatForever();
         trigger = TriggerBuilder.newTrigger()
                 .withIdentity(triggerName)
                 .startAt(startTime)
-                .withSchedule(simpleScheduleBuilder)
+                .withSchedule(scheduleBuilder)
                 .forJob(jobName)
                 .build();
+        LOGGER.log(Level.INFO, "Building a scheduler for job {0} to start at {1} and every {2} minute(s)", new Object[]{jobName, startTime, interval});
     }
 
     /**
@@ -115,6 +129,7 @@ public class RulesEngineScheduler {
                 .withSchedule(CronScheduleBuilder.cronSchedule(cronExpression))
                 .forJob(jobName)
                 .build();
+        LOGGER.log(Level.INFO, "Building a scheduler for job {0} with cron expression {1}", new Object[]{jobName, cronExpression});
     }
 
     /**
@@ -122,12 +137,10 @@ public class RulesEngineScheduler {
      *
      * @throws RulesEngineSchedulerException thrown if the scheduler cannot be started
      */
-    public void start(RulesEngine engine) throws RulesEngineSchedulerException {
+    public void start() throws RulesEngineSchedulerException {
         try {
-            //Use Job Data Map to set the RulesEngine Instance
-            //Or else in case multiple schedules it will only execute the last one
             JobDataMap jobDataMap = new JobDataMap();
-            jobDataMap.put("reInstance", engine);
+            jobDataMap.put("engine", engine);
             JobDetail job = JobBuilder.newJob(RulesEngineJob.class).withIdentity(jobName).usingJobData(jobDataMap).build();
             scheduler.start();
             scheduler.scheduleJob(job, trigger);
