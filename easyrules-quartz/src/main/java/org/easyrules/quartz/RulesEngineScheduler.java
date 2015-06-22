@@ -109,7 +109,7 @@ public class RulesEngineScheduler {
         JobDetail job = getJobDetail(engine, jobName);
 
         try {
-            LOGGER.log(Level.INFO, "Scheduling engine {0} to start at {1}", new Object[]{engine, startTime});
+            LOGGER.log(Level.INFO, "Scheduling engine ''{0}'' to start at {1}", new Object[]{engine, startTime});
             scheduler.scheduleJob(job, trigger);
         } catch (SchedulerException e) {
             throw new RulesEngineSchedulerException("Unable to schedule engine " + engine, e);
@@ -145,7 +145,7 @@ public class RulesEngineScheduler {
         JobDetail job = getJobDetail(engine, jobName);
 
         try {
-            LOGGER.log(Level.INFO, "Scheduling engine {0} to start at {1} and every {2} second(s)", new Object[]{engine, startTime, interval});
+            LOGGER.log(Level.INFO, "Scheduling engine ''{0}'' to start at {1} and every {2} second(s)", new Object[]{engine, startTime, interval});
             scheduler.scheduleJob(job, trigger);
         } catch (SchedulerException e) {
             throw new RulesEngineSchedulerException("Unable to schedule engine " + engine, e);
@@ -177,7 +177,7 @@ public class RulesEngineScheduler {
         JobDetail job = getJobDetail(engine, jobName);
 
         try {
-            LOGGER.log(Level.INFO, "Scheduling engine {0} with cron expression {1}", new Object[]{engine, cronExpression});
+            LOGGER.log(Level.INFO, "Scheduling engine ''{0}'' with cron expression {1}", new Object[]{engine, cronExpression});
             scheduler.scheduleJob(job, trigger);
         } catch (SchedulerException e) {
             throw new RulesEngineSchedulerException("Unable to schedule engine " + engine, e);
@@ -191,7 +191,7 @@ public class RulesEngineScheduler {
      * @throws RulesEngineSchedulerException thrown if an exception occurs during engine unscheduling
      */
     public void unschedule(final RulesEngine engine) throws RulesEngineSchedulerException {
-        LOGGER.log(Level.INFO, "Unscheduling engine {0} ", engine);
+        LOGGER.log(Level.INFO, "Unscheduling engine ''{0}'' ", engine);
         try {
             scheduler.unscheduleJob(TriggerKey.triggerKey(TRIGGER_NAME_PREFIX + engine.getName()));
         } catch (SchedulerException e) {
@@ -210,7 +210,7 @@ public class RulesEngineScheduler {
         try {
             return scheduler.checkExists(TriggerKey.triggerKey(TRIGGER_NAME_PREFIX + engine.getName()));
         } catch (SchedulerException e) {
-            throw new RulesEngineSchedulerException("Unable to check if the engine " + engine + " is scheduled", e);
+            throw new RulesEngineSchedulerException("Unable to check if the engine '" + engine + "' is scheduled", e);
         }
     }
 
