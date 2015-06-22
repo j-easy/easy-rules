@@ -49,27 +49,27 @@ class DefaultRulesEngine implements RulesEngine {
     /**
      * The engine name
      */
-    private String name;
+    protected String name;
 
     /**
      * The rules set.
      */
-    private Set<Rule> rules;
+    protected Set<Rule> rules;
 
     /**
      * Parameter to skip next applicable rules when a rule is applied.
      */
-    private boolean skipOnFirstAppliedRule;
+    protected boolean skipOnFirstAppliedRule;
 
     /**
      * Parameter to skip next applicable rules when a rule has failed.
      */
-    private boolean skipOnFirstFailedRule;
+    protected boolean skipOnFirstFailedRule;
 
     /**
      * Parameter to skip next rules if priority exceeds a user defined threshold.
      */
-    private int rulePriorityThreshold;
+    protected int rulePriorityThreshold;
 
     /**
      * The registered rule listeners.
@@ -202,6 +202,11 @@ class DefaultRulesEngine implements RulesEngine {
             result = RuleProxy.asRule(rule);
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
 }
