@@ -6,7 +6,7 @@ import org.easyrules.annotation.Rule;
 
 import java.util.Date;
 
-@Rule(name = "time rule", description = "Print the current time only if minutes are even")
+@Rule(name = "time rule", description = "Print the current time only if seconds are even")
 public class TimeRule {
 
     private Date now;
@@ -14,12 +14,12 @@ public class TimeRule {
     @Condition
     public boolean checkTime() {
         now = new Date();
-        return now.getMinutes() % 2 == 0;
+        return now.getSeconds() % 2 == 0;
     }
 
     @Action
     public void printTime() {
-        System.out.println("Minutes in " + now + " are even");
+        System.out.println("Seconds in " + now + " are even");
     }
 
 }

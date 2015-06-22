@@ -15,13 +15,20 @@ public class Launcher {
 
     public static void main(String[] args) throws Exception {
 
-        RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
+        RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine()
+                .named("time rules engine")
+                .withSilentMode(true)
+                .build();
 
-        rulesEngine.registerRule(new TimeRule());
+        TimeRule timeRule = new TimeRule();
+        rulesEngine.registerRule(timeRule);
 
-        RulesEngineScheduler scheduler = new RulesEngineScheduler(rulesEngine);
-        scheduler.scheduleAtWithInterval(new Date(), 1);
+        RulesEngineScheduler scheduler = RulesEngineScheduler.getInstance();
+        scheduler.scheduleAtWithInterval(rulesEngine, new Date(), 1);
         scheduler.start();
 
+        System.out.println("Hit enter to stop the application");
+        System.in.read();
+        scheduler.stop();
     }
 }
