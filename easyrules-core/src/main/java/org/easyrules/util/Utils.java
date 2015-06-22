@@ -7,6 +7,7 @@ import java.util.logging.Handler;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
 
 /**
@@ -71,6 +72,12 @@ public class Utils {
             clazz = clazz.getSuperclass();
         }
         return interfaces;
+    }
+
+    public static void checkNotNull(Object argument, String argumentName) {
+        if (argument == null) {
+            throw new IllegalArgumentException(format("The %s must not be null", argumentName));
+        }
     }
 
 }
