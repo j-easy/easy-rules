@@ -33,31 +33,24 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.easyrules.util.Utils.checkNotNull;
+import static org.quartz.CronScheduleBuilder.cronSchedule;
+import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
+import static org.quartz.TriggerBuilder.newTrigger;
 
 /**
  * Quartz scheduler wrapper used to setup triggers.
- *
+ * <p/>
  * Created by Sunand on 6/8/2015.
  */
 public class RulesEngineScheduler {
 
     private static final Logger LOGGER = Logger.getLogger(RulesEngineScheduler.class.getName());
 
-    /**
-     * The name of job trigger.
-     */
-    private String triggerName;
+    private static final String JOB_NAME_PREFIX = "re-";
 
-    /**
-     * The name of job.
-     */
-    private String jobName;
-
-    /**
-     * The trigger used to fire rules execution.
-     */
-    private Trigger trigger;
+    private static final String TRIGGER_NAME_PREFIX = "trigger-for-re-";
 
     /**
      * Quartz scheduler.
@@ -65,71 +58,160 @@ public class RulesEngineScheduler {
     private Scheduler scheduler;
 
     /**
-     * The engine to schedule.
+     * The scheduler singleton instance.
      */
-    private RulesEngine engine;
+    private static RulesEngineScheduler instance;
 
-    public RulesEngineScheduler(RulesEngine engine) throws RulesEngineSchedulerException {
-        this.engine = engine;
+    /**
+     * Get the scheduler instance.
+     *
+     * @return The scheduler instance
+     * @throws RulesEngineSchedulerException thrown if an exception occurs while creating the scheduler
+     */
+    public static RulesEngineScheduler getInstance() throws RulesEngineSchedulerException {
+        if (instance == null) {
+            instance = new RulesEngineScheduler();
+        }
+        return instance;
+    }
+
+    RulesEngineScheduler() throws RulesEngineSchedulerException {
         JobFactory jobFactory = new RulesEngineJobFactory();
         SchedulerFactory schedulerFactory = new StdSchedulerFactory();
         try {
             scheduler = schedulerFactory.getScheduler();
             scheduler.setJobFactory(jobFactory);
-            jobName = "re-job-" + engine.getName();
-            triggerName = "trigger-for-" + jobName;
         } catch (SchedulerException e) {
             throw new RulesEngineSchedulerException("An exception occurred during scheduler setup", e);
         }
     }
 
     /**
-     * Setup the time the trigger should start at.
+     * Schedule an engine to start at a fixed point of time.
      *
+     * @param engine    the engine to schedule
      * @param startTime the start time
      */
-    public void scheduleAt(final Date startTime) {
-        trigger = TriggerBuilder.newTrigger()
+    public void scheduleAt(final RulesEngine engine, final Date startTime) throws RulesEngineSchedulerException {
+        checkNotNull(engine, "engine");
+        checkNotNull(startTime, "startTime");
+
+        String engineName = engine.getName();
+        String jobName = JOB_NAME_PREFIX + engineName;
+        String triggerName = TRIGGER_NAME_PREFIX + engineName;
+
+        Trigger trigger = newTrigger()
                 .withIdentity(triggerName)
                 .startAt(startTime)
                 .forJob(jobName)
                 .build();
-        LOGGER.log(Level.INFO, "Building a scheduler for job {0} to start at {1}", new Object[]{jobName, startTime});
+
+        JobDetail job = getJobDetail(engine, jobName);
+
+        try {
+            LOGGER.log(Level.INFO, "Scheduling engine {0} to start at {1}", new Object[]{engine, startTime});
+            scheduler.scheduleJob(job, trigger);
+        } catch (SchedulerException e) {
+            throw new RulesEngineSchedulerException("Unable to schedule engine " + engine, e);
+        }
     }
 
     /**
-     * Setup a trigger to start at a fixed point of time and repeat with interval period.
+     * Schedule an engine to start at a fixed point of time and repeat with interval period.
      *
+     * @param engine    the engine to schedule
      * @param startTime the start time
      * @param interval  the repeat interval in seconds
      */
-    public void scheduleAtWithInterval(final Date startTime, final int interval) {
+    public void scheduleAtWithInterval(final RulesEngine engine, final Date startTime, final int interval) throws RulesEngineSchedulerException {
+        checkNotNull(engine, "engine");
+        checkNotNull(startTime, "startTime");
+
+        String engineName = engine.getName();
+        String jobName = JOB_NAME_PREFIX + engineName;
+        String triggerName = TRIGGER_NAME_PREFIX + engineName;
+
         ScheduleBuilder scheduleBuilder = simpleSchedule()
                 .withIntervalInSeconds(interval)
                 .repeatForever();
-        trigger = TriggerBuilder.newTrigger()
+
+        Trigger trigger = newTrigger()
                 .withIdentity(triggerName)
                 .startAt(startTime)
                 .withSchedule(scheduleBuilder)
                 .forJob(jobName)
                 .build();
-        LOGGER.log(Level.INFO, "Building a scheduler for job {0} to start at {1} and every {2} second(s)", new Object[]{jobName, startTime, interval});
+
+        JobDetail job = getJobDetail(engine, jobName);
+
+        try {
+            LOGGER.log(Level.INFO, "Scheduling engine {0} to start at {1} and every {2} second(s)", new Object[]{engine, startTime, interval});
+            scheduler.scheduleJob(job, trigger);
+        } catch (SchedulerException e) {
+            throw new RulesEngineSchedulerException("Unable to schedule engine " + engine, e);
+        }
     }
 
     /**
-     * Setup a unix cron-like trigger.
+     * Schedule an engine with a unix-like cron expression.
      *
+     * @param engine         the engine to schedule
      * @param cronExpression the cron expression to use.
-     * For a complete tutorial about cron expressions, please refer to
-     * <a href="http://quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger">quartz reference documentation</a>.
+     *                       For a complete tutorial about cron expressions, please refer to
+     *                       <a href="http://quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger">quartz reference documentation</a>.
      */
-    public void scheduleCron(final String cronExpression) {
-        trigger = TriggerBuilder.newTrigger()
+    public void scheduleCron(final RulesEngine engine, final String cronExpression) throws RulesEngineSchedulerException {
+        checkNotNull(engine, "engine");
+        checkNotNull(cronExpression, "cronExpression");
+
+        String engineName = engine.getName();
+        String jobName = JOB_NAME_PREFIX + engineName;
+        String triggerName = TRIGGER_NAME_PREFIX + engineName;
+
+        Trigger trigger = newTrigger()
                 .withIdentity(triggerName)
-                .withSchedule(CronScheduleBuilder.cronSchedule(cronExpression))
+                .withSchedule(cronSchedule(cronExpression))
                 .forJob(jobName)
                 .build();
-        LOGGER.log(Level.INFO, "Building a scheduler for job {0} with cron expression {1}", new Object[]{jobName, cronExpression});
+
+        JobDetail job = getJobDetail(engine, jobName);
+
+        try {
+            LOGGER.log(Level.INFO, "Scheduling engine {0} with cron expression {1}", new Object[]{engine, cronExpression});
+            scheduler.scheduleJob(job, trigger);
+        } catch (SchedulerException e) {
+            throw new RulesEngineSchedulerException("Unable to schedule engine " + engine, e);
+        }
+    }
+
+    /**
+     * Unschedule the given engine.
+     *
+     * @param engine the engine to unschedule
+     * @throws RulesEngineSchedulerException thrown if an exception occurs during engine unscheduling
+     */
+    public void unschedule(final RulesEngine engine) throws RulesEngineSchedulerException {
+        LOGGER.log(Level.INFO, "Unscheduling engine {0} ", engine);
+        try {
+            scheduler.unscheduleJob(TriggerKey.triggerKey(TRIGGER_NAME_PREFIX + engine.getName()));
+        } catch (SchedulerException e) {
+            throw new RulesEngineSchedulerException("Unable to unschedule engine " + engine, e);
+        }
+    }
+
+    /**
+     * Check if the given engine is scheduled.
+     *
+     * @param engine the engine to check
+     * @return true if the engine is scheduled, false else
+     * @throws RulesEngineSchedulerException thrown if an exception occurs while checking if the engine is scheduled
+     */
+    public boolean isScheduled(final RulesEngine engine) throws RulesEngineSchedulerException {
+        try {
+            return scheduler.checkExists(TriggerKey.triggerKey(TRIGGER_NAME_PREFIX + engine.getName()));
+        } catch (SchedulerException e) {
+            throw new RulesEngineSchedulerException("Unable to check if the engine " + engine + " is scheduled", e);
+        }
     }
 
     /**
@@ -139,11 +221,7 @@ public class RulesEngineScheduler {
      */
     public void start() throws RulesEngineSchedulerException {
         try {
-            JobDataMap jobDataMap = new JobDataMap();
-            jobDataMap.put("engine", engine);
-            JobDetail job = JobBuilder.newJob(RulesEngineJob.class).withIdentity(jobName).usingJobData(jobDataMap).build();
             scheduler.start();
-            scheduler.scheduleJob(job, trigger);
         } catch (SchedulerException e) {
             throw new RulesEngineSchedulerException("An exception occurred during scheduler startup", e);
         }
@@ -152,8 +230,8 @@ public class RulesEngineScheduler {
 
     /**
      * Stop the scheduler.
-     *
-     * Note: The scheduler cannot be re-started.
+     * <p/>
+     * <strong>Note: The scheduler cannot be re-started and no more engines can be scheduled.</strong>
      *
      * @throws RulesEngineSchedulerException thrown if the scheduler cannot be stopped
      */
@@ -189,6 +267,12 @@ public class RulesEngineScheduler {
         } catch (SchedulerException e) {
             throw new RulesEngineSchedulerException("An exception occurred during checking if the scheduler is stopped", e);
         }
+    }
+
+    private JobDetail getJobDetail(RulesEngine engine, String jobName) {
+        JobDataMap jobDataMap = new JobDataMap();
+        jobDataMap.put("engine", engine);
+        return newJob(RulesEngineJob.class).withIdentity(jobName).usingJobData(jobDataMap).build();
     }
 
 }
