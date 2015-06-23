@@ -17,6 +17,7 @@
         <module>easyrules-samples</module>
         <module>easyrules-jmx</module>
         <module>easyrules-quartz</module>
+        <module>easyrules-spring</module>
     </modules>
 
     <packaging>pom</packaging>
