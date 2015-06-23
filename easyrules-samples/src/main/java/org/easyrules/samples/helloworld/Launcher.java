@@ -35,7 +35,7 @@ import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-public class HelloWorldSampleLauncher {
+public class Launcher {
 
     public static void main(String[] args) {
 

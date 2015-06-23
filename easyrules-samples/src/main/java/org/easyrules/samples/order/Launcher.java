@@ -35,7 +35,7 @@ import static org.easyrules.core.JmxRulesEngineBuilder.aNewJmxRulesEngine;
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-public class OrderSampleLauncher {
+public class Launcher {
 
     public static void main(String[] args) throws InterruptedException {
 

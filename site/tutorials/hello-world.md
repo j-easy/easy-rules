@@ -49,10 +49,10 @@ public class HelloWorldRule {
 }
 ```
 
-Then, we have to register an instance of this rule in a Easy Rules engine and launch the program with the following class :
+Then, we have to register an instance of this rule in a Easy Rules engine and launch the tutorial with the following class:
 
 ```java
-public class HelloWorldSampleLauncher {
+public class Launcher {
 
     public static void main(String[] args) {
 
@@ -94,7 +94,7 @@ $ cd easyrules-samples
 $ mvn exec:java -P runHelloWorldTutorial
 {% endhighlight %}
 
-If you run this tutorial, you would get the following output:
+You would get the following output:
 
 ```
 Are you a friend of duke? [yes/no]:

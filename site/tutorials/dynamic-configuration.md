@@ -86,7 +86,7 @@ The `execute` method simply writes to the console the specified alert (this coul
 Then, let's create a `JmxRulesEngine` and register the `SuspectOrderRule` rule:
 
 ```java
-public class OrderSampleLauncher {
+public class Launcher {
 
     public static void main(String[] args) {
 
@@ -177,7 +177,7 @@ public class SuspectOrderRule extends BasicRule implements SuspectOrderJmxRule {
 Finally, let's suspend the program to change the order amount threshold value at runtime via any compliant JMX client and see the engine behavior after this change:
 
 ```java
-public class OrderSampleLauncher {
+public class Launcher {
 
     public static void main(String[] args) throws InterruptedException {
 
