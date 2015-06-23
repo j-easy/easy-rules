@@ -1,0 +1,7 @@
+<archetype>
+  <id>easyrules-archetype</id>
+  <sources>
+    <source>src/main/java/HelloWorldRule.java</source>
+    <source>src/main/java/Launcher.java</source>
+  </sources>
+</archetype>

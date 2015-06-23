@@ -13,6 +13,7 @@
     <version>2.1.0-SNAPSHOT</version>
 
     <modules>
+        <module>easyrules-archetype</module>
         <module>easyrules-core</module>
         <module>easyrules-samples</module>
         <module>easyrules-jmx</module>

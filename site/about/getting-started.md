@@ -39,4 +39,25 @@ If you use maven, you should add the following dependency to your **_pom.xml_** 
 </dependencies>
 ```
 
+## Quick start archetype
 
+The quick start archetype generates a skeleton project with the right dependency to Easy Rules. 
+In order to generate a quick start project, just run the following command:
+
+```
+$>mvn archetype:generate \
+    -DarchetypeGroupId=org.easyrules \
+    -DarchetypeArtifactId=easyrules-archetype \
+    -DarchetypeVersion={{ site.version }}
+```
+
+You will be asked for your project's groupId, artifactId, version and base package. Once finished, you will get a fully 
+functional sample application that you can run with the following command:
+
+```
+$>mvn compile exec:java -Dexec.mainClass=${your.base.package}.Launcher
+```
+
+where `${your.base.package}` is the value of the base package you were asked for when creating the project.
+
+Finally, you can import this maven project into your favorite IDE and tweak the application to your needs.

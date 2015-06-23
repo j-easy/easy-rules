@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>org.easyrules</groupId>
+        <artifactId>easyrules</artifactId>
+        <version>2.1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>easyrules-archetype</artifactId>
+    <name>Easy Rules Quick Start Archetype</name>
+    <description>Easy Rules maven quick start archetype</description>
+    <url>http://www.easyrules.org</url>
+
+    <developers>
+        <developer>
+            <id>benas</id>
+            <name>Mahmoud Ben Hassine</name>
+            <url>http://www.mahmoud-benhassine.fr</url>
+            <email>mahmoud@benhassine.fr</email>
+            <roles>
+                <role>Project founder</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>git@github.com:benas/easy-rules.git</url>
+        <connection>scm:git:git@github.com:benas/easy-rules.git</connection>
+        <developerConnection>scm:git:git@github.com:benas/easy-rules.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/benas/easy-rules/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://buildhive.cloudbees.com/job/benas/job/easy-rules/</url>
+    </ciManagement>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+</project>
