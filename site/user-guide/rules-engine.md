@@ -75,7 +75,7 @@ The `rulePriorityThreshold` parameter tells the engine to skip next rules if pri
 
 Silent mode allows you to mute all loggers when needed.
 
-You can specify these parameters through the RulesEngineBuilder API:
+You can specify these parameters through the `RulesEngineBuilder` API:
 
 ```java
 RulesEngine rulesEngine = aNewRulesEngine()

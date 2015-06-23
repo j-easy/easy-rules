@@ -3,7 +3,7 @@ layout: docs
 title: Managing rules
 header: Managing rules at runtime
 prev_section: user-guide/rules-engine
-next_section: tutorials/hello-world
+next_section: user-guide/scheduling-rules-engine
 doc: true
 ---
 

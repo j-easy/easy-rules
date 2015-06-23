@@ -3,7 +3,7 @@ layout: docs
 title: Dynamic configuration
 header: Online shop tutorial
 prev_section: tutorials/rule-priority
-next_section: get-involved/release-notes
+next_section: tutorials/scheduling-engine
 doc: true
 ---
 
