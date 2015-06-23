@@ -29,7 +29,7 @@ class RulesEngineJob implements Job {
             engine.fireRules();
         }
         catch (Exception e) {
-            throw new JobExecutionException("An exception occurred during batch engine execution", e);
+            throw new JobExecutionException("An exception occurred during rules engine execution", e);
         }
     }
 }
