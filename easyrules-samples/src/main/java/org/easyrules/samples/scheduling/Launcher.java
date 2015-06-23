@@ -13,6 +13,10 @@ import java.util.Date;
  */
 public class Launcher {
 
+    public static final Date NOW = new Date();
+
+    public static final int EVERY_SECOND = 1;
+
     public static void main(String[] args) throws Exception {
 
         RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine()
@@ -24,7 +28,7 @@ public class Launcher {
         rulesEngine.registerRule(timeRule);
 
         RulesEngineScheduler scheduler = RulesEngineScheduler.getInstance();
-        scheduler.scheduleAtWithInterval(rulesEngine, new Date(), 1);
+        scheduler.scheduleAtWithInterval(rulesEngine, NOW, EVERY_SECOND);
         scheduler.start();
 
         System.out.println("Hit enter to stop the application");
