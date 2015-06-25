@@ -3,7 +3,7 @@ layout: docs
 title: Engine scheduler
 header: Engine scheduler
 prev_section: tutorials/dynamic-configuration
-next_section: get-involved/release-notes
+next_section: tutorials/spring-tutorial
 doc: true
 ---
 

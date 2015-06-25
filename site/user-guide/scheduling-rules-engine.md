@@ -3,7 +3,7 @@ layout: docs
 title: Scheduling rules engine
 header: Scheduling rules engine
 prev_section: user-guide/managing-rules
-next_section: tutorials/hello-world
+next_section: user-guide/embedding-rules-engine
 doc: true
 ---
 
@@ -12,13 +12,11 @@ Easy Rules provides APIs to schedule a rules engine using the popular Java sched
 To schedule a rules engine instance, first you need to add the following dependency to your **_pom.xml_**:
 
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.easyrules</groupId>
-        <artifactId>easyrules-quartz</artifactId>
-        <version>{{site.version}}</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>org.easyrules</groupId>
+    <artifactId>easyrules-quartz</artifactId>
+    <version>{{site.version}}</version>
+</dependency>
 ```
 
 Then, you can create a `RulesEngineScheduler` as follows:
