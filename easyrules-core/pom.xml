@@ -11,6 +11,7 @@
     <packaging>jar</packaging>
 
     <name>Easy Rules core module</name>
+    <description>Public API and core implementation of Easy Rules</description>
 
     <scm>
         <url>git@github.com:benas/easy-rules.git</url>

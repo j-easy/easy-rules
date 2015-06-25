@@ -11,6 +11,7 @@
     <packaging>jar</packaging>
 
     <name>Easy Rules JMX module</name>
+    <description>Module for rule monitoring and management through JMX</description>
 
     <scm>
         <url>git@github.com:benas/easy-rules.git</url>

@@ -8,7 +8,7 @@
 
     <artifactId>easyrules-archetype</artifactId>
     <name>Easy Rules Quick Start Archetype</name>
-    <description>Easy Rules maven quick start archetype</description>
+    <description>Maven archetype to create a skeleton project</description>
     <url>http://www.easyrules.org</url>
 
     <developers>

@@ -11,6 +11,7 @@
     <packaging>jar</packaging>
 
     <name>Easy Rules Spring module</name>
+    <description>Module providing support for engine configuration using Spring</description>
 
     <scm>
         <url>git@github.com:benas/easy-rules.git</url>
