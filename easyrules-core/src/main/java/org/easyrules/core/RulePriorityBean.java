@@ -5,13 +5,13 @@ package org.easyrules.core;
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-class RulePriorityBean implements Comparable<RulePriorityBean> {
+final class RulePriorityBean implements Comparable<RulePriorityBean> {
 
     private int priority;
 
     private Object rule;
 
-    private RulePriorityBean(int priority, Object rule) {
+    private RulePriorityBean(final int priority, final Object rule) {
         this.priority = priority;
         this.rule = rule;
     }
@@ -25,7 +25,7 @@ class RulePriorityBean implements Comparable<RulePriorityBean> {
     }
 
     @Override
-    public int compareTo(RulePriorityBean ruleBean) {
+    public int compareTo(final RulePriorityBean ruleBean) {
         if (priority < ruleBean.getPriority()) {
             return -1;
         } else if (priority > ruleBean.getPriority()) {

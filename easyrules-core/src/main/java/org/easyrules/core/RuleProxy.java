@@ -9,7 +9,8 @@ import org.easyrules.util.Utils;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.*;
+import java.util.Set;
+import java.util.TreeSet;
 
 class RuleProxy implements InvocationHandler {
 
@@ -17,7 +18,7 @@ class RuleProxy implements InvocationHandler {
 
     private static RuleDefinitionValidator ruleDefinitionValidator = new RuleDefinitionValidator();
 
-    public RuleProxy(Object target) {
+    public RuleProxy(final Object target) {
         this.target = target;
     }
 
@@ -27,7 +28,7 @@ class RuleProxy implements InvocationHandler {
      * @param rule the annotated rule object.
      * @return a proxy that implements the {@link org.easyrules.api.Rule} interface.
      */
-    public static org.easyrules.api.Rule asRule(Object rule) {
+    public static org.easyrules.api.Rule asRule(final Object rule) {
 
         ruleDefinitionValidator.validateRuleDefinition(rule);
 
@@ -38,7 +39,7 @@ class RuleProxy implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
         if (method.getName().equals("getName")) {
             return getRuleAnnotation().name();
         }
@@ -68,7 +69,7 @@ class RuleProxy implements InvocationHandler {
         return null;
     }
 
-    private int compareTo(org.easyrules.api.Rule otherRule) throws Exception {
+    private int compareTo(final org.easyrules.api.Rule otherRule) throws Exception {
         String otherName = otherRule.getName();
         int otherPriority = otherRule.getPriority();
         String name = getRuleAnnotation().name();

@@ -31,7 +31,7 @@ import javax.management.MXBean;
 
 /**
  * Basic rule implementation class that provides common methods.
- *
+ * <p/>
  * You can extend this class and override {@link BasicRule#evaluate()} and {@link BasicRule#execute()}
  * to provide rule conditions and actions logic.
  *
@@ -95,7 +95,7 @@ public class BasicRule implements Rule, Comparable<Rule> {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -103,7 +103,7 @@ public class BasicRule implements Rule, Comparable<Rule> {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(final int priority) {
         this.priority = priority;
     }
 
@@ -112,7 +112,7 @@ public class BasicRule implements Rule, Comparable<Rule> {
      */
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

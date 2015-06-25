@@ -13,7 +13,7 @@ class ActionMethodOrderBean implements Comparable<ActionMethodOrderBean> {
 
     private int order;
 
-    ActionMethodOrderBean(Method method, int order) {
+    ActionMethodOrderBean(final Method method, final int order) {
         this.method = method;
         this.order = order;
     }
@@ -27,7 +27,7 @@ class ActionMethodOrderBean implements Comparable<ActionMethodOrderBean> {
     }
 
     @Override
-    public int compareTo(ActionMethodOrderBean actionMethodOrderBean) {
+    public int compareTo(final ActionMethodOrderBean actionMethodOrderBean) {
         if (order < actionMethodOrderBean.getOrder()) {
             return -1;
         } else if (order > actionMethodOrderBean.getOrder()) {
@@ -38,7 +38,7 @@ class ActionMethodOrderBean implements Comparable<ActionMethodOrderBean> {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof ActionMethodOrderBean)) return false;
 

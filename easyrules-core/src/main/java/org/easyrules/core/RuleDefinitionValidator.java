@@ -22,26 +22,26 @@ import static java.lang.String.format;
  */
 class RuleDefinitionValidator {
 
-    public void validateRuleDefinition(Object rule) {
+    public void validateRuleDefinition(final Object rule) {
         checkRuleClass(rule);
         checkConditionMethod(rule);
         checkActionMethods(rule);
         checkPriorityMethod(rule);
     }
 
-    private void checkRuleClass(Object rule) {
+    private void checkRuleClass(final Object rule) {
         if (!isRuleClassWellDefined(rule)) {
             throw new IllegalArgumentException(format("Rule '%s' is not annotated with '%s'", rule.getClass().getName(), Rule.class.getName()));
         }
     }
 
-    private void checkConditionMethod(Object rule) {
+    private void checkConditionMethod(final Object rule) {
         List<Method> conditionMethods = getMethodsAnnotatedWith(Condition.class, rule);
         if (conditionMethods.isEmpty()) {
             throw new IllegalArgumentException(format("Rule '%s' must have a public method annotated with '%s'", rule.getClass().getName(), Condition.class.getName()));
         }
 
-        if(conditionMethods.size() > 1) {
+        if (conditionMethods.size() > 1) {
             throw new IllegalArgumentException(format("Rule '%s' must have exactly one method annotated with annotated with '%s'", rule.getClass().getName(), Condition.class.getName()));
         }
 
@@ -52,7 +52,7 @@ class RuleDefinitionValidator {
         }
     }
 
-    private void checkActionMethods(Object rule) {
+    private void checkActionMethods(final Object rule) {
         List<Method> actionMethods = getMethodsAnnotatedWith(Action.class, rule);
         if (actionMethods.isEmpty()) {
             throw new IllegalArgumentException(format("Rule '%s' must have a public method annotated with '%s'", rule.getClass().getName(), Action.class.getName()));
@@ -65,7 +65,7 @@ class RuleDefinitionValidator {
         }
     }
 
-    private int checkPriorityMethod(Object rule) {
+    private int checkPriorityMethod(final Object rule) {
 
         List<Method> priorityMethods = getMethodsAnnotatedWith(Priority.class, rule);
 
@@ -92,28 +92,28 @@ class RuleDefinitionValidator {
         }
     }
 
-    private boolean isRuleClassWellDefined(Object rule) {
+    private boolean isRuleClassWellDefined(final Object rule) {
         return rule.getClass().isAnnotationPresent(Rule.class);
     }
 
-    private boolean isConditionMethodWellDefined(Method method) {
+    private boolean isConditionMethodWellDefined(final Method method) {
         return Modifier.isPublic(method.getModifiers())
                 && method.getReturnType().equals(Boolean.TYPE)
                 && method.getParameterTypes().length == 0;
     }
 
-    private boolean isActionMethodWellDefined(Method method) {
+    private boolean isActionMethodWellDefined(final Method method) {
         return Modifier.isPublic(method.getModifiers())
                 && method.getParameterTypes().length == 0;
     }
 
-    private boolean isPriorityMethodWellDefined(Method method) {
+    private boolean isPriorityMethodWellDefined(final Method method) {
         return Modifier.isPublic(method.getModifiers())
                 && method.getReturnType().equals(Integer.TYPE)
                 && method.getParameterTypes().length == 0;
     }
 
-    private List<Method> getMethodsAnnotatedWith(Class<? extends Annotation> annotation, Object rule) {
+    private List<Method> getMethodsAnnotatedWith(final Class<? extends Annotation> annotation, final Object rule) {
         Method[] methods = getMethods(rule);
         List<Method> annotatedMethods = new ArrayList<Method>();
         for (Method method : methods) {
@@ -124,7 +124,7 @@ class RuleDefinitionValidator {
         return annotatedMethods;
     }
 
-    private Method[] getMethods(Object rule) {
+    private Method[] getMethods(final Object rule) {
         return rule.getClass().getMethods();
     }
 
