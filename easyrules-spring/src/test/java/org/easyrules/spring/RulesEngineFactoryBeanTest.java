@@ -26,11 +26,14 @@ package org.easyrules.spring;
 
 import org.easyrules.api.RuleListener;
 import org.easyrules.api.RulesEngine;
+import org.easyrules.core.BasicRule;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Collections;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,7 +49,7 @@ public class RulesEngineFactoryBeanTest {
     public static final int RULE_PRIORITY_THRESHOLD = 10;
 
     @Mock
-    Object rule;
+    BasicRule rule;
 
     @Mock
     private RuleListener ruleListener;
@@ -72,7 +75,7 @@ public class RulesEngineFactoryBeanTest {
 
     @Test
     public void getObject() {
-        rulesEngineFactoryBean.setRules(singletonList(rule));
+        rulesEngineFactoryBean.setRules(Collections.<Object>singletonList(rule));
         rulesEngineFactoryBean.setRuleListeners(singletonList(ruleListener));
         rulesEngineFactoryBean.setRulePriorityThreshold(rulePriorityThreshold);
         rulesEngineFactoryBean.setSkipOnFirstAppliedRule(skipOnFirstAppliedRule);
