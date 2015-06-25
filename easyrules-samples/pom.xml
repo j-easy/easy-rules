@@ -10,7 +10,7 @@
     <artifactId>easyrules-samples</artifactId>
     <packaging>jar</packaging>
 
-    <name>Easy Rules samples module</name>
+    <name>Easy Rules Samples module</name>
 
     <scm>
         <url>git@github.com:benas/easy-rules.git</url>
@@ -72,7 +72,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>3.2.13.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
 
     </dependencies>
