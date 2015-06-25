@@ -44,7 +44,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RulesEngineFactoryBeanTest {
 
     public static final int RULE_PRIORITY_THRESHOLD = 10;
-    
+
+    @Mock
+    Object rule;
+
     @Mock
     private RuleListener ruleListener;
 
@@ -69,6 +72,7 @@ public class RulesEngineFactoryBeanTest {
 
     @Test
     public void getObject() {
+        rulesEngineFactoryBean.setRules(singletonList(rule));
         rulesEngineFactoryBean.setRuleListeners(singletonList(ruleListener));
         rulesEngineFactoryBean.setRulePriorityThreshold(rulePriorityThreshold);
         rulesEngineFactoryBean.setSkipOnFirstAppliedRule(skipOnFirstAppliedRule);

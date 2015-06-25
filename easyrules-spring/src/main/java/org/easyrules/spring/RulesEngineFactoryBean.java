@@ -48,8 +48,10 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
     
     private boolean silentMode;
     
+    private List<Object> rules;
+
     private List<RuleListener> ruleListeners;
-    
+
     @Override
     public RulesEngine getObject() {
         RulesEngineBuilder rulesEngineBuilder = aNewRulesEngine()
@@ -58,7 +60,9 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
                 .withRulePriorityThreshold(rulePriorityThreshold)
                 .withSilentMode(silentMode);
         registerRuleListeners(rulesEngineBuilder);
-        return rulesEngineBuilder.build();
+        RulesEngine rulesEngine = rulesEngineBuilder.build();
+        registerRules(rules, rulesEngine);
+        return rulesEngine;
     }
 
     @Override
@@ -69,6 +73,14 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
     @Override
     public boolean isSingleton() {
         return false;
+    }
+
+    private void registerRules(List<Object> rules, RulesEngine rulesEngine) {
+        if (rules != null && !rules.isEmpty()) {
+            for (Object rule : rules) {
+                rulesEngine.registerRule(rule);
+            }
+        }
     }
 
     private void registerRuleListeners(RulesEngineBuilder rulesEngineBuilder) {
@@ -85,6 +97,10 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
 
     public void setRuleListeners(List<RuleListener> ruleListeners) {
         this.ruleListeners = ruleListeners;
+    }
+
+    public void setRules(List<Object> rules) {
+        this.rules = rules;
     }
 
     public void setRulePriorityThreshold(int rulePriorityThreshold) {
