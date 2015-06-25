@@ -33,6 +33,8 @@ public interface RulesEngine {
 
     /**
      * Return the rules engine name.
+     *
+     * @return The rule engine name
      */
     String getName();
 
