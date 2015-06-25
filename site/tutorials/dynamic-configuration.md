@@ -10,7 +10,7 @@ doc: true
 In this tutorial, we have an online shop application and we would like to implement the following requirements:
 
 1. Whenever a new customer places an order with an amount greater than a defined threshold, send an alert about this suspect order to the monitoring team.
-2. Moreover, the order amount threshold should be reconfigurable via JMX so we can change it at runtime.
+2. Moreover, the order amount threshold should be configurable via JMX so we can change it at runtime.
 
 In the first part of this tutorial, we will see how to use Easy Rules to implement the business rule described in requirement #1.
 
@@ -22,26 +22,18 @@ In this application, orders and customers are represented by the _Order_ and _Cu
 
 ```java
 class Order {
-
     private long orderId;
-
     private float amount;
-
     //getters and setters
-
 }
 ```
 <br/>
 
 ```java
 class Customer {
-
     private long customerId;
-
     private boolean isNew;
-
     //getters and setters
-
 }
 ```
 

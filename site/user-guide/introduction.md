@@ -7,7 +7,7 @@ next_section: user-guide/defining-rules
 doc: true
 ---
 
-Most business rules can be represented by the following rule definition:
+Most business rules can be represented by the following definition:
 
 * _Name_: a unique rule name within a rules namespace
 * _Description_: a brief description of the rule
@@ -15,7 +15,7 @@ Most business rules can be represented by the following rule definition:
 * _Conditions_: set of conditions that should be satisfied to apply the rule
 * _Actions_: set of actions to perform when conditions are satisfied
 
-Easy Rules provides an abstraction for each of these key points that define a business rule.
+Easy Rules provides an abstraction for each of these key points to define business rules.
 
 Next section will show you how to define a rule either by extending a base class provided by Easy Rules or by annotating your
 own domain class.
