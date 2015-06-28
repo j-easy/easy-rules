@@ -62,8 +62,17 @@ Thank you all for your contributions!
 
 ## Credits
 
+### Yourkit
+
 Many thanks to [YourKit, LLC](https://www.yourkit.com/) for providing a free license of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/index.jsp) to kindly support the development of Easy Rules.
 ![YourKit Java Profiler](https://www.yourkit.com/images/yklogo.png)
+
+### CloudBees
+
+Many thanks to [CloudBees](https://www.cloudbees.com/) for providing a free [Jenkins](http://jenkins-ci.org/) service to support continuous integration for open source projects.
+
+![CloudBees](https://www.cloudbees.com/sites/default/files/styles/large/public/Button-Powered-by-CB.png)
+
 
 ## License
 Easy Rules is released under the [MIT License](http://opensource.org/licenses/mit-license.php/):
