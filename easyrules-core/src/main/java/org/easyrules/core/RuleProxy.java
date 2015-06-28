@@ -57,6 +57,15 @@ class RuleProxy implements InvocationHandler {
                 actionMethodBean.getMethod().invoke(target);
             }
         }
+        if (method.getName().equals("equals")) {
+            return target.equals(args[0]);
+        }
+        if (method.getName().equals("hashCode")) {
+            return target.hashCode();
+        }
+        if (method.getName().equals("toString")) {
+            return target.toString();
+        }
         if (method.getName().equals("compareTo")) {
             Method compareToMethod = getCompareToMethod();
             if (compareToMethod != null) {
