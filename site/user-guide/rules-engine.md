@@ -13,7 +13,7 @@ Rules are applied according to their natural order (which is priority by default
 
 ## Create a rules engine
 
-To create a rules engine and register a rule, use the following snippet:
+To create a rules engine and register a rule, you can use the static method `RulesEngineBuilder.aNewEngineBuilder()`:
 
 ```java
 RulesEngine rulesEngine = aNewEngineBuilder().build();
@@ -41,6 +41,12 @@ Easy Rules engine can be configured with the following parameters:
     </thead>
     <tbody>
     <tr>
+        <td>rulePriorityThreshold</td>
+        <td>int</td>
+        <td>no</td>
+        <td>Integer.MAX_VALUE</td>
+    </tr>
+    <tr>
         <td>skipOnFirstAppliedRule</td>
         <td>boolean</td>
         <td>no</td>
@@ -53,12 +59,6 @@ Easy Rules engine can be configured with the following parameters:
         <td>false</td>
     </tr>
     <tr>
-        <td>rulePriorityThreshold</td>
-        <td>int</td>
-        <td>no</td>
-        <td>Integer.MAX_VALUE</td>
-    </tr>
-    <tr>
         <td>silentMode</td>
         <td>boolean</td>
         <td>no</td>
@@ -69,7 +69,7 @@ Easy Rules engine can be configured with the following parameters:
 
 The `skipOnFirstAppliedRule` parameter tells the engine to skip next rules when a rule is applied.
 
-The `skipOnFirstfailedRule` parameter tells the engine to skip next rules when a rule fails.
+The `skipOnFirstFailedRule` parameter tells the engine to skip next rules when a rule fails.
 
 The `rulePriorityThreshold` parameter tells the engine to skip next rules if priority exceeds the defined threshold.
 
