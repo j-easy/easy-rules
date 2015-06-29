@@ -39,7 +39,7 @@ The `RulesEngineScheduler` API provides methods to schedule a rules engine:
 * Repeatedly with a predefined interval using `scheduleAtWithInterval(RulesEngine engine, Date when, int interval)`
 * Using unix cron-like expression with `scheduleCron(RulesEngine engine, String cronExpression)`
 
-To unregister a rule, use the following snippet:
+To unregister a rules engine, use the following snippet:
 
 ```java
 scheduler.unschedule(rulesEngine);

@@ -94,7 +94,7 @@ The `Person` type is a simple Pojo having a `name` and `age` fields. Let's regis
 
 ```java
 Person tom = new Person("Tom", 20);
-Person david = new Person("David", 18);
+Person david = new Person("David", 19);
 
 RulesEngine rulesEngine = aNewRulesEngine().build();
 
@@ -103,7 +103,7 @@ AgeRule ageRule = new AgeRule(tom);
 rulesEngine.registerRule(ageRule);
 rulesEngine.fireRules();
 
-//first run
+//second run
 ageRule = new AgeRule(david);
 rulesEngine.registerRule(ageRule);
 rulesEngine.fireRules();
@@ -116,9 +116,10 @@ Person Tom has been marked as adult.
 Person David has been marked as adult.
 ```
 
-But you see only:
+But actually you get:
 
 ```
+Person Tom has been marked as adult.
 Person Tom has been marked as adult.
 ```
 
@@ -132,7 +133,7 @@ You have 2 solutions: Either you clear rules after the first run using `rulesEng
 ```java
 //create persons
 Person tom = new Person("Tom", 20);
-Person david = new Person("David", 18);
+Person david = new Person("David", 19);
 
 //create a rules engine
 RulesEngine rulesEngine = aNewRulesEngine().build();

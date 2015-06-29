@@ -7,7 +7,7 @@ next_section: tutorials/hello-world
 doc: true
 ---
 
-Easy Rules is a lightweight library that can be used in a standalone Java application or embedded in a web server or a DI container.
+Easy Rules is a lightweight library that can be used in a standalone Java application or embedded in a web server or a dependency injection container.
 
 As of version {{ site.version }}, Easy Rules provides support for <a href="http://www.spring.io" target="_blank">Spring</a>.
 Support for other DI containers will be added in future versions.
