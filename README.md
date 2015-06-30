@@ -34,6 +34,7 @@ Easy Rules is a simple yet powerful Java rules engine providing the following fe
 
 * The current stable version is 2.1.0
 * The current development version is 2.1.1-SNAPSHOT: [![Build Status](https://buildhive.cloudbees.com/job/benas/job/easy-rules/badge/icon)](https://buildhive.cloudbees.com/job/benas/job/easy-rules/)
+
 In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
 
 ```xml
