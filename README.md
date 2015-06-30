@@ -14,19 +14,27 @@ Easy Rules is a simple yet powerful Java rules engine providing the following fe
 
 ## Documentation
 
-The online documentation can be found here : [http://www.easyrules.org](http://www.easyrules.org)
+### Project Home
 
-## Presentation
+[http://www.easyrules.org](http://www.easyrules.org)
 
-You can find some slides about Easy Rules on [speaker deck](https://speakerdeck.com/benas/easy-rules).
+### Continuous integration
 
-## Continuous integration
 [Jenkins job @ CloudBees.com](https://buildhive.cloudbees.com/job/benas/job/easy-rules/)
+
+### Agile Board
+
+[Backlog items @ Waffle.io](https://waffle.io/benas/easy-rules)
+
+### Presentation slides
+
+[https://speakerdeck.com/benas/easy-rules](https://speakerdeck.com/benas/easy-rules)
 
 ## Current version
 
-* The current stable version is 2.1.0: [![Build Status](https://buildhive.cloudbees.com/job/benas/job/easy-rules/badge/icon)](https://buildhive.cloudbees.com/job/benas/job/easy-rules/)
-* The current development version is 2.1.1-SNAPSHOT. In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
+* The current stable version is 2.1.0
+* The current development version is 2.1.1-SNAPSHOT: [![Build Status](https://buildhive.cloudbees.com/job/benas/job/easy-rules/badge/icon)](https://buildhive.cloudbees.com/job/benas/job/easy-rules/)
+In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
 
 ```xml
 <repositories>
@@ -37,16 +45,13 @@ You can find some slides about Easy Rules on [speaker deck](https://speakerdeck.
 </repositories>
 ```
 
-## Agile Board
-[Backlog items @ Waffle.io](https://waffle.io/benas/easy-rules)
-
 ## Contribution
 
 You are welcome to contribute to the project with pull requests on GitHub.
 
 If you believe you found a bug, please use the [issue tracker](https://github.com/benas/easy-rules/issues). 
 It would be great to attach a JUnit test that fails with the current version.
-And you would be an awesome contributor if you send a pull request with a patch that fixes the bug!
+And you will be an awesome contributor if you send a pull request with a patch that fixes the bug!
 
 For any further question, you can use the [Gitter](https://gitter.im/benas/easy-rules) channel of the project: [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/benas/easy-rules?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
