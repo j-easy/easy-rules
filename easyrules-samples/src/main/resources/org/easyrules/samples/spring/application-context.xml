@@ -5,7 +5,7 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- configure rule  -->
-    <bean id="rule" class="org.easyrules.samples.spring.DummyRule"/>
+    <bean id="rule" class="org.easyrules.samples.spring.DummyRule" scope="prototype"/>
 
     <!-- configure rules engine -->
     <bean id="rulesEngine" class="org.easyrules.spring.RulesEngineFactoryBean">

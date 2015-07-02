@@ -33,7 +33,7 @@ Then, you can configure your rules and the rules engine as follows:
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- configure rule  -->
-    <bean id="rule" class="DummyRule"/>
+    <bean id="rule" class="DummyRule" scope="prototype"/>
 
     <!-- configure rule listener -->
     <bean id="ruleListener" class="DummyRuleListener"/>
@@ -66,6 +66,12 @@ As you can see, this factory bean is the main entry point to configure:
 * Rules listeners
 * And engine parameters (priority threshold, skipOnFirstAppliedRule, silentMode, etc)
 
+<div id="thread-safety" class="note info">
+  <h5>Heads up!</h5>
+  <p>If your rules are not thread safe, you should consider make them of scope <strong>prototype</strong>.</p>
+  <p>The rules engine instance returned by the <code>RulesEngineFactoryBean</code> is already of scope <strong>prototype</strong>.</p> 
+</div>
+
 To get the engine and fires rules, you can use the following snippet:
 
 ```java
@@ -75,7 +81,7 @@ RulesEngine rulesEngine = (RulesEngine) context.getBean("rulesEngine");
 rulesEngine.fireRules();
 ```
 
-<div class="note info">
+<div class="note">
   <h5>Hint:</h5>
   <p>The main advantage of using Easy Rules with Spring is the ability to register/unregister rules through the Xml configuration 
      without recompiling your application.</p>
