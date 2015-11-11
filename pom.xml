@@ -34,9 +34,6 @@
         <mockito.version>1.10.19</mockito.version>
         <quartz.version>2.2.1</quartz.version>
         <spring.version>3.2.13.RELEASE</spring.version>
-        <maven-checkstyle-plugin.version>2.15</maven-checkstyle-plugin.version>
-        <maven-pmd-plugin.version>3.4</maven-pmd-plugin.version>
-        <findbugs-maven-plugin.version>3.0.1</findbugs-maven-plugin.version>
         <cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
         <maven-release-plugin.version>2.5.2</maven-release-plugin.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
@@ -146,6 +143,16 @@
                         <source>1.6</source>
                         <target>1.6</target>
                         <showWarnings>true</showWarnings>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <version>${cobertura-maven-plugin.version}</version>
+                    <configuration>
+                        <format>xml</format>
+                        <maxmem>256m</maxmem>
+                        <aggregate>true</aggregate>
                     </configuration>
                 </plugin>
                 <plugin>
