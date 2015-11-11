@@ -140,8 +140,8 @@
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <verbose>true</verbose>
-                        <source>1.6</source>
-                        <target>1.6</target>
+                        <source>1.7</source>
+                        <target>1.7</target>
                         <showWarnings>true</showWarnings>
                     </configuration>
                 </plugin>
