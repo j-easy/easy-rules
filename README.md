@@ -1,6 +1,6 @@
 ## What is Easy Rules?
 
-Easy Rules is a Java rules engine inspired by an article called **[Should I use a Rules Engine?](http://martinfowler.com/bliki/RulesEngine.html)** by [Martin Fowler](http://martinfowler.com/) in which he says:
+Easy Rules is a Java rules engine inspired by an article called *"[Should I use a Rules Engine?](http://martinfowler.com/bliki/RulesEngine.html)"* by [Martin Fowler](http://martinfowler.com/) in which he says:
 
 > You can build a simple rules engine yourself. All you need is to create a bunch of objects with conditions and actions, store them in a collection, and run through them to evaluate the conditions and execute the actions.
 
@@ -21,7 +21,7 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
 ## Quick links
 
 |Item                  |Link                                                                                  |
-|----------------------|--------------------------------------------------------------------------------------|
+|:---------------------|:-------------------------------------------------------------------------------------|
 |Project Home          | [http://www.easyrules.org](http://www.easyrules.org)                                 |
 |Presentation          | [https://speakerdeck.com/benas/easy-rules](https://speakerdeck.com/benas/easy-rules) |
 |Continuous integration| [Build job @ Travis CI](https://travis-ci.org/benas/easy-rules)                      |
@@ -49,7 +49,7 @@ You are welcome to contribute to the project with pull requests on GitHub.
 
 If you found a bug or want to request a feature, please use the [issue tracker](https://github.com/benas/easy-rules/issues).
 
-For any further question, you can use the [Gitter](https://gitter.im/benas/easy-rules) channel of the project: [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/benas/easy-rules?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+For any further question, you can use the [Gitter](https://gitter.im/benas/easy-rules) channel of the project.
 
 ## Awesome contributors
 
