@@ -109,6 +109,21 @@ public class DefaultRulesEngineTest {
         assertThat(rule.getDescription()).isEqualTo("when condition then action1,action2");
     }
 
+    @Test
+    public void testGetRules() throws Exception {
+        rule = new BasicRule("r1", "d1", 1);
+        anotherRule = new BasicRule("r2", "d2", 2);
+
+        rulesEngine.registerRule(rule);
+        rulesEngine.registerRule(anotherRule);
+
+        assertThat(rulesEngine.getRules())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(2)
+                .containsExactly(rule, anotherRule);
+    }
+
     @After
     public void clearRules() {
         rulesEngine.clearRules();

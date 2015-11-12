@@ -24,6 +24,8 @@
 
 package org.easyrules.api;
 
+import java.util.Set;
+
 /**
  * Rules engine interface.
  *
@@ -40,15 +42,24 @@ public interface RulesEngine {
 
     /**
      * Register a rule in the rules engine registry.
+     *
      * @param rule the rule to register
      */
     void registerRule(Object rule);
 
     /**
      * Unregister a rule from the rules engine registry.
+     *
      * @param rule the rule to unregister
      */
     void unregisterRule(Object rule);
+
+    /**
+     * Return the set of registered rules.
+     *
+     * @return the set of registered rules
+     */
+    Set<Rule> getRules();
 
     /**
      * Fire all registered rules.

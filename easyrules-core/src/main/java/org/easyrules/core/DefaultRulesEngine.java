@@ -37,9 +37,9 @@ import java.util.logging.Logger;
 
 /**
  * Default {@link org.easyrules.api.RulesEngine} implementation.
- *
+ * <p/>
  * This implementation handles a set of rules with unique name.
- *
+ * <p/>
  * Rules are fired according to their natural order which is priority by default.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
@@ -81,7 +81,7 @@ class DefaultRulesEngine implements RulesEngine {
     DefaultRulesEngine(final String name, final boolean skipOnFirstAppliedRule, final boolean skipOnFirstFailedRule,
                        final int rulePriorityThreshold, final List<RuleListener> ruleListeners, final boolean silentMode) {
         this.name = name;
-        rules = new TreeSet<Rule>();
+        this.rules = new TreeSet<>();
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
         this.rulePriorityThreshold = rulePriorityThreshold;
@@ -107,6 +107,11 @@ class DefaultRulesEngine implements RulesEngine {
     }
 
     @Override
+    public Set<Rule> getRules() {
+        return rules;
+    }
+
+    @Override
     public void clearRules() {
         rules.clear();
         LOGGER.info("Rules cleared.");
@@ -127,7 +132,7 @@ class DefaultRulesEngine implements RulesEngine {
     }
 
     private void sortRules() {
-        rules = new TreeSet<Rule>(rules);
+        rules = new TreeSet<>(rules);
     }
 
     private void applyRules() {
@@ -140,7 +145,7 @@ class DefaultRulesEngine implements RulesEngine {
             if (rulePriority > rulePriorityThreshold) {
                 LOGGER.log(Level.INFO,
                         "Rule priority threshold ({0}) exceeded at rule ''{1}'' (priority={2}), next rules will be skipped.",
-                        new Object[] {rulePriorityThreshold, ruleName, rulePriority});
+                        new Object[]{rulePriorityThreshold, ruleName, rulePriority});
                 break;
             }
 
