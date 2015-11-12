@@ -97,6 +97,18 @@ public class DefaultRulesEngineTest {
         assertThat(annotatedRule.isExecuted()).isTrue();
     }
 
+    @Test
+    public void whenRuleNameIsNotSpecified_thenItShouldBeEqualToClassNameByDefault() throws Exception {
+        org.easyrules.api.Rule rule = RuleProxy.asRule(new DummyRule());
+        assertThat(rule.getName()).isEqualTo("DummyRule");
+    }
+
+    @Test
+    public void whenRuleDescriptionIsNotSpecified_thenItShouldBeEqualToConditionNameFollowedByActionsNames() throws Exception {
+        org.easyrules.api.Rule rule = RuleProxy.asRule(new DummyRule());
+        assertThat(rule.getDescription()).isEqualTo("when condition then action1,action2");
+    }
+
     @After
     public void clearRules() {
         rulesEngine.clearRules();
@@ -144,4 +156,24 @@ public class DefaultRulesEngineTest {
         }
 
     }
+
+    @Rule
+    public class DummyRule {
+
+        @Condition
+        public boolean condition() {
+            return true;
+        }
+
+        @Action(order = 1)
+        public void action1() throws Exception {
+            // no op
+        }
+
+        @Action(order = 2)
+        public void action2() throws Exception {
+            // no op
+        }
+    }
+
 }
