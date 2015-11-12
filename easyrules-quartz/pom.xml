@@ -26,8 +26,8 @@
     </issueManagement>
 
     <ciManagement>
-        <system>Jenkins</system>
-        <url>https://buildhive.cloudbees.com/job/benas/job/easy-rules/</url>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/benas/easy-rules</url>
     </ciManagement>
 
     <developers>
