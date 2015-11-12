@@ -24,20 +24,21 @@
     <packaging>pom</packaging>
 
     <name>Easy Rules</name>
-    <description>Easy Rules is a simple yet powerful Java rules engine</description>
+    <description>Easy Rules is a simple, stupid Java rules engine</description>
     <url>http://www.easyrules.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.7</java.version>
         <junit.version>4.12</junit.version>
-        <assertj.version>1.7.1</assertj.version>
+        <assertj.version>2.0.0</assertj.version>
         <mockito.version>1.10.19</mockito.version>
-        <quartz.version>2.2.1</quartz.version>
-        <spring.version>3.2.13.RELEASE</spring.version>
+        <quartz.version>2.2.2</quartz.version>
+        <spring.version>4.2.2.RELEASE</spring.version>
         <cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
-        <maven-release-plugin.version>2.5.2</maven-release-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
     </properties>
 
@@ -140,8 +141,8 @@
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <verbose>true</verbose>
-                        <source>1.7</source>
-                        <target>1.7</target>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                         <showWarnings>true</showWarnings>
                     </configuration>
                 </plugin>
