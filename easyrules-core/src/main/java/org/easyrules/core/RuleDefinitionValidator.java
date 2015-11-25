@@ -93,7 +93,7 @@ class RuleDefinitionValidator {
     }
 
     private boolean isRuleClassWellDefined(final Object rule) {
-        return rule.getClass().isAnnotationPresent(Rule.class);
+        return Utils.isAnnotationPresent(Rule.class, rule.getClass());
     }
 
     private boolean isConditionMethodWellDefined(final Method method) {

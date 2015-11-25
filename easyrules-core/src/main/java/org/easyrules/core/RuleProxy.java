@@ -146,7 +146,7 @@ class RuleProxy implements InvocationHandler {
     }
 
     private Rule getRuleAnnotation() {
-        return getTargetClass().getAnnotation(Rule.class);
+        return Utils.findAnnotation(Rule.class, getTargetClass());
     }
 
     private String getRuleName() {

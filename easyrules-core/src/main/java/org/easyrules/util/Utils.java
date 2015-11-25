@@ -1,5 +1,6 @@
 package org.easyrules.util;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -72,6 +73,32 @@ public final class Utils {
             clazz = clazz.getSuperclass();
         }
         return interfaces;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <A extends Annotation> A findAnnotation(
+            final Class<? extends Annotation> targetAnnotation, final Class annotatedType) {
+
+        checkNotNull(targetAnnotation, "targetAnnotation");
+        checkNotNull(annotatedType, "annotatedType");
+
+        Annotation foundAnnotation = annotatedType.getAnnotation(targetAnnotation);
+        if (foundAnnotation == null) {
+            for (Annotation annotation : annotatedType.getAnnotations()) {
+                Class<? extends Annotation> annotationType = annotation.annotationType();
+                if (annotationType.isAnnotationPresent(targetAnnotation)) {
+                    foundAnnotation = annotationType.getAnnotation(targetAnnotation);
+                    break;
+                }
+            }
+        }
+        return (A) foundAnnotation;
+    }
+
+    public static boolean isAnnotationPresent(
+            final Class<? extends Annotation> targetAnnotation, final Class annotatedType) {
+
+        return findAnnotation(targetAnnotation, annotatedType) != null;
     }
 
     public static void checkNotNull(final Object argument, final String argumentName) {

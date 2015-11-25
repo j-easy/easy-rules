@@ -22,6 +22,11 @@ public class RuleDefinitionValidatorTest {
         ruleDefinitionValidator.validateRuleDefinition(new Object());
     }
 
+    @Test
+    public void withCustomAnnotationThatIsItselfAnnotatedWithTheRuleAnnotation() throws Throwable {
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithMetaRuleAnnotation());
+    }
+
     /*
      * Conditions methods tests
      */
