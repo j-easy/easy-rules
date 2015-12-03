@@ -7,7 +7,7 @@ import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 /**
  * Launcher class for rule priority tutorial.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class Launcher {
 

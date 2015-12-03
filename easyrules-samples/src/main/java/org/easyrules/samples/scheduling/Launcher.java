@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Main class to run the scheduler tutorial.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class Launcher {
 

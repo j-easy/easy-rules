@@ -8,7 +8,7 @@ import org.junit.runners.Suite;
 /**
  * Test suite for Easy Rules core module.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 
 @RunWith(Suite.class)

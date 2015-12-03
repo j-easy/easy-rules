@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 /**
  * Test class for custom rule ordering.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @RunWith(MockitoJUnitRunner.class)
 public class CustomRuleOrderingTest {

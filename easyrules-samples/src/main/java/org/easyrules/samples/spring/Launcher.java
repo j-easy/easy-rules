@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2014, Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ *  Copyright (c) 2014, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Main class to run the Spring tutorial.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class Launcher {
 

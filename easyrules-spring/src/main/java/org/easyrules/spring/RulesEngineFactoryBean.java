@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ *  Copyright (c) 2016, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@ import static org.easyrules.util.Utils.DEFAULT_RULE_PRIORITY_THRESHOLD;
 /**
  * Factory bean to create {@link RulesEngine} instances.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
 

@@ -6,10 +6,10 @@ exclude: ["CNAME", "README"]
 
 author :
   name : Mahmoud Ben Hassine
-  email : mahmoud@benhassine.fr
+  email : mahmoud.benhassine@icloud.com
   github : benas
   twitter : _benas_
-  web : http://www.mahmoud-benhassine.fr
+  web : http://benas.github.io
 
 project:
   name: Easy Rules

@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 /**
  * Test class for composite rule execution.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @RunWith(MockitoJUnitRunner.class)
 public class CompositeRuleTest {

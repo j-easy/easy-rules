@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2014, Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ *  Copyright (c) 2014, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@ import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 /**
  * Launcher class of the Hello World sample.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class Launcher {
 

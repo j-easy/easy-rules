@@ -74,7 +74,7 @@ Easy Rules is released under the [![MIT license](http://img.shields.io/badge/lic
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015 Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+Copyright (c) 2016 Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

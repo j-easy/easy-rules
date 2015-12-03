@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ *  Copyright (c) 2016, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  * Annotation to mark the method to execute to get rule priority.
  * Must annotate any public method with no arguments and that returns an integer value.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

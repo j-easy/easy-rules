@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 /**
  * Utility class that associates an action method and its execution order.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 class ActionMethodOrderBean implements Comparable<ActionMethodOrderBean> {
 

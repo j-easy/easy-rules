@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ *  Copyright (c) 2016, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@ import javax.management.MXBean;
  * You can extend this class and override {@link BasicRule#evaluate()} and {@link BasicRule#execute()}
  * to provide rule conditions and actions logic.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @MXBean
 public class BasicRule implements Rule, Comparable<Rule> {

@@ -3,7 +3,7 @@ package org.easyrules.api;
 /**
  * A listener for rules execution events.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public interface RuleListener {
 

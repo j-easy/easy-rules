@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2014, Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ *  Copyright (c) 2014, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ package org.easyrules.samples.order;
 /**
  * Order java bean.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 class Order {
 

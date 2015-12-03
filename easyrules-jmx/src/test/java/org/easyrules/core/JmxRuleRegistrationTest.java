@@ -15,7 +15,7 @@ import static org.easyrules.core.JmxRulesEngineBuilder.aNewJmxRulesEngine;
 /**
  * Test class for JMX managed rule registration.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class JmxRuleRegistrationTest {
 

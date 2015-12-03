@@ -64,10 +64,10 @@
         <developer>
             <id>benas</id>
             <name>Mahmoud Ben Hassine</name>
-            <url>http://www.mahmoud-benhassine.fr</url>
-            <email>mahmoud@benhassine.fr</email>
+            <url>http://benas.github.io</url>
+            <email>mahmoud.benhassine@icloud.com</email>
             <roles>
-                <role>Project founder</role>
+                <role>Lead developer</role>
             </roles>
         </developer>
     </developers>

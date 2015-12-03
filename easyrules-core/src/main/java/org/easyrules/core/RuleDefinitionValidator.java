@@ -18,7 +18,7 @@ import static java.lang.String.format;
 /**
  * Validate that an annotated rule object is well defined.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 class RuleDefinitionValidator {
 

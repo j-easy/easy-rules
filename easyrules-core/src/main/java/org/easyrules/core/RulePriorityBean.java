@@ -3,7 +3,7 @@ package org.easyrules.core;
 /**
  * Utility class that associates a rule to its priority.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 final class RulePriorityBean implements Comparable<RulePriorityBean> {
 
