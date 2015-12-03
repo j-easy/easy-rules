@@ -57,7 +57,7 @@ public class RulesEngineFactoryBeanTest {
     @Mock
     private RuleListener ruleListener;
 
-    private int rulePriorityThreshold;
+    private int priorityThreshold;
 
     private boolean skipOnFirstAppliedRule;
 
@@ -72,7 +72,7 @@ public class RulesEngineFactoryBeanTest {
         silentMode = true;
         skipOnFirstFailedRule = true;
         skipOnFirstAppliedRule = true;
-        rulePriorityThreshold = RULE_PRIORITY_THRESHOLD;
+        priorityThreshold = RULE_PRIORITY_THRESHOLD;
         rulesEngineFactoryBean = new RulesEngineFactoryBean();
     }
 
@@ -84,7 +84,7 @@ public class RulesEngineFactoryBeanTest {
 
         rulesEngineFactoryBean.setRules(expectedRules);
         rulesEngineFactoryBean.setRuleListeners(expectedRuleListeners);
-        rulesEngineFactoryBean.setRulePriorityThreshold(rulePriorityThreshold);
+        rulesEngineFactoryBean.setPriorityThreshold(priorityThreshold);
         rulesEngineFactoryBean.setSkipOnFirstAppliedRule(skipOnFirstAppliedRule);
         rulesEngineFactoryBean.setSkipOnFirstFailedRule(skipOnFirstFailedRule);
         rulesEngineFactoryBean.setSilentMode(silentMode);
@@ -92,7 +92,7 @@ public class RulesEngineFactoryBeanTest {
 
         assertThat(rulesEngine).isNotNull();
 
-        assertEquals(rulePriorityThreshold, getFieldValue(rulesEngine, "rulePriorityThreshold"));
+        assertEquals(priorityThreshold, getFieldValue(rulesEngine, "priorityThreshold"));
         assertEquals(skipOnFirstAppliedRule, getFieldValue(rulesEngine, "skipOnFirstAppliedRule"));
         assertEquals(skipOnFirstFailedRule, getFieldValue(rulesEngine, "skipOnFirstFailedRule"));
         assertEquals(new HashSet<>(expectedRules), new HashSet<>((Collection) getFieldValue(rulesEngine, "rules")));

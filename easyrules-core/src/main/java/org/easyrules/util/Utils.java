@@ -66,7 +66,7 @@ public final class Utils {
     }
 
     public static List<Class> getInterfaces(final Object rule) {
-        List<Class> interfaces = new ArrayList<Class>();
+        List<Class> interfaces = new ArrayList<>();
         Class clazz = rule.getClass();
         while (clazz.getSuperclass() != null) {
             interfaces.addAll(asList(clazz.getInterfaces()));

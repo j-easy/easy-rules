@@ -40,7 +40,7 @@ import static org.easyrules.util.Utils.DEFAULT_RULE_PRIORITY_THRESHOLD;
  */
 public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
 
-    private int rulePriorityThreshold = DEFAULT_RULE_PRIORITY_THRESHOLD;
+    private int priorityThreshold = DEFAULT_RULE_PRIORITY_THRESHOLD;
     
     private boolean skipOnFirstAppliedRule;
     
@@ -57,11 +57,11 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
         RulesEngineBuilder rulesEngineBuilder = aNewRulesEngine()
                 .withSkipOnFirstAppliedRule(skipOnFirstAppliedRule)
                 .withSkipOnFirstFailedRule(skipOnFirstFailedRule)
-                .withRulePriorityThreshold(rulePriorityThreshold)
+                .withRulePriorityThreshold(priorityThreshold)
                 .withSilentMode(silentMode);
         registerRuleListeners(rulesEngineBuilder);
         RulesEngine rulesEngine = rulesEngineBuilder.build();
-        registerRules(rules, rulesEngine);
+        registerRules(rulesEngine);
         return rulesEngine;
     }
 
@@ -75,7 +75,7 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
         return false;
     }
 
-    private void registerRules(List<Object> rules, RulesEngine rulesEngine) {
+    private void registerRules(RulesEngine rulesEngine) {
         if (rules != null && !rules.isEmpty()) {
             for (Object rule : rules) {
                 rulesEngine.registerRule(rule);
@@ -103,8 +103,8 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
         this.rules = rules;
     }
 
-    public void setRulePriorityThreshold(int rulePriorityThreshold) {
-        this.rulePriorityThreshold = rulePriorityThreshold;
+    public void setPriorityThreshold(int priorityThreshold) {
+        this.priorityThreshold = priorityThreshold;
     }
 
     public void setSilentMode(boolean silentMode) {
