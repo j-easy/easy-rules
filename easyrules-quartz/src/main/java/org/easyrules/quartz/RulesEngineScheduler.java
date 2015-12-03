@@ -96,7 +96,7 @@ public class RulesEngineScheduler {
         checkNotNull(engine, "engine");
         checkNotNull(startTime, "startTime");
 
-        String engineName = engine.getName();
+        String engineName = engine.getParameters().getName();
         String jobName = JOB_NAME_PREFIX + engineName;
         String triggerName = TRIGGER_NAME_PREFIX + engineName;
 
@@ -127,7 +127,7 @@ public class RulesEngineScheduler {
         checkNotNull(engine, "engine");
         checkNotNull(startTime, "startTime");
 
-        String engineName = engine.getName();
+        String engineName = engine.getParameters().getName();
         String jobName = JOB_NAME_PREFIX + engineName;
         String triggerName = TRIGGER_NAME_PREFIX + engineName;
 
@@ -164,7 +164,7 @@ public class RulesEngineScheduler {
         checkNotNull(engine, "engine");
         checkNotNull(cronExpression, "cronExpression");
 
-        String engineName = engine.getName();
+        String engineName = engine.getParameters().getName();
         String jobName = JOB_NAME_PREFIX + engineName;
         String triggerName = TRIGGER_NAME_PREFIX + engineName;
 
@@ -193,7 +193,7 @@ public class RulesEngineScheduler {
     public void unschedule(final RulesEngine engine) throws RulesEngineSchedulerException {
         LOGGER.log(Level.INFO, "Unscheduling engine ''{0}'' ", engine);
         try {
-            scheduler.unscheduleJob(TriggerKey.triggerKey(TRIGGER_NAME_PREFIX + engine.getName()));
+            scheduler.unscheduleJob(TriggerKey.triggerKey(TRIGGER_NAME_PREFIX + engine.getParameters().getName()));
         } catch (SchedulerException e) {
             throw new RulesEngineSchedulerException("Unable to unschedule engine " + engine, e);
         }
@@ -208,7 +208,7 @@ public class RulesEngineScheduler {
      */
     public boolean isScheduled(final RulesEngine engine) throws RulesEngineSchedulerException {
         try {
-            return scheduler.checkExists(TriggerKey.triggerKey(TRIGGER_NAME_PREFIX + engine.getName()));
+            return scheduler.checkExists(TriggerKey.triggerKey(TRIGGER_NAME_PREFIX + engine.getParameters().getName()));
         } catch (SchedulerException e) {
             throw new RulesEngineSchedulerException("Unable to check if the engine '" + engine + "' is scheduled", e);
         }

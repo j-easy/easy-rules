@@ -49,51 +49,32 @@ class DefaultRulesEngine implements RulesEngine {
     private static final Logger LOGGER = Logger.getLogger(RulesEngine.class.getName());
 
     /**
-     * The engine name.
-     */
-    protected String name;
-
-    /**
      * The rules set.
      */
     protected Set<Rule> rules;
 
     /**
-     * Parameter to skip next applicable rules when a rule is applied.
+     * The engine parameters
      */
-    protected boolean skipOnFirstAppliedRule;
-
-    /**
-     * Parameter to skip next applicable rules when a rule has failed.
-     */
-    protected boolean skipOnFirstFailedRule;
-
-    /**
-     * Parameter to skip next rules if priority exceeds a user defined threshold.
-     */
-    protected int priorityThreshold;
+    protected RulesEngineParameters parameters;
 
     /**
      * The registered rule listeners.
      */
     private List<RuleListener> ruleListeners;
 
-    DefaultRulesEngine(final String name, final boolean skipOnFirstAppliedRule, final boolean skipOnFirstFailedRule,
-                       final int priorityThreshold, final List<RuleListener> ruleListeners, final boolean silentMode) {
-        this.name = name;
+    DefaultRulesEngine(final RulesEngineParameters parameters, final List<RuleListener> ruleListeners) {
+        this.parameters = parameters;
         this.rules = new TreeSet<>();
-        this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
-        this.skipOnFirstFailedRule = skipOnFirstFailedRule;
-        this.priorityThreshold = priorityThreshold;
         this.ruleListeners = ruleListeners;
-        if (silentMode) {
+        if (parameters.isSilentMode()) {
             Utils.muteLoggers();
         }
     }
 
     @Override
-    public String getName() {
-        return name;
+    public RulesEngineParameters getParameters() {
+        return parameters;
     }
 
     @Override
@@ -142,10 +123,10 @@ class DefaultRulesEngine implements RulesEngine {
             final String name = rule.getName();
             final int priority = rule.getPriority();
 
-            if (priority > priorityThreshold) {
+            if (priority > parameters.getPriorityThreshold()) {
                 LOGGER.log(Level.INFO,
                         "Rule priority threshold ({0}) exceeded at rule ''{1}'' with priority={2}, next rules will be skipped",
-                        new Object[]{priorityThreshold, name, priority});
+                        new Object[]{parameters.getPriorityThreshold(), name, priority});
                 break;
             }
 
@@ -157,14 +138,14 @@ class DefaultRulesEngine implements RulesEngine {
                     LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully", name);
                     triggerListenersOnSuccess(rule);
 
-                    if (skipOnFirstAppliedRule) {
+                    if (parameters.isSkipOnFirstAppliedRule()) {
                         LOGGER.info("Next rules will be skipped since parameter skipOnFirstAppliedRule is set");
                         break;
                     }
                 } catch (Exception exception) {
                     LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error", name), exception);
                     triggerListenersOnFailure(rule, exception);
-                    if (skipOnFirstFailedRule) {
+                    if (parameters.isSkipOnFirstFailedRule()) {
                         LOGGER.info("Next rules will be skipped since parameter skipOnFirstFailedRule is set");
                         break;
                     }
@@ -196,9 +177,10 @@ class DefaultRulesEngine implements RulesEngine {
     }
 
     private void logEngineParameters() {
-        LOGGER.log(Level.INFO, "Rule priority threshold: {0}", priorityThreshold);
-        LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", skipOnFirstAppliedRule);
-        LOGGER.log(Level.INFO, "Skip on first failed rule: {0}", skipOnFirstFailedRule);
+        LOGGER.log(Level.INFO, "Engine name: {0}", parameters.getName());
+        LOGGER.log(Level.INFO, "Rule priority threshold: {0}", parameters.getPriorityThreshold());
+        LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", parameters.isSkipOnFirstAppliedRule());
+        LOGGER.log(Level.INFO, "Skip on first failed rule: {0}", parameters.isSkipOnFirstFailedRule());
     }
 
     private Rule asRule(final Object rule) {
@@ -213,7 +195,7 @@ class DefaultRulesEngine implements RulesEngine {
 
     @Override
     public String toString() {
-        return name;
+        return parameters.getName();
     }
 
 }

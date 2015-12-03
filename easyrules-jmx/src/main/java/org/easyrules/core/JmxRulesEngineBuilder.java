@@ -37,15 +37,7 @@ import java.util.List;
  */
 public class JmxRulesEngineBuilder {
 
-    private String name;
-
-    private boolean skipOnFirstAppliedRule;
-
-    private boolean skipOnFirstFailedRule;
-
-    private boolean silentMode;
-
-    private int rulePriorityThreshold;
+    private RulesEngineParameters parameters;
 
     private List<RuleListener> ruleListeners;
 
@@ -54,30 +46,27 @@ public class JmxRulesEngineBuilder {
     }
 
     private JmxRulesEngineBuilder() {
-        skipOnFirstAppliedRule = false;
-        skipOnFirstFailedRule = false;
-        ruleListeners = new ArrayList<RuleListener>();
-        rulePriorityThreshold = Utils.DEFAULT_RULE_PRIORITY_THRESHOLD;
-        name = Utils.DEFAULT_ENGINE_NAME;
+        parameters = new RulesEngineParameters(Utils.DEFAULT_ENGINE_NAME, false, false, Utils.DEFAULT_RULE_PRIORITY_THRESHOLD, false);
+        ruleListeners = new ArrayList<>();
     }
 
     public JmxRulesEngineBuilder named(String name) {
-        this.name = name;
+        parameters.setName(name);
         return this;
     }
 
     public JmxRulesEngineBuilder withSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule) {
-        this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
+        parameters.setSkipOnFirstAppliedRule(skipOnFirstAppliedRule);
         return this;
     }
 
     public JmxRulesEngineBuilder withSkipOnFirstFailedRule(boolean skipOnFirstFailedRule) {
-        this.skipOnFirstFailedRule = skipOnFirstFailedRule;
+        parameters.setSkipOnFirstFailedRule(skipOnFirstFailedRule);
         return this;
     }
 
-    public JmxRulesEngineBuilder withRulePriorityThreshold(int rulePriorityThreshold) {
-        this.rulePriorityThreshold = rulePriorityThreshold;
+    public JmxRulesEngineBuilder withRulePriorityThreshold(int priorityThreshold) {
+        parameters.setPriorityThreshold(priorityThreshold);
         return this;
     }
 
@@ -87,13 +76,12 @@ public class JmxRulesEngineBuilder {
     }
 
     public JmxRulesEngineBuilder withSilentMode(boolean silentMode) {
-        this.silentMode = silentMode;
+        parameters.setSilentMode(silentMode);
         return this;
     }
 
     public DefaultJmxRulesEngine build() {
-        return new DefaultJmxRulesEngine(name, skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold,
-                ruleListeners, silentMode);
+        return new DefaultJmxRulesEngine(parameters, ruleListeners);
     }
 
 }

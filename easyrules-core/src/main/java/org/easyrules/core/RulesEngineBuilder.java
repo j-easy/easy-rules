@@ -13,15 +13,7 @@ import java.util.List;
  */
 public class RulesEngineBuilder {
 
-    private String name;
-
-    private boolean skipOnFirstAppliedRule;
-
-    private boolean skipOnFirstFailedRule;
-
-    private boolean silentMode;
-
-    private int rulePriorityThreshold;
+    private RulesEngineParameters parameters;
 
     private List<RuleListener> ruleListeners;
 
@@ -30,30 +22,27 @@ public class RulesEngineBuilder {
     }
 
     private RulesEngineBuilder() {
-        skipOnFirstAppliedRule = false;
-        skipOnFirstFailedRule = false;
-        ruleListeners = new ArrayList<RuleListener>();
-        rulePriorityThreshold = Utils.DEFAULT_RULE_PRIORITY_THRESHOLD;
-        name = Utils.DEFAULT_ENGINE_NAME;
+        parameters = new RulesEngineParameters(Utils.DEFAULT_ENGINE_NAME, false, false, Utils.DEFAULT_RULE_PRIORITY_THRESHOLD, false);
+        ruleListeners = new ArrayList<>();
     }
 
     public RulesEngineBuilder named(final String name) {
-        this.name = name;
+        parameters.setName(name);
         return this;
     }
 
     public RulesEngineBuilder withSkipOnFirstAppliedRule(final boolean skipOnFirstAppliedRule) {
-        this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
+        parameters.setSkipOnFirstAppliedRule(skipOnFirstAppliedRule);
         return this;
     }
 
     public RulesEngineBuilder withSkipOnFirstFailedRule(final boolean skipOnFirstFailedRule) {
-        this.skipOnFirstFailedRule = skipOnFirstFailedRule;
+        parameters.setSkipOnFirstFailedRule(skipOnFirstFailedRule);
         return this;
     }
 
-    public RulesEngineBuilder withRulePriorityThreshold(final int rulePriorityThreshold) {
-        this.rulePriorityThreshold = rulePriorityThreshold;
+    public RulesEngineBuilder withRulePriorityThreshold(final int priorityThreshold) {
+        parameters.setPriorityThreshold(priorityThreshold);
         return this;
     }
 
@@ -63,13 +52,12 @@ public class RulesEngineBuilder {
     }
 
     public RulesEngineBuilder withSilentMode(final boolean silentMode) {
-        this.silentMode = silentMode;
+        parameters.setSilentMode(silentMode);
         return this;
     }
 
     public DefaultRulesEngine build() {
-        return new DefaultRulesEngine(name, skipOnFirstAppliedRule, skipOnFirstFailedRule, rulePriorityThreshold,
-                ruleListeners, silentMode);
+        return new DefaultRulesEngine(parameters, ruleListeners);
     }
 
 }

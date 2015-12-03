@@ -25,6 +25,7 @@
 package org.easyrules.api;
 
 import java.util.Set;
+import org.easyrules.core.RulesEngineParameters;
 
 /**
  * Rules engine interface.
@@ -34,11 +35,11 @@ import java.util.Set;
 public interface RulesEngine {
 
     /**
-     * Return the rules engine name.
+     * Return the rules engine parameters.
      *
-     * @return The rule engine name
+     * @return The rules engine parameters
      */
-    String getName();
+    RulesEngineParameters getParameters();
 
     /**
      * Register a rule in the rules engine registry.

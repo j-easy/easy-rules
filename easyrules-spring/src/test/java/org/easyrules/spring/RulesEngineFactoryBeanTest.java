@@ -92,17 +92,17 @@ public class RulesEngineFactoryBeanTest {
 
         assertThat(rulesEngine).isNotNull();
 
-        assertEquals(priorityThreshold, getFieldValue(rulesEngine, "priorityThreshold"));
-        assertEquals(skipOnFirstAppliedRule, getFieldValue(rulesEngine, "skipOnFirstAppliedRule"));
-        assertEquals(skipOnFirstFailedRule, getFieldValue(rulesEngine, "skipOnFirstFailedRule"));
+        assertEquals(priorityThreshold, getFieldValue(rulesEngine.getParameters(), "priorityThreshold"));
+        assertEquals(skipOnFirstAppliedRule, getFieldValue(rulesEngine.getParameters(), "skipOnFirstAppliedRule"));
+        assertEquals(skipOnFirstFailedRule, getFieldValue(rulesEngine.getParameters(), "skipOnFirstFailedRule"));
         assertEquals(new HashSet<>(expectedRules), new HashSet<>((Collection) getFieldValue(rulesEngine, "rules")));
         assertEquals(expectedRuleListeners, getFieldValue(rulesEngine, "ruleListeners"));
     }
 
-    private Object getFieldValue(RulesEngine rulesEngine, String fieldName) {
-        Field field = findField(rulesEngine.getClass(), fieldName);
+    private Object getFieldValue(Object object, String fieldName) {
+        Field field = findField(object.getClass(), fieldName);
         makeAccessible(field);
-        return getField(field, rulesEngine);
+        return getField(field, object);
     }
 
     @Test

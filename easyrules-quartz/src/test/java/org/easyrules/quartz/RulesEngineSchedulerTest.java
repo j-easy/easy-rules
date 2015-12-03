@@ -1,6 +1,7 @@
 package org.easyrules.quartz;
 
 import org.easyrules.api.RulesEngine;
+import org.easyrules.core.RulesEngineParameters;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,13 +27,18 @@ public class RulesEngineSchedulerTest {
 
     @Mock
     private RulesEngine engine1, engine2;
+    
+    @Mock
+    private RulesEngineParameters parameters1, parameters2;
 
     @Before
     public void setUp() throws Exception {
         rulesEngineScheduler = RulesEngineScheduler.getInstance();
 
-        when(engine1.getName()).thenReturn("engine1");
-        when(engine2.getName()).thenReturn("engine2");
+        when(engine1.getParameters()).thenReturn(parameters1);
+        when(parameters1.getName()).thenReturn("engine1");
+        when(engine2.getParameters()).thenReturn(parameters2);
+        when(parameters2.getName()).thenReturn("engine2");
     }
 
     @Test
@@ -57,8 +63,8 @@ public class RulesEngineSchedulerTest {
         rulesEngineScheduler.unschedule(engine2);
         assertThat(rulesEngineScheduler.isScheduled(engine2)).isFalse();
 
-        verify(engine1, times(4)).getName();
-        verify(engine2, times(4)).getName();
+        verify(engine1, times(4)).getParameters();
+        verify(engine2, times(4)).getParameters();
 
         rulesEngineScheduler.stop();
         assertThat(rulesEngineScheduler.isStopped()).isTrue();
