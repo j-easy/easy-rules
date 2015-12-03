@@ -1,24 +1,21 @@
-package org.easyrules.samples.rulePriority;
-
-import org.easyrules.api.RulesEngine;
+package org.easyrules.samples.shop.part1;
 
 import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 
-/**
- * Launcher class for rule priority tutorial.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
+import org.easyrules.api.RulesEngine;
+import org.easyrules.samples.shop.Person;
+
 public class Launcher {
 
     public static void main(String[] args) {
-
         //create a person instance
-        Person tom = new Person("Tom", 16);
+        Person tom = new Person("Tom", 14);
         System.out.println("Tom: Hi! can I have some Vodka please?");
 
         //create a rules engine
-        RulesEngine rulesEngine = aNewRulesEngine().build();
+        RulesEngine rulesEngine = aNewRulesEngine()
+                .named("shop rules engine")
+                .build();
 
         //register rules
         rulesEngine.registerRule(new AgeRule(tom));
@@ -26,7 +23,6 @@ public class Launcher {
 
         //fire rules
         rulesEngine.fireRules();
-
     }
 
 }

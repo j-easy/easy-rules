@@ -1,16 +1,9 @@
-package org.easyrules.samples.rulePriority;
+package org.easyrules.samples.shop;
 
-/**
- * Person class.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
 public class Person {
 
     private String name;
-
     private int age;
-
     private boolean adult;
 
     public Person(String name, int age) {

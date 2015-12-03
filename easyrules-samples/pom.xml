@@ -126,7 +126,7 @@
             </build>
         </profile>
         <profile>
-            <id>runRulePriorityTutorial</id>
+            <id>runShopTutorialPart1</id>
             <build>
                 <defaultGoal>exec:java</defaultGoal>
                 <plugins>
@@ -135,7 +135,7 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <version>${maven-exec-plugin.version}</version>
                         <configuration>
-                            <mainClass>org.easyrules.samples.rulePriority.Launcher</mainClass>
+                            <mainClass>org.easyrules.samples.shop.part1.Launcher</mainClass>
                             <systemProperties>
                                 <systemProperty>
                                     <key>java.util.logging.SimpleFormatter.format</key>
@@ -148,7 +148,7 @@
             </build>
         </profile>
         <profile>
-            <id>runOnlineShopTutorial</id>
+            <id>runShopTutorialPart2</id>
             <build>
                 <defaultGoal>exec:java</defaultGoal>
                 <plugins>
@@ -157,7 +157,7 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <version>${maven-exec-plugin.version}</version>
                         <configuration>
-                            <mainClass>org.easyrules.samples.order.Launcher</mainClass>
+                            <mainClass>org.easyrules.samples.shop.part2.Launcher</mainClass>
                             <systemProperties>
                                 <systemProperty>
                                     <key>java.util.logging.SimpleFormatter.format</key>
