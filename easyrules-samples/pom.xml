@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>easyrules-samples</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>Easy Rules Samples module</name>
     <description>Module containing samples and tutorial about Easy Rules</description>
@@ -54,29 +54,53 @@
             <groupId>org.easyrules</groupId>
             <artifactId>easyrules-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.easyrules</groupId>
             <artifactId>easyrules-jmx</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.easyrules</groupId>
             <artifactId>easyrules-quartz</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.easyrules</groupId>
             <artifactId>easyrules-spring</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>${maven-tomcat7-plugin.version}</version>
+                <configuration>
+                    <port>8080</port>
+                    <warFile>${project.build.directory}/${project.artifactId}-${project.version}.war</warFile>
+                    <path>/</path>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
