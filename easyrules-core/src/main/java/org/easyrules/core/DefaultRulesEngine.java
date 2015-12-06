@@ -35,6 +35,8 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.lang.String.format;
+
 /**
  * Default {@link org.easyrules.api.RulesEngine} implementation.
  * <p/>
@@ -102,12 +104,13 @@ class DefaultRulesEngine implements RulesEngine {
     public void fireRules() {
 
         if (rules.isEmpty()) {
-            LOGGER.warning("No rules registered! Nothing to apply.");
+            LOGGER.warning("No rules registered! Nothing to apply");
             return;
         }
 
         logEngineParameters();
         sortRules();
+        logRegisteredRules();
         applyRules();
 
     }
@@ -118,6 +121,7 @@ class DefaultRulesEngine implements RulesEngine {
 
     private void applyRules() {
 
+        LOGGER.info("Rules evaluation started");
         for (Rule rule : rules) {
 
             final String name = rule.getName();
@@ -181,6 +185,14 @@ class DefaultRulesEngine implements RulesEngine {
         LOGGER.log(Level.INFO, "Rule priority threshold: {0}", parameters.getPriorityThreshold());
         LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", parameters.isSkipOnFirstAppliedRule());
         LOGGER.log(Level.INFO, "Skip on first failed rule: {0}", parameters.isSkipOnFirstFailedRule());
+    }
+
+    private void logRegisteredRules() {
+        LOGGER.log(Level.INFO, "Registered rules:");
+        for (Rule rule : rules) {
+            LOGGER.log(Level.INFO, format("Rule { name = '%s', description = '%s', priority = '%s'}",
+                    rule.getName(), rule.getDescription(), rule.getPriority()));
+        }
     }
 
     private Rule asRule(final Object rule) {
