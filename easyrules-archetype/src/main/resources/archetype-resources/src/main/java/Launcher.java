@@ -30,7 +30,9 @@ public class Launcher {
         /**
          * Create a rules engine and register the business rule
          */
-        RulesEngine rulesEngine = aNewRulesEngine().build();
+        RulesEngine rulesEngine = aNewRulesEngine()
+                .named("Hello world rules engine")
+                .build();
 
         rulesEngine.registerRule(helloWorldRule);
 

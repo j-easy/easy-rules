@@ -4,7 +4,7 @@ import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Rule;
 
-@Rule(name = "Hello World rule", description = "Say Hello to duke's friends only")
+@Rule(name = "Hello World rule", description = "Say Hello to only duke's friends")
 public class HelloWorldRule {
 
     /**
