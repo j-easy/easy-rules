@@ -38,6 +38,8 @@ public class Launcher {
     public static void main(String[] args) throws Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext("org/easyrules/samples/spring/application-context.xml");
         RulesEngine rulesEngine = (RulesEngine) context.getBean("rulesEngine");
+        AnotherDummyRule rule = context.getBean(AnotherDummyRule.class);
+        rulesEngine.registerRule(rule);
 
         rulesEngine.fireRules();
     }
