@@ -1,13 +1,13 @@
 ---
 layout: docs
-title: Engine scheduler
-header: Engine scheduler
-prev_section: tutorials/dynamic-configuration
+title: Scheduler tutorial
+header: Scheduler tutorial
+prev_section: tutorials/shop-tutorial
 next_section: tutorials/spring-tutorial
 doc: true
 ---
 
-This tutorial shows how to schedule a rules engine using the `RulesEngineScheduler`.
+This tutorial shows how to schedule a rules engine using the `RulesEngineScheduler` API.
 
 We would like to print the current time only if the seconds value is even. So let's get started. 
 
@@ -15,7 +15,8 @@ First, we will create a rule that checks the current time and print it to the co
 
 ```java
 @Rule(name = "time rule", 
-        description = "Print the current time only if seconds are even")
+      description = "Print the current time 
+                     only if seconds are even")
 public class TimeRule {
 
     private Date now;
@@ -45,7 +46,8 @@ public class Launcher {
 
     public static void main(String[] args) throws Exception {
 
-        RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine()
+        RulesEngine rulesEngine = RulesEngineBuilder
+                .aNewRulesEngine()
                 .named("time rules engine")
                 .withSilentMode(true)
                 .build();
@@ -53,18 +55,21 @@ public class Launcher {
         TimeRule timeRule = new TimeRule();
         rulesEngine.registerRule(timeRule);
 
-        RulesEngineScheduler scheduler = RulesEngineScheduler.getInstance();
-        scheduler.scheduleAtWithInterval(rulesEngine, NOW, EVERY_SECOND);
+        RulesEngineScheduler scheduler = 
+                        RulesEngineScheduler.getInstance();
+        scheduler.scheduleAtWithInterval(rulesEngine,
+                                         NOW,
+                                         EVERY_SECOND);
         scheduler.start();
 
-        System.out.println("Hit enter to stop the application");
+        System.out.println("Hit 'enter' to stop the application");
         System.in.read();
         scheduler.stop();
     }
 }
 ```
 
-That's it! The `TimeRule` will be triggered every second and will print the current time if seconds value is even.
+That's it! The `TimeRule` will be triggered every second and will print the current time only if seconds value is even.
 
 
 To run this tutorial, you can follow these instructions from the root directory of Easy Rules :

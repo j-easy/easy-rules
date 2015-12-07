@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Scheduling rules engine
-header: Scheduling rules engine
+header: Scheduling a rules engine
 prev_section: user-guide/managing-rules
 next_section: user-guide/embedding-rules-engine
 doc: true
@@ -45,4 +45,4 @@ To unregister a rules engine, use the following snippet:
 scheduler.unschedule(rulesEngine);
 ```
 
-You can find a tutorial about scheduling rules engine in the [time tutorial]({{site.url}}/tutorials/scheduling-engine.html).
+You can find a tutorial about scheduling rules engine in the [Scheduler tutorial]({{site.url}}/tutorials/scheduler-tutorial.html).

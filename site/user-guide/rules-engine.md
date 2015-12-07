@@ -67,13 +67,13 @@ Easy Rules engine can be configured with the following parameters:
     </tbody>
 </table>
 
-The `skipOnFirstAppliedRule` parameter tells the engine to skip next rules when a rule is applied.
+* The `skipOnFirstAppliedRule` parameter tells the engine to skip next rules when a rule is applied.
 
-The `skipOnFirstFailedRule` parameter tells the engine to skip next rules when a rule fails.
+* The `skipOnFirstFailedRule` parameter tells the engine to skip next rules when a rule fails.
 
-The `rulePriorityThreshold` parameter tells the engine to skip next rules if priority exceeds the defined threshold.
+* The `rulePriorityThreshold` parameter tells the engine to skip next rules if priority exceeds the defined threshold.
 
-Silent mode allows you to mute all loggers when needed.
+* The `silentMode` allows you to mute all loggers when needed.
 
 You can specify these parameters through the `RulesEngineBuilder` API:
 
@@ -85,3 +85,12 @@ RulesEngine rulesEngine = aNewRulesEngine()
     .withSilentMode(true)
     .build();
 ```
+
+All parameters are encapsulated in the `RulesEngineParameters` class. If you want to get parameters from your engine,
+you can use the following snippet:
+
+```java
+RulesEngineParameters parameters = myEngine.getParameters();
+```
+
+This allows you to reset the engine parameters after its creation.

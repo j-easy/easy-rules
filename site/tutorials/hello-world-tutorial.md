@@ -1,14 +1,14 @@
 ---
 layout: docs
-title: Hello World
+title: Hello world tutorial
 header: Hello World tutorial
-prev_section: user-guide/managing-rules
-next_section: tutorials/rule-priority
+prev_section: user-guide/embedding-rules-engine
+next_section: tutorials/shop-tutorial
 doc: true
 ---
 
 This tutorial shows how to use Easy Rules in a very simple application.
- The program should ask the user if he is a friend of duke and says 'Hello duke's friend!' only if he replies 'yes'.
+ The goal is to ask the user if he is a friend of duke and says 'Hello duke's friend!' only if he replies 'yes'.
 
 Based on this requirement, the rule is pretty straightforward :
 

@@ -8,8 +8,34 @@ doc: true
 
 <article>
     <h2>
-        <a href="/get-involoved/release-notes.html">{{ page.title }}</a>
+        <a href="/get-involved/release-notes.html">{{ page.title }}</a>
     </h2>
+
+    <div class="release">
+        <span class="post-category">
+            <span class="label">Version 2.2.0</span>
+        </span>
+        <div class="post-meta">
+            <span class="post-date">2015-12-07</span>
+        </div>
+        <div class="post-content">
+            <p>This release adds the following features:</p>
+            <ul>
+                <li>New method <code>getRules()</code> in the <code>RulesEngine</code> API to get registered rules in a rules engine
+                    (<a href="https://github.com/benas/easy-rules/issues/22" target="_blank">Issue #22</a>).</li>
+                <li>New method <code>getParameters()</code> in the <code>RulesEngine</code> API to get engine parameters
+                    encapsulated in the <code>RulesEngineParameters</code> class
+                    (<a href="https://github.com/benas/easy-rules/issues/28" target="_blank">Issue #28</a>).</li>
+                <li>New <code>@SpringRule</code> that turns a POJO into a Spring prototype-scoped rule bean
+                    (<a href="https://github.com/benas/easy-rules/issues/29" target="_blank">Issue #29</a>).</li>
+                <li>Support for meta-annotations: You can now define your own annotation which itself is annotated with <code>@Rule</code>
+                    (<a href="https://github.com/benas/easy-rules/pull/26" target="_blank">PR #26</a>).</li>
+                <li>The default rule name is now equal to the class name (<a href="https://github.com/benas/easy-rules/issues/24" target="_blank">Issue #24</a>).</li>
+                <li>The default rule description is now equal to <code>when[ConditionMethod]then[ActionMethods]</code> (<a href="https://github.com/benas/easy-rules/issues/24" target="_blank">Issue #24</a>).</li>
+            </ul>
+            <p>This version also added many improvements, bug fixes and documentation updates.</p>
+        </div>
+    </div>
 
     <div class="release">
         <span class="post-category">

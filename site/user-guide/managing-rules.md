@@ -28,7 +28,7 @@ To make your rule manageable via JMX, it should:
 * implement the `JmxRule` interface or extend the `BasicJmxRule` class 
 * or be annotated with `javax.management.MXBean` if it is a annotated POJO
 
-Once you defined your rule as a Jmx Compliant object, you can register it in a `JmxRulesEngine` as a managed rule:
+Once you defined your rule as a Jmx compliant object, you can register it in a `JmxRulesEngine` as a managed rule:
 
 ```java
 JmxRulesEngine rulesEngine = aNewJmxRulesEngine.build();
@@ -39,4 +39,4 @@ This will register your rule as a JMX managed bean with the following object nam
 
 `org.easyrules.core.jmx:type=YourRuleClassName,name=YourRuleName`
 
-An example of using dynamic rule reconfiguration at runtime is provided in the [online shop tutorial]({{site.url}}/tutorials/dynamic-configuration.html).
+An example of using dynamic rule reconfiguration at runtime is provided in the [shop tutorial]({{site.url}}/tutorials/shop-tutorial.html).

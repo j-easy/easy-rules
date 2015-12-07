@@ -3,13 +3,13 @@ layout: docs
 title: Embedding rules engine
 header: Embedding rules engine
 prev_section: user-guide/scheduling-rules-engine
-next_section: tutorials/hello-world
+next_section: tutorials/hello-world-tutorial
 doc: true
 ---
 
 Easy Rules is a lightweight library that can be used in a standalone Java application or embedded in a web server or a dependency injection container.
 
-As of version {{ site.version }}, Easy Rules provides support for <a href="http://www.spring.io" target="_blank">Spring</a>.
+As of version 2.1.0, Easy Rules provides support for <a href="http://www.spring.io" target="_blank">Spring</a>.
 Support for other DI containers will be added in future versions.
 
 In this section, you will learn how to configure rules and rules engine as Spring beans. 
@@ -87,5 +87,13 @@ rulesEngine.fireRules();
      without recompiling your application.</p>
 </div>
 
-
 You can find a complete tutorial on how to use Easy Rules with Spring [here]({{site.url}}/tutorials/spring-tutorial.html).
+
+# Using the @SpringRule annotation
+
+The `@SpringRule` annotation is a meta-annotation that turns a POJO into:
+
+* A rule compatible with Easy Rules
+* A **prototype-scoped** Spring bean
+
+This annotation is the combination of `@Rule` and `@Component` annotations.

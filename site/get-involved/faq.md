@@ -83,14 +83,14 @@ public class AgeRule {
     public void markAsAdult(){
         person.setAdult(true);
         System.out.printf(
-            "Person %s has been marked as adult.\n",
+            "Person %s has been marked as adult",
              person.getName());
     }
 
 }
 ```
 
-The `Person` type is a simple Pojo having a `name` and `age` fields. Let's register multiple instances of the `AgeRule`:
+The `Person` type is a simple POJO having a `name` and `age` fields. Let's register multiple instances of the `AgeRule`:
 
 ```java
 Person tom = new Person("Tom", 20);
@@ -160,6 +160,18 @@ Yes. Thanks to the community, Easy Rules has been made Android compatible since 
 Sure. Easy Rules is very lightweight and can be used both in a standalone application or embedded in an application server,
 a servlet container or a dependency injection container.
 
-## <a name="6"></a>[6. I have another question, how do I do?](#6)
+## <a name="6"></a>[6. How to deal with tread safety?](#6)
+
+If you run Easy Rules in a multi-threaded environment, you should take into account the following considerations:
+
+* Easy Rules engine holds a set of rules, it is **not** thread safe.
+* By design, rules in Easy Rules encapsulate the business object model they operate on, so they are **not** thread safe neither.
+
+Do not try to make everything synchronized or locked down! Easy Rules engine is very a lightweight object 
+and you can create an instance per thread, this is by far the easiest way to avoid thread safety problems.
+And if, at this exact point of time reading this line, you are already thinking about performance,
+don't forget that <a href="http://c2.com/cgi/wiki?PrematureOptimization" target="_blank"><em>"Premature optimization is the root of all evil" - Donald Knuth</em></a>. 
+
+## <a name="7"></a>[7. I have another question, how do I do?](#7)
 
 Feel free to ask your question in the [Gitter](https://gitter.im/benas/easy-rules) channel of the project: [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/benas/easy-rules?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)

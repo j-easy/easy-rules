@@ -3,7 +3,7 @@ layout: docs
 title: Defining rules
 header: Defining rules
 prev_section: user-guide/introduction
-next_section: user-guide/rules-engine
+next_section: user-guide/rule-listener
 doc: true
 ---
 
@@ -20,7 +20,7 @@ public interface Rule {
 
     /**
     * This method encapsulates the rule's actions.
-    * @throws Exception thrown if an exception occurs
+    * @throws Exception if an error occurs
     * during actions performing
     */
     void execute() throws Exception;
@@ -102,7 +102,7 @@ The `@Action` annotation marks methods to execute to perform rule actions. Rules
 <div class="note info">
   <h5>Actions can be executed in a specified order</h5>
   <p>You can also define the execution order of actions with the
-  <em>order</em> attribute: <em>@Action(order = 1)</em>. By default, the order of an action is 0.</p>
+  <em>order</em> attribute:<br/><em>@Action(order = 1)</em><br/>By default, the order of an action is 0.</p>
 </div>
 
 
@@ -113,7 +113,7 @@ Easy Rules allows you to create complex rules from primitive ones. A `CompositeR
 This is typically an implementation of the <a href="http://en.wikipedia.org/wiki/Composite_pattern" target="_blank">composite design pattern</a>.
 
 A composite rule is triggered if **_all_** conditions of its composing rules are satisfied.
-When a composite rule is applied, actions of **_all_** composing rules are performed in the natural order of
+When a composite rule is applied, actions of **_all_** composing rules are performed in the **natural order** of
 rules which is rules priorities by default.
 
 To create a composite rule from two primitive rules, you can use the following snippet:
@@ -141,35 +141,3 @@ the `getPriority()` method
 
 * If your rule is a annotated POJO, you should annotate the method that provides priority with `@Priority` annotation.
 This method must be public, have no arguments and return an Integer type
-
-## Rule listener
-
-You can listen to rule execution events through the `RuleListener` API:
-
-```java
-public interface RuleListener {
-    /**
-     * Triggered before a rule is executed.
-     */
-    void beforeExecute(Rule rule);
-    /**
-     * Triggered after a rule is executed successfully.
-     */
-    void onSuccess(Rule rule);
-    /**
-     * Triggered after a rule is executed with error.
-     */
-    void onFailure(Rule rule, Exception exception);
-}
-```
-
-You can implement this interface to provide custom behavior to execute before/after each rule.
-To register your listener, use the following snippet:
- 
-```java
-RulesEngine rulesEngine = aNewRulesEngine()
-    .withRuleListener(myRuleListener)
-    .build();
-```
-
-You can register as many listeners as you want, they will be executed in their registration order.

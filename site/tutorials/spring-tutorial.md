@@ -1,8 +1,8 @@
 ---
 layout: docs
-title: Using Easy Rules with Spring
-header: Using Easy Rules with Spring
-prev_section: tutorials/scheduling-engine
+title: Spring tutorial
+header: Spring tutorial
+prev_section: tutorials/scheduler-tutorial
 next_section: get-involved/release-notes
 doc: true
 ---
@@ -52,7 +52,8 @@ Now, we we can use the `RulesEngineFactoryBean` to configure a rules engine and 
     <bean id="rule" class="org.easyrules.samples.spring.DummyRule"/>
 
     <!-- configure rules engine -->
-    <bean id="rulesEngine" class="org.easyrules.spring.RulesEngineFactoryBean">
+    <bean id="rulesEngine" 
+          class="org.easyrules.spring.RulesEngineFactoryBean">
         <property name="rules">
             <list>
                 <ref bean="rule"/>
@@ -89,9 +90,6 @@ $ mvn exec:java -P runSpringTutorial
 You would get the following output:
 
 ```
-INFO: Rule priority threshold: 2,147,483,647
-INFO: Skip on first applied rule: false
-INFO: Skip on first failed rule: false
 INFO: Rule 'dummy rule' triggered.
 Hey, I'm managed by Spring
 INFO: Rule 'dummy rule' performed successfully.
