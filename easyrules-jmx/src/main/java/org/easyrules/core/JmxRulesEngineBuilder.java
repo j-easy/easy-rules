@@ -24,6 +24,7 @@
 
 package org.easyrules.core;
 
+import org.easyrules.api.JmxRulesEngine;
 import org.easyrules.api.RuleListener;
 import org.easyrules.util.Utils;
 
@@ -80,7 +81,7 @@ public class JmxRulesEngineBuilder {
         return this;
     }
 
-    public DefaultJmxRulesEngine build() {
+    public JmxRulesEngine build() {
         return new DefaultJmxRulesEngine(parameters, ruleListeners);
     }
 

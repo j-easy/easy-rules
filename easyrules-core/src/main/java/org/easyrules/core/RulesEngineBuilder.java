@@ -1,6 +1,7 @@
 package org.easyrules.core;
 
 import org.easyrules.api.RuleListener;
+import org.easyrules.api.RulesEngine;
 import org.easyrules.util.Utils;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class RulesEngineBuilder {
         return this;
     }
 
-    public DefaultRulesEngine build() {
+    public RulesEngine build() {
         return new DefaultRulesEngine(parameters, ruleListeners);
     }
 
