@@ -15,7 +15,6 @@
     <modules>
         <module>easyrules-archetype</module>
         <module>easyrules-core</module>
-        <module>easyrules-samples</module>
         <module>easyrules-jmx</module>
         <module>easyrules-quartz</module>
         <module>easyrules-spring</module>
@@ -35,33 +34,29 @@
         <mockito.version>1.10.19</mockito.version>
         <quartz.version>2.2.2</quartz.version>
         <spring.version>4.2.3.RELEASE</spring.version>
-        <servlet.version>3.1.0</servlet.version>
-        <maven-war-plugin.version>2.6</maven-war-plugin.version>
-        <maven-tomcat7-plugin.version>2.2</maven-tomcat7-plugin.version>
         <maven-cobertura-plugin.version>2.7</maven-cobertura-plugin.version>
         <maven-coveralls-plugin.version>4.1.0</maven-coveralls-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
-        <maven-exec-plugin.version>1.4.0</maven-exec-plugin.version>
     </properties>
 
     <scm>
-        <url>git@github.com:benas/easy-rules.git</url>
-        <connection>scm:git:git@github.com:benas/easy-rules.git</connection>
-        <developerConnection>scm:git:git@github.com:benas/easy-rules.git</developerConnection>
+        <url>git@github.com:EasyRules/easyrules.git</url>
+        <connection>scm:git:git@github.com:EasyRules/easyrules.git</connection>
+        <developerConnection>scm:git:git@github.com:EasyRules/easyrules.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/benas/easy-rules/issues</url>
+        <url>https://github.com/EasyRules/easyrules/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Travis CI</system>
-        <url>https://travis-ci.org/benas/easy-rules</url>
+        <url>https://travis-ci.org/EasyRules/easyrules</url>
     </ciManagement>
 
     <developers>

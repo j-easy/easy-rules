@@ -14,20 +14,20 @@
     <description>Module providing support for engine scheduling using Quartz</description>
 
     <scm>
-        <url>git@github.com:benas/easy-rules.git</url>
-        <connection>scm:git:git@github.com:benas/easy-rules.git</connection>
-        <developerConnection>scm:git:git@github.com:benas/easy-rules.git</developerConnection>
+        <url>git@github.com:EasyRules/easyrules.git</url>
+        <connection>scm:git:git@github.com:EasyRules/easyrules.git</connection>
+        <developerConnection>scm:git:git@github.com:EasyRules/easyrules.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/benas/easy-rules/issues</url>
+        <url>https://github.com/EasyRules/easyrules/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Travis CI</system>
-        <url>https://travis-ci.org/benas/easy-rules</url>
+        <url>https://travis-ci.org/EasyRules/easyrules</url>
     </ciManagement>
 
     <developers>

@@ -24,15 +24,15 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
 |:---------------------|:-------------------------------------------------------------------------------------|
 |Project Home          | [http://www.easyrules.org](http://www.easyrules.org)                                 |
 |Presentation          | [https://speakerdeck.com/benas/easy-rules](https://speakerdeck.com/benas/easy-rules) |
-|Continuous integration| [Build job @ Travis CI](https://travis-ci.org/benas/easy-rules)                      |
-|Agile Board           | [Backlog items @ waffle.io](https://waffle.io/benas/easy-rules)                      |
-|Code coverage         | [![Coverage](https://coveralls.io/repos/benas/easy-rules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/benas/easy-rules?branch=master) |
+|Continuous integration| [Build job @ Travis CI](https://travis-ci.org/EasyRules/easyrules)                   |
+|Agile Board           | [Backlog items @ waffle.io](https://waffle.io/EasyRules/easyrules)                   |
+|Code coverage         | [![Coverage](https://coveralls.io/repos/EasyRules/easyrules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/EasyRules/easyrules?branch=master) |
 |Dependencies          | [![Dependency Status](https://www.versioneye.com/user/projects/554db6eb8a8e5655d6000081/badge.svg?style=flat)](https://www.versioneye.com/user/projects/554db6eb8a8e5655d6000081) |
 
 ## Current version
 
 * The current stable version is `2.1.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.1.0|) 
-* The current development version is `2.2.0-SNAPSHOT` : [![Build Status](https://travis-ci.org/benas/easy-rules.svg?branch=master)](https://travis-ci.org/benas/easy-rules)
+* The current development version is `2.2.0-SNAPSHOT` : [![Build Status](https://travis-ci.org/EasyRules/easyrules.svg?branch=master)](https://travis-ci.org/EasyRules/easyrules)
 
 In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
 
@@ -47,9 +47,9 @@ In order to use snapshot versions, you need to add the following maven repositor
 
 You are welcome to contribute to the project with pull requests on GitHub.
 
-If you found a bug or want to request a feature, please use the [issue tracker](https://github.com/benas/easy-rules/issues).
+If you found a bug or want to request a feature, please use the [issue tracker](https://github.com/EasyRules/easyrules/issues).
 
-For any further question, you can use the [Gitter](https://gitter.im/benas/easy-rules) channel of the project.
+For any further question, you can use the [Gitter](https://gitter.im/EasyRules/easyrules) channel of the project.
 
 ## Awesome contributors
 
