@@ -27,7 +27,7 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
 |Continuous integration| [Build job @ Travis CI](https://travis-ci.org/EasyRules/easyrules)                   |
 |Agile Board           | [Backlog items @ waffle.io](https://waffle.io/EasyRules/easyrules)                   |
 |Code coverage         | [![Coverage](https://coveralls.io/repos/EasyRules/easyrules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/EasyRules/easyrules?branch=master) |
-|Dependencies          | [![Dependency Status](https://www.versioneye.com/user/projects/554db6eb8a8e5655d6000081/badge.svg?style=flat)](https://www.versioneye.com/user/projects/554db6eb8a8e5655d6000081) |
+|Dependencies          | [![Dependency Status](https://www.versioneye.com/user/projects/5666159cc3686e000b000923/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5666159cc3686e000b000923) |
 
 ## Current version
 
