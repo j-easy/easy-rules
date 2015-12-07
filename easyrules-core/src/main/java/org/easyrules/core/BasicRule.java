@@ -31,7 +31,7 @@ import javax.management.MXBean;
 
 /**
  * Basic rule implementation class that provides common methods.
- * <p/>
+ *
  * You can extend this class and override {@link BasicRule#evaluate()} and {@link BasicRule#execute()}
  * to provide rule conditions and actions logic.
  *

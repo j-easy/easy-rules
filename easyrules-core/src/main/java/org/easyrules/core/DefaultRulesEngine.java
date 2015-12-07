@@ -39,9 +39,9 @@ import static java.lang.String.format;
 
 /**
  * Default {@link org.easyrules.api.RulesEngine} implementation.
- * <p/>
+ *
  * This implementation handles a set of rules with unique name.
- * <p/>
+ *
  * Rules are fired according to their natural order which is priority by default.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)

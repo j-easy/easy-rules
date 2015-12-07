@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Default {@link JmxRulesEngine} implementation.
- * <p/>
+ *
  * This implementation handles a set of JMX rules with unique names.
  *
  * @author Drem Darios (drem.darios@gmail.com)
