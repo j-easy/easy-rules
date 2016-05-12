@@ -31,6 +31,7 @@ import org.springframework.beans.factory.FactoryBean;
 import java.util.List;
 
 import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
+import static org.easyrules.util.Utils.DEFAULT_ENGINE_NAME;
 import static org.easyrules.util.Utils.DEFAULT_RULE_PRIORITY_THRESHOLD;
 
 /**
@@ -39,6 +40,8 @@ import static org.easyrules.util.Utils.DEFAULT_RULE_PRIORITY_THRESHOLD;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
+
+    private String name = DEFAULT_ENGINE_NAME;
 
     private int priorityThreshold = DEFAULT_RULE_PRIORITY_THRESHOLD;
     
@@ -55,6 +58,7 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
     @Override
     public RulesEngine getObject() {
         RulesEngineBuilder rulesEngineBuilder = aNewRulesEngine()
+                .named(name)
                 .withSkipOnFirstAppliedRule(skipOnFirstAppliedRule)
                 .withSkipOnFirstFailedRule(skipOnFirstFailedRule)
                 .withRulePriorityThreshold(priorityThreshold)
@@ -117,5 +121,9 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
 
     public void setSkipOnFirstFailedRule(boolean skipOnFirstFailedRule) {
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

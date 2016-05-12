@@ -27,19 +27,19 @@ package org.easyrules.spring;
 import org.easyrules.api.RuleListener;
 import org.easyrules.api.RulesEngine;
 import org.easyrules.core.BasicRule;
+import org.easyrules.core.RulesEngineParameters;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.springframework.util.ReflectionUtils.*;
 
 /**
  * Test class for {@link RulesEngineFactoryBean}.
@@ -49,6 +49,7 @@ import static org.springframework.util.ReflectionUtils.*;
 @RunWith(MockitoJUnitRunner.class)
 public class RulesEngineFactoryBeanTest {
 
+    public static final String NAME = "myRulesEngine";
     public static final int RULE_PRIORITY_THRESHOLD = 10;
 
     @Mock
@@ -56,6 +57,8 @@ public class RulesEngineFactoryBeanTest {
 
     @Mock
     private RuleListener ruleListener;
+
+    private String name;
 
     private int priorityThreshold;
 
@@ -69,6 +72,7 @@ public class RulesEngineFactoryBeanTest {
 
     @Before
     public void setUp() {
+        name = NAME;
         silentMode = true;
         skipOnFirstFailedRule = true;
         skipOnFirstAppliedRule = true;
@@ -88,21 +92,18 @@ public class RulesEngineFactoryBeanTest {
         rulesEngineFactoryBean.setSkipOnFirstAppliedRule(skipOnFirstAppliedRule);
         rulesEngineFactoryBean.setSkipOnFirstFailedRule(skipOnFirstFailedRule);
         rulesEngineFactoryBean.setSilentMode(silentMode);
+        rulesEngineFactoryBean.setName(name);
         RulesEngine rulesEngine = rulesEngineFactoryBean.getObject();
 
         assertThat(rulesEngine).isNotNull();
 
-        assertEquals(priorityThreshold, getFieldValue(rulesEngine.getParameters(), "priorityThreshold"));
-        assertEquals(skipOnFirstAppliedRule, getFieldValue(rulesEngine.getParameters(), "skipOnFirstAppliedRule"));
-        assertEquals(skipOnFirstFailedRule, getFieldValue(rulesEngine.getParameters(), "skipOnFirstFailedRule"));
-        assertEquals(new HashSet<>(expectedRules), new HashSet<>((Collection) getFieldValue(rulesEngine, "rules")));
-        assertEquals(expectedRuleListeners, getFieldValue(rulesEngine, "ruleListeners"));
-    }
-
-    private Object getFieldValue(Object object, String fieldName) {
-        Field field = findField(object.getClass(), fieldName);
-        makeAccessible(field);
-        return getField(field, object);
+        RulesEngineParameters rulesEngineParameters = rulesEngine.getParameters();
+        assertThat(rulesEngineParameters.getName()).isEqualTo(NAME);
+        assertThat(rulesEngineParameters.getPriorityThreshold()).isEqualTo(RULE_PRIORITY_THRESHOLD);
+        assertThat(rulesEngineParameters.isSkipOnFirstAppliedRule()).isTrue();
+        assertThat(rulesEngineParameters.isSkipOnFirstFailedRule()).isTrue();
+        assertThat(rulesEngine.getRules()).isEqualTo(new HashSet<>(expectedRules));
+        assertThat(rulesEngine.getRuleListeners()).isEqualTo(expectedRuleListeners);
     }
 
     @Test
