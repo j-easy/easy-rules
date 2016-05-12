@@ -65,7 +65,7 @@ Thank you all for your contributions!
 
 |YourKit|Travis CI|
 |:-:|:-:|
-|![YourKit Java Profiler](https://www.yourkit.com/images/yklogo.png)|![Travis CI](https://travis-ci.com/img/brand-standards/logo-downloads/TravisCI-Full-Color.png)|
+|![YourKit Java Profiler](https://www.yourkit.com/images/yklogo.png)|![Travis CI](https://cdn.travis-ci.com/images/logos/TravisCI-Full-Color-4f9bce317a2b82518737a7ee7381c2ec.png)|
 |Many thanks to [YourKit, LLC](https://www.yourkit.com/) for providing a free license of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/index.jsp) to kindly support the development of Easy Rules.|Many thanks to [Travis CI](https://travis-ci.org) for providing a free continuous integration service for open source projects.|
 
 ## License
