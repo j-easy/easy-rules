@@ -4,6 +4,7 @@ import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Priority;
 import org.easyrules.annotation.Rule;
+import org.easyrules.api.RuleListener;
 import org.easyrules.api.RulesEngine;
 import org.junit.After;
 import org.junit.Before;
@@ -28,6 +29,9 @@ public class DefaultRulesEngineTest {
 
     @Mock
     private BasicRule rule, anotherRule;
+
+    @Mock
+    private RuleListener ruleListener;
 
     private AnnotatedRule annotatedRule;
 
@@ -122,6 +126,16 @@ public class DefaultRulesEngineTest {
                 .isNotEmpty()
                 .hasSize(2)
                 .containsExactly(rule, anotherRule);
+    }
+
+    @Test
+    public void testGetRuleListeners() throws Exception {
+        rulesEngine = aNewRulesEngine()
+                .withRuleListener(ruleListener)
+                .build();
+
+        assertThat(rulesEngine.getRuleListeners())
+                .containsExactly(ruleListener);
     }
 
     @After

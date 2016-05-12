@@ -95,6 +95,11 @@ class DefaultRulesEngine implements RulesEngine {
     }
 
     @Override
+    public List<RuleListener> getRuleListeners() {
+        return ruleListeners;
+    }
+
+    @Override
     public void clearRules() {
         rules.clear();
         LOGGER.info("Rules cleared.");

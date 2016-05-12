@@ -24,6 +24,7 @@
 
 package org.easyrules.api;
 
+import java.util.List;
 import java.util.Set;
 import org.easyrules.core.RulesEngineParameters;
 
@@ -61,6 +62,13 @@ public interface RulesEngine {
      * @return the set of registered rules
      */
     Set<Rule> getRules();
+
+    /**
+     * Return the list of registered rule listeners.
+     *
+     * @return the list of registered rule listeners
+     */
+    List<RuleListener> getRuleListeners();
 
     /**
      * Fire all registered rules.
