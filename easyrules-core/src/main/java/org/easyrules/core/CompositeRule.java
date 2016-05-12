@@ -59,7 +59,7 @@ public class CompositeRule extends BasicRule {
 
     public CompositeRule(final String name, final String description, final int priority) {
         super(name, description, priority);
-        rules = new TreeSet<Rule>();
+        rules = new TreeSet<>();
     }
 
     /**
