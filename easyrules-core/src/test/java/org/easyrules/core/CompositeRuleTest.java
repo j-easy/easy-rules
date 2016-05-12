@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 import static org.mockito.Mockito.*;
 
@@ -86,4 +87,28 @@ public class CompositeRuleTest {
 
     }
 
+    @Test
+    public void whenARuleIsRemoved_thenItShouldNotBeEvaluated() throws Exception {
+
+        compositeRule.addRule(rule1);
+        compositeRule.addRule(rule2);
+        compositeRule.removeRule(rule2);
+
+        rulesEngine.registerRule(compositeRule);
+
+        rulesEngine.fireRules();
+
+        //Rule 1 should not be executed
+        verify(rule1).execute();
+
+        //Rule 2 should not be evaluated nor executed
+        verify(rule2, never()).evaluate();
+        verify(rule2, never()).execute();
+
+    }
+
+    @Test
+    public void whenNoComposingRulesAreRegistered_thenCompositeRuleShouldEvaluateToFalse() {
+        assertThat(compositeRule.evaluate()).isFalse();
+    }
 }
