@@ -25,6 +25,7 @@
 package org.easyrules.api;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.easyrules.core.RulesEngineParameters;
 
@@ -74,6 +75,12 @@ public interface RulesEngine {
      * Fire all registered rules.
      */
     void fireRules();
+
+    /**
+     * Check rules without firing them.
+     * @return a map with the result of evaluation of each rule
+     */
+    Map<Rule, Boolean> checkRules();
 
     /**
      * Clear rules engine registry.
