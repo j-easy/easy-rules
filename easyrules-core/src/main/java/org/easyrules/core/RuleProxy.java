@@ -30,13 +30,17 @@ class RuleProxy implements InvocationHandler {
      * @return a proxy that implements the {@link org.easyrules.api.Rule} interface.
      */
     public static org.easyrules.api.Rule asRule(final Object rule) {
-
-        ruleDefinitionValidator.validateRuleDefinition(rule);
-
-        return (org.easyrules.api.Rule) Proxy.newProxyInstance(
-                org.easyrules.api.Rule.class.getClassLoader(),
-                new Class[]{org.easyrules.api.Rule.class, Comparable.class},
-                new RuleProxy(rule));
+        org.easyrules.api.Rule result;
+        if (Utils.getInterfaces(rule).contains(org.easyrules.api.Rule.class)) {
+            result = (org.easyrules.api.Rule) rule;
+        } else {
+            ruleDefinitionValidator.validateRuleDefinition(rule);
+            result = (org.easyrules.api.Rule) Proxy.newProxyInstance(
+                    org.easyrules.api.Rule.class.getClassLoader(),
+                    new Class[]{org.easyrules.api.Rule.class, Comparable.class},
+                    new RuleProxy(rule));
+        }
+        return result;
     }
 
     @Override

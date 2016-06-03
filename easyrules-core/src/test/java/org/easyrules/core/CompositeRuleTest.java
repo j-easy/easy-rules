@@ -1,5 +1,7 @@
 package org.easyrules.core;
 
+import org.easyrules.annotation.Action;
+import org.easyrules.annotation.Condition;
 import org.easyrules.api.RulesEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -110,5 +112,38 @@ public class CompositeRuleTest {
     @Test
     public void whenNoComposingRulesAreRegistered_thenCompositeRuleShouldEvaluateToFalse() {
         assertThat(compositeRule.evaluate()).isFalse();
+    }
+
+    @Test
+    public void testCompositeRuleWithAnnotatedComposingRules() throws Exception {
+        CompositeRule compositeRule = new CompositeRule();
+        MyRule rule = new MyRule();
+        compositeRule.addRule(rule);
+
+        RulesEngine engine = aNewRulesEngine().build();
+        engine.registerRule(compositeRule);
+        engine.fireRules();
+
+        assertThat(rule.isExecuted()).isTrue();
+    }
+
+    @org.easyrules.annotation.Rule
+    class MyRule {
+
+        boolean executed;
+
+        @Condition
+        public boolean when() {
+            return true;
+        }
+
+        @Action
+        public void then() {
+            executed = true;
+        }
+
+        public boolean isExecuted() {
+            return executed;
+        }
     }
 }

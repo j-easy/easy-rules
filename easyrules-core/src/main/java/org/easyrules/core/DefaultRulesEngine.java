@@ -34,6 +34,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
+import static org.easyrules.core.RuleProxy.asRule;
 
 /**
  * Default {@link org.easyrules.api.RulesEngine} implementation.
@@ -206,16 +207,6 @@ class DefaultRulesEngine implements RulesEngine {
             LOGGER.log(Level.INFO, format("Rule { name = '%s', description = '%s', priority = '%s'}",
                     rule.getName(), rule.getDescription(), rule.getPriority()));
         }
-    }
-
-    private Rule asRule(final Object rule) {
-        Rule result;
-        if (Utils.getInterfaces(rule).contains(Rule.class)) {
-            result = (Rule) rule;
-        } else {
-            result = RuleProxy.asRule(rule);
-        }
-        return result;
     }
 
     @Override
