@@ -29,9 +29,7 @@ import org.easyrules.api.RuleListener;
 import org.easyrules.api.RulesEngine;
 import org.easyrules.util.Utils;
 
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -118,6 +116,16 @@ class DefaultRulesEngine implements RulesEngine {
         logRegisteredRules();
         applyRules();
 
+    }
+
+    @Override
+    public Map<Rule, Boolean> checkRules() {
+        LOGGER.info("Checking rules");
+        Map<Rule, Boolean> result = new HashMap<>();
+        for (Rule rule : rules) {
+            result.put(rule, rule.evaluate());
+        }
+        return result;
     }
 
     private void sortRules() {
