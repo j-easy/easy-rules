@@ -27,8 +27,6 @@ package org.easyrules.core;
 import org.easyrules.api.Rule;
 import org.easyrules.util.Utils;
 
-import javax.management.MXBean;
-
 /**
  * Basic rule implementation class that provides common methods.
  *
@@ -37,7 +35,6 @@ import javax.management.MXBean;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-@MXBean
 public class BasicRule implements Rule, Comparable<Rule> {
 
     /**
