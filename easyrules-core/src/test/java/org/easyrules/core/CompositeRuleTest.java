@@ -2,6 +2,7 @@ package org.easyrules.core;
 
 import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
+import org.easyrules.annotation.Rule;
 import org.easyrules.api.RulesEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -100,7 +101,7 @@ public class CompositeRuleTest {
 
         rulesEngine.fireRules();
 
-        //Rule 1 should not be executed
+        //Rule 1 should be executed
         verify(rule1).execute();
 
         //Rule 2 should not be evaluated nor executed
@@ -116,32 +117,57 @@ public class CompositeRuleTest {
 
     @Test
     public void testCompositeRuleWithAnnotatedComposingRules() throws Exception {
-        CompositeRule compositeRule = new CompositeRule();
         MyRule rule = new MyRule();
         compositeRule.addRule(rule);
 
-        RulesEngine engine = aNewRulesEngine().build();
-        engine.registerRule(compositeRule);
-        engine.fireRules();
+        rulesEngine.registerRule(compositeRule);
+        rulesEngine.fireRules();
 
         assertThat(rule.isExecuted()).isTrue();
     }
 
+    @Test
+    public void whenAnnotatedRuleIsRemoved_thenItsProxyShouldBeRetrieved() throws Exception {
+        MyRule rule = new MyRule();
+        MyAnnotatedRule annotatedRule = new MyAnnotatedRule();
+        compositeRule.addRule(rule);
+        compositeRule.addRule(annotatedRule);
+        compositeRule.removeRule(annotatedRule);
+
+        rulesEngine.registerRule(compositeRule);
+        rulesEngine.fireRules();
+
+        assertThat(rule.isExecuted()).isTrue();
+        assertThat(annotatedRule.isExecuted()).isFalse();
+    }
+
     @org.easyrules.annotation.Rule
     class MyRule {
-
         boolean executed;
-
         @Condition
         public boolean when() {
             return true;
         }
-
         @Action
         public void then() {
             executed = true;
         }
+        public boolean isExecuted() {
+            return executed;
+        }
+    }
 
+    @Rule
+    static class MyAnnotatedRule {
+        private boolean executed;
+        @Condition
+        public boolean evaluate() {
+            return true;
+        }
+        @Action
+        public void execute() {
+            executed = true;
+        }
         public boolean isExecuted() {
             return executed;
         }
