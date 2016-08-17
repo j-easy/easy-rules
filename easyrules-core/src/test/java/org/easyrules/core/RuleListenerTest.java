@@ -57,6 +57,8 @@ public class RuleListenerTest {
         when(rule.getName()).thenReturn("r");
         when(rule.getPriority()).thenReturn(1);
         when(rule.evaluate()).thenReturn(true);
+        when(ruleListener1.beforeEvaluate(rule)).thenReturn(rule);
+        when(ruleListener2.beforeEvaluate(rule)).thenReturn(rule);
 
         rulesEngine = aNewRulesEngine()
                 .withRuleListener(ruleListener1)
@@ -94,6 +96,24 @@ public class RuleListenerTest {
         inOrder.verify(ruleListener2).beforeExecute(rule);
         inOrder.verify(ruleListener1).onFailure(rule, exception);
         inOrder.verify(ruleListener2).onFailure(rule, exception);
+
+    }
+
+    @Test
+    public void whenListenerReturnsNull_thenTheRuleShouldBeSkippedBeforeBeingEvaluated() throws Exception {
+
+        // Given
+        when(ruleListener1.beforeEvaluate(rule)).thenReturn(null);
+        rulesEngine = aNewRulesEngine()
+                .withRuleListener(ruleListener1)
+                .build();
+
+        // When
+        rulesEngine.registerRule(rule);
+        rulesEngine.fireRules();
+
+        // Then
+        verify(rule, never()).execute();
 
     }
 

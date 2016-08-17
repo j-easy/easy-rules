@@ -148,6 +148,11 @@ class DefaultRulesEngine implements RulesEngine {
                 break;
             }
 
+            rule = triggerListenersBeforeEvaluate(rule);
+            if (rule == null) {
+                LOGGER.log(Level.INFO, "Rule ''{0}'' has been skipped before being evaluated", name);
+                continue;
+            }
             if (rule.evaluate()) {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' triggered", name);
                 try {
@@ -192,6 +197,13 @@ class DefaultRulesEngine implements RulesEngine {
         for (RuleListener ruleListener : ruleListeners) {
             ruleListener.beforeExecute(rule);
         }
+    }
+
+    private Rule triggerListenersBeforeEvaluate(Rule rule) {
+        for (RuleListener ruleListener : ruleListeners) {
+            rule = ruleListener.beforeEvaluate(rule);
+        }
+        return rule;
     }
 
     private void logEngineParameters() {

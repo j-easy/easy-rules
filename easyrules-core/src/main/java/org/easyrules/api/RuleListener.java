@@ -8,6 +8,13 @@ package org.easyrules.api;
 public interface RuleListener {
 
     /**
+     * Triggered before the evaluation of a rule.
+     *
+     * @param rule the current rule
+     */
+    Rule beforeEvaluate(Rule rule);
+
+    /**
      * Triggered before the execution of a rule.
      *
      * @param rule the current rule
