@@ -122,6 +122,7 @@ class DefaultRulesEngine implements RulesEngine {
     @Override
     public Map<Rule, Boolean> checkRules() {
         LOGGER.info("Checking rules");
+        sortRules();
         Map<Rule, Boolean> result = new HashMap<>();
         for (Rule rule : rules) {
             result.put(rule, rule.evaluate());

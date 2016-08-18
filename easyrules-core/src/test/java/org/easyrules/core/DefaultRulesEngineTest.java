@@ -10,8 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InOrder;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Map;
@@ -83,6 +82,22 @@ public class DefaultRulesEngineTest {
         InOrder inOrder = inOrder(rule, anotherRule);
         inOrder.verify(rule).execute();
         inOrder.verify(anotherRule).execute();
+    }
+
+    @Test
+    public void rulesMustBeCheckedInTheirNaturalOrder() throws Exception {
+        when(rule.evaluate()).thenReturn(true);
+        when(anotherRule.evaluate()).thenReturn(true);
+        when(rule.compareTo(anotherRule)).thenReturn(-1);
+        when(anotherRule.compareTo(rule)).thenReturn(1);
+        rulesEngine.registerRule(rule);
+        rulesEngine.registerRule(anotherRule);
+
+        rulesEngine.checkRules();
+
+        InOrder inOrder = inOrder(rule, anotherRule);
+        inOrder.verify(rule).evaluate();
+        inOrder.verify(anotherRule).evaluate();
     }
 
     @Test
