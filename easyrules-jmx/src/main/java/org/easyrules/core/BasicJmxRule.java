@@ -26,11 +26,14 @@ package org.easyrules.core;
 
 import org.easyrules.api.JmxRule;
 
+import javax.management.MXBean;
+
 /**
  * An extension of {@link org.easyrules.core.BasicRule} that is supported by JMX.
  * 
  * @author Drem Darios (drem.darios@gmail.com)
  */
+@MXBean
 public class BasicJmxRule extends BasicRule implements JmxRule {
 
 }
