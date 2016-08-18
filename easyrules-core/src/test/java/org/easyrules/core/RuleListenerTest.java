@@ -57,8 +57,8 @@ public class RuleListenerTest {
         when(rule.getName()).thenReturn("r");
         when(rule.getPriority()).thenReturn(1);
         when(rule.evaluate()).thenReturn(true);
-        when(ruleListener1.beforeEvaluate(rule)).thenReturn(rule);
-        when(ruleListener2.beforeEvaluate(rule)).thenReturn(rule);
+        when(ruleListener1.beforeEvaluate(rule)).thenReturn(true);
+        when(ruleListener2.beforeEvaluate(rule)).thenReturn(true);
 
         rulesEngine = aNewRulesEngine()
                 .withRuleListener(ruleListener1)
@@ -100,10 +100,10 @@ public class RuleListenerTest {
     }
 
     @Test
-    public void whenListenerReturnsNull_thenTheRuleShouldBeSkippedBeforeBeingEvaluated() throws Exception {
+    public void whenListenerReturnsFalse_thenTheRuleShouldBeSkippedBeforeBeingEvaluated() throws Exception {
 
         // Given
-        when(ruleListener1.beforeEvaluate(rule)).thenReturn(null);
+        when(ruleListener1.beforeEvaluate(rule)).thenReturn(false);
         rulesEngine = aNewRulesEngine()
                 .withRuleListener(ruleListener1)
                 .build();
@@ -113,8 +113,24 @@ public class RuleListenerTest {
         rulesEngine.fireRules();
 
         // Then
-        verify(rule, never()).execute();
+        verify(rule, never()).evaluate();
+    }
 
+    @Test
+    public void whenListenerReturnsTrue_thenTheRuleShouldBeEvaluated() throws Exception {
+
+        // Given
+        when(ruleListener1.beforeEvaluate(rule)).thenReturn(true);
+        rulesEngine = aNewRulesEngine()
+                .withRuleListener(ruleListener1)
+                .build();
+
+        // When
+        rulesEngine.registerRule(rule);
+        rulesEngine.fireRules();
+
+        // Then
+        verify(rule).evaluate();
     }
 
 }

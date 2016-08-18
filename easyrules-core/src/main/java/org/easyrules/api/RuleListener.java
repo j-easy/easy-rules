@@ -10,9 +10,10 @@ public interface RuleListener {
     /**
      * Triggered before the evaluation of a rule.
      *
-     * @param rule the current rule
+     * @param rule being evaluated
+     * @return true if the rule should be evaluated, false otherwise
      */
-    Rule beforeEvaluate(Rule rule);
+    boolean beforeEvaluate(Rule rule);
 
     /**
      * Triggered before the execution of a rule.
