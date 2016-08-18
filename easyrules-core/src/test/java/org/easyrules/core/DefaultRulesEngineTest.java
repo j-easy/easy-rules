@@ -150,6 +150,23 @@ public class DefaultRulesEngineTest {
     }
 
     @Test
+    public void listenerShouldBeInvokedBeforeCheckingRules() throws Exception {
+        // Given
+        when(rule.evaluate()).thenReturn(true);
+        when(ruleListener.beforeEvaluate(rule)).thenReturn(true);
+        rulesEngine = aNewRulesEngine()
+                .withRuleListener(ruleListener)
+                .build();
+        rulesEngine.registerRule(rule);
+
+        // When
+        rulesEngine.checkRules();
+
+        // Then
+        verify(ruleListener).beforeEvaluate(rule);
+    }
+
+    @Test
     public void testGetRules() throws Exception {
         rule = new BasicRule("r1", "d1", 1);
         anotherRule = new BasicRule("r2", "d2", 2);

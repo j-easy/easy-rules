@@ -125,7 +125,9 @@ class DefaultRulesEngine implements RulesEngine {
         sortRules();
         Map<Rule, Boolean> result = new HashMap<>();
         for (Rule rule : rules) {
-            result.put(rule, rule.evaluate());
+            if (shouldBeEvaluated(rule)) {
+                result.put(rule, rule.evaluate());
+            }
         }
         return result;
     }
@@ -149,7 +151,7 @@ class DefaultRulesEngine implements RulesEngine {
                 break;
             }
 
-            if (!triggerListenersBeforeEvaluate(rule)) {
+            if (!shouldBeEvaluated(rule)) {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' has been skipped before being evaluated", name);
                 continue;
             }
@@ -206,6 +208,10 @@ class DefaultRulesEngine implements RulesEngine {
             }
         }
         return true;
+    }
+
+    private boolean shouldBeEvaluated(Rule rule) {
+        return triggerListenersBeforeEvaluate(rule);
     }
 
     private void logEngineParameters() {
