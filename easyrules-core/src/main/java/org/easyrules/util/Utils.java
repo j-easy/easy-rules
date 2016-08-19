@@ -1,10 +1,12 @@
 package org.easyrules.util;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
@@ -17,6 +19,8 @@ import static java.util.Arrays.asList;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public final class Utils {
+
+    private static final Logger LOGGER = Logger.getLogger(Utils.class.getName());
 
     /**
      * Default rule name.
@@ -42,6 +46,17 @@ public final class Utils {
      * Default rule priority threshold.
      */
     public static final int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
+
+    static {
+        try {
+            if (System.getProperty("java.util.logging.config.file") == null &&
+                    System.getProperty("java.util.logging.config.class") == null) {
+                LogManager.getLogManager().readConfiguration(Utils.class.getResourceAsStream("/logging.properties"));
+            }
+        } catch (IOException e) {
+            LOGGER.log(Level.WARNING, "Unable to load logging configuration file", e);
+        }
+    }
 
     private Utils() {
 
