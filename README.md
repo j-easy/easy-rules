@@ -31,8 +31,8 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
 
 ## Current version
 
-* The current stable version is `2.2.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.2.0|) 
-* The current development version is `2.3.0-SNAPSHOT` : [![Build Status](https://travis-ci.org/EasyRules/easyrules.svg?branch=master)](https://travis-ci.org/EasyRules/easyrules)
+* The current stable version is `2.3.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.3.0|)
+* The current development version is `2.4.0-SNAPSHOT` : [![Build Status](https://travis-ci.org/EasyRules/easyrules.svg?branch=master)](https://travis-ci.org/EasyRules/easyrules)
 
 In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
 
