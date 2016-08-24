@@ -31,6 +31,7 @@ import javax.management.MXBean;
  * 
  * @author Drem Darios (drem.darios@gmail.com)
  */
+@Deprecated
 @MXBean
 public interface JmxRule extends Rule {
 

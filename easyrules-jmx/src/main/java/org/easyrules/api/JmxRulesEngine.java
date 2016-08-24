@@ -29,6 +29,7 @@ package org.easyrules.api;
  *
  * @author Drem Darios (drem.darios@gmail.com)
  */
+@Deprecated
 public interface JmxRulesEngine extends RulesEngine {
 
     /**

@@ -36,12 +36,14 @@ import java.util.List;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class JmxRulesEngineBuilder {
 
     private RulesEngineParameters parameters;
 
     private List<RuleListener> ruleListeners;
 
+    @Deprecated
     public static JmxRulesEngineBuilder aNewJmxRulesEngine() {
         return new JmxRulesEngineBuilder();
     }

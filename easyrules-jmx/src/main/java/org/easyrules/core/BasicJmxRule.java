@@ -33,6 +33,7 @@ import javax.management.MXBean;
  * 
  * @author Drem Darios (drem.darios@gmail.com)
  */
+@Deprecated
 @MXBean
 public class BasicJmxRule extends BasicRule implements JmxRule {
 
