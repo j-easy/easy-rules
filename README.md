@@ -18,6 +18,41 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
 
  * Dynamic rule configuration at runtime using JMX
 
+## Example
+
+##### First, define your rule..
+
+```java
+@Rule(name = "my awesome rule" )
+public class MyRule {
+
+    @Condition
+    public boolean when() {
+        return true;
+    }
+    
+    @Action
+    public void then() {
+        System.out.println("Easy Rules rocks!");
+    }
+}
+```
+
+##### Then, fire it!
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        // create a rules engine
+        RulesEngine rulesEngine = aNewRulesEngine().build();
+        //register the rule
+        rulesEngine.registerRule(new MyRule());
+        //fire rules
+        rulesEngine.fireRules();
+    }
+}
+```
+
 ## Quick links
 
 |Item                  |Link                                                                                  |
