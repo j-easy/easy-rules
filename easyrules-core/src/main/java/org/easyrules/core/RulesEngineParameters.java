@@ -18,6 +18,11 @@ public class RulesEngineParameters {
     private boolean skipOnFirstAppliedRule;
 
     /**
+     * Parameter to skip next applicable rules when a rule is non triggered
+     */
+    private boolean skipOnFirstNonTriggeredRule;
+
+    /**
      * Parameter to skip next applicable rules when a rule has failed.
      */
     private boolean skipOnFirstFailedRule;
@@ -70,6 +75,14 @@ public class RulesEngineParameters {
 
     public void setSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
+    }
+
+    public boolean isSkipOnFirstNonTriggeredRule() {
+        return skipOnFirstNonTriggeredRule;
+    }
+
+    public void setSkipOnFirstNonTriggeredRule(boolean skipOnFirstNonTriggeredRule) {
+        this.skipOnFirstNonTriggeredRule = skipOnFirstNonTriggeredRule;
     }
 
     public boolean isSkipOnFirstFailedRule() {

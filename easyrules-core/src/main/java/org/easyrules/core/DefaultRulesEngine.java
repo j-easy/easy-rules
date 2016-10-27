@@ -177,6 +177,11 @@ class DefaultRulesEngine implements RulesEngine {
                 }
             } else {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' has been evaluated to false, it has not been executed", name);
+
+                if (parameters.isSkipOnFirstNonTriggeredRule()) {
+                    LOGGER.info("Next rules will be skipped since parameter skipOnFirstNonTriggeredRule is set");
+                    break;
+                }
             }
 
         }
@@ -218,6 +223,7 @@ class DefaultRulesEngine implements RulesEngine {
         LOGGER.log(Level.INFO, "Engine name: {0}", parameters.getName());
         LOGGER.log(Level.INFO, "Rule priority threshold: {0}", parameters.getPriorityThreshold());
         LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", parameters.isSkipOnFirstAppliedRule());
+        LOGGER.log(Level.INFO, "Skip on first non triggered rule: {0}", parameters.isSkipOnFirstNonTriggeredRule());
         LOGGER.log(Level.INFO, "Skip on first failed rule: {0}", parameters.isSkipOnFirstFailedRule());
     }
 

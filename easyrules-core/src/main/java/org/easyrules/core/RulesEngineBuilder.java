@@ -37,6 +37,11 @@ public class RulesEngineBuilder {
         return this;
     }
 
+    public RulesEngineBuilder withSkipOnFirstNonTriggeredRule(final boolean skipOnFirstNonTriggeredRule) {
+        parameters.setSkipOnFirstNonTriggeredRule(skipOnFirstNonTriggeredRule);
+        return this;
+    }
+
     public RulesEngineBuilder withSkipOnFirstFailedRule(final boolean skipOnFirstFailedRule) {
         parameters.setSkipOnFirstFailedRule(skipOnFirstFailedRule);
         return this;
