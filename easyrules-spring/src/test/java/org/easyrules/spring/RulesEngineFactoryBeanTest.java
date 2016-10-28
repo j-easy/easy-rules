@@ -64,6 +64,8 @@ public class RulesEngineFactoryBeanTest {
 
     private boolean skipOnFirstAppliedRule;
 
+    private boolean skipOnFirstNonTriggeredRule;
+
     private boolean skipOnFirstFailedRule;
 
     private boolean silentMode;
@@ -74,8 +76,9 @@ public class RulesEngineFactoryBeanTest {
     public void setUp() {
         name = NAME;
         silentMode = true;
-        skipOnFirstFailedRule = true;
         skipOnFirstAppliedRule = true;
+        skipOnFirstNonTriggeredRule = true;
+        skipOnFirstFailedRule = true;
         priorityThreshold = RULE_PRIORITY_THRESHOLD;
         rulesEngineFactoryBean = new RulesEngineFactoryBean();
     }
@@ -90,6 +93,7 @@ public class RulesEngineFactoryBeanTest {
         rulesEngineFactoryBean.setRuleListeners(expectedRuleListeners);
         rulesEngineFactoryBean.setPriorityThreshold(priorityThreshold);
         rulesEngineFactoryBean.setSkipOnFirstAppliedRule(skipOnFirstAppliedRule);
+        rulesEngineFactoryBean.setSkipOnFirstNonTriggeredRule(skipOnFirstNonTriggeredRule);
         rulesEngineFactoryBean.setSkipOnFirstFailedRule(skipOnFirstFailedRule);
         rulesEngineFactoryBean.setSilentMode(silentMode);
         rulesEngineFactoryBean.setName(name);
@@ -101,6 +105,7 @@ public class RulesEngineFactoryBeanTest {
         assertThat(rulesEngineParameters.getName()).isEqualTo(NAME);
         assertThat(rulesEngineParameters.getPriorityThreshold()).isEqualTo(RULE_PRIORITY_THRESHOLD);
         assertThat(rulesEngineParameters.isSkipOnFirstAppliedRule()).isTrue();
+        assertThat(rulesEngineParameters.isSkipOnFirstNonTriggeredRule()).isTrue();
         assertThat(rulesEngineParameters.isSkipOnFirstFailedRule()).isTrue();
         assertThat(rulesEngine.getRules()).isEqualTo(new HashSet<>(expectedRules));
         assertThat(rulesEngine.getRuleListeners()).isEqualTo(expectedRuleListeners);

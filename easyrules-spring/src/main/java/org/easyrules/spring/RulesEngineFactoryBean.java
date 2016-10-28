@@ -46,7 +46,9 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
     private int priorityThreshold = DEFAULT_RULE_PRIORITY_THRESHOLD;
     
     private boolean skipOnFirstAppliedRule;
-    
+
+    private boolean skipOnFirstNonTriggeredRule;
+
     private boolean skipOnFirstFailedRule;
     
     private boolean silentMode;
@@ -60,6 +62,7 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
         RulesEngineBuilder rulesEngineBuilder = aNewRulesEngine()
                 .named(name)
                 .withSkipOnFirstAppliedRule(skipOnFirstAppliedRule)
+                .withSkipOnFirstNonTriggeredRule(skipOnFirstNonTriggeredRule)
                 .withSkipOnFirstFailedRule(skipOnFirstFailedRule)
                 .withRulePriorityThreshold(priorityThreshold)
                 .withSilentMode(silentMode);
@@ -117,6 +120,10 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
 
     public void setSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
+    }
+
+    public void setSkipOnFirstNonTriggeredRule(boolean skipOnFirstNonTriggeredRule) {
+        this.skipOnFirstNonTriggeredRule = skipOnFirstNonTriggeredRule;
     }
 
     public void setSkipOnFirstFailedRule(boolean skipOnFirstFailedRule) {
