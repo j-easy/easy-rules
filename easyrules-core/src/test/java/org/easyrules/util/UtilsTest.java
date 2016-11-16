@@ -45,7 +45,7 @@ public class UtilsTest {
     }
 
     private static void assertCorrectAnnotationIsFound(
-            Class expectedAnnotationType, Annotation actualAnnotation) {
+            Class<?> expectedAnnotationType, Annotation actualAnnotation) {
 
         assertNotNull(actualAnnotation);
         assertEquals(expectedAnnotationType, actualAnnotation.annotationType());
