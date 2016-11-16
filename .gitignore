@@ -2,3 +2,6 @@
 *.iml
 **/target/*
 site/_site
+.project
+.settings
+.classpath
