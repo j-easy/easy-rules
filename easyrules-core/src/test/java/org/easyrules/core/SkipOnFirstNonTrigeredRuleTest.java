@@ -81,7 +81,6 @@ public class SkipOnFirstNonTrigeredRuleTest {
     private void setUpRule2() {
         when(rule2.getName()).thenReturn("r2");
         when(rule2.getPriority()).thenReturn(2);
-        when(rule2.evaluate()).thenReturn(true);
         when(rule2.compareTo(rule0)).thenReturn(1);
         when(rule2.compareTo(rule1)).thenReturn(1);
     }
@@ -97,7 +96,6 @@ public class SkipOnFirstNonTrigeredRuleTest {
         when(rule0.getName()).thenReturn("r0");
         when(rule0.getPriority()).thenReturn(0);
         when(rule0.evaluate()).thenReturn(true);
-        when(rule0.compareTo(rule1)).thenReturn(-1);
     }
 
 }

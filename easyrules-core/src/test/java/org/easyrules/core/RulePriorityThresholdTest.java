@@ -51,15 +51,8 @@ public class RulePriorityThresholdTest {
     @Before
     public void setup() {
 
-        when(rule1.getName()).thenReturn("r1");
         when(rule1.getPriority()).thenReturn(1);
         when(rule1.evaluate()).thenReturn(true);
-        when(rule1.compareTo(rule2)).thenReturn(-1);
-
-        when(rule2.getName()).thenReturn("r2");
-        when(rule2.getPriority()).thenReturn(2);
-        when(rule2.evaluate()).thenReturn(true);
-        when(rule2.compareTo(rule1)).thenReturn(1);
 
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withRulePriorityThreshold(1)

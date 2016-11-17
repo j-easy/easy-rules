@@ -43,7 +43,6 @@ public class CustomRuleOrderingTest {
         when(rule2.getPriority()).thenReturn(0);
         when(rule2.evaluate()).thenReturn(true);
 
-        when(rule1.compareTo(rule2)).thenCallRealMethod();
         when(rule2.compareTo(rule1)).thenCallRealMethod();
 
         rulesEngine.registerRule(rule1);

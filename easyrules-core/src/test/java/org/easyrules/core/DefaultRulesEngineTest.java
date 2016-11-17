@@ -72,7 +72,6 @@ public class DefaultRulesEngineTest {
     public void rulesMustBeTriggeredInTheirNaturalOrder() throws Exception {
         when(rule.evaluate()).thenReturn(true);
         when(anotherRule.evaluate()).thenReturn(true);
-        when(rule.compareTo(anotherRule)).thenReturn(-1);
         when(anotherRule.compareTo(rule)).thenReturn(1);
         rulesEngine.registerRule(rule);
         rulesEngine.registerRule(anotherRule);
@@ -88,7 +87,6 @@ public class DefaultRulesEngineTest {
     public void rulesMustBeCheckedInTheirNaturalOrder() throws Exception {
         when(rule.evaluate()).thenReturn(true);
         when(anotherRule.evaluate()).thenReturn(true);
-        when(rule.compareTo(anotherRule)).thenReturn(-1);
         when(anotherRule.compareTo(rule)).thenReturn(1);
         rulesEngine.registerRule(rule);
         rulesEngine.registerRule(anotherRule);

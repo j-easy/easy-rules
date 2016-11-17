@@ -77,7 +77,6 @@ public class SkipOnFirstFailedRuleTest {
         when(rule1.getName()).thenReturn("r1");
         when(rule1.getPriority()).thenReturn(1);
         when(rule1.evaluate()).thenReturn(true);
-        when(rule1.compareTo(rule2)).thenReturn(-1);
         final Exception exception = new Exception("fatal error!");
         doThrow(exception).when(rule1).execute();
     }
@@ -85,7 +84,6 @@ public class SkipOnFirstFailedRuleTest {
     private void setUpRule2() {
         when(rule2.getName()).thenReturn("r2");
         when(rule2.getPriority()).thenReturn(2);
-        when(rule2.evaluate()).thenReturn(true);
         when(rule2.compareTo(rule1)).thenReturn(1);
     }
 
