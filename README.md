@@ -93,6 +93,7 @@ For any further question, you can use the [Gitter](https://gitter.im/EasyRules/e
 * [drem-darios](https://github.com/drem-darios)
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [mrcritical](https://github.com/mrcritical)
+* [spearway](https://github.com/spearway)
 * [vinoct6](https://github.com/vinoct6)
 
 Thank you all for your contributions!
