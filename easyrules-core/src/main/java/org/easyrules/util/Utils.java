@@ -80,9 +80,9 @@ public final class Utils {
         }
     }
 
-    public static List<Class> getInterfaces(final Object rule) {
-        List<Class> interfaces = new ArrayList<>();
-        Class clazz = rule.getClass();
+    public static List<Class<?>> getInterfaces(final Object rule) {
+        List<Class<?>> interfaces = new ArrayList<>();
+        Class<?> clazz = rule.getClass();
         while (clazz.getSuperclass() != null) {
             interfaces.addAll(asList(clazz.getInterfaces()));
             clazz = clazz.getSuperclass();
@@ -90,14 +90,13 @@ public final class Utils {
         return interfaces;
     }
 
-    @SuppressWarnings("unchecked")
     public static <A extends Annotation> A findAnnotation(
-            final Class<? extends Annotation> targetAnnotation, final Class annotatedType) {
+            final Class<A> targetAnnotation, final Class<?> annotatedType) {
 
         checkNotNull(targetAnnotation, "targetAnnotation");
         checkNotNull(annotatedType, "annotatedType");
 
-        Annotation foundAnnotation = annotatedType.getAnnotation(targetAnnotation);
+        A foundAnnotation = annotatedType.getAnnotation(targetAnnotation);
         if (foundAnnotation == null) {
             for (Annotation annotation : annotatedType.getAnnotations()) {
                 Class<? extends Annotation> annotationType = annotation.annotationType();
@@ -107,11 +106,11 @@ public final class Utils {
                 }
             }
         }
-        return (A) foundAnnotation;
+        return foundAnnotation;
     }
 
     public static boolean isAnnotationPresent(
-            final Class<? extends Annotation> targetAnnotation, final Class annotatedType) {
+            final Class<? extends Annotation> targetAnnotation, final Class<?> annotatedType) {
 
         return findAnnotation(targetAnnotation, annotatedType) != null;
     }
