@@ -162,7 +162,7 @@ public class BasicRule implements Rule, Comparable<Rule> {
         } else if (getPriority() > rule.getPriority()) {
             return 1;
         } else {
-            return name.compareTo(rule.getName());
+            return getName().compareTo(rule.getName());
         }
     }
 
