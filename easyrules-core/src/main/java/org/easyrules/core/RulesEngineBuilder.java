@@ -104,7 +104,7 @@ public class RulesEngineBuilder<E extends RulesEngine> {
     public E build() {
         try {
             return this.getRulesEngineConstructors().newInstance(parameters, ruleListeners);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException exception) {
+        } catch (Exception exception) {
             throw new EngineInstantiationException("Cannot instantiate the new rules engine", exception);
         }
     }

@@ -2,6 +2,7 @@ package org.easyrules.core;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -23,6 +24,22 @@ public class RulesEngineBuilderTest {
 
     }
 
+    public static class BogusRulesEngine extends DefaultRulesEngine {
+
+        BogusRulesEngine() {
+            super(null, null);
+        }
+
+    }
+
+    public static class PrivateRulesEngine extends DefaultRulesEngine {
+
+        private PrivateRulesEngine(RulesEngineParameters parameters, List<RuleListener> ruleListeners) {
+            super(parameters, ruleListeners);
+        }
+
+    }
+
     @Test
     public void checkLegacyRulesEngineBuilderSyntax() throws Exception {
         RulesEngine engine = RulesEngineBuilder.aNewRulesEngine().build();
@@ -35,6 +52,22 @@ public class RulesEngineBuilderTest {
         RulesEngine engine = RulesEngineBuilder.aNewRulesEngine(MyRulesEngine.class).build();
         assertNotNull("Created parametrized rule engine", engine);
         assertTrue("Created parametrized rule engine of class MyRulesEngine", engine instanceof MyRulesEngine);
+    }
+
+    @Test
+    public void checkBogusRulesEngineBuilderSyntax() throws RuntimeException {
+        try {
+            RulesEngineBuilder.aNewRulesEngine(BogusRulesEngine.class).build();
+            fail("Should not have created a bogus engine");
+        } catch (RuntimeException exception) {
+        }
+    }
+
+    @Test
+    public void checkPrivateRulesEngineBuilderSyntax() throws RuntimeException {
+        RulesEngine engine = RulesEngineBuilder.aNewRulesEngine(PrivateRulesEngine.class).build();
+        assertNotNull("Created private parametrized rule engine", engine);
+        assertTrue("Created private parametrized rule engine of class PrivateRulesEngine", engine instanceof PrivateRulesEngine);
     }
 
 }
