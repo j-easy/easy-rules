@@ -110,6 +110,7 @@ public class CompositeRuleTest {
     @Test
     public void testCompositeRuleWithAnnotatedComposingRules() throws Exception {
         MyRule rule = new MyRule();
+        compositeRule = new CompositeRule("myCompositeRule");
         compositeRule.addRule(rule);
 
         rulesEngine.registerRule(compositeRule);
@@ -122,6 +123,7 @@ public class CompositeRuleTest {
     public void whenAnnotatedRuleIsRemoved_thenItsProxyShouldBeRetrieved() throws Exception {
         MyRule rule = new MyRule();
         MyAnnotatedRule annotatedRule = new MyAnnotatedRule();
+        compositeRule = new CompositeRule("myCompositeRule", "composite rule with mixed types of rules");
         compositeRule.addRule(rule);
         compositeRule.addRule(annotatedRule);
         compositeRule.removeRule(annotatedRule);
