@@ -21,13 +21,10 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-
 package org.easyrules.core;
-
 
 import org.easyrules.api.Rule;
 import org.easyrules.util.Utils;
-
 
 /**
  * Basic rule implementation class that provides common methods.
@@ -54,28 +51,44 @@ public class BasicRule implements Rule, Comparable<Rule> {
      */
     protected int priority;
 
-
+    /**
+     * Create a new {@link BasicRule}.
+     */
     public BasicRule() {
         this(Utils.DEFAULT_RULE_NAME, Utils.DEFAULT_RULE_DESCRIPTION, Utils.DEFAULT_RULE_PRIORITY);
     }
 
-
+    /**
+     * Create a new {@link BasicRule}.
+     *
+     * @param name rule name
+     */
     public BasicRule(final String name) {
         this(name, Utils.DEFAULT_RULE_DESCRIPTION, Utils.DEFAULT_RULE_PRIORITY);
     }
 
-
+    /**
+     * Create a new {@link BasicRule}.
+     *
+     * @param name rule name
+     * @param description rule description
+     */
     public BasicRule(final String name, final String description) {
         this(name, description, Utils.DEFAULT_RULE_PRIORITY);
     }
 
-
+    /**
+     * Create a new {@link BasicRule}.
+     *
+     * @param name rule name
+     * @param description rule description
+     * @param priority rule priority
+     */
     public BasicRule(final String name, final String description, final int priority) {
         this.name = name;
         this.description = description;
         this.priority = priority;
     }
-
 
     /**
      * {@inheritDoc}
@@ -84,7 +97,6 @@ public class BasicRule implements Rule, Comparable<Rule> {
         return false;
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -92,31 +104,25 @@ public class BasicRule implements Rule, Comparable<Rule> {
         // no op
     }
 
-
     public String getName() {
         return name;
     }
-
 
     public String getDescription() {
         return description;
     }
 
-
     public void setDescription(final String description) {
         this.description = description;
     }
-
 
     public int getPriority() {
         return priority;
     }
 
-
     public void setPriority(final int priority) {
         this.priority = priority;
     }
-
 
     /*
      * Rules are unique according to their names within a rules engine registry.
@@ -139,7 +145,6 @@ public class BasicRule implements Rule, Comparable<Rule> {
 
     }
 
-
     @Override
     public int hashCode() {
         int result = name.hashCode();
@@ -148,12 +153,10 @@ public class BasicRule implements Rule, Comparable<Rule> {
         return result;
     }
 
-
     @Override
     public String toString() {
         return name;
     }
-
 
     @Override
     public int compareTo(final Rule rule) {
