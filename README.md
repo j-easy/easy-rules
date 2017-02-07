@@ -94,6 +94,7 @@ For any further question, you can use the [Gitter](https://gitter.im/EasyRules/e
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [mrcritical](https://github.com/mrcritical)
 * [spearway](https://github.com/spearway)
+* [toudidel](https://github.com/toudidel)
 * [vinoct6](https://github.com/vinoct6)
 
 Thank you all for your contributions!
