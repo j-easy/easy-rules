@@ -1,4 +1,4 @@
-package org.easyrules;
+package org.easyrules.core;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.easyrules.api.Rule;
 import org.easyrules.api.RulesEngine;
-import org.easyrules.core.BasicRule;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
