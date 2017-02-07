@@ -59,7 +59,7 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
 
     @Override
     public RulesEngine getObject() {
-        RulesEngineBuilder rulesEngineBuilder = aNewRulesEngine()
+        RulesEngineBuilder<?> rulesEngineBuilder = aNewRulesEngine()
                 .named(name)
                 .withSkipOnFirstAppliedRule(skipOnFirstAppliedRule)
                 .withSkipOnFirstNonTriggeredRule(skipOnFirstNonTriggeredRule)
@@ -90,7 +90,7 @@ public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
         }
     }
 
-    private void registerRuleListeners(RulesEngineBuilder rulesEngineBuilder) {
+    private void registerRuleListeners(RulesEngineBuilder<?> rulesEngineBuilder) {
         if (ruleListeners != null && !ruleListeners.isEmpty()) {
             for (RuleListener ruleListener : ruleListeners) {
                 rulesEngineBuilder.withRuleListener(ruleListener);
