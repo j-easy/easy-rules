@@ -92,6 +92,7 @@ For any further question, you can use the [Gitter](https://gitter.im/EasyRules/e
 * [beccagaspard](https://github.com/beccagaspard)
 * [drem-darios](https://github.com/drem-darios)
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
+* [JurMarky](https://github.com/JurMarky)
 * [mrcritical](https://github.com/mrcritical)
 * [spearway](https://github.com/spearway)
 * [toudidel](https://github.com/toudidel)
