@@ -25,7 +25,6 @@ package org.easyrules;
 
 import junit.framework.TestSuite;
 import org.easyrules.core.*;
-import org.easyrules.util.UtilsTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

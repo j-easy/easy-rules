@@ -23,8 +23,6 @@
  */
 package org.easyrules.annotation;
 
-import org.easyrules.util.Utils;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -43,12 +41,12 @@ public @interface Rule {
      * The rule name which must be unique within an rules registry.
      * @return The rule name
      */
-    String name() default Utils.DEFAULT_RULE_NAME;
+    String name() default org.easyrules.api.Rule.DEFAULT_NAME;
 
     /**
      * The rule description.
      * @return The rule description
      */
-    String description() default  Utils.DEFAULT_RULE_DESCRIPTION;
+    String description() default  org.easyrules.api.Rule.DEFAULT_DESCRIPTION;
 
 }

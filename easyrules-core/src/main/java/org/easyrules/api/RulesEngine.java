@@ -36,6 +36,16 @@ import org.easyrules.core.RulesEngineParameters;
 public interface RulesEngine {
 
     /**
+     * Default engine name.
+     */
+    String DEFAULT_NAME = "engine";
+
+    /**
+     * Default rule priority threshold.
+     */
+    int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
+
+    /**
      * Return the rules engine parameters.
      *
      * @return The rules engine parameters

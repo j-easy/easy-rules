@@ -27,7 +27,6 @@ import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Priority;
 import org.easyrules.annotation.Rule;
-import org.easyrules.util.Utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

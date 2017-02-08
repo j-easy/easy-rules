@@ -25,7 +25,6 @@ package org.easyrules.core;
 
 import org.easyrules.api.RuleListener;
 import org.easyrules.api.RulesEngine;
-import org.easyrules.util.Utils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -46,8 +45,8 @@ public class RulesEngineBuilderTest {
         assertThat(rulesEngine).isNotNull();
         RulesEngineParameters parameters = rulesEngine.getParameters();
 
-        assertThat(parameters.getName()).isEqualTo(Utils.DEFAULT_ENGINE_NAME);
-        assertThat(parameters.getPriorityThreshold()).isEqualTo(Utils.DEFAULT_RULE_PRIORITY_THRESHOLD);
+        assertThat(parameters.getName()).isEqualTo(RulesEngine.DEFAULT_NAME);
+        assertThat(parameters.getPriorityThreshold()).isEqualTo(RulesEngine.DEFAULT_RULE_PRIORITY_THRESHOLD);
 
         assertThat(parameters.isSkipOnFirstAppliedRule()).isFalse();
         assertThat(parameters.isSkipOnFirstFailedRule()).isFalse();

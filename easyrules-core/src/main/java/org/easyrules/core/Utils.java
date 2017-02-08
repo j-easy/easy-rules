@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.easyrules.util;
+package org.easyrules.core;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -33,7 +33,6 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import static java.lang.String.format;
 import static java.util.Arrays.asList;
 
 /**
@@ -41,34 +40,9 @@ import static java.util.Arrays.asList;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public final class Utils {
+final class Utils {
 
     private static final Logger LOGGER = Logger.getLogger(Utils.class.getName());
-
-    /**
-     * Default rule name.
-     */
-    public static final String DEFAULT_RULE_NAME = "rule";
-
-    /**
-     * Default engine name.
-     */
-    public static final String DEFAULT_ENGINE_NAME = "engine";
-
-    /**
-     * Default rule description.
-     */
-    public static final String DEFAULT_RULE_DESCRIPTION = "description";
-
-    /**
-     * Default rule priority.
-     */
-    public static final int DEFAULT_RULE_PRIORITY = Integer.MAX_VALUE - 1;
-
-    /**
-     * Default rule priority threshold.
-     */
-    public static final int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
 
     static {
         try {
@@ -85,7 +59,7 @@ public final class Utils {
 
     }
 
-    public static void muteLoggers() {
+    static void muteLoggers() {
         Enumeration<String> loggerNames = LogManager.getLogManager().getLoggerNames();
         while (loggerNames.hasMoreElements()) {
             String loggerName = loggerNames.nextElement();
@@ -103,7 +77,7 @@ public final class Utils {
         }
     }
 
-    public static List<Class<?>> getInterfaces(final Object rule) {
+    static List<Class<?>> getInterfaces(final Object rule) {
         List<Class<?>> interfaces = new ArrayList<>();
         Class<?> clazz = rule.getClass();
         while (clazz.getSuperclass() != null) {
@@ -113,11 +87,7 @@ public final class Utils {
         return interfaces;
     }
 
-    public static <A extends Annotation> A findAnnotation(
-            final Class<A> targetAnnotation, final Class<?> annotatedType) {
-
-        checkNotNull(targetAnnotation, "targetAnnotation");
-        checkNotNull(annotatedType, "annotatedType");
+    static <A extends Annotation> A findAnnotation(final Class<A> targetAnnotation, final Class<?> annotatedType) {
 
         A foundAnnotation = annotatedType.getAnnotation(targetAnnotation);
         if (foundAnnotation == null) {
@@ -132,16 +102,8 @@ public final class Utils {
         return foundAnnotation;
     }
 
-    public static boolean isAnnotationPresent(
-            final Class<? extends Annotation> targetAnnotation, final Class<?> annotatedType) {
-
+    static boolean isAnnotationPresent(final Class<? extends Annotation> targetAnnotation, final Class<?> annotatedType) {
         return findAnnotation(targetAnnotation, annotatedType) != null;
-    }
-
-    public static void checkNotNull(final Object argument, final String argumentName) {
-        if (argument == null) {
-            throw new IllegalArgumentException(format("The %s must not be null", argumentName));
-        }
     }
 
 }

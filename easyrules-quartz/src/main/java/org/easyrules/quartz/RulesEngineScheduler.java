@@ -32,7 +32,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.easyrules.util.Utils.checkNotNull;
+import static java.lang.String.format;
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
@@ -277,6 +277,12 @@ public class RulesEngineScheduler {
         JobDataMap jobDataMap = new JobDataMap();
         jobDataMap.put("engine", engine);
         return newJob(RulesEngineJob.class).withIdentity(jobName).usingJobData(jobDataMap).build();
+    }
+
+    private static void checkNotNull(final Object argument, final String argumentName) {
+        if (argument == null) {
+            throw new IllegalArgumentException(format("The %s must not be null", argumentName));
+        }
     }
 
 }

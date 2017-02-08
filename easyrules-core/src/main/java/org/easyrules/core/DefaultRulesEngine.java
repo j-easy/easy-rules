@@ -26,7 +26,6 @@ package org.easyrules.core;
 import org.easyrules.api.Rule;
 import org.easyrules.api.RuleListener;
 import org.easyrules.api.RulesEngine;
-import org.easyrules.util.Utils;
 
 import java.util.*;
 import java.util.logging.Level;

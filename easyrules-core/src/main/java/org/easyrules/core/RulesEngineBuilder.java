@@ -25,7 +25,6 @@ package org.easyrules.core;
 
 import org.easyrules.api.RuleListener;
 import org.easyrules.api.RulesEngine;
-import org.easyrules.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,7 @@ public class RulesEngineBuilder {
     }
 
     private RulesEngineBuilder() {
-        parameters = new RulesEngineParameters(Utils.DEFAULT_ENGINE_NAME, false, false, Utils.DEFAULT_RULE_PRIORITY_THRESHOLD, false);
+        parameters = new RulesEngineParameters(RulesEngine.DEFAULT_NAME, false, false, RulesEngine.DEFAULT_RULE_PRIORITY_THRESHOLD, false);
         ruleListeners = new ArrayList<>();
     }
 

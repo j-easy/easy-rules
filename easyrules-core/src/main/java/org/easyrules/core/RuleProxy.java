@@ -27,7 +27,6 @@ import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Priority;
 import org.easyrules.annotation.Rule;
-import org.easyrules.util.Utils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -123,7 +122,7 @@ class RuleProxy implements InvocationHandler {
     }
 
     private int getRulePriority() throws Exception {
-        int priority = Utils.DEFAULT_RULE_PRIORITY;
+        int priority = org.easyrules.api.Rule.DEFAULT_PRIORITY;
 
         Method[] methods = getMethods();
         for (Method method : methods) {
@@ -178,7 +177,7 @@ class RuleProxy implements InvocationHandler {
 
     private String getRuleName() {
         Rule rule = getRuleAnnotation();
-        return rule.name().equals(Utils.DEFAULT_RULE_NAME) ? getTargetClass().getSimpleName() : rule.name();
+        return rule.name().equals(org.easyrules.api.Rule.DEFAULT_NAME) ? getTargetClass().getSimpleName() : rule.name();
     }
 
     private String getRuleDescription() {
@@ -188,7 +187,7 @@ class RuleProxy implements InvocationHandler {
         appendActionMethodsNames(description);
 
         Rule rule = getRuleAnnotation();
-        return rule.description().equals(Utils.DEFAULT_RULE_DESCRIPTION) ? description.toString() : rule.description();
+        return rule.description().equals(org.easyrules.api.Rule.DEFAULT_DESCRIPTION) ? description.toString() : rule.description();
     }
 
     private void appendConditionMethodName(StringBuilder description) {

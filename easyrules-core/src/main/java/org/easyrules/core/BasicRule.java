@@ -24,7 +24,6 @@
 package org.easyrules.core;
 
 import org.easyrules.api.Rule;
-import org.easyrules.util.Utils;
 
 /**
  * Basic rule implementation class that provides common methods.
@@ -55,7 +54,7 @@ public class BasicRule implements Rule, Comparable<Rule> {
      * Create a new {@link BasicRule}.
      */
     public BasicRule() {
-        this(Utils.DEFAULT_RULE_NAME, Utils.DEFAULT_RULE_DESCRIPTION, Utils.DEFAULT_RULE_PRIORITY);
+        this(Rule.DEFAULT_NAME, Rule.DEFAULT_DESCRIPTION, Rule.DEFAULT_PRIORITY);
     }
 
     /**
@@ -64,7 +63,7 @@ public class BasicRule implements Rule, Comparable<Rule> {
      * @param name rule name
      */
     public BasicRule(final String name) {
-        this(name, Utils.DEFAULT_RULE_DESCRIPTION, Utils.DEFAULT_RULE_PRIORITY);
+        this(name, Rule.DEFAULT_DESCRIPTION, Rule.DEFAULT_PRIORITY);
     }
 
     /**
@@ -74,7 +73,7 @@ public class BasicRule implements Rule, Comparable<Rule> {
      * @param description rule description
      */
     public BasicRule(final String name, final String description) {
-        this(name, description, Utils.DEFAULT_RULE_PRIORITY);
+        this(name, description, Rule.DEFAULT_PRIORITY);
     }
 
     /**
