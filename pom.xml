@@ -88,12 +88,6 @@
 
             <dependency>
                 <groupId>org.easyrules</groupId>
-                <artifactId>easyrules-jmx</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.easyrules</groupId>
                 <artifactId>easyrules-quartz</artifactId>
                 <version>${project.version}</version>
             </dependency>
