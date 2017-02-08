@@ -1,6 +1,6 @@
 ## What is Easy Rules?
 
-Easy Rules is a Java rules engine inspired by an article called *"[Should I use a Rules Engine?](http://martinfowler.com/bliki/RulesEngine.html)"* by [Martin Fowler](http://martinfowler.com/) in which he says:
+Easy Rules is a Java rules engine inspired by an article called *"[Should I use a Rules Engine?](http://martinfowler.com/bliki/RulesEngine.html)"* of [Martin Fowler](http://martinfowler.com/) in which Martin says:
 
 > You can build a simple rules engine yourself. All you need is to create a bunch of objects with conditions and actions, store them in a collection, and run through them to evaluate the conditions and execute the actions.
 
@@ -9,14 +9,9 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
 ## Core features
 
  * Lightweight library and easy to learn API
-
  * POJO based development with annotation programming model
-
  * Useful abstractions to define business rules and apply them easily with Java
-
  * The ability to create composite rules from primitive ones
-
- * Dynamic rule configuration at runtime using JMX
 
 ## Example
 
@@ -67,8 +62,8 @@ public class Test {
 
 ## Current version
 
-* The current stable version is `2.3.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.3.0|)
-* The current development version is `2.4.0-SNAPSHOT` : [![Build Status](https://travis-ci.org/EasyRules/easyrules.svg?branch=master)](https://travis-ci.org/EasyRules/easyrules)
+* The current stable version is `2.4.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.4.0|)
+* The current development version is `2.4.1-SNAPSHOT` : [![Build Status](https://travis-ci.org/EasyRules/easyrules.svg?branch=master)](https://travis-ci.org/EasyRules/easyrules)
 
 In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
 
@@ -113,7 +108,7 @@ Easy Rules is released under the [![MIT license](http://img.shields.io/badge/lic
 ```
 The MIT License (MIT)
 
-Copyright (c) 2016 Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+Copyright (c) 2017 Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
