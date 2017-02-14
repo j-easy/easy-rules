@@ -48,6 +48,8 @@ public class Test {
 }
 ```
 
+This is the hello world of Easy Rules. You can find other examples like the [FizzBuzz tutorial](http://www.easyrules.org/tutorials/fizzbuzz-tutorial.html) in the documentation.
+
 ## Quick links
 
 |Item                  |Link                                                                                  |
