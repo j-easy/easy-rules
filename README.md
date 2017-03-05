@@ -60,7 +60,6 @@ This is the hello world of Easy Rules. You can find other examples like the [Fiz
 |Agile Board           | [Backlog items @ waffle.io](https://waffle.io/EasyRules/easyrules)                   |
 |Code coverage         | [![Coverage](https://coveralls.io/repos/EasyRules/easyrules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/EasyRules/easyrules?branch=master) |
 |Sonar analysis        | [![Quality Gate](https://sonarqube.com/api/badges/gate?key=org.easyrules:easyrules)](https://sonarqube.com/overview?id=org.easyrules%3Aeasyrules) |
-|Dependencies          | [![Dependency Status](https://www.versioneye.com/user/projects/5666159cc3686e000b000923/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5666159cc3686e000b000923) |
 
 ## Current version
 
