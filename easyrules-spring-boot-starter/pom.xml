@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -7,11 +10,11 @@
         <version>2.4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>easyrules-spring</artifactId>
+    <artifactId>easyrules-spring-boot-starter</artifactId>
     <packaging>jar</packaging>
 
-    <name>Easy Rules Spring module</name>
-    <description>Module providing support for engine configuration using Spring</description>
+    <name>Easy Rules Spring Boot Starter module</name>
+    <description>Module providing Spring Boot autoconfiguration</description>
 
     <scm>
         <url>git@github.com:EasyRules/easyrules.git</url>
@@ -32,12 +35,11 @@
 
     <developers>
         <developer>
-            <id>benas</id>
-            <name>Mahmoud Ben Hassine</name>
-            <url>http://benas.github.io</url>
-            <email>mahmoud.benhassine@icloud.com</email>
+            <id>andersonkyle</id>
+            <name>Kyle Anderson</name>
+            <url>https://github.com/andersonkyle</url>
             <roles>
-                <role>Lead developer</role>
+                <role>Contributor</role>
             </roles>
         </developer>
     </developers>
@@ -55,12 +57,17 @@
             <artifactId>easyrules-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
+            <groupId>org.easyrules</groupId>
+            <artifactId>easyrules-spring</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -68,13 +75,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
