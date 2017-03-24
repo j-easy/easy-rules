@@ -36,6 +36,7 @@ import org.springframework.boot.test.util.EnvironmentTestUtils;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
 import static org.junit.Assert.assertEquals;
@@ -99,6 +100,13 @@ public class EasyRulesAutoConfigurationTest {
         assertEquals(1, rulesEngine.getRules().size());
     }
 
+    @Test
+    public void multipleRulesTest() {
+        load(MultipleRulesConfiguration.class);
+        RulesEngine rulesEngine = this.context.getBean(RulesEngine.class);
+        assertEquals(3, rulesEngine.getRules().size());
+    }
+
     @Configuration
     static class EmptyConfiguration {}
 
@@ -149,6 +157,10 @@ public class EasyRulesAutoConfigurationTest {
             public void then() {}
         }
     }
+
+    @Configuration
+    @Import({RuleImplementationBeanConfiguration.class, RuleComponentAnnotationConfiguration.class, SpringRuleAnnotationConfiguration.class})
+    static class MultipleRulesConfiguration {}
 
     private void load(Class<?> config, String... environment) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
