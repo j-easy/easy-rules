@@ -96,4 +96,5 @@ public interface RulesEngine {
      */
     void clearRules();
 
+    void unregisterRuleByName(String r1);
 }

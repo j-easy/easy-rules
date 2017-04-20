@@ -203,6 +203,40 @@ public class DefaultRulesEngineTest {
     }
 
     @Test
+    public void testUnregisterRule() throws Exception{
+        rule = new BasicRule("r1","d1",1);
+        anotherRule = new BasicRule("r2", "d2", 2);
+
+        rulesEngine.registerRule(rule);
+        rulesEngine.registerRule(anotherRule);
+
+        rulesEngine.unregisterRule(rule);
+
+        assertThat(rulesEngine.getRules())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .containsOnly(anotherRule);
+    }
+
+    @Test
+    public void testUnregisterRuleByName() throws Exception{
+        rule = new BasicRule("r1","d1",1);
+        anotherRule = new BasicRule("r2", "d2", 2);
+
+        rulesEngine.registerRule(rule);
+        rulesEngine.registerRule(anotherRule);
+
+        rulesEngine.unregisterRuleByName("r1");
+
+        assertThat(rulesEngine.getRules())
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .containsOnly(anotherRule);
+    }
+
+    @Test
     public void testGetRuleListeners() throws Exception {
         rulesEngine = aNewRulesEngine()
                 .withRuleListener(ruleListener)

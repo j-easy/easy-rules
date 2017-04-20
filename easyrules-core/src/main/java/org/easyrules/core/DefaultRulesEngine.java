@@ -130,6 +130,21 @@ class DefaultRulesEngine implements RulesEngine {
         return result;
     }
 
+    @Override
+    public void unregisterRuleByName(final String ruleName){
+        Rule rule = findRuleByName(ruleName);
+        if(rule != null)
+            unregisterRule(rule);
+    }
+
+    public Rule findRuleByName(String ruleName){
+        for(Rule rule : rules){
+            if(rule.getName().equalsIgnoreCase(ruleName))
+                return rule;
+        }
+        return null;
+    }
+
     private void sortRules() {
         rules = new TreeSet<>(rules);
     }
