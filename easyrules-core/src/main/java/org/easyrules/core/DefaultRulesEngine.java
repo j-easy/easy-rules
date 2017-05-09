@@ -87,6 +87,14 @@ class DefaultRulesEngine implements RulesEngine {
     }
 
     @Override
+    public void unregisterRule(final String ruleName){
+        Rule rule = findRuleByName(ruleName);
+        if (rule != null) {
+            unregisterRule(rule);
+        }
+    }
+
+    @Override
     public Set<Rule> getRules() {
         return rules;
     }
@@ -130,14 +138,7 @@ class DefaultRulesEngine implements RulesEngine {
         return result;
     }
 
-    @Override
-    public void unregisterRuleByName(final String ruleName){
-        Rule rule = findRuleByName(ruleName);
-        if(rule != null)
-            unregisterRule(rule);
-    }
-
-    public Rule findRuleByName(String ruleName){
+    private Rule findRuleByName(String ruleName){
         for(Rule rule : rules){
             if(rule.getName().equalsIgnoreCase(ruleName))
                 return rule;

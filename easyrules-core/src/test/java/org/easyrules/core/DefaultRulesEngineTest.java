@@ -227,7 +227,7 @@ public class DefaultRulesEngineTest {
         rulesEngine.registerRule(rule);
         rulesEngine.registerRule(anotherRule);
 
-        rulesEngine.unregisterRuleByName("r1");
+        rulesEngine.unregisterRule("r1");
 
         assertThat(rulesEngine.getRules())
                 .isNotNull()

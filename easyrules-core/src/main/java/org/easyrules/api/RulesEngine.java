@@ -67,6 +67,13 @@ public interface RulesEngine {
     void unregisterRule(Object rule);
 
     /**
+     * Unregister a rule by name from the rules engine registry.
+     *
+     * @param ruleName the name of the rule to unregister
+     */
+    void unregisterRule(String ruleName);
+
+    /**
      * Return the set of registered rules.
      *
      * @return the set of registered rules
@@ -95,6 +102,4 @@ public interface RulesEngine {
      * Clear rules engine registry.
      */
     void clearRules();
-
-    void unregisterRuleByName(String r1);
 }
