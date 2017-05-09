@@ -91,6 +91,7 @@ For any further question, you can use the [Gitter](https://gitter.im/EasyRules/e
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [JurMarky](https://github.com/JurMarky)
 * [jordanjennings](https://github.com/jordanjennings)
+* [khandelwalankit](https://github.com/khandelwalankit)
 * [mrcritical](https://github.com/mrcritical)
 * [richdouglasevans](https://github.com/richdouglasevans)
 * [spearway](https://github.com/spearway)
