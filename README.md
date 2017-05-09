@@ -85,11 +85,14 @@ For any further question, you can use the [Gitter](https://gitter.im/EasyRules/e
 
 ## Awesome contributors
 
+* [andersonkyle](https://github.com/andersonkyle)
 * [beccagaspard](https://github.com/beccagaspard)
 * [drem-darios](https://github.com/drem-darios)
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [JurMarky](https://github.com/JurMarky)
+* [jordanjennings](https://github.com/jordanjennings)
 * [mrcritical](https://github.com/mrcritical)
+* [richdouglasevans](https://github.com/richdouglasevans)
 * [spearway](https://github.com/spearway)
 * [toudidel](https://github.com/toudidel)
 * [vinoct6](https://github.com/vinoct6)
