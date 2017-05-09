@@ -39,6 +39,14 @@ public interface RuleListener {
     boolean beforeEvaluate(Rule rule);
 
     /**
+     * Triggered after the evaluation of a rule.
+     *
+     * @param rule that has been evaluated
+     * @param evaluationResult true if the rule evaluated to true, false otherwise
+     */
+    void afterEvaluate(Rule rule, boolean evaluationResult);
+
+    /**
      * Triggered before the execution of a rule.
      *
      * @param rule the current rule

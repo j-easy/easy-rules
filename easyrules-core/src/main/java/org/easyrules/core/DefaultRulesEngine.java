@@ -155,6 +155,7 @@ class DefaultRulesEngine implements RulesEngine {
             }
             if (rule.evaluate()) {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' triggered", name);
+                triggerListenersAfterEvaluate(rule, true);
                 try {
                     triggerListenersBeforeExecute(rule);
                     rule.execute();
@@ -175,7 +176,7 @@ class DefaultRulesEngine implements RulesEngine {
                 }
             } else {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' has been evaluated to false, it has not been executed", name);
-
+                triggerListenersAfterEvaluate(rule, false);
                 if (parameters.isSkipOnFirstNonTriggeredRule()) {
                     LOGGER.info("Next rules will be skipped since parameter skipOnFirstNonTriggeredRule is set");
                     break;
@@ -211,6 +212,12 @@ class DefaultRulesEngine implements RulesEngine {
             }
         }
         return true;
+    }
+
+    private void triggerListenersAfterEvaluate(Rule rule, boolean evaluationResult) {
+        for (RuleListener ruleListener : ruleListeners) {
+            ruleListener.afterEvaluate(rule, evaluationResult);
+        }
     }
 
     private boolean shouldBeEvaluated(Rule rule) {
