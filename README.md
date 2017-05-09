@@ -64,7 +64,7 @@ This is the hello world of Easy Rules. You can find other examples like the [Fiz
 ## Current version
 
 * The current stable version is `2.4.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.4.0|)
-* The current development version is `2.4.1-SNAPSHOT` : [![Build Status](https://travis-ci.org/EasyRules/easyrules.svg?branch=master)](https://travis-ci.org/EasyRules/easyrules)
+* The current development version is `2.5.0-SNAPSHOT` : [![Build Status](https://travis-ci.org/EasyRules/easyrules.svg?branch=master)](https://travis-ci.org/EasyRules/easyrules)
 
 In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
 
