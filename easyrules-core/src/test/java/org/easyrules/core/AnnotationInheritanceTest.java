@@ -21,27 +21,44 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.easyrules.annotation;
+package org.easyrules.core;
 
-import java.lang.annotation.*;
+import org.easyrules.annotation.Action;
+import org.easyrules.annotation.Condition;
+import org.easyrules.api.RulesEngine;
+import org.junit.Test;
 
-/**
- * Annotation to mark a method as a rule action.
- * Must annotate any public method with no arguments.
- * The method return value will be ignored by the engine.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
+import static org.assertj.core.api.Assertions.assertThat;
 
-@Inherited
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Action {
+public class AnnotationInheritanceTest {
 
-    /**
-     * The order in which the action should be executed.
-     * @return the order in which the action should be executed
-     */
-    int order() default 0;
+    @Test
+    public void annotationsShouldBeInherited() throws Exception {
+        MyChildRule myChildRule = new MyChildRule();
+        RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
+        rulesEngine.registerRule(myChildRule);
+        rulesEngine.fireRules();
 
+        assertThat(myChildRule.isExecuted()).isTrue();
+    }
+
+    @org.easyrules.annotation.Rule
+    class MyBaseRule {
+        protected boolean executed;
+        @Condition
+        public boolean when() {
+            return true;
+        }
+        @Action
+        public void then() {
+            executed = true;
+        }
+        public boolean isExecuted() {
+            return executed;
+        }
+    }
+
+    class MyChildRule extends MyBaseRule {
+
+    }
 }
