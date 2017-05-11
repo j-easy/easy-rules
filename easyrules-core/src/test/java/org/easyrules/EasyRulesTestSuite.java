@@ -35,6 +35,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+        AnnotationInheritanceTest.class,
         BasicRuleTest.class,
         RulePriorityThresholdTest.class,
         SkipOnFirstAppliedRuleTest.class,

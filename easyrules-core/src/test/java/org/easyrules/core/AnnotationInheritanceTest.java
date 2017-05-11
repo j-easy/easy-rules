@@ -21,51 +21,44 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.easyrules.api;
+package org.easyrules.core;
 
-/**
- * A listener for rules execution events.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
-public interface RuleListener {
+import org.easyrules.annotation.Action;
+import org.easyrules.annotation.Condition;
+import org.easyrules.api.RulesEngine;
+import org.junit.Test;
 
-    /**
-     * Triggered before the evaluation of a rule.
-     *
-     * @param rule being evaluated
-     * @return true if the rule should be evaluated, false otherwise
-     */
-    boolean beforeEvaluate(Rule rule);
+import static org.assertj.core.api.Assertions.assertThat;
 
-    /**
-     * Triggered after the evaluation of a rule.
-     *
-     * @param rule that has been evaluated
-     * @param evaluationResult true if the rule evaluated to true, false otherwise
-     */
-    void afterEvaluate(Rule rule, boolean evaluationResult);
+public class AnnotationInheritanceTest {
 
-    /**
-     * Triggered before the execution of a rule.
-     *
-     * @param rule the current rule
-     */
-    void beforeExecute(Rule rule);
+    @Test
+    public void annotationsShouldBeInherited() throws Exception {
+        MyChildRule myChildRule = new MyChildRule();
+        RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
+        rulesEngine.registerRule(myChildRule);
+        rulesEngine.fireRules();
 
-    /**
-     * Triggered after a rule has been executed successfully.
-     *
-     * @param rule the current rule
-     */
-    void onSuccess(Rule rule);
+        assertThat(myChildRule.isExecuted()).isTrue();
+    }
 
-    /**
-     * Triggered after a rule has failed.
-     *
-     * @param rule      the current rule
-     * @param exception the exception thrown when attempting to execute the rule
-     */
-    void onFailure(Rule rule, Exception exception);
+    @org.easyrules.annotation.Rule
+    class MyBaseRule {
+        protected boolean executed;
+        @Condition
+        public boolean when() {
+            return true;
+        }
+        @Action
+        public void then() {
+            executed = true;
+        }
+        public boolean isExecuted() {
+            return executed;
+        }
+    }
 
+    class MyChildRule extends MyBaseRule {
+
+    }
 }

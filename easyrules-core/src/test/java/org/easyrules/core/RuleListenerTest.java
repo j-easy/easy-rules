@@ -132,4 +132,36 @@ public class RuleListenerTest {
         verify(rule).evaluate();
     }
 
+    @Test
+    public void whenTheRuleEvaluatesToTrue_thenTheListenerShouldBeInvoked() throws Exception {
+        // Given
+        when(rule.evaluate()).thenReturn(true);
+        rulesEngine = aNewRulesEngine()
+                .withRuleListener(ruleListener1)
+                .build();
+
+        // When
+        rulesEngine.registerRule(rule);
+        rulesEngine.fireRules();
+
+        // Then
+        verify(ruleListener1).afterEvaluate(rule, true);
+    }
+
+    @Test
+    public void whenTheRuleEvaluatesToFalse_thenTheListenerShouldBeInvoked() throws Exception {
+        // Given
+        when(rule.evaluate()).thenReturn(false);
+        rulesEngine = aNewRulesEngine()
+                .withRuleListener(ruleListener1)
+                .build();
+
+        // When
+        rulesEngine.registerRule(rule);
+        rulesEngine.fireRules();
+
+        // Then
+        verify(ruleListener1).afterEvaluate(rule, false);
+    }
+
 }

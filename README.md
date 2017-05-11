@@ -64,7 +64,7 @@ This is the hello world of Easy Rules. You can find other examples like the [Fiz
 ## Current version
 
 * The current stable version is `2.4.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.4.0|)
-* The current development version is `2.4.1-SNAPSHOT` : [![Build Status](https://travis-ci.org/EasyRules/easyrules.svg?branch=master)](https://travis-ci.org/EasyRules/easyrules)
+* The current development version is `2.5.0-SNAPSHOT` : [![Build Status](https://travis-ci.org/EasyRules/easyrules.svg?branch=master)](https://travis-ci.org/EasyRules/easyrules)
 
 In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
 
@@ -85,11 +85,15 @@ For any further question, you can use the [Gitter](https://gitter.im/EasyRules/e
 
 ## Awesome contributors
 
+* [andersonkyle](https://github.com/andersonkyle)
 * [beccagaspard](https://github.com/beccagaspard)
 * [drem-darios](https://github.com/drem-darios)
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [JurMarky](https://github.com/JurMarky)
+* [jordanjennings](https://github.com/jordanjennings)
+* [khandelwalankit](https://github.com/khandelwalankit)
 * [mrcritical](https://github.com/mrcritical)
+* [richdouglasevans](https://github.com/richdouglasevans)
 * [spearway](https://github.com/spearway)
 * [toudidel](https://github.com/toudidel)
 * [vinoct6](https://github.com/vinoct6)
