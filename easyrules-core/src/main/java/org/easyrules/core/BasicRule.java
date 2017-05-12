@@ -23,12 +23,13 @@
  */
 package org.easyrules.core;
 
+import org.easyrules.api.Facts;
 import org.easyrules.api.Rule;
 
 /**
  * Basic rule implementation class that provides common methods.
  *
- * You can extend this class and override {@link BasicRule#evaluate()} and {@link BasicRule#execute()} to provide rule
+ * You can extend this class and override {@link BasicRule#evaluate(Facts)} and {@link BasicRule#execute(Facts)} to provide rule
  * conditions and actions logic.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
@@ -92,14 +93,14 @@ public class BasicRule implements Rule, Comparable<Rule> {
     /**
      * {@inheritDoc}
      */
-    public boolean evaluate() {
+    public boolean evaluate(Facts facts) {
         return false;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void execute() throws Exception {
+    public void execute(Facts facts) throws Exception {
         // no op
     }
 

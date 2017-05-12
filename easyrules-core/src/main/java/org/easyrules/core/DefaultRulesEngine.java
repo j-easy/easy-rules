@@ -23,16 +23,13 @@
  */
 package org.easyrules.core;
 
-import org.easyrules.api.Rule;
-import org.easyrules.api.RuleListener;
-import org.easyrules.api.RulesEngine;
+import org.easyrules.api.*;
 
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
-import static org.easyrules.core.RuleProxy.asRule;
 
 /**
  * Default {@link org.easyrules.api.RulesEngine} implementation.
@@ -43,28 +40,27 @@ import static org.easyrules.core.RuleProxy.asRule;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-class DefaultRulesEngine implements RulesEngine {
+public final class DefaultRulesEngine implements RulesEngine {
 
     private static final Logger LOGGER = Logger.getLogger(RulesEngine.class.getName());
 
     /**
-     * The rules set.
-     */
-    protected Set<Rule> rules;
-
-    /**
      * The engine parameters
      */
-    protected RulesEngineParameters parameters;
+    private RulesEngineParameters parameters;
 
     /**
      * The registered rule listeners.
      */
     private List<RuleListener> ruleListeners;
 
+    public DefaultRulesEngine() {
+        this.parameters = new RulesEngineParameters();
+        this.ruleListeners = new ArrayList<>();
+    }
+
     DefaultRulesEngine(final RulesEngineParameters parameters, final List<RuleListener> ruleListeners) {
         this.parameters = parameters;
-        this.rules = new TreeSet<>();
         this.ruleListeners = ruleListeners;
         if (parameters.isSilentMode()) {
             Utils.muteLoggers();
@@ -77,80 +73,40 @@ class DefaultRulesEngine implements RulesEngine {
     }
 
     @Override
-    public void registerRule(final Object rule) {
-        rules.add(asRule(rule));
-    }
-
-    @Override
-    public void unregisterRule(final Object rule) {
-        rules.remove(asRule(rule));
-    }
-
-    @Override
-    public void unregisterRule(final String ruleName){
-        Rule rule = findRuleByName(ruleName);
-        if (rule != null) {
-            unregisterRule(rule);
-        }
-    }
-
-    @Override
-    public Set<Rule> getRules() {
-        return rules;
-    }
-
-    @Override
     public List<RuleListener> getRuleListeners() {
         return ruleListeners;
     }
 
     @Override
-    public void clearRules() {
-        rules.clear();
-        LOGGER.info("Rules cleared.");
-    }
-
-    @Override
-    public void fireRules() {
-
+    public void fire(Rules rules, Facts facts) {
         if (rules.isEmpty()) {
             LOGGER.warning("No rules registered! Nothing to apply");
             return;
         }
-
+        sort(rules);
         logEngineParameters();
-        sortRules();
-        logRegisteredRules();
-        applyRules();
-
+        log(rules, facts);
+        apply(rules, facts);
     }
 
     @Override
-    public Map<Rule, Boolean> checkRules() {
+    public Map<Rule, Boolean> check(Rules rules, Facts facts) {
         LOGGER.info("Checking rules");
-        sortRules();
+        sort(rules);
         Map<Rule, Boolean> result = new HashMap<>();
         for (Rule rule : rules) {
-            if (shouldBeEvaluated(rule)) {
-                result.put(rule, rule.evaluate());
+            if (shouldBeEvaluated(rule, facts)) {
+                result.put(rule, rule.evaluate(facts));
             }
         }
         return result;
     }
 
-    private Rule findRuleByName(String ruleName){
-        for(Rule rule : rules){
-            if(rule.getName().equalsIgnoreCase(ruleName))
-                return rule;
-        }
-        return null;
+    private void sort(Rules rules) {
+        rules.sort();
     }
 
-    private void sortRules() {
-        rules = new TreeSet<>(rules);
-    }
-
-    private void applyRules() {
+    private void apply(Rules rules, Facts facts) {
 
         LOGGER.info("Rules evaluation started");
         for (Rule rule : rules) {
@@ -165,18 +121,18 @@ class DefaultRulesEngine implements RulesEngine {
                 break;
             }
 
-            if (!shouldBeEvaluated(rule)) {
+            if (!shouldBeEvaluated(rule, facts)) {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' has been skipped before being evaluated", name);
                 continue;
             }
-            if (rule.evaluate()) {
+            if (rule.evaluate(facts)) {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' triggered", name);
                 triggerListenersAfterEvaluate(rule, true);
                 try {
-                    triggerListenersBeforeExecute(rule);
-                    rule.execute();
+                    triggerListenersBeforeExecute(rule, facts);
+                    rule.execute(facts);
                     LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully", name);
-                    triggerListenersOnSuccess(rule);
+                    triggerListenersOnSuccess(rule, facts);
 
                     if (parameters.isSkipOnFirstAppliedRule()) {
                         LOGGER.info("Next rules will be skipped since parameter skipOnFirstAppliedRule is set");
@@ -184,7 +140,7 @@ class DefaultRulesEngine implements RulesEngine {
                     }
                 } catch (Exception exception) {
                     LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error", name), exception);
-                    triggerListenersOnFailure(rule, exception);
+                    triggerListenersOnFailure(rule, exception, facts);
                     if (parameters.isSkipOnFirstFailedRule()) {
                         LOGGER.info("Next rules will be skipped since parameter skipOnFirstFailedRule is set");
                         break;
@@ -203,27 +159,27 @@ class DefaultRulesEngine implements RulesEngine {
 
     }
 
-    private void triggerListenersOnFailure(final Rule rule, final Exception exception) {
+    private void triggerListenersOnFailure(final Rule rule, final Exception exception, Facts facts) {
         for (RuleListener ruleListener : ruleListeners) {
-            ruleListener.onFailure(rule, exception);
+            ruleListener.onFailure(rule, exception, facts);
         }
     }
 
-    private void triggerListenersOnSuccess(final Rule rule) {
+    private void triggerListenersOnSuccess(final Rule rule, Facts facts) {
         for (RuleListener ruleListener : ruleListeners) {
-            ruleListener.onSuccess(rule);
+            ruleListener.onSuccess(rule, facts);
         }
     }
 
-    private void triggerListenersBeforeExecute(final Rule rule) {
+    private void triggerListenersBeforeExecute(final Rule rule, Facts facts) {
         for (RuleListener ruleListener : ruleListeners) {
-            ruleListener.beforeExecute(rule);
+            ruleListener.beforeExecute(rule, facts);
         }
     }
 
-    private boolean triggerListenersBeforeEvaluate(Rule rule) {
+    private boolean triggerListenersBeforeEvaluate(Rule rule, Facts facts) {
         for (RuleListener ruleListener : ruleListeners) {
-            if (!ruleListener.beforeEvaluate(rule)) {
+            if (!ruleListener.beforeEvaluate(rule, facts)) {
                 return false;
             }
         }
@@ -236,8 +192,8 @@ class DefaultRulesEngine implements RulesEngine {
         }
     }
 
-    private boolean shouldBeEvaluated(Rule rule) {
-        return triggerListenersBeforeEvaluate(rule);
+    private boolean shouldBeEvaluated(Rule rule, Facts facts) {
+        return triggerListenersBeforeEvaluate(rule, facts);
     }
 
     private void logEngineParameters() {
@@ -248,17 +204,17 @@ class DefaultRulesEngine implements RulesEngine {
         LOGGER.log(Level.INFO, "Skip on first failed rule: {0}", parameters.isSkipOnFirstFailedRule());
     }
 
-    private void logRegisteredRules() {
+    private void log(Rules rules, Facts facts) {
         LOGGER.log(Level.INFO, "Registered rules:");
         for (Rule rule : rules) {
             LOGGER.log(Level.INFO, format("Rule { name = '%s', description = '%s', priority = '%s'}",
                     rule.getName(), rule.getDescription(), rule.getPriority()));
         }
-    }
 
-    @Override
-    public String toString() {
-        return parameters.getName();
+        LOGGER.log(Level.INFO, "Known facts:");
+        for (Map.Entry<String, Object> fact : facts) {
+            LOGGER.log(Level.INFO, format("Fact { %s : %s }", fact.getKey(), fact.getValue().toString()));
+        }
     }
 
 }

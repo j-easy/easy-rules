@@ -23,25 +23,25 @@
  */
 package org.easyrules.core;
 
-import org.easyrules.annotation.Action;
-import org.easyrules.annotation.Condition;
-import org.easyrules.annotation.Priority;
-import org.easyrules.annotation.Rule;
+import org.easyrules.annotation.*;
+import org.easyrules.api.Facts;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.logging.Logger;
 
-class RuleProxy implements InvocationHandler {
+public class RuleProxy implements InvocationHandler {
+
+    private static final Logger LOGGER = Logger.getLogger(RuleProxy.class.getName());
 
     private Object target;
 
     private static RuleDefinitionValidator ruleDefinitionValidator = new RuleDefinitionValidator();
 
-    public RuleProxy(final Object target) {
+    private RuleProxy(final Object target) {
         this.target = target;
     }
 
@@ -78,11 +78,17 @@ class RuleProxy implements InvocationHandler {
             return getRulePriority();
         }
         if (methodName.equals("evaluate")) {
-            return getConditionMethod().invoke(target, args); // validated upfront
+            Facts facts = (Facts) args[0];
+            Method conditionMethod = getConditionMethod();
+            List<Object> actualParameters = getActualParameters(conditionMethod, facts);
+            return conditionMethod.invoke(target, actualParameters.toArray()); // validated upfront
         }
         if (methodName.equals("execute")) {
             for (ActionMethodOrderBean actionMethodBean : getActionMethodBeans()) {
-                actionMethodBean.getMethod().invoke(target);
+                Facts facts = (Facts) args[0];
+                Method actiomMethod = actionMethodBean.getMethod();
+                List<Object> actualParameters = getActualParameters(actiomMethod, facts);
+                actiomMethod.invoke(target, actualParameters.toArray());
             }
         }
         if (methodName.equals("equals")) {
@@ -104,6 +110,25 @@ class RuleProxy implements InvocationHandler {
             }
         }
         return null;
+    }
+
+    private List<Object> getActualParameters(Method method, Facts facts) {
+        Parameter[] parameters = method.getParameters(); // validated upfront
+        List<Object> actualParameters = new ArrayList<>();
+        for (Parameter parameter : parameters) {
+            Fact annotation = parameter.getAnnotation(Fact.class); // validated upfront
+            if (annotation == null) { // validated upfront, there may be only one parameter not annotated and which is of type Facts.class
+                actualParameters.add(facts);
+            } else {
+                String factName = annotation.value();
+                Object fact = facts.get(factName);
+                if (fact == null) {
+                    throw new RuntimeException(String.format("No fact named %s found in known facts", factName));
+                }
+                actualParameters.add(fact);
+            }
+        }
+        return actualParameters;
     }
 
     private int compareTo(final org.easyrules.api.Rule otherRule) throws Exception {

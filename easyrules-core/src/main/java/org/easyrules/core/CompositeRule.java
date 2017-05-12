@@ -23,6 +23,7 @@
  */
 package org.easyrules.core;
 
+import org.easyrules.api.Facts;
 import org.easyrules.api.Rule;
 
 import java.util.HashMap;
@@ -93,10 +94,10 @@ public class CompositeRule extends BasicRule {
      * @return true if <strong>ALL</strong> conditions of composing rules are evaluated to true
      */
     @Override
-    public boolean evaluate() {
+    public boolean evaluate(Facts facts) {
         if (!rules.isEmpty()) {
             for (Rule rule : rules) {
-                if (!rule.evaluate()) {
+                if (!rule.evaluate(facts)) {
                     return false;
                 }
             }
@@ -112,9 +113,9 @@ public class CompositeRule extends BasicRule {
      * @throws Exception thrown if an exception occurs during actions performing
      */
     @Override
-    public void execute() throws Exception {
+    public void execute(Facts facts) throws Exception {
         for (Rule rule : rules) {
-            rule.execute();
+            rule.execute(facts);
         }
     }
 
