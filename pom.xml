@@ -15,7 +15,6 @@
     <modules>
         <module>easyrules-archetype</module>
         <module>easyrules-core</module>
-        <module>easyrules-quartz</module>
         <module>easyrules-spring</module>
         <module>easyrules-spring-boot-starter</module>
     </modules>
