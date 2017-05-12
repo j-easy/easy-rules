@@ -43,6 +43,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
  *
  * Created by Sunand on 6/8/2015.
  */
+@Deprecated
 public class RulesEngineScheduler {
 
     private static final Logger LOGGER = Logger.getLogger(RulesEngineScheduler.class.getName());

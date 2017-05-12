@@ -30,6 +30,7 @@ import org.quartz.SchedulerException;
  *
  * Created by Sunand on 6/8/2015.
  */
+@Deprecated
 public class RulesEngineSchedulerException extends Exception {
 
     public RulesEngineSchedulerException(final String message, final SchedulerException e) {
