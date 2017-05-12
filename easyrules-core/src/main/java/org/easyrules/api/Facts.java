@@ -23,50 +23,39 @@
  */
 package org.easyrules.api;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import org.easyrules.core.RulesEngineParameters;
+import java.util.*;
 
-/**
- * Rules engine interface.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
-public interface RulesEngine {
+import static java.lang.String.format;
 
-    /**
-     * Default engine name.
-     */
-    String DEFAULT_NAME = "engine";
+public class Facts implements Iterable<Map.Entry<String, Object>> {
 
-    /**
-     * Default rule priority threshold.
-     */
-    int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
+    private Map<String, Object> facts = new HashMap<>();
 
-    /**
-     * Return the rules engine parameters.
-     *
-     * @return The rules engine parameters
-     */
-    RulesEngineParameters getParameters();
+    public void add(String name, Object fact) {
+        facts.put(name, fact);
+    }
 
-    /**
-     * Return the list of registered rule listeners.
-     *
-     * @return the list of registered rule listeners
-     */
-    List<RuleListener> getRuleListeners();
+    public void remove(String name) {
+        facts.remove(name);
+    }
 
-    /**
-     * Fire all registered rules on given facts.
-     */
-    void fire(Rules rules, Facts facts);
+    public Object get(String name) {
+        return facts.get(name);
+    }
 
-    /**
-     * Check rules without firing them.
-     * @return a map with the result of evaluation of each rule
-     */
-    Map<Rule, Boolean> check(Rules rules, Facts facts);
+    @Override
+    public Iterator<Map.Entry<String, Object>> iterator() {
+        return facts.entrySet().iterator();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("Facts {").append("\n");
+        for (Map.Entry<String, Object> fact : facts.entrySet()) {
+            stringBuilder.append(format("   Fact { %s : %s }", fact.getKey(), fact.getValue().toString()));
+            stringBuilder.append("\n");
+        }
+        stringBuilder.append("}");
+        return  stringBuilder.toString();
+    }
 }

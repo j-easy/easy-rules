@@ -23,50 +23,53 @@
  */
 package org.easyrules.api;
 
-import java.util.List;
-import java.util.Map;
+import org.easyrules.core.RuleProxy;
+
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.Set;
-import org.easyrules.core.RulesEngineParameters;
+import java.util.TreeSet;
 
-/**
- * Rules engine interface.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
-public interface RulesEngine {
+public class Rules implements Iterable<Rule> {
 
-    /**
-     * Default engine name.
-     */
-    String DEFAULT_NAME = "engine";
+    private Set<Rule> rules = new TreeSet<>();
 
-    /**
-     * Default rule priority threshold.
-     */
-    int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
+    public Rules(Set<Rule> rules) {
+        this.rules = rules;
+    }
 
-    /**
-     * Return the rules engine parameters.
-     *
-     * @return The rules engine parameters
-     */
-    RulesEngineParameters getParameters();
+    public Rules(Rule... rules ) {
+        Collections.addAll(this.rules, rules);
+    }
 
-    /**
-     * Return the list of registered rule listeners.
-     *
-     * @return the list of registered rule listeners
-     */
-    List<RuleListener> getRuleListeners();
+    public Rules(Object... rules ) {
+        for (Object rule : rules) {
+            this.register(RuleProxy.asRule(rule));
+        }
+    }
 
-    /**
-     * Fire all registered rules on given facts.
-     */
-    void fire(Rules rules, Facts facts);
+    public void register(Object rule) {
+        rules.add(RuleProxy.asRule(rule));
+    }
 
-    /**
-     * Check rules without firing them.
-     * @return a map with the result of evaluation of each rule
-     */
-    Map<Rule, Boolean> check(Rules rules, Facts facts);
+    public void unregister(Object rule) {
+        rules.remove(RuleProxy.asRule(rule));
+    }
+
+    public boolean isEmpty() {
+        return rules.isEmpty();
+    }
+
+    public void clear() {
+        rules.clear();
+    }
+
+    @Override
+    public Iterator<Rule> iterator() {
+        return rules.iterator();
+    }
+
+    public void sort() {
+        rules = new TreeSet<>(rules);
+    }
 }
