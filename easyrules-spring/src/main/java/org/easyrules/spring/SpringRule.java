@@ -50,5 +50,6 @@ import java.lang.annotation.Target;
 @Rule
 @Component
 @Scope("prototype")
+@Deprecated
 public @interface SpringRule {
 }

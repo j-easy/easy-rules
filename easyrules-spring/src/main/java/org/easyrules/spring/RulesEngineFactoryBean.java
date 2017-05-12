@@ -37,6 +37,7 @@ import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class RulesEngineFactoryBean implements FactoryBean<RulesEngine> {
 
     private String name = RulesEngine.DEFAULT_NAME;
