@@ -15,8 +15,6 @@
     <modules>
         <module>easyrules-archetype</module>
         <module>easyrules-core</module>
-        <module>easyrules-spring</module>
-        <module>easyrules-spring-boot-starter</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -31,8 +29,6 @@
         <junit.version>4.12</junit.version>
         <assertj.version>2.6.0</assertj.version>
         <mockito.version>2.7.1</mockito.version>
-        <quartz.version>2.2.3</quartz.version>
-        <spring-io-platform.version>Brussels-SR1</spring-io-platform.version>
         <maven-cobertura-plugin.version>2.7</maven-cobertura-plugin.version>
         <maven-coveralls-plugin.version>4.3.0</maven-coveralls-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
@@ -87,24 +83,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.easyrules</groupId>
-                <artifactId>easyrules-quartz</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.easyrules</groupId>
-                <artifactId>easyrules-spring</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.easyrules</groupId>
-                <artifactId>easyrules-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
@@ -123,14 +101,6 @@
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
                 <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>io.spring.platform</groupId>
-                <artifactId>platform-bom</artifactId>
-                <version>${spring-io-platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

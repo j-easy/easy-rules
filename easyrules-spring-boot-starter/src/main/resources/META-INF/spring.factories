@@ -1,2 +1,0 @@
-
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=org.easyrules.spring.boot.autoconfigure.EasyRulesAutoConfiguration
