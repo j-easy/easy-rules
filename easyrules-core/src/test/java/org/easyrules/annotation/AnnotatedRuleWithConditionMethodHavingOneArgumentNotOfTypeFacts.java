@@ -21,47 +21,25 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.easyrules.core;
+package org.easyrules.annotation;
 
-import org.easyrules.annotation.Action;
-import org.easyrules.annotation.Condition;
-import org.easyrules.api.Facts;
-import org.easyrules.api.Rules;
-import org.easyrules.api.RulesEngine;
-import org.junit.Test;
+@Rule
+public class AnnotatedRuleWithConditionMethodHavingOneArgumentNotOfTypeFacts {
 
-import static org.assertj.core.api.Assertions.assertThat;
+    private boolean executed;
 
-public class AnnotationInheritanceTest {
-
-    @Test
-    public void annotationsShouldBeInherited() throws Exception {
-        MyChildRule myChildRule = new MyChildRule();
-        RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
-        Rules rules = new Rules();
-        rules.register(myChildRule);
-        rulesEngine.fire(rules, new Facts());
-
-        assertThat(myChildRule.isExecuted()).isTrue();
+    @Condition
+    public boolean when(int i) {
+        return i == 0;
     }
 
-    @org.easyrules.annotation.Rule
-    class MyBaseRule {
-        protected boolean executed;
-        @Condition
-        public boolean when() {
-            return true;
-        }
-        @Action
-        public void then() {
-            executed = true;
-        }
-        public boolean isExecuted() {
-            return executed;
-        }
+    @Action
+    public void then() throws Exception {
+        executed = true;
     }
 
-    class MyChildRule extends MyBaseRule {
-
+    public boolean isExecuted() {
+        return executed;
     }
+
 }

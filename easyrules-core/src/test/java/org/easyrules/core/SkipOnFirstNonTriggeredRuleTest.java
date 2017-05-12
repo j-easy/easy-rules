@@ -21,27 +21,46 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.easyrules.annotation;
+package org.easyrules.core;
 
-@Rule
-public class AnnotatedRuleWithActionMethodHavingArguments {
+import org.junit.Before;
+import org.junit.Test;
 
-    private boolean executed;
+import static org.mockito.Mockito.*;
 
-    @Condition
-    public boolean when() {
-        return true;
+/**
+ * Test class of "skip on first non triggered rule" parameter of Easy Rules default engine.
+ *
+ * @author Krzysztof Kozlowski (krzysztof.kozlowski@coderion.pl)
+ */
+public class SkipOnFirstNonTriggeredRuleTest extends AbstractTest {
+
+    @Before
+    public void setup() throws Exception {
+        super.setup();
+        setUpRule1();
+        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
+                .withSkipOnFirstNonTriggeredRule(true)
+                .build();
     }
 
-    @Action
-    public void then(int i) throws Exception {
-        if (i == 1) {
-            executed = true;
-        }
+    @Test
+    public void testSkipOnFirstNonTriggeredRule() throws Exception {
+
+        rulesEngine.fire(rules, facts);
+
+        //Rule1 is non triggered
+        verify(rule1, never()).execute(facts);
+
+        //Rule 2 should be skipped since Rule 1 has not been executed
+        verify(rule2, never()).execute(facts);
+
     }
 
-    public boolean isExecuted() {
-        return executed;
+    private void setUpRule1() throws Exception {
+        when(rule1.getName()).thenReturn("r1");
+        when(rule1.getPriority()).thenReturn(1);
+        when(rule1.evaluate(facts)).thenReturn(false);
     }
 
 }

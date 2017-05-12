@@ -23,13 +23,10 @@
  */
 package org.easyrules.core;
 
-import org.easyrules.api.RulesEngine;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 import static org.mockito.Mockito.*;
 
 /**
@@ -37,79 +34,47 @@ import static org.mockito.Mockito.*;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-@RunWith(MockitoJUnitRunner.class)
-public class SkipOnFirstAppliedRuleTest {
-
-    @Mock
-    private BasicRule rule0, rule1, rule2;
-
-    private RulesEngine rulesEngine;
+public class SkipOnFirstAppliedRuleTest extends AbstractTest {
 
     @Before
     public void setup() throws Exception {
+        super.setup();
 
-        setUpRule0();
         setUpRule1();
-        setUpRule2();
 
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
+        rulesEngine = aNewRulesEngine()
                 .withSkipOnFirstAppliedRule(true)
                 .build();
     }
 
     @Test
     public void testSkipOnFirstAppliedRule() throws Exception {
-
-        rulesEngine.registerRule(rule1);
-        rulesEngine.registerRule(rule2);
-
-        rulesEngine.fireRules();
+        rulesEngine.fire(rules, facts);
 
         //Rule 1 should be executed
-        verify(rule1).execute();
+        verify(rule1).execute(facts);
 
         //Rule 2 should be skipped since Rule 1 has been executed
-        verify(rule2, never()).execute();
+        verify(rule2, never()).execute(facts);
 
     }
 
     @Test
     public void testSkipOnFirstAppliedRuleWithException() throws Exception {
-
-        rulesEngine.registerRule(rule0);
-        rulesEngine.registerRule(rule1);
-        rulesEngine.registerRule(rule2);
-
-        rulesEngine.fireRules();
+        rulesEngine.fire(rules, facts);
 
         //If an exception occurs when executing Rule 0, Rule 1 should still be applied
-        verify(rule1).execute();
+        verify(rule1).execute(facts);
 
         //Rule 2 should be skipped since Rule 1 has been executed
-        verify(rule2, never()).execute();
+        verify(rule2, never()).execute(facts);
 
     }
 
-    private void setUpRule2() {
-        when(rule2.getName()).thenReturn("r2");
-        when(rule2.getPriority()).thenReturn(2);
-        when(rule2.compareTo(rule0)).thenReturn(1);
-        when(rule2.compareTo(rule1)).thenReturn(1);
-    }
-
-    private void setUpRule1() {
-        when(rule1.getName()).thenReturn("r1");
-        when(rule1.getPriority()).thenReturn(1);
-        when(rule1.evaluate()).thenReturn(true);
-        when(rule1.compareTo(rule0)).thenReturn(1);
-    }
-
-    private void setUpRule0() throws Exception {
-        when(rule0.getName()).thenReturn("r0");
-        when(rule0.getPriority()).thenReturn(0);
-        when(rule0.evaluate()).thenReturn(true);
+    private void setUpRule1() throws Exception {
+        when(rule1.evaluate(facts)).thenReturn(true);
         final Exception exception = new Exception("fatal error!");
-        doThrow(exception).when(rule0).execute();
+        doThrow(exception).when(rule1).execute(facts);
     }
 
 }
