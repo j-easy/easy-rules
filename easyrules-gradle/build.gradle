@@ -1,0 +1,137 @@
+//=============================================================================================
+// U S A G E   ================================================================================
+//=============================================================================================
+
+task usage doLast { print """${'='*90}
+Easy Rules Tutorials (http://www.easyrules.org)
+
+NB: Use '--quiet' or '-q' to supress Gradle build output lines
+
+ ./gradlew FizzBuzz
+    Baseline FizzBuzz using code.
+    Prints the numbers from 1 to 100. But for multiples of 3 print 'Fizz' instead 
+    of the number and for the multiples of 5 print 'Buzz'. For numbers which are 
+    multiples of both three and five print 'FizzBuzz'.
+
+ ./gradlew FizzBuzzER
+    FizzBuzz implementation using EasyRules.
+
+ ./gradlew Simple
+    Very simple EasyRules examples with one, always true, rule.
+
+ ./gradlew HelloWorld -q
+    Obligatory 'Hello, world' example where the input is evaluated by a rule.
+
+ ./gradlew Shop -P person=Tommy -P age=15
+    Rule to evaluate drinking age (US 21); Nmae and age can be passed in via the command line
+    or system properties; Default is 'Tom' at age '17'.
+
+ ./gradlew Scheduling -q
+    A rule which implements scheduling; Reports when the time seconds count is even
+
+ ./gradlew Spring
+    Similiar to 'Simple' but the rule is injected by Spring
+
+ ./gradlew clean
+  Remove all reports and artifacts from './$project.buildDir.name'
+
+${'='*90}
+"""}
+
+//============================================================================================
+// P L U G I N S   ===========================================================================
+//============================================================================================
+
+
+apply plugin: 'groovy'
+
+
+//=============================================================================================
+// C O N F I G U R A T I O N  =================================================================
+//=============================================================================================
+
+sourceCompatibility = 1.8
+targetCompatibility = sourceCompatibility
+
+//=============================================================================================
+// R e p o s i t o r i e s   &   D e p e n d e n c i e s   ====================================
+//=============================================================================================
+
+repositories {
+ 	mavenLocal()
+ 	mavenCentral()       
+}
+
+dependencies {
+
+	def easyRules = '2.4.0'          // Apr 2017
+	def spring    = '4.3.6.RELEASE'  // Apr 2017
+    def groovy    = '2.4.10'         // Apr 2017
+
+	compile ([
+		"org.easyrules:easyrules-core:$easyRules",		
+		"org.easyrules:easyrules-quartz:$easyRules",
+		"org.easyrules:easyrules-spring:$easyRules",
+		"org.springframework:spring-context-support:$spring",
+        "org.codehaus.groovy:groovy-all:$groovy"
+    ])
+
+}
+
+sourceSets {
+
+    compile {
+        groovy {
+            srcDirs = ['src/main/groovy']
+        }
+    }
+}
+
+
+//============================================================================================
+// R U N   T U T O R I A L S   ===============================================================
+//============================================================================================
+
+tasks.withType(JavaExec) {
+    standardInput = System.in
+}
+
+task FizzBuzz (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.easyrules.samples.fizzbuzz.FizzBuzz'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task FizzBuzzER (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.easyrules.samples.fizzbuzz.FizzBuzzWithEasyRules'
+    classpath = sourceSets.main.runtimeClasspath
+}
+task Simple (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.easyrules.samples.simple.Launcher'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task HelloWorld (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.easyrules.samples.helloworld.Launcher'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task Scheduling (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.easyrules.samples.scheduling.Launcher'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task Shop (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.easyrules.samples.shop.Launcher'
+    classpath = sourceSets.main.runtimeClasspath
+    args = [
+        findProperty('person') ?: 'Tom', 
+        findProperty('age') ?: '14'
+    ]
+}
+
+task Spring (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.easyrules.samples.spring.Launcher'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+
