@@ -23,7 +23,7 @@ NB: Use '--quiet' or '-q' to supress Gradle build output lines
     Obligatory 'Hello, world' example where the input is evaluated by a rule.
 
  ./gradlew Shop -P person=Tommy -P age=15
-    Rule to evaluate drinking age (US 21); Nmae and age can be passed in via the command line
+    Rule to evaluate drinking age (US 21); Name and age can be passed in via the command line
     or system properties; Default is 'Tom' at age '17'.
 
  ./gradlew Scheduling -q
@@ -94,11 +94,11 @@ sourceSets {
 
 tasks.withType(JavaExec) {
     standardInput = System.in
+    classpath = sourceSets.main.runtimeClasspath
 }
 
 task FizzBuzz (dependsOn: 'classes', type: JavaExec) {
     main = 'org.easyrules.samples.fizzbuzz.FizzBuzz'
-    classpath = sourceSets.main.runtimeClasspath
 }
 
 task FizzBuzzER (dependsOn: 'classes', type: JavaExec) {
@@ -107,31 +107,26 @@ task FizzBuzzER (dependsOn: 'classes', type: JavaExec) {
 }
 task Simple (dependsOn: 'classes', type: JavaExec) {
     main = 'org.easyrules.samples.simple.Launcher'
-    classpath = sourceSets.main.runtimeClasspath
 }
 
 task HelloWorld (dependsOn: 'classes', type: JavaExec) {
     main = 'org.easyrules.samples.helloworld.Launcher'
-    classpath = sourceSets.main.runtimeClasspath
 }
 
 task Scheduling (dependsOn: 'classes', type: JavaExec) {
     main = 'org.easyrules.samples.scheduling.Launcher'
-    classpath = sourceSets.main.runtimeClasspath
 }
 
 task Shop (dependsOn: 'classes', type: JavaExec) {
     main = 'org.easyrules.samples.shop.Launcher'
-    classpath = sourceSets.main.runtimeClasspath
     args = [
         findProperty('person') ?: 'Tom', 
-        findProperty('age') ?: '14'
+        findProperty('age') ?: '17'
     ]
 }
 
 task Spring (dependsOn: 'classes', type: JavaExec) {
     main = 'org.easyrules.samples.spring.Launcher'
-    classpath = sourceSets.main.runtimeClasspath
 }
 
 
