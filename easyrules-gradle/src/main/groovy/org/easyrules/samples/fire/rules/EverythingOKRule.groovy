@@ -1,26 +1,26 @@
-package org.easyrules.samples.fire
+package org.easyrules.samples.fire.rules
 
 import org.easyrules.annotation.Action
 import org.easyrules.annotation.Condition
 import org.easyrules.annotation.Rule
 import org.easyrules.annotation.Priority
 
-@Rule
-class ThereIsAnAlarmRule {
+@Rule(description='No alarm, nothing to see here; This need to be last rule considered')
+class EverythingOKRule {
 
     def theWorld
 
     @Condition
     boolean when() {
-    	theWorld.alarm != null
+        theWorld.alarm == null
     }
 
     @Action
     def then() { 
-        println 'To Fire Station: There is an Alarm'    
+    	println 'To Fire Station: Everything is OK' 
     }
 
     @Priority
-    int getPriority() { 0 }
+    int getPriority() { 15 }
 
 }

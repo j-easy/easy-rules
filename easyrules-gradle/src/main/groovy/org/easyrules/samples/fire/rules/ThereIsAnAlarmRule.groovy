@@ -1,27 +1,26 @@
-package org.easyrules.samples.fire
+package org.easyrules.samples.fire.rules
 
 import org.easyrules.annotation.Action
 import org.easyrules.annotation.Condition
 import org.easyrules.annotation.Rule
 import org.easyrules.annotation.Priority
 
-@Rule
-class CancelAlarmRule {
+@Rule(description='The alarm is detected at the fire station')
+class ThereIsAnAlarmRule {
 
     def theWorld
 
     @Condition
     boolean when() {
-    	theWorld.alarm != null && theWorld.fires.size() == 0
+    	theWorld.alarm != null
     }
 
     @Action
     def then() { 
-        theWorld.alarm = null
-        println( "Cancel the Alarm");
+        println "To Fire Station: There is an Alarm at ${theWorld.alarm.address}"
     }
 
     @Priority
-    int getPriority() { 0 }
+    int getPriority() { 1 }
 
 }

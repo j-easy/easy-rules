@@ -1,25 +1,24 @@
-package org.easyrules.samples.fire
+package org.easyrules.samples.fire.rules
 
 import org.easyrules.annotation.Action
 import org.easyrules.annotation.Condition
 import org.easyrules.annotation.Rule
 import org.easyrules.annotation.Priority
 
-@Rule
-class TurnSprinklerOnRule {
+@Rule(description='All the fires are out, cancel the alarm')
+class CancelAlarmRule {
 
     def theWorld
 
     @Condition
     boolean when() {
-        theWorld.fires.size() > 0
+    	theWorld.alarm  && theWorld.fires.size() == 0
     }
 
     @Action
     def then() { 
-        theWorld.fires.each{ fire ->
-    	   println "Turn sprinkler on in room: ${fire.room.name}"
-        }
+        println( "Cancel the Alarm");
+        theWorld.alarm = null
     }
 
     @Priority

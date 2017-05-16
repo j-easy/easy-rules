@@ -1,8 +1,10 @@
 package org.easyrules.samples.fire
 
-import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine
+import org.easyrules.samples.fire.rules.*
+import org.easyrules.samples.fire.beans.*
 
-import org.easyrules.api.RulesEngine
+
+import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine as EasyRules
 
 class Launcher {
 
@@ -19,29 +21,28 @@ class Launcher {
         // Define some room names
         def names = ['Kitchen', 'Bedroom', 'Office', 'Livingroom']
 
-        // Create rooms for each name; Install a sprinkler in each room; Add to rules engine
-        def rooms = new HashMap<String,Room>()
-        def sprinklers = []
+        // Create the rooms for each name; Install a sprinkler system in each room; Add to the World
+        def rooms = [:]
+        def theWorld = new TheWorld()     
 
         names.each { name ->
-            def room = new Room(name)
-            rooms[name] = room
-            sprinklers << new Sprinkler(room)
+            rooms[name] = new Room(name)
+            theWorld.sprinklers << new Sprinkler(rooms[name])
         }
 
-        def theWorld = new TheWorld(sprinklers)     
 
-        // Create a rules engine
-        RulesEngine rulesEngine = aNewRulesEngine()
+        // Create the rules engine
+        def rulesEngine = EasyRules()
                 .named("Fire Alarm Demo")
                 .build()
 
-        // Register rules
+        // Register all of the rules
         rulesEngine.registerRule(new EverythingOKRule(theWorld:theWorld))
         rulesEngine.registerRule(new RaiseAlarmRule(theWorld:theWorld))
-        rulesEngine.registerRule(new ThereIsAnAlarmRule(theWorld:theWorld))
         rulesEngine.registerRule(new CancelAlarmRule(theWorld:theWorld))
+        rulesEngine.registerRule(new ThereIsAnAlarmRule(theWorld:theWorld))
         rulesEngine.registerRule(new TurnSprinklerOnRule(theWorld:theWorld))
+        rulesEngine.registerRule(new TurnSprinklerOffRule(theWorld:theWorld))
 
         // Fire the rules
         rulesEngine.fireRules()

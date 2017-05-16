@@ -1,11 +1,9 @@
-package org.easyrules.samples.fire
+package org.easyrules.samples.fire.beans
 
 @groovy.transform.TupleConstructor
 @groovy.transform.EqualsAndHashCode
 @groovy.transform.ToString
 class Sprinkler {
-    Room room;
-    boolean on;
-
-    boolean isOn() {on}
+    def room;
+    def on = false;
 }
