@@ -17,10 +17,10 @@ class ThereIsAnAlarmRule {
 
     @Action
     def then() { 
-        println "To Fire Station: There is an Alarm at ${theWorld.alarm.address}"
+        println "At the Fire Station: There is an Alarm at ${theWorld.alarm.address}"
     }
 
     @Priority
-    int getPriority() { 1 }
+    int getPriority() { 5 }
 
 }

@@ -24,6 +24,6 @@ class RaiseAlarmRule {
     }
 
     @Priority
-    int getPriority() { 0 }
+    int getPriority() { 2 }
 
 }

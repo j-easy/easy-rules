@@ -17,7 +17,7 @@ class EverythingOKRule {
 
     @Action
     def then() { 
-    	println 'To Fire Station: Everything is OK' 
+    	println 'At the Fire Station: Everything is OK' 
     }
 
     @Priority

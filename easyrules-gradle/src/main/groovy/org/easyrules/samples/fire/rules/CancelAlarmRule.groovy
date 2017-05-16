@@ -22,6 +22,6 @@ class CancelAlarmRule {
     }
 
     @Priority
-    int getPriority() { 0 }
+    int getPriority() { 1 }
 
 }

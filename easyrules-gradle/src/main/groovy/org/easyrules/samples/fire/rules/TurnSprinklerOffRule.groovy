@@ -5,14 +5,14 @@ import org.easyrules.annotation.Condition
 import org.easyrules.annotation.Rule
 import org.easyrules.annotation.Priority
 
-@Rule(description='The alarm has been cancelled, turn off all of the sprinklers')
+@Rule(description='The fires are out, turn off all of the sprinklers')
 class TurnSprinklerOffRule {
 
     def theWorld
 
     @Condition
     boolean when() {
-        theWorld.alarm == null
+        theWorld.fires.size() == 0
     }
 
     @Action
@@ -26,6 +26,6 @@ class TurnSprinklerOffRule {
     }
 
     @Priority
-    int getPriority() { 5 }
+    int getPriority() { 0 }
 
 }

@@ -2,7 +2,7 @@ package org.easyrules.samples.fire
 
 @groovy.transform.TupleConstructor
 @groovy.transform.EqualsAndHashCode
-@groovy.transform.ToString
+@groovy.transform.ToString(includePackage = false, includeNames = true)
 class TheWorld {
 
     def sprinklers = []
