@@ -21,24 +21,38 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.easyrules.quartz;
+package org.easyrules.core;
 
-import org.easyrules.api.RulesEngine;
-import org.quartz.Job;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.spi.JobFactory;
-import org.quartz.spi.TriggerFiredBundle;
+import org.easyrules.api.*;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
-/**
- * Quartz Job factory implementation used to create Rules Engine job instances.
- *
- * Created by Sunand on 6/8/2015.
- */
-class RulesEngineJobFactory implements JobFactory {
+import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 
-    @Override
-    public Job newJob(TriggerFiredBundle triggerFiredBundle, Scheduler scheduler) throws SchedulerException {
-        return new RulesEngineJob((RulesEngine) triggerFiredBundle.getJobDetail().getJobDataMap().get("engine"));
+@RunWith(MockitoJUnitRunner.class)
+public abstract class AbstractTest {
+
+    @Mock
+    protected Rule rule1, rule2;
+    @Mock
+    protected Object fact1, fact2;
+
+    protected Facts facts;
+    protected Rules rules;
+
+    protected RulesEngine rulesEngine;
+
+    @Before
+    public void setup() throws Exception {
+        facts = new Facts();
+        facts.add("fact1", fact1);
+        facts.add("fact2", fact2);
+        rules = new Rules(rule1, rule2);
+
+        rulesEngine = aNewRulesEngine().build();
     }
+
 }

@@ -21,38 +21,41 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.easyrules.quartz;
+package org.easyrules.api;
 
-import org.easyrules.api.RulesEngine;
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import java.util.*;
 
-/**
- * Quartz Job implementation to launch Rules Engine instances.
- *
- * Created by Sunand on 6/8/2015.
- */
-class RulesEngineJob implements Job {
+import static java.lang.String.format;
 
-    /**
-     * Rules Engine instance
-     */
-    private RulesEngine engine;
+public class Facts implements Iterable<Map.Entry<String, Object>> {
 
-    public RulesEngineJob(RulesEngine engine) {
-        this.engine = engine;
+    private Map<String, Object> facts = new HashMap<>();
+
+    public void add(String name, Object fact) {
+        facts.put(name, fact);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        try {
-            engine.fireRules();
+    public void remove(String name) {
+        facts.remove(name);
+    }
+
+    public Object get(String name) {
+        return facts.get(name);
+    }
+
+    @Override
+    public Iterator<Map.Entry<String, Object>> iterator() {
+        return facts.entrySet().iterator();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("Facts {").append("\n");
+        for (Map.Entry<String, Object> fact : facts.entrySet()) {
+            stringBuilder.append(format("   Fact { %s : %s }", fact.getKey(), fact.getValue().toString()));
+            stringBuilder.append("\n");
         }
-        catch (Exception e) {
-            throw new JobExecutionException("An exception occurred during rules engine execution", e);
-        }
+        stringBuilder.append("}");
+        return  stringBuilder.toString();
     }
 }

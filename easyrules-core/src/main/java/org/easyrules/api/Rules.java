@@ -21,7 +21,55 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-/**
- * This package contains Spring support classes.
- */
-package org.easyrules.spring;
+package org.easyrules.api;
+
+import org.easyrules.core.RuleProxy;
+
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Rules implements Iterable<Rule> {
+
+    private Set<Rule> rules = new TreeSet<>();
+
+    public Rules(Set<Rule> rules) {
+        this.rules = rules;
+    }
+
+    public Rules(Rule... rules ) {
+        Collections.addAll(this.rules, rules);
+    }
+
+    public Rules(Object... rules ) {
+        for (Object rule : rules) {
+            this.register(RuleProxy.asRule(rule));
+        }
+    }
+
+    public void register(Object rule) {
+        rules.add(RuleProxy.asRule(rule));
+    }
+
+    public void unregister(Object rule) {
+        rules.remove(RuleProxy.asRule(rule));
+    }
+
+    public boolean isEmpty() {
+        return rules.isEmpty();
+    }
+
+    public void clear() {
+        rules.clear();
+    }
+
+    @Override
+    public Iterator<Rule> iterator() {
+        return rules.iterator();
+    }
+
+    public void sort() {
+        rules = new TreeSet<>(rules);
+    }
+}

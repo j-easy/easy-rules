@@ -40,7 +40,7 @@ import org.junit.runners.Suite;
         RulePriorityThresholdTest.class,
         SkipOnFirstAppliedRuleTest.class,
         SkipOnFirstFailedRuleTest.class,
-        SkipOnFirstNonTrigeredRuleTest.class,
+        SkipOnFirstNonTriggeredRuleTest.class,
         RuleListenerTest.class,
         CustomRuleOrderingTest.class,
         RuleProxyTest.class,

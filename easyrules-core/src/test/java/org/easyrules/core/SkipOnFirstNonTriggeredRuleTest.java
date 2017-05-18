@@ -21,35 +21,46 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.easyrules.spring;
+package org.easyrules.core;
 
-import org.easyrules.annotation.Rule;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.junit.Before;
+import org.junit.Test;
 
-import java.lang.annotation.Inherited;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import static org.mockito.Mockito.*;
 
 /**
- * Annotation that turns a POJO into:
+ * Test class of "skip on first non triggered rule" parameter of Easy Rules default engine.
  *
- * <ul>
- *     <li>an Easy Rules rule</li>
- *     <li>a Spring prototype-scoped bean</li>
- * </ul>
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ * @author Krzysztof Kozlowski (krzysztof.kozlowski@coderion.pl)
  */
+public class SkipOnFirstNonTriggeredRuleTest extends AbstractTest {
 
-@Inherited
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-@Rule
-@Component
-@Scope("prototype")
-@Deprecated
-public @interface SpringRule {
+    @Before
+    public void setup() throws Exception {
+        super.setup();
+        setUpRule1();
+        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
+                .withSkipOnFirstNonTriggeredRule(true)
+                .build();
+    }
+
+    @Test
+    public void testSkipOnFirstNonTriggeredRule() throws Exception {
+
+        rulesEngine.fire(rules, facts);
+
+        //Rule1 is non triggered
+        verify(rule1, never()).execute(facts);
+
+        //Rule 2 should be skipped since Rule 1 has not been executed
+        verify(rule2, never()).execute(facts);
+
+    }
+
+    private void setUpRule1() throws Exception {
+        when(rule1.getName()).thenReturn("r1");
+        when(rule1.getPriority()).thenReturn(1);
+        when(rule1.evaluate(facts)).thenReturn(false);
+    }
+
 }

@@ -23,14 +23,13 @@
  */
 package org.easyrules.core;
 
-import org.easyrules.annotation.Action;
-import org.easyrules.annotation.Condition;
-import org.easyrules.annotation.Priority;
-import org.easyrules.annotation.Rule;
+import org.easyrules.annotation.*;
+import org.easyrules.api.Facts;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +42,7 @@ import static java.lang.String.format;
  */
 class RuleDefinitionValidator {
 
-    public void validateRuleDefinition(final Object rule) {
+    void validateRuleDefinition(final Object rule) {
         checkRuleClass(rule);
         checkConditionMethod(rule);
         checkActionMethods(rule);
@@ -69,7 +68,7 @@ class RuleDefinitionValidator {
         Method conditionMethod = conditionMethods.get(0);
 
         if (!isConditionMethodWellDefined(conditionMethod)) {
-            throw new IllegalArgumentException(format("Condition method '%s' defined in rule '%s' must be public, have no parameters and return boolean type.", conditionMethod, rule.getClass().getName()));
+            throw new IllegalArgumentException(format("Condition method '%s' defined in rule '%s' must be public, may have parameters annotated with @Fact (and/or a parameter of type Facts) and return boolean type.", conditionMethod, rule.getClass().getName()));
         }
     }
 
@@ -81,7 +80,7 @@ class RuleDefinitionValidator {
 
         for (Method actionMethod : actionMethods) {
             if (!isActionMethodWellDefined(actionMethod)) {
-                throw new IllegalArgumentException(format("Action method '%s' defined in rule '%s' must be public and have no parameters.", actionMethod, rule.getClass().getName()));
+                throw new IllegalArgumentException(format("Action method '%s' defined in rule '%s' must be public and may have parameters annotated with @Fact (and/or a parameter of type Facts).", actionMethod, rule.getClass().getName()));
             }
         }
     }
@@ -110,14 +109,32 @@ class RuleDefinitionValidator {
     }
 
     private boolean isConditionMethodWellDefined(final Method method) {
+        Parameter[] parameters = method.getParameters();
         return Modifier.isPublic(method.getModifiers())
                 && method.getReturnType().equals(Boolean.TYPE)
-                && method.getParameterTypes().length == 0;
+                && validParameters(parameters);
+    }
+
+    private boolean validParameters(Parameter[] parameters) {
+        List<Parameter> notAnnotatedParams = new ArrayList<>();
+        for (Parameter parameter : parameters) {
+            if (parameter.getAnnotation(Fact.class) == null) {
+                notAnnotatedParams.add(parameter);
+            }
+        }
+        if (notAnnotatedParams.size() > 1) {
+            return false;
+        } else if (notAnnotatedParams.size() == 1) {
+            Parameter parameter = notAnnotatedParams.get(0);
+            return parameter.getType().isAssignableFrom(Facts.class);
+        }
+        return true;
     }
 
     private boolean isActionMethodWellDefined(final Method method) {
+        Parameter[] parameters = method.getParameters();
         return Modifier.isPublic(method.getModifiers())
-                && method.getParameterTypes().length == 0;
+                && validParameters(parameters);
     }
 
     private boolean isPriorityMethodWellDefined(final Method method) {

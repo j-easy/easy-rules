@@ -24,13 +24,10 @@
 package org.easyrules.core;
 
 import org.easyrules.api.RuleListener;
-import org.easyrules.api.RulesEngine;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 import static org.mockito.Mockito.*;
@@ -40,25 +37,16 @@ import static org.mockito.Mockito.*;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-@RunWith(MockitoJUnitRunner.class)
-public class RuleListenerTest {
-
-    @Mock
-    private BasicRule rule;
+public class RuleListenerTest extends AbstractTest {
 
     @Mock
     private RuleListener ruleListener1, ruleListener2;
 
-    private RulesEngine rulesEngine;
-
     @Before
     public void setup() throws Exception {
-        when(rule.getName()).thenReturn("r");
-        when(rule.getPriority()).thenReturn(1);
-        when(rule.evaluate()).thenReturn(true);
-        when(ruleListener1.beforeEvaluate(rule)).thenReturn(true);
-        when(ruleListener2.beforeEvaluate(rule)).thenReturn(true);
-
+        super.setup();
+        when(ruleListener1.beforeEvaluate(rule1, facts)).thenReturn(true);
+        when(ruleListener2.beforeEvaluate(rule1, facts)).thenReturn(true);
         rulesEngine = aNewRulesEngine()
                 .withRuleListener(ruleListener1)
                 .withRuleListener(ruleListener2)
@@ -67,16 +55,16 @@ public class RuleListenerTest {
 
     @Test
     public void whenTheRuleExecutesSuccessfully_thenOnSuccessShouldBeExecuted() throws Exception {
+        when(rule1.evaluate(facts)).thenReturn(true);
+        rules.clear(); // FIXME
+        rules.register(rule1);
+        rulesEngine.fire(rules, facts);
 
-        rulesEngine.registerRule(rule);
-
-        rulesEngine.fireRules();
-
-        InOrder inOrder = inOrder(ruleListener1, ruleListener2);
-        inOrder.verify(ruleListener1).beforeExecute(rule);
-        inOrder.verify(ruleListener2).beforeExecute(rule);
-        inOrder.verify(ruleListener1).onSuccess(rule);
-        inOrder.verify(ruleListener2).onSuccess(rule);
+        InOrder inOrder = inOrder(rule1, fact1, fact2, ruleListener1, ruleListener2);
+        inOrder.verify(ruleListener1).beforeExecute(rule1, facts);
+        inOrder.verify(ruleListener2).beforeExecute(rule1, facts);
+        inOrder.verify(ruleListener1).onSuccess(rule1, facts);
+        inOrder.verify(ruleListener2).onSuccess(rule1, facts);
 
     }
 
@@ -84,17 +72,19 @@ public class RuleListenerTest {
     public void whenTheRuleFails_thenOnFailureShouldBeExecuted() throws Exception {
 
         final Exception exception = new Exception("fatal error!");
-        doThrow(exception).when(rule).execute();
+        doThrow(exception).when(rule1).execute(facts);
+        when(rule1.evaluate(facts)).thenReturn(true);
 
-        rulesEngine.registerRule(rule);
+        rules.clear(); // FIXME
+        rules.register(rule1);
 
-        rulesEngine.fireRules();
+        rulesEngine.fire(rules, facts);
 
-        InOrder inOrder = inOrder(ruleListener1, ruleListener2);
-        inOrder.verify(ruleListener1).beforeExecute(rule);
-        inOrder.verify(ruleListener2).beforeExecute(rule);
-        inOrder.verify(ruleListener1).onFailure(rule, exception);
-        inOrder.verify(ruleListener2).onFailure(rule, exception);
+        InOrder inOrder = inOrder(rule1, fact1, fact2, ruleListener1, ruleListener2);
+        inOrder.verify(ruleListener1).beforeExecute(rule1, facts);
+        inOrder.verify(ruleListener2).beforeExecute(rule1, facts);
+        inOrder.verify(ruleListener1).onFailure(rule1, exception, facts);
+        inOrder.verify(ruleListener2).onFailure(rule1, exception, facts);
 
     }
 
@@ -102,66 +92,68 @@ public class RuleListenerTest {
     public void whenListenerReturnsFalse_thenTheRuleShouldBeSkippedBeforeBeingEvaluated() throws Exception {
 
         // Given
-        when(ruleListener1.beforeEvaluate(rule)).thenReturn(false);
+        when(ruleListener1.beforeEvaluate(rule1, facts)).thenReturn(false);
         rulesEngine = aNewRulesEngine()
                 .withRuleListener(ruleListener1)
                 .build();
 
         // When
-        rulesEngine.registerRule(rule);
-        rulesEngine.fireRules();
+        rules.register(rule1);
+        rulesEngine.fire(rules, facts);
 
         // Then
-        verify(rule, never()).evaluate();
+        verify(rule1, never()).evaluate(facts);
     }
 
     @Test
     public void whenListenerReturnsTrue_thenTheRuleShouldBeEvaluated() throws Exception {
 
         // Given
-        when(ruleListener1.beforeEvaluate(rule)).thenReturn(true);
+        when(ruleListener1.beforeEvaluate(rule1, facts)).thenReturn(true);
         rulesEngine = aNewRulesEngine()
                 .withRuleListener(ruleListener1)
                 .build();
 
         // When
-        rulesEngine.registerRule(rule);
-        rulesEngine.fireRules();
+        rules.register(rule1);
+        rulesEngine.fire(rules, facts);
 
         // Then
-        verify(rule).evaluate();
+        verify(rule1).evaluate(facts);
     }
 
     @Test
     public void whenTheRuleEvaluatesToTrue_thenTheListenerShouldBeInvoked() throws Exception {
         // Given
-        when(rule.evaluate()).thenReturn(true);
+        when(rule1.evaluate(facts)).thenReturn(true);
         rulesEngine = aNewRulesEngine()
                 .withRuleListener(ruleListener1)
                 .build();
 
         // When
-        rulesEngine.registerRule(rule);
-        rulesEngine.fireRules();
+        rules.clear();
+        rules.register(rule1);
+        rulesEngine.fire(rules, facts);
 
         // Then
-        verify(ruleListener1).afterEvaluate(rule, true);
+        verify(ruleListener1).afterEvaluate(rule1, true);
     }
 
     @Test
     public void whenTheRuleEvaluatesToFalse_thenTheListenerShouldBeInvoked() throws Exception {
         // Given
-        when(rule.evaluate()).thenReturn(false);
+        when(rule1.evaluate(facts)).thenReturn(false);
         rulesEngine = aNewRulesEngine()
                 .withRuleListener(ruleListener1)
                 .build();
 
         // When
-        rulesEngine.registerRule(rule);
-        rulesEngine.fireRules();
+        rules.clear();
+        rules.register(rule1);
+        rulesEngine.fire(rules, facts);
 
         // Then
-        verify(ruleListener1).afterEvaluate(rule, false);
+        verify(ruleListener1).afterEvaluate(rule1, false);
     }
 
 }

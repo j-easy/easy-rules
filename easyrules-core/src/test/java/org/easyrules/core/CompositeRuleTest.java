@@ -26,15 +26,10 @@ package org.easyrules.core;
 import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Rule;
-import org.easyrules.api.RulesEngine;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 import static org.mockito.Mockito.*;
 
 /**
@@ -42,55 +37,38 @@ import static org.mockito.Mockito.*;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-@RunWith(MockitoJUnitRunner.class)
-public class CompositeRuleTest {
-
-    @Mock
-    private BasicRule rule1, rule2;
+public class CompositeRuleTest extends AbstractTest {
 
     private CompositeRule compositeRule;
 
-    private RulesEngine rulesEngine;
-
     @Before
     public void setup() throws Exception {
-
-        when(rule1.evaluate()).thenReturn(true);
-        when(rule2.evaluate()).thenReturn(true);
+        super.setup();
+        when(rule1.evaluate(facts)).thenReturn(true);
+        when(rule2.evaluate(facts)).thenReturn(true);
         when(rule2.compareTo(rule1)).thenReturn(1);
-
         compositeRule = new CompositeRule();
-
-        rulesEngine = aNewRulesEngine().build();
     }
 
     @Test
     public void compositeRuleAndComposingRulesMustBeExecuted() throws Exception {
-
         compositeRule.addRule(rule1);
         compositeRule.addRule(rule2);
-
-        rulesEngine.registerRule(compositeRule);
-
-        rulesEngine.fireRules();
-
-        verify(rule1).execute();
-
-        verify(rule2).execute();
-
+        rules.clear(); // FIXME
+        rules.register(compositeRule);
+        rulesEngine.fire(rules, facts);
+        verify(rule1).execute(facts);
+        verify(rule2).execute(facts);
     }
 
     @Test
     public void compositeRuleMustNotBeExecutedIfAComposingRuleEvaluatesToFalse() throws Exception {
-
-        when(rule2.evaluate()).thenReturn(false);
-
+        when(rule2.evaluate(facts)).thenReturn(false);
         compositeRule.addRule(rule1);
         compositeRule.addRule(rule2);
-
-        rulesEngine.registerRule(compositeRule);
-
-        rulesEngine.fireRules();
+        rules.clear(); // FIXME
+        rules.register(compositeRule);
+        rulesEngine.fire(rules, facts);
 
         /*
          * The composing rules should not be executed
@@ -98,10 +76,10 @@ public class CompositeRuleTest {
          */
 
         //Rule 1 should not be executed
-        verify(rule1, never()).execute();
+        verify(rule1, never()).execute(facts);
 
         //Rule 2 should not be executed
-        verify(rule2, never()).execute();
+        verify(rule2, never()).execute(facts);
 
     }
 
@@ -112,22 +90,23 @@ public class CompositeRuleTest {
         compositeRule.addRule(rule2);
         compositeRule.removeRule(rule2);
 
-        rulesEngine.registerRule(compositeRule);
+        rules.clear(); // FIXME
+        rules.register(compositeRule);
 
-        rulesEngine.fireRules();
+        rulesEngine.fire(rules, facts);
 
         //Rule 1 should be executed
-        verify(rule1).execute();
+        verify(rule1).execute(facts);
 
         //Rule 2 should not be evaluated nor executed
-        verify(rule2, never()).evaluate();
-        verify(rule2, never()).execute();
+        verify(rule2, never()).evaluate(facts);
+        verify(rule2, never()).execute(facts);
 
     }
 
     @Test
     public void whenNoComposingRulesAreRegistered_thenCompositeRuleShouldEvaluateToFalse() {
-        assertThat(compositeRule.evaluate()).isFalse();
+        assertThat(compositeRule.evaluate(facts)).isFalse();
     }
 
     @Test
@@ -136,8 +115,8 @@ public class CompositeRuleTest {
         compositeRule = new CompositeRule("myCompositeRule");
         compositeRule.addRule(rule);
 
-        rulesEngine.registerRule(compositeRule);
-        rulesEngine.fireRules();
+        rules.register(compositeRule);;
+        rulesEngine.fire(rules, facts);
 
         assertThat(rule.isExecuted()).isTrue();
     }
@@ -151,8 +130,8 @@ public class CompositeRuleTest {
         compositeRule.addRule(annotatedRule);
         compositeRule.removeRule(annotatedRule);
 
-        rulesEngine.registerRule(compositeRule);
-        rulesEngine.fireRules();
+        rules.register(compositeRule);
+        rulesEngine.fire(rules, facts);
 
         assertThat(rule.isExecuted()).isTrue();
         assertThat(annotatedRule.isExecuted()).isFalse();

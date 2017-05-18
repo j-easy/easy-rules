@@ -30,7 +30,7 @@ package org.easyrules.api;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public interface Rule {
+public interface Rule extends Comparable<Rule> {
 
     /**
      * Default rule name.
@@ -67,14 +67,14 @@ public interface Rule {
 
     /**
      * Rule conditions abstraction : this method encapsulates the rule's conditions.
-     * @return true if the rule should be applied, false else
+     * @return true if the rule should be applied given the provided facts, false else
      */
-    boolean evaluate();
+    boolean evaluate(Facts facts);
 
     /**
      * Rule actions abstraction : this method encapsulates the rule's actions.
      * @throws Exception thrown if an exception occurs during actions performing
      */
-    void execute() throws Exception;
+    void execute(Facts facts) throws Exception;
 
 }

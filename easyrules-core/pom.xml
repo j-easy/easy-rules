@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.easyrules</groupId>
         <artifactId>easyrules</artifactId>
-        <version>2.5.1-SNAPSHOT</version>
+        <version>3.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>easyrules-core</artifactId>
@@ -14,20 +14,20 @@
     <description>Public API and core implementation of Easy Rules</description>
 
     <scm>
-        <url>git@github.com:j-easy/easy-rules.git</url>
-        <connection>scm:git:git@github.com:j-easy/easy-rules.git</connection>
-        <developerConnection>scm:git:git@github.com:j-easy/easy-rules.git</developerConnection>
+        <url>git@github.com:EasyRules/easyrules.git</url>
+        <connection>scm:git:git@github.com:EasyRules/easyrules.git</connection>
+        <developerConnection>scm:git:git@github.com:EasyRules/easyrules.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/j-easy/easy-rules/issues</url>
+        <url>https://github.com/EasyRules/easyrules/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Travis CI</system>
-        <url>https://travis-ci.org/j-easy/easy-rules</url>
+        <url>https://travis-ci.org/EasyRules/easyrules</url>
     </ciManagement>
 
     <developers>

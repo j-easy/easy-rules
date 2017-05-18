@@ -25,6 +25,8 @@ package org.easyrules.core;
 
 import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
+import org.easyrules.api.Facts;
+import org.easyrules.api.Rules;
 import org.easyrules.api.RulesEngine;
 import org.junit.Test;
 
@@ -36,8 +38,9 @@ public class AnnotationInheritanceTest {
     public void annotationsShouldBeInherited() throws Exception {
         MyChildRule myChildRule = new MyChildRule();
         RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
-        rulesEngine.registerRule(myChildRule);
-        rulesEngine.fireRules();
+        Rules rules = new Rules();
+        rules.register(myChildRule);
+        rulesEngine.fire(rules, new Facts());
 
         assertThat(myChildRule.isExecuted()).isTrue();
     }

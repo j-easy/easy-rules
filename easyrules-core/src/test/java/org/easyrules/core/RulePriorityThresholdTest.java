@@ -30,6 +30,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -39,21 +40,16 @@ import static org.mockito.Mockito.when;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-@RunWith(MockitoJUnitRunner.class)
-public class RulePriorityThresholdTest {
-
-    @Mock
-    private BasicRule rule1, rule2;
-
-    private RulesEngine rulesEngine;
+public class RulePriorityThresholdTest extends AbstractTest {
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
+        super.setup();
 
         when(rule1.getPriority()).thenReturn(1);
-        when(rule1.evaluate()).thenReturn(true);
+        when(rule1.evaluate(facts)).thenReturn(true);
 
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
+        rulesEngine = aNewRulesEngine()
                 .withRulePriorityThreshold(1)
                 .build();
     }
@@ -61,16 +57,16 @@ public class RulePriorityThresholdTest {
     @Test
     public void rulesThatExceedPriorityThresholdMustNotBeExecuted() throws Exception {
 
-        rulesEngine.registerRule(rule1);
-        rulesEngine.registerRule(rule2);
+        rules.register(rule1);
+        rules.register(rule2);
 
-        rulesEngine.fireRules();
+        rulesEngine.fire(rules, facts);
 
         //Rule 1 should be executed
-        verify(rule1).execute();
+        verify(rule1).execute(facts);
 
         //Rule 2 should be skipped since its priority (2) exceeds priority threshold (1)
-        verify(rule2, never()).execute();
+        verify(rule2, never()).execute(facts);
 
     }
 

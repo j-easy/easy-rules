@@ -64,8 +64,8 @@ public class RuleDefinitionValidatorTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void conditionMethodMustHaveNoArguments() {
-        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithConditionMethodHavingArguments());
+    public void whenConditionMethodHasOneNonAnnotatedParameter_thenThisParameterMustBeOfTypeFacts() {
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithConditionMethodHavingOneArgumentNotOfTypeFacts());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -88,7 +88,7 @@ public class RuleDefinitionValidatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void actionMethodMustHaveNoArguments() {
-        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithActionMethodHavingArguments());
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithActionMethodHavingOneArgumentNotOfTypeFacts());
     }
 
     /*

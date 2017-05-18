@@ -23,6 +23,8 @@
  */
 package org.easyrules.core;
 
+import org.easyrules.api.RulesEngine;
+
 /**
  * Parameters of the rules engine.
  * 
@@ -59,6 +61,11 @@ public class RulesEngineParameters {
      * Parameter to mute loggers.
      */
     private boolean silentMode;
+
+    public RulesEngineParameters() {
+        this.name = RulesEngine.DEFAULT_NAME;
+        this.priorityThreshold = RulesEngine.DEFAULT_RULE_PRIORITY_THRESHOLD;
+    }
 
     public RulesEngineParameters(String name, boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, int priorityThreshold, boolean silentMode) {
         this.name = name;

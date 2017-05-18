@@ -21,7 +21,19 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+package org.easyrules.annotation;
+
+import java.lang.annotation.*;
+
 /**
- * This package contains Quartz support classes.
+ * Annotation to mark a parameter as a fact.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-package org.easyrules.quartz;
+
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.PARAMETER})
+public @interface Fact {
+    String value();
+}

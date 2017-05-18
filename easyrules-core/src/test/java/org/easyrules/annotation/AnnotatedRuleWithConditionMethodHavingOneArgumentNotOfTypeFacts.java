@@ -24,20 +24,18 @@
 package org.easyrules.annotation;
 
 @Rule
-public class AnnotatedRuleWithActionMethodHavingArguments {
+public class AnnotatedRuleWithConditionMethodHavingOneArgumentNotOfTypeFacts {
 
     private boolean executed;
 
     @Condition
-    public boolean when() {
-        return true;
+    public boolean when(int i) {
+        return i == 0;
     }
 
     @Action
-    public void then(int i) throws Exception {
-        if (i == 1) {
-            executed = true;
-        }
+    public void then() throws Exception {
+        executed = true;
     }
 
     public boolean isExecuted() {

@@ -23,29 +23,18 @@
  */
 package org.easyrules.core;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
-
-import java.util.Set;
-
-import org.easyrules.api.Rule;
-import org.easyrules.api.RulesEngine;
-import org.junit.BeforeClass;
+import org.easyrules.api.Facts;
+import org.easyrules.api.Rules;
 import org.junit.Test;
 
-public class BasicRuleTest {
+import static org.assertj.core.api.Assertions.assertThat;
 
-    private static RulesEngine rulesEngine;
-
-    @BeforeClass
-    public static void init() {
-        rulesEngine = aNewRulesEngine().build();
-    }
+public class BasicRuleTest extends AbstractTest {
 
     @Test
     public void basicRuleEvaluateShouldReturnFalse() throws Exception {
         BasicRule basicRule = new BasicRule();
-        assertThat(basicRule.evaluate()).isFalse();
+        assertThat(basicRule.evaluate(facts)).isFalse();
     }
 
     @Test
@@ -63,13 +52,10 @@ public class BasicRuleTest {
         SecondRule rule2 = new SecondRule();
         ThirdRule rule3 = new ThirdRule();
 
-        rulesEngine.registerRule(rule1);
-        rulesEngine.registerRule(rule2);
-        rulesEngine.registerRule(rule3);
+        rules = new Rules(rule1, rule2, rule3);
 
-        rulesEngine.checkRules();
-        Set<Rule> theRules = rulesEngine.getRules();
-        assertThat(theRules).containsSequence(rule1, rule3, rule2);
+        rulesEngine.check(rules, facts);
+        assertThat(rules).containsSequence(rule1, rule3, rule2);
     }
 
     class FirstRule extends BasicRule {
@@ -79,7 +65,7 @@ public class BasicRuleTest {
         }
 
         @Override
-        public boolean evaluate() {
+        public boolean evaluate(Facts facts) {
             return true;
         }
 
@@ -96,7 +82,7 @@ public class BasicRuleTest {
         }
 
         @Override
-        public boolean evaluate() {
+        public boolean evaluate(Facts facts) {
             return true;
         }
 
@@ -113,7 +99,7 @@ public class BasicRuleTest {
         }
 
         @Override
-        public boolean evaluate() {
+        public boolean evaluate(Facts facts) {
             return true;
         }
 

@@ -10,14 +10,11 @@
 
     <groupId>org.easyrules</groupId>
     <artifactId>easyrules</artifactId>
-    <version>2.5.1-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
 
     <modules>
         <module>easyrules-archetype</module>
         <module>easyrules-core</module>
-        <module>easyrules-quartz</module>
-        <module>easyrules-spring</module>
-        <module>easyrules-spring-boot-starter</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -28,12 +25,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <junit.version>4.12</junit.version>
         <assertj.version>2.6.0</assertj.version>
         <mockito.version>2.7.1</mockito.version>
-        <quartz.version>2.2.3</quartz.version>
-        <spring-io-platform.version>Brussels-SR1</spring-io-platform.version>
         <maven-cobertura-plugin.version>2.7</maven-cobertura-plugin.version>
         <maven-coveralls-plugin.version>4.3.0</maven-coveralls-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
@@ -44,20 +39,20 @@
     </properties>
 
     <scm>
-        <url>git@github.com:j-easy/easy-rules.git</url>
-        <connection>scm:git:git@github.com:j-easy/easy-rules.git</connection>
-        <developerConnection>scm:git:git@github.com:j-easy/easy-rules.git</developerConnection>
+        <url>git@github.com:EasyRules/easyrules.git</url>
+        <connection>scm:git:git@github.com:EasyRules/easyrules.git</connection>
+        <developerConnection>scm:git:git@github.com:EasyRules/easyrules.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/j-easy/easy-rules/issues</url>
+        <url>https://github.com/EasyRules/easyrules/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Travis CI</system>
-        <url>https://travis-ci.org/j-easy/easy-rules</url>
+        <url>https://travis-ci.org/EasyRules/easyrules</url>
     </ciManagement>
 
     <developers>
@@ -88,24 +83,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.easyrules</groupId>
-                <artifactId>easyrules-quartz</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.easyrules</groupId>
-                <artifactId>easyrules-spring</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.easyrules</groupId>
-                <artifactId>easyrules-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
@@ -124,14 +101,6 @@
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
                 <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>io.spring.platform</groupId>
-                <artifactId>platform-bom</artifactId>
-                <version>${spring-io-platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -238,7 +207,7 @@
                         </goals>
                         <configuration>
                             <rules>
-                                <dependencyConvergence />
+                                <dependencyConvergence/>
                             </rules>
                             <fail>true</fail>
                         </configuration>

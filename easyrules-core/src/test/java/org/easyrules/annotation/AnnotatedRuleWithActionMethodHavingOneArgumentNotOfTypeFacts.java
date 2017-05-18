@@ -21,20 +21,27 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.easyrules.quartz;
+package org.easyrules.annotation;
 
-import org.quartz.SchedulerException;
+@Rule
+public class AnnotatedRuleWithActionMethodHavingOneArgumentNotOfTypeFacts {
 
-/**
- * RulesEngine scheduler exception used to signal any scheduler setup or startup failure.
- *
- * Created by Sunand on 6/8/2015.
- */
-@Deprecated
-public class RulesEngineSchedulerException extends Exception {
+    private boolean executed;
 
-    public RulesEngineSchedulerException(final String message, final SchedulerException e) {
-        super(message, e);
+    @Condition
+    public boolean when() {
+        return true;
+    }
+
+    @Action
+    public void then(int i) throws Exception {
+        if (i == 1) {
+            executed = true;
+        }
+    }
+
+    public boolean isExecuted() {
+        return executed;
     }
 
 }

@@ -23,6 +23,8 @@
  */
 package org.easyrules.core;
 
+import org.easyrules.api.Facts;
+import org.easyrules.api.Rules;
 import org.easyrules.api.RulesEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,20 +39,12 @@ import static org.mockito.Mockito.*;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-@RunWith(MockitoJUnitRunner.class)
-public class SkipOnFirstFailedRuleTest {
-
-    @Mock
-    private BasicRule rule1, rule2;
-
-    private RulesEngine rulesEngine;
+public class SkipOnFirstFailedRuleTest extends AbstractTest {
 
     @Before
     public void setup() throws Exception {
-
+        super.setup();
         setUpRule1();
-        setUpRule2();
-
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withSkipOnFirstFailedRule(true)
                 .build();
@@ -59,31 +53,22 @@ public class SkipOnFirstFailedRuleTest {
     @Test
     public void testSkipOnFirstFailedRule() throws Exception {
 
-        rulesEngine.registerRule(rule1);
-        rulesEngine.registerRule(rule2);
-
-        rulesEngine.fireRules();
+        rulesEngine.fire(rules, facts);
 
         //Rule 1 should be executed
-        verify(rule1).execute();
+        verify(rule1).execute(facts);
 
         //Rule 2 should be skipped since Rule 1 has failed
-        verify(rule2, never()).execute();
+        verify(rule2, never()).execute(facts);
 
     }
 
     private void setUpRule1() throws Exception {
         when(rule1.getName()).thenReturn("r1");
         when(rule1.getPriority()).thenReturn(1);
-        when(rule1.evaluate()).thenReturn(true);
+        when(rule1.evaluate(facts)).thenReturn(true);
         final Exception exception = new Exception("fatal error!");
-        doThrow(exception).when(rule1).execute();
-    }
-
-    private void setUpRule2() {
-        when(rule2.getName()).thenReturn("r2");
-        when(rule2.getPriority()).thenReturn(2);
-        when(rule2.compareTo(rule1)).thenReturn(1);
+        doThrow(exception).when(rule1).execute(facts);
     }
 
 }

@@ -53,34 +53,6 @@ public interface RulesEngine {
     RulesEngineParameters getParameters();
 
     /**
-     * Register a rule in the rules engine registry.
-     *
-     * @param rule the rule to register
-     */
-    void registerRule(Object rule);
-
-    /**
-     * Unregister a rule from the rules engine registry.
-     *
-     * @param rule the rule to unregister
-     */
-    void unregisterRule(Object rule);
-
-    /**
-     * Unregister a rule by name from the rules engine registry.
-     *
-     * @param ruleName the name of the rule to unregister
-     */
-    void unregisterRule(String ruleName);
-
-    /**
-     * Return the set of registered rules.
-     *
-     * @return the set of registered rules
-     */
-    Set<Rule> getRules();
-
-    /**
      * Return the list of registered rule listeners.
      *
      * @return the list of registered rule listeners
@@ -88,18 +60,13 @@ public interface RulesEngine {
     List<RuleListener> getRuleListeners();
 
     /**
-     * Fire all registered rules.
+     * Fire all registered rules on given facts.
      */
-    void fireRules();
+    void fire(Rules rules, Facts facts);
 
     /**
      * Check rules without firing them.
      * @return a map with the result of evaluation of each rule
      */
-    Map<Rule, Boolean> checkRules();
-
-    /**
-     * Clear rules engine registry.
-     */
-    void clearRules();
+    Map<Rule, Boolean> check(Rules rules, Facts facts);
 }
