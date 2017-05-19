@@ -63,7 +63,7 @@ final class Utils {
         Enumeration<String> loggerNames = LogManager.getLogManager().getLoggerNames();
         while (loggerNames.hasMoreElements()) {
             String loggerName = loggerNames.nextElement();
-            if (loggerName.startsWith("org.easyrules")) {
+            if (loggerName.startsWith("org.jeasy.rules")) {
                 muteLogger(loggerName);
             }
         }
