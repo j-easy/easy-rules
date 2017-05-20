@@ -18,17 +18,17 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
 ##### First, define your rule..
 
 ```java
-@Rule(name = "my awesome rule" )
-public class MyRule {
+@Rule(name = "weather rule", description = "if it rains then take an umbrella" )
+public class WeatherRule {
 
     @Condition
-    public boolean when() {
-        return true;
+    public boolean itRains(@Fact("rain") boolean rain) {
+        return rain;
     }
     
     @Action
-    public void then() {
-        System.out.println("Easy Rules rocks!");
+    public void takeAnUmbrella() {
+        System.out.println("It rains, take an umbrella!");
     }
 }
 ```
@@ -38,35 +38,36 @@ public class MyRule {
 ```java
 public class Test {
     public static void main(String[] args) {
-        // create a rules engine
-        RulesEngine rulesEngine = aNewRulesEngine().build();
-        //register the rule
-        rulesEngine.registerRule(new MyRule());
-        //fire rules
-        rulesEngine.fireRules();
+        // define facts
+        Facts facts = new Facts();
+        facts.add("rain", true);
+
+        // define rules
+        Rules rules = new Rules(new WeatherRule());
+
+        // fire rules on known facts
+        RulesEngine rulesEngine = new DefaultRulesEngine();
+        rulesEngine.fire(rules, facts);
     }
 }
 ```
 
-This is the hello world of Easy Rules. You can find other examples like the [FizzBuzz tutorial](http://www.easyrules.org/tutorials/fizzbuzz-tutorial.html) in the documentation.
+This is the hello world of Easy Rules. You can find other examples like the [FizzBuzz tutorial](https://github.com/j-easy/easy-rules/wiki/fizz-buzz) in the wiki.
 
 ## Quick links
 
-|Item                  |Link                                                                                  |
-|:---------------------|:-------------------------------------------------------------------------------------|
-|Project Home          | [http://www.easyrules.org](http://www.easyrules.org)                                 |
-|Presentation          | [https://speakerdeck.com/benas/easy-rules](https://speakerdeck.com/benas/easy-rules) |
-|Continuous integration| [Build job @ Travis CI](https://travis-ci.org/EasyRules/easyrules)                   |
-|Agile Board           | [Backlog items @ waffle.io](https://waffle.io/EasyRules/easyrules)                   |
-|Code coverage         | [![Coverage](https://coveralls.io/repos/EasyRules/easyrules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/EasyRules/easyrules?branch=master) |
+|Item                  |Link                                                                                   |
+|:---------------------|:--------------------------------------------------------------------------------------|
+|Project Home          | [https://github.com/j-easy/easy-rules/wiki](https://github.com/j-easy/easy-rules/wiki)|
+|Presentation          | [https://speakerdeck.com/benas/easy-rules](https://speakerdeck.com/benas/easy-rules)  |
+|Continuous integration| [![Build Status](https://travis-ci.org/j-easy/easy-rules.svg?branch=master)](https://travis-ci.org/j-easy/easy-rules) |
+|Code coverage         | [![Coverage](https://coveralls.io/repos/j-easy/easy-rules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/j-easy/easy-rules?branch=master) |
 |Sonar analysis        | [![Quality Gate](https://sonarqube.com/api/badges/gate?key=org.easyrules:easyrules)](https://sonarqube.com/overview?id=org.easyrules%3Aeasyrules) |
 
 ## Current version
 
-* The current stable version is `2.4.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.4.0|)
-* The current development version is `2.5.0-SNAPSHOT` : [![Build Status](https://travis-ci.org/EasyRules/easyrules.svg?branch=master)](https://travis-ci.org/EasyRules/easyrules)
-
-In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
+* The current stable version is `2.5.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.5.0|)
+* The current development version is `3.0.0-SNAPSHOT`. In order to use the snapshot version, you need to add the following maven repository in your `pom.xml`:
 
 ```xml
 <repository>
@@ -79,9 +80,9 @@ In order to use snapshot versions, you need to add the following maven repositor
 
 You are welcome to contribute to the project with pull requests on GitHub.
 
-If you found a bug or want to request a feature, please use the [issue tracker](https://github.com/EasyRules/easyrules/issues).
+If you found a bug or want to request a feature, please use the [issue tracker](https://github.com/j-easy/easy-rules/issues).
 
-For any further question, you can use the [Gitter](https://gitter.im/EasyRules/easyrules) channel of the project.
+For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy-rules) channel of the project.
 
 ## Awesome contributors
 
@@ -97,6 +98,7 @@ For any further question, you can use the [Gitter](https://gitter.im/EasyRules/e
 * [spearway](https://github.com/spearway)
 * [toudidel](https://github.com/toudidel)
 * [vinoct6](https://github.com/vinoct6)
+* [will-gilbert](https://github.com/will-gilbert)
 
 Thank you all for your contributions!
 
