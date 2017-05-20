@@ -193,7 +193,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
                 .build();
 
         assertThat(rulesEngine.getRuleListeners())
-                .containsExactly(ruleListener);
+                .contains(ruleListener);
     }
 
     @After

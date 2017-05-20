@@ -57,11 +57,13 @@ public final class DefaultRulesEngine implements RulesEngine {
     public DefaultRulesEngine() {
         this.parameters = new RulesEngineParameters();
         this.ruleListeners = new ArrayList<>();
+        this.ruleListeners.add(new DefaultRuleListener());
     }
 
     DefaultRulesEngine(final RulesEngineParameters parameters, final List<RuleListener> ruleListeners) {
         this.parameters = parameters;
         this.ruleListeners = ruleListeners;
+        this.ruleListeners.add(new DefaultRuleListener());
         if (parameters.isSilentMode()) {
             Utils.muteLoggers();
         }
@@ -108,39 +110,31 @@ public final class DefaultRulesEngine implements RulesEngine {
     }
 
     private void apply(Rules rules, Facts facts) {
-
         LOGGER.info("Rules evaluation started");
         for (Rule rule : rules) {
-
             final String name = rule.getName();
             final int priority = rule.getPriority();
-
             if (priority > parameters.getPriorityThreshold()) {
                 LOGGER.log(Level.INFO,
                         "Rule priority threshold ({0}) exceeded at rule ''{1}'' with priority={2}, next rules will be skipped",
                         new Object[]{parameters.getPriorityThreshold(), name, priority});
                 break;
             }
-
             if (!shouldBeEvaluated(rule, facts)) {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' has been skipped before being evaluated", name);
                 continue;
             }
             if (rule.evaluate(facts)) {
-                LOGGER.log(Level.INFO, "Rule ''{0}'' triggered", name);
                 triggerListenersAfterEvaluate(rule, facts, true);
                 try {
                     triggerListenersBeforeExecute(rule, facts);
                     rule.execute(facts);
-                    LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully", name);
                     triggerListenersOnSuccess(rule, facts);
-
                     if (parameters.isSkipOnFirstAppliedRule()) {
                         LOGGER.info("Next rules will be skipped since parameter skipOnFirstAppliedRule is set");
                         break;
                     }
                 } catch (Exception exception) {
-                    LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error", name), exception);
                     triggerListenersOnFailure(rule, exception, facts);
                     if (parameters.isSkipOnFirstFailedRule()) {
                         LOGGER.info("Next rules will be skipped since parameter skipOnFirstFailedRule is set");
@@ -148,16 +142,13 @@ public final class DefaultRulesEngine implements RulesEngine {
                     }
                 }
             } else {
-                LOGGER.log(Level.INFO, "Rule ''{0}'' has been evaluated to false, it has not been executed", name);
                 triggerListenersAfterEvaluate(rule, facts, false);
                 if (parameters.isSkipOnFirstNonTriggeredRule()) {
                     LOGGER.info("Next rules will be skipped since parameter skipOnFirstNonTriggeredRule is set");
                     break;
                 }
             }
-
         }
-
     }
 
     private void triggerListenersOnFailure(final Rule rule, final Exception exception, Facts facts) {
