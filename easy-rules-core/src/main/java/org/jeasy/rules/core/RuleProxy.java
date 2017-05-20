@@ -35,11 +35,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
 import java.util.*;
-import java.util.logging.Logger;
 
 public class RuleProxy implements InvocationHandler {
-
-    private static final Logger LOGGER = Logger.getLogger(RuleProxy.class.getName());
 
     private Object target;
 
@@ -90,9 +87,9 @@ public class RuleProxy implements InvocationHandler {
         if (methodName.equals("execute")) {
             for (ActionMethodOrderBean actionMethodBean : getActionMethodBeans()) {
                 Facts facts = (Facts) args[0];
-                Method actiomMethod = actionMethodBean.getMethod();
-                List<Object> actualParameters = getActualParameters(actiomMethod, facts);
-                actiomMethod.invoke(target, actualParameters.toArray());
+                Method actionMethod = actionMethodBean.getMethod();
+                List<Object> actualParameters = getActualParameters(actionMethod, facts);
+                actionMethod.invoke(target, actualParameters.toArray());
             }
         }
         if (methodName.equals("equals")) {
