@@ -60,16 +60,14 @@ This is the hello world of Easy Rules. You can find other examples like the [Fiz
 |:---------------------|:--------------------------------------------------------------------------------------|
 |Project Home          | [https://github.com/j-easy/easy-rules/wiki](https://github.com/j-easy/easy-rules/wiki)|
 |Presentation          | [https://speakerdeck.com/benas/easy-rules](https://speakerdeck.com/benas/easy-rules)  |
-|Continuous integration| [Build job @ Travis CI](https://travis-ci.org/j-easy/easy-rules)                      |
+|Continuous integration| [![Build Status](https://travis-ci.org/j-easy/easy-rules.svg?branch=master)](https://travis-ci.org/j-easy/easy-rules) |
 |Code coverage         | [![Coverage](https://coveralls.io/repos/j-easy/easy-rules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/j-easy/easy-rules?branch=master) |
 |Sonar analysis        | [![Quality Gate](https://sonarqube.com/api/badges/gate?key=org.easyrules:easyrules)](https://sonarqube.com/overview?id=org.easyrules%3Aeasyrules) |
 
 ## Current version
 
-* The current stable version is `2.5.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.5.0|)
-* The current development version is `3.0.0-SNAPSHOT` : [![Build Status](https://travis-ci.org/j-easy/easy-rules.svg?branch=master)](https://travis-ci.org/j-easy/easy-rules)
-
-In order to use snapshot versions, you need to add the following maven repository in your `pom.xml`:
+* The current stable version is `2.6.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.6.0|)
+* The current development version is `3.0.0-SNAPSHOT`. In order to use the snapshot version, you need to add the following maven repository in your `pom.xml`:
 
 ```xml
 <repository>
