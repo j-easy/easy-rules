@@ -85,7 +85,8 @@ public final class DefaultRulesEngine implements RulesEngine {
         }
         sort(rules);
         logEngineParameters();
-        log(rules, facts);
+        log(rules);
+        log(facts);
         apply(rules, facts);
     }
 
@@ -203,13 +204,15 @@ public final class DefaultRulesEngine implements RulesEngine {
         LOGGER.log(Level.INFO, "Skip on first failed rule: {0}", parameters.isSkipOnFirstFailedRule());
     }
 
-    private void log(Rules rules, Facts facts) {
+    private void log(Rules rules) {
         LOGGER.log(Level.INFO, "Registered rules:");
         for (Rule rule : rules) {
             LOGGER.log(Level.INFO, format("Rule { name = '%s', description = '%s', priority = '%s'}",
                     rule.getName(), rule.getDescription(), rule.getPriority()));
         }
+    }
 
+    private void log(Facts facts) {
         LOGGER.log(Level.INFO, "Known facts:");
         for (Map.Entry<String, Object> fact : facts) {
             LOGGER.log(Level.INFO, format("Fact { %s : %s }", fact.getKey(), fact.getValue().toString()));
