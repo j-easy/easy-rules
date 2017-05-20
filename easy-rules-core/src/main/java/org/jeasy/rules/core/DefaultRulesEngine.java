@@ -197,7 +197,6 @@ public final class DefaultRulesEngine implements RulesEngine {
     }
 
     private void logEngineParameters() {
-        LOGGER.log(Level.INFO, "Engine name: {0}", parameters.getName());
         LOGGER.log(Level.INFO, "Rule priority threshold: {0}", parameters.getPriorityThreshold());
         LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", parameters.isSkipOnFirstAppliedRule());
         LOGGER.log(Level.INFO, "Skip on first non triggered rule: {0}", parameters.isSkipOnFirstNonTriggeredRule());

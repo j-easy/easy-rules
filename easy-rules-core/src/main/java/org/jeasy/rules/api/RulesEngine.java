@@ -38,6 +38,7 @@ public interface RulesEngine {
     /**
      * Default engine name.
      */
+    @Deprecated
     String DEFAULT_NAME = "engine";
 
     /**

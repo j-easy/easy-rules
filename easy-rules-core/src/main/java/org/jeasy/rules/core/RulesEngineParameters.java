@@ -35,6 +35,7 @@ public class RulesEngineParameters {
     /**
      * The engine name.
      */
+    @Deprecated
     protected String name;
     
     /**
@@ -75,10 +76,12 @@ public class RulesEngineParameters {
         this.silentMode = silentMode;
     }
 
+    @Deprecated
     public String getName() {
         return name;
     }
 
+    @Deprecated
     public void setName(String name) {
         this.name = name;
     }

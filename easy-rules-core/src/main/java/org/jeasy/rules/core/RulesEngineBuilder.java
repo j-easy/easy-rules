@@ -49,6 +49,7 @@ public class RulesEngineBuilder {
         ruleListeners = new ArrayList<>();
     }
 
+    @Deprecated
     public RulesEngineBuilder named(final String name) {
         parameters.setName(name);
         return this;
