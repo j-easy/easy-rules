@@ -31,12 +31,6 @@ NB: Use '--quiet' or '-q' to supress Gradle build output lines
     Rule to evaluate drinking age (US 21); Name and age can be passed in via the command line
     or system properties; Default is 'Tom' at age '17'.
 
- ./gradlew Scheduling -q
-    A rule which implements scheduling; Reports when the time seconds count is even
-
- ./gradlew Spring
-    Similiar to 'Simple' but the rule is injected by Spring
-
  ./gradlew clean
   Remove all reports and artifacts from './$project.buildDir.name'
 
@@ -122,10 +116,6 @@ task Fire (dependsOn: 'classes', type: JavaExec) {
     main = 'org.easyrules.samples.fire.Launcher'
 }
 
-task Scheduling (dependsOn: 'classes', type: JavaExec) {
-    main = 'org.easyrules.samples.scheduling.Launcher'
-}
-
 task Shop (dependsOn: 'classes', type: JavaExec) {
     main = 'org.easyrules.samples.shop.Launcher'
     args = [
@@ -133,9 +123,3 @@ task Shop (dependsOn: 'classes', type: JavaExec) {
         findProperty('age') ?: '17'
     ]
 }
-
-task Spring (dependsOn: 'classes', type: JavaExec) {
-    main = 'org.easyrules.samples.spring.Launcher'
-}
-
-

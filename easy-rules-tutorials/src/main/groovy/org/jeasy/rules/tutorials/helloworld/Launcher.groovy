@@ -1,6 +1,9 @@
-package org.easyrules.samples.helloworld
+package org.jeasy.rules.tutorials.helloworld
 
 import static RulesEngineBuilder.aNewRulesEngine
+import org.jeasy.rules.api.Facts
+import org.jeasy.rules.api.Rules
+
 import java.util.Scanner
 
 class Launcher {
@@ -14,16 +17,17 @@ class Launcher {
                   |${label.center width }
                   |${'='*width}""".stripMargin()
 
-        def scanner = new Scanner(System.in)
-        print("Are you a friend of Duke? [yes/no]: ")
-        def input = scanner.nextLine()
-
+        // define rules
         def rule = new HelloWorldRule()
-        rule.input = input.trim()
-    
+        def rules = new Rules()
+        rules.register(rule)
+
+        // define facts
+        def facts = new Facts()
+
+        // fire rules on known facts
         def rulesEngine = aNewRulesEngine().build()
-        rulesEngine.registerRule(rule)
-        rulesEngine.fireRules()
+        rulesEngine.fire(rules, facts)
 
     }
 }

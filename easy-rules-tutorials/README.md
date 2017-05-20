@@ -18,23 +18,14 @@ NB: Use '--quiet' or '-q' to supress Gradle build output lines
        
     ./gradlew FizzBuzzER
        FizzBuzz implementation using EasyRules.
-       
-    ./gradlew Simple
-       Very simple EasyRules examples with one, always true, rule.
-       
+
     ./gradlew HelloWorld -q
        Obligatory 'Hello, world' example where the input is evaluated by a rule.
        
     ./gradlew Shop -P person=Tommy -P age=15
        Rule to evaluate drinking age (US 21); Nmae and age can be passed in via the command line
        or system properties; Default is 'Tom' at age '17'.
-       
-    ./gradlew Scheduling -q
-       A rule which implements scheduling; Reports when the time seconds count is even
-       
-    ./gradlew Spring
-       Similiar to 'Simple' but the rule is injected by Spring
-       
+
     ./gradlew clean
      Remove all reports and artifacts from './build'
 
