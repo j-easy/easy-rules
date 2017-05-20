@@ -29,7 +29,6 @@ import org.jeasy.rules.api.Facts;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,32 +108,42 @@ class RuleDefinitionValidator {
     }
 
     private boolean isConditionMethodWellDefined(final Method method) {
-        Parameter[] parameters = method.getParameters();
         return Modifier.isPublic(method.getModifiers())
                 && method.getReturnType().equals(Boolean.TYPE)
-                && validParameters(parameters);
+                && validParameters(method);
     }
 
-    private boolean validParameters(Parameter[] parameters) {
-        List<Parameter> notAnnotatedParams = new ArrayList<>();
-        for (Parameter parameter : parameters) {
-            if (parameter.getAnnotation(Fact.class) == null) {
-                notAnnotatedParams.add(parameter);
+    private boolean validParameters(final Method method) {
+        int notAnnotatedParameterCount = 0;
+        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+        for(Annotation[] anns : parameterAnnotations){
+            if(anns.length == 0){
+                notAnnotatedParameterCount += 1;
+            } else {
+                //Annotation types has to be Fact
+                for(Annotation ann : anns){
+                    if(!ann.annotationType().equals(Fact.class)){
+                        return false;
+                    }
+                }
             }
         }
-        if (notAnnotatedParams.size() > 1) {
+        if(notAnnotatedParameterCount > 1){
             return false;
-        } else if (notAnnotatedParams.size() == 1) {
-            Parameter parameter = notAnnotatedParams.get(0);
-            return parameter.getType().isAssignableFrom(Facts.class);
+        }
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        if(parameterTypes.length > 1){
+            return false;
+        }
+        if(parameterTypes.length == 1 && notAnnotatedParameterCount == 1){
+            return parameterTypes[0].equals(Facts.class);
         }
         return true;
     }
 
     private boolean isActionMethodWellDefined(final Method method) {
-        Parameter[] parameters = method.getParameters();
         return Modifier.isPublic(method.getModifiers())
-                && validParameters(parameters);
+                && validParameters(method);
     }
 
     private boolean isPriorityMethodWellDefined(final Method method) {
