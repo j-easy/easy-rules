@@ -82,8 +82,8 @@ public class RuleListenerTest extends AbstractTest {
         InOrder inOrder = inOrder(rule1, fact1, fact2, ruleListener1, ruleListener2);
         inOrder.verify(ruleListener1).beforeExecute(rule1, facts);
         inOrder.verify(ruleListener2).beforeExecute(rule1, facts);
-        inOrder.verify(ruleListener1).onFailure(rule1, exception, facts);
-        inOrder.verify(ruleListener2).onFailure(rule1, exception, facts);
+        inOrder.verify(ruleListener1).onFailure(rule1, facts, exception);
+        inOrder.verify(ruleListener2).onFailure(rule1, facts, exception);
 
     }
 
@@ -135,7 +135,7 @@ public class RuleListenerTest extends AbstractTest {
         rulesEngine.fire(rules, facts);
 
         // Then
-        verify(ruleListener1).afterEvaluate(rule1, true);
+        verify(ruleListener1).afterEvaluate(rule1, facts, true);
     }
 
     @Test
@@ -152,7 +152,7 @@ public class RuleListenerTest extends AbstractTest {
         rulesEngine.fire(rules, facts);
 
         // Then
-        verify(ruleListener1).afterEvaluate(rule1, false);
+        verify(ruleListener1).afterEvaluate(rule1, facts, false);
     }
 
 }

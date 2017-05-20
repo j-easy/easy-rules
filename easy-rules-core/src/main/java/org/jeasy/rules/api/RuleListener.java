@@ -43,15 +43,16 @@ public interface RuleListener {
      * Triggered after the evaluation of a rule.
      *
      * @param rule that has been evaluated
+     * @param facts known after evaluating the rule
      * @param evaluationResult true if the rule evaluated to true, false otherwise
      */
-    void afterEvaluate(Rule rule, boolean evaluationResult);
+    void afterEvaluate(Rule rule, Facts facts, boolean evaluationResult);
 
     /**
      * Triggered before the execution of a rule.
      *
      * @param rule the current rule
-     * @param rule known before executing the rule
+     * @param facts known facts before executing the rule
      */
     void beforeExecute(Rule rule, Facts facts);
 
@@ -59,7 +60,7 @@ public interface RuleListener {
      * Triggered after a rule has been executed successfully.
      *
      * @param rule the current rule
-     * @param facts known after executing the rule
+     * @param facts known facts after executing the rule
      */
     void onSuccess(Rule rule, Facts facts);
 
@@ -67,9 +68,9 @@ public interface RuleListener {
      * Triggered after a rule has failed.
      *
      * @param rule      the current rule
+     * @param facts known facts after executing the rule
      * @param exception the exception thrown when attempting to execute the rule
-     * @param facts known after executing the rule
      */
-    void onFailure(Rule rule, Exception exception, Facts facts);
+    void onFailure(Rule rule, Facts facts, Exception exception);
 
 }
