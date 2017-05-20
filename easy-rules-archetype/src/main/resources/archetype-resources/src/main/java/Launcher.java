@@ -23,46 +23,25 @@
  */
 package ${packageName};
 
+import org.jeasy.rules.api.Facts;
+import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.core.DefaultRulesEngine;
 
-import java.util.Scanner;
-
-import static org.jeasy.rules.core.RulesEngineBuilder.aNewRulesEngine;
-
-/**
- * Launcher class of the Hello World sample.
- */
 public class Launcher {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Are you a friend of duke? [yes/no]:");
-        String input = scanner.nextLine();
+        // create facts
+        Facts facts = new Facts();
 
-        /**
-         * Declare the rule
-         */
-        HelloWorldRule helloWorldRule = new HelloWorldRule();
+        // create rules
+        Rules rules = new Rules();
+        rules.register(new HelloWorldRule());
 
-        /**
-         * Set business data to operate on
-         */
-        helloWorldRule.setInput(input.trim());
-
-        /**
-         * Create a rules engine and register the business rule
-         */
-        RulesEngine rulesEngine = aNewRulesEngine()
-                .named("Hello world rules engine")
-                .build();
-
-        rulesEngine.registerRule(helloWorldRule);
-
-        /**
-         * Fire rules
-         */
-        rulesEngine.fireRules();
+        // create a rules engine and fire rules on known facts
+        RulesEngine rulesEngine = new DefaultRulesEngine();
+        rulesEngine.fire(rules, facts);
 
     }
 }
