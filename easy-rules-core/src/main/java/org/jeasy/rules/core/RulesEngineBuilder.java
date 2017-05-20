@@ -45,7 +45,7 @@ public class RulesEngineBuilder {
     }
 
     private RulesEngineBuilder() {
-        parameters = new RulesEngineParameters(RulesEngine.DEFAULT_NAME, false, false, RulesEngine.DEFAULT_RULE_PRIORITY_THRESHOLD, false);
+        parameters = new RulesEngineParameters(RulesEngineParameters.DEFAULT_NAME, false, false, RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD, false);
         ruleListeners = new ArrayList<>();
     }
 

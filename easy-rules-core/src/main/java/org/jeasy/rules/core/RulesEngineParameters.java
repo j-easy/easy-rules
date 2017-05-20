@@ -23,14 +23,23 @@
  */
 package org.jeasy.rules.core;
 
-import org.jeasy.rules.api.RulesEngine;
-
 /**
  * Parameters of the rules engine.
  * 
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class RulesEngineParameters {
+
+    /**
+     * Default engine name.
+     */
+    @Deprecated
+    public static String DEFAULT_NAME = "engine";
+
+    /**
+     * Default rule priority threshold.
+     */
+    public static int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
 
     /**
      * The engine name.
@@ -64,8 +73,8 @@ public class RulesEngineParameters {
     private boolean silentMode;
 
     public RulesEngineParameters() {
-        this.name = RulesEngine.DEFAULT_NAME;
-        this.priorityThreshold = RulesEngine.DEFAULT_RULE_PRIORITY_THRESHOLD;
+        this.name = RulesEngineParameters.DEFAULT_NAME;
+        this.priorityThreshold = RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD;
     }
 
     public RulesEngineParameters(String name, boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, int priorityThreshold, boolean silentMode) {

@@ -36,17 +36,6 @@ import org.jeasy.rules.core.RulesEngineParameters;
 public interface RulesEngine {
 
     /**
-     * Default engine name.
-     */
-    @Deprecated
-    String DEFAULT_NAME = "engine";
-
-    /**
-     * Default rule priority threshold.
-     */
-    int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
-
-    /**
      * Return the rules engine parameters.
      *
      * @return The rules engine parameters

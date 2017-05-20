@@ -45,8 +45,8 @@ public class RulesEngineBuilderTest {
         assertThat(rulesEngine).isNotNull();
         RulesEngineParameters parameters = rulesEngine.getParameters();
 
-        assertThat(parameters.getName()).isEqualTo(RulesEngine.DEFAULT_NAME);
-        assertThat(parameters.getPriorityThreshold()).isEqualTo(RulesEngine.DEFAULT_RULE_PRIORITY_THRESHOLD);
+        assertThat(parameters.getName()).isEqualTo(RulesEngineParameters.DEFAULT_NAME);
+        assertThat(parameters.getPriorityThreshold()).isEqualTo(RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD);
 
         assertThat(parameters.isSkipOnFirstAppliedRule()).isFalse();
         assertThat(parameters.isSkipOnFirstFailedRule()).isFalse();
