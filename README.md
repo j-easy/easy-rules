@@ -52,7 +52,7 @@ public class Test {
 }
 ```
 
-This is the hello world of Easy Rules. You can find other examples like the [FizzBuzz tutorial](https://github.com/j-easy/easy-rules/wiki/fizz-buzz) in the wiki.
+This is the hello world of Easy Rules. You can find other examples like the [FizzBuzz](https://github.com/j-easy/easy-rules/wiki/fizz-buzz) or [WebApp](https://github.com/j-easy/easy-rules/wiki/web-app) tutorials in the wiki.
 
 ## Quick links
 
