@@ -88,6 +88,18 @@ public class Rules implements Iterable<Rule> {
     }
 
     /**
+     * Unregister a rule by name.
+     *
+     * @param ruleName the name of the rule to unregister
+     */
+    public void unregister(final String ruleName){
+        Rule rule = findRuleByName(ruleName);
+        if(rule != null) {
+            unregister(rule);
+        }
+    }
+
+    /**
      * Check if the rule set is empty.
      *
      * @return true if the rule set is empty, false otherwise
@@ -113,5 +125,13 @@ public class Rules implements Iterable<Rule> {
      */
     public void sort() {
         rules = new TreeSet<>(rules);
+    }
+
+    private Rule findRuleByName(String ruleName){
+        for(Rule rule : rules){
+            if(rule.getName().equalsIgnoreCase(ruleName))
+                return rule;
+        }
+        return null;
     }
 }
