@@ -36,6 +36,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.*;
 
+/**
+ * Main class to create rule proxies from annotated objects.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ */
 public class RuleProxy implements InvocationHandler {
 
     private Object target;

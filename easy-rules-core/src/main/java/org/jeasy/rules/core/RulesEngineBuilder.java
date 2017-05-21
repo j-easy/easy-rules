@@ -40,6 +40,11 @@ public class RulesEngineBuilder {
 
     private List<RuleListener> ruleListeners;
 
+    /**
+     * Create a new rules engine builder.
+     *
+     * @return a new rules engine builder
+     */
     public static RulesEngineBuilder aNewRulesEngine() {
         return new RulesEngineBuilder();
     }
@@ -55,36 +60,77 @@ public class RulesEngineBuilder {
         return this;
     }
 
+    /**
+     * Set the <code>setSkipOnFirstAppliedRule</code> parameter.
+     *
+     * @param skipOnFirstAppliedRule to set
+     * @return the rules engine builder
+     */
     public RulesEngineBuilder withSkipOnFirstAppliedRule(final boolean skipOnFirstAppliedRule) {
         parameters.setSkipOnFirstAppliedRule(skipOnFirstAppliedRule);
         return this;
     }
 
+    /**
+     * Set the <code>skipOnFirstNonTriggeredRule</code> parameter.
+     *
+     * @param skipOnFirstNonTriggeredRule to set
+     * @return the rules engine builder
+     */
     public RulesEngineBuilder withSkipOnFirstNonTriggeredRule(final boolean skipOnFirstNonTriggeredRule) {
         parameters.setSkipOnFirstNonTriggeredRule(skipOnFirstNonTriggeredRule);
         return this;
     }
 
+    /**
+     * Set <code>skipOnFirstFailedRule</code> parameter.
+     *
+     * @param skipOnFirstFailedRule to set
+     * @return the rules engine builder
+     */
     public RulesEngineBuilder withSkipOnFirstFailedRule(final boolean skipOnFirstFailedRule) {
         parameters.setSkipOnFirstFailedRule(skipOnFirstFailedRule);
         return this;
     }
 
+    /**
+     * Set rule priority threshold.
+     *
+     * @param priorityThreshold to set
+     * @return the rules engine builder
+     */
     public RulesEngineBuilder withRulePriorityThreshold(final int priorityThreshold) {
         parameters.setPriorityThreshold(priorityThreshold);
         return this;
     }
 
+    /**
+     * Register a rule listener.
+     *
+     * @param ruleListener to register
+     * @return the rules engine builder
+     */
     public RulesEngineBuilder withRuleListener(final RuleListener ruleListener) {
         this.ruleListeners.add(ruleListener);
         return this;
     }
 
+    /**
+     * Set silent mode to mute all loggers.
+     *
+     * @param silentMode to set
+     * @return the rules engine builder
+     */
     public RulesEngineBuilder withSilentMode(final boolean silentMode) {
         parameters.setSilentMode(silentMode);
         return this;
     }
 
+    /**
+     * Build a rules engine instance.
+     *
+     * @return a rules engine instance
+     */
     public RulesEngine build() {
         return new DefaultRulesEngine(parameters, ruleListeners);
     }

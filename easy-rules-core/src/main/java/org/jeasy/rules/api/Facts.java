@@ -27,18 +27,40 @@ import java.util.*;
 
 import static java.lang.String.format;
 
+/**
+ * Represents a set of named facts. Facts have unique name within a <code>Facts</code> object.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ */
 public class Facts implements Iterable<Map.Entry<String, Object>> {
 
     private Map<String, Object> facts = new HashMap<>();
 
+    /**
+     * Add a fact.
+     *
+     * @param name fact name
+     * @param fact object
+     */
     public void add(String name, Object fact) {
         facts.put(name, fact);
     }
 
+    /**
+     * Remove fact.
+     *
+     * @param name of fact to remove
+     */
     public void remove(String name) {
         facts.remove(name);
     }
 
+    /**
+     * Get a fact by name.
+     *
+     * @param name of fact to get.
+     * @return the fact having the given name, or null if there is no fact with the given name
+     */
     public Object get(String name) {
         return facts.get(name);
     }

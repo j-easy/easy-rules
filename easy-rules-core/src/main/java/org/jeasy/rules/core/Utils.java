@@ -35,11 +35,6 @@ import java.util.logging.Logger;
 
 import static java.util.Arrays.asList;
 
-/**
- * Utilities class.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
 final class Utils {
 
     private static final Logger LOGGER = Logger.getLogger(Utils.class.getName());

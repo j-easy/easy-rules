@@ -30,36 +30,75 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * This class encapsulates a set of rules and represents a rules namespace.
+ * Rules must have a unique name within a rules namespace.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ */
 public class Rules implements Iterable<Rule> {
 
     private Set<Rule> rules = new TreeSet<>();
 
+    /**
+     * Create a new {@link Rules} object.
+     *
+     * @param rules to register
+     */
     public Rules(Set<Rule> rules) {
         this.rules = rules;
     }
 
+    /**
+     * Create a new {@link Rules} object.
+     *
+     * @param rules to register
+     */
     public Rules(Rule... rules ) {
         Collections.addAll(this.rules, rules);
     }
 
+    /**
+     * Create a new {@link Rules} object.
+     *
+     * @param rules to register
+     */
     public Rules(Object... rules ) {
         for (Object rule : rules) {
             this.register(RuleProxy.asRule(rule));
         }
     }
 
+    /**
+     * Register a new rule.
+     *
+     * @param rule to register
+     */
     public void register(Object rule) {
         rules.add(RuleProxy.asRule(rule));
     }
 
+    /**
+     * Unregister a rule.
+     *
+     * @param rule to unregister
+     */
     public void unregister(Object rule) {
         rules.remove(RuleProxy.asRule(rule));
     }
 
+    /**
+     * Check if the rule set is empty.
+     *
+     * @return true if the rule set is empty, false otherwise
+     */
     public boolean isEmpty() {
         return rules.isEmpty();
     }
 
+    /**
+     * Clear rules.
+     */
     public void clear() {
         rules.clear();
     }
@@ -69,6 +108,9 @@ public class Rules implements Iterable<Rule> {
         return rules.iterator();
     }
 
+    /**
+     * Sort rules.
+     */
     public void sort() {
         rules = new TreeSet<>(rules);
     }
