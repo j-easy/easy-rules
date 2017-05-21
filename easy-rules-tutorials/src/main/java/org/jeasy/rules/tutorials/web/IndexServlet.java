@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static org.jeasy.rules.tutorials.web.SuspiciousRequestRule.SUSPICIOUS;
 
-@WebServlet("/")
+@WebServlet("/index")
 public class IndexServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -40,7 +40,7 @@ public class Webapp {
         tomcat.addWebapp(contextPath, appBase);
         tomcat.start();
 
-        System.out.println("Waiting for requests on http://localhost:" + port + contextPath + "/");
+        System.out.println("Waiting for requests on http://localhost:" + port + contextPath + "/index");
         tomcat.getServer().await();
     }
 }
