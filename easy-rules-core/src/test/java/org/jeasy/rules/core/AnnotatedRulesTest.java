@@ -32,6 +32,8 @@ import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class AnnotatedRulesTest {
 
     @Test
@@ -40,10 +42,23 @@ public class AnnotatedRulesTest {
         facts.add("rain", true);
         facts.add("age", 18);
 
-        Rules rules = new Rules(
-                new WeatherRule(),
-                new AgeRule()
-        );
+        WeatherRule weatherRule = new WeatherRule();
+        AgeRule ageRule = new AgeRule();
+        Rules rules = new Rules(weatherRule, ageRule);
+
+        RulesEngine rulesEngine = new DefaultRulesEngine();
+        rulesEngine.fire(rules, facts);
+
+        assertThat(ageRule.isExecuted()).isTrue();
+        assertThat(weatherRule.isExecuted()).isTrue();
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenFactTypeDoesNotMatchParameterType_thenShouldThrowRuntimeException() throws Exception {
+        Facts facts = new Facts();
+        facts.add("age", "foo");
+
+        Rules rules = new Rules(new AgeRule());
 
         RulesEngine rulesEngine = new DefaultRulesEngine();
 
@@ -53,21 +68,29 @@ public class AnnotatedRulesTest {
     @Rule
     class AgeRule {
 
+        private boolean isExecuted;
+
         @Condition
         public boolean isAdult(@Fact("age") int age) {
             return age >= 18;
         }
 
         @Action
-        public void then() {
+        public void printYourAreAdult() {
             System.out.println("You are an adult");
+            isExecuted = true;
         }
 
+        public boolean isExecuted() {
+            return isExecuted;
+        }
     }
 
 
     @Rule
     class WeatherRule {
+
+        private boolean isExecuted;
 
         @Condition
         public boolean itRains(@Fact("rain") boolean rain) {
@@ -77,7 +100,11 @@ public class AnnotatedRulesTest {
         @Action
         public void takeAnUmbrella(Facts facts) {
             System.out.println("It rains, take an umbrella!");
+            isExecuted = true;
         }
 
+        public boolean isExecuted() {
+            return isExecuted;
+        }
     }
 }

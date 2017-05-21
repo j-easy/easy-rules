@@ -23,11 +23,11 @@
  */
 package org.jeasy.rules.core;
 
-import org.jeasy.rules.annotation.Fact;
-import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
+import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Priority;
+import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 
 import java.lang.annotation.Annotation;
@@ -35,6 +35,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.*;
+
+import static java.lang.String.format;
 
 /**
  * Main class to create rule proxies from annotated objects.
@@ -87,7 +89,12 @@ public class RuleProxy implements InvocationHandler {
             Facts facts = (Facts) args[0];
             Method conditionMethod = getConditionMethod();
             List<Object> actualParameters = getActualParameters(conditionMethod, facts);
-            return conditionMethod.invoke(target, actualParameters.toArray()); // validated upfront
+            try {
+                return conditionMethod.invoke(target, actualParameters.toArray()); // validated upfront
+            } catch (IllegalArgumentException e) {
+                String error = "Types of injected facts in method '%s' in rule '%s' do not match parameters types";
+                throw new RuntimeException(format(error, conditionMethod.getName(), target.getClass().getName()), e);
+            }
         }
         if (methodName.equals("execute")) {
             for (ActionMethodOrderBean actionMethodBean : getActionMethodBeans()) {
@@ -121,19 +128,18 @@ public class RuleProxy implements InvocationHandler {
     private List<Object> getActualParameters(Method method, Facts facts) {
         List<Object> actualParameters = new ArrayList<>();
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-        for(Annotation[] ann : parameterAnnotations){
-            if(ann.length == 1){
-                String factName = ((Fact) (ann[0])).value(); //validated upfront.
+        for (Annotation[] annotations : parameterAnnotations) {
+            if (annotations.length == 1) {
+                String factName = ((Fact) (annotations[0])).value(); //validated upfront.
                 Object fact = facts.get(factName);
-                if(fact == null){
-                    throw new RuntimeException(String.format("No fact named %s found in known facts", factName));
+                if (fact == null) {
+                    throw new RuntimeException(format("No fact named %s found in known facts", factName));
                 }
                 actualParameters.add(fact);
             } else {
                 actualParameters.add(facts); //validated upfront, there may be only one parameter not annotated and which is of type Facts.class
             }
         }
-
         return actualParameters;
     }
 
