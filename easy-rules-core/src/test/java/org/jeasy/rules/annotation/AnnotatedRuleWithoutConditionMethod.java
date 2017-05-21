@@ -24,27 +24,21 @@
 package org.jeasy.rules.annotation;
 
 @Rule
-public class AnnotatedRuleWithNotPublicPriorityMethod {
+public class AnnotatedRuleWithoutConditionMethod {
 
     private boolean executed;
 
-    @Condition
-    private boolean when() {
+    public boolean when() {
         return true;
     }
 
     @Action
-    private void then() throws Exception {
+    public void then() throws Exception {
         executed = true;
     }
 
     public boolean isExecuted() {
         return executed;
-    }
-
-    @Priority
-    private int getPriority() {
-        return 1;
     }
 
 }

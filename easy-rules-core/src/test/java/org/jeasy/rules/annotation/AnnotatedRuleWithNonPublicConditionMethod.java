@@ -24,11 +24,12 @@
 package org.jeasy.rules.annotation;
 
 @Rule
-public class AnnotatedRuleWithoutCondition {
+public class AnnotatedRuleWithNonPublicConditionMethod {
 
     private boolean executed;
 
-    public boolean when() {
+    @Condition
+    private boolean when() {
         return true;
     }
 

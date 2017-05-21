@@ -24,7 +24,7 @@
 package org.jeasy.rules.annotation;
 
 @Rule
-public class AnnotatedRuleWithNotPublicActionMethod {
+public class AnnotatedRuleWithNonPublicActionMethod {
 
     private boolean executed;
 

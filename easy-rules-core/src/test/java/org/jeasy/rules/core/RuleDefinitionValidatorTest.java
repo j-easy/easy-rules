@@ -55,12 +55,12 @@ public class RuleDefinitionValidatorTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void conditionMethodMustBeDefined() {
-        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithoutCondition());
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithoutConditionMethod());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void conditionMethodMustBePublic() {
-        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithNotPublicConditionMethod());
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithNonPublicConditionMethod());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -83,11 +83,11 @@ public class RuleDefinitionValidatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void actionMethodMustBePublic() {
-        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithNotPublicActionMethod());
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithNonPublicActionMethod());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void actionMethodMustHaveNoArguments() {
+    public void actionMethodMustHaveAtMostOneArgumentOfTypeFacts() {
         ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithActionMethodHavingOneArgumentNotOfTypeFacts());
     }
 
@@ -102,7 +102,7 @@ public class RuleDefinitionValidatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void priorityMethodMustBePublic() {
-        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithNotPublicPriorityMethod());
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithNonPublicPriorityMethod());
     }
 
     @Test(expected = IllegalArgumentException.class)
