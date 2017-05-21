@@ -16,7 +16,7 @@
         <module>easy-rules-archetype</module>
         <module>easy-rules-core</module>
         <module>easy-rules-tutorials</module>
-    </modules>
+  </modules>
 
     <packaging>pom</packaging>
 
@@ -174,29 +174,6 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>${maven-license-plugin.version}</version>
-                <configuration>
-                    <header>licence-header-template.txt</header>
-                    <properties>
-                        <currentYear>2017</currentYear>
-                    </properties>
-                    <strictCheck>true</strictCheck>
-                    <includes>
-                        <include>src/**/*.java</include>
-                    </includes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
