@@ -91,6 +91,11 @@ public class RuleDefinitionValidatorTest {
         ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithActionMethodHavingOneArgumentNotOfTypeFacts());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void actionMethodMustReturnVoid() {
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithActionMethodThatReturnsNonVoidType());
+    }
+
     /*
      * Priority method tests
      */

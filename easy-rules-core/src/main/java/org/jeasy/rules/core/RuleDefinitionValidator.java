@@ -79,7 +79,7 @@ class RuleDefinitionValidator {
 
         for (Method actionMethod : actionMethods) {
             if (!isActionMethodWellDefined(actionMethod)) {
-                throw new IllegalArgumentException(format("Action method '%s' defined in rule '%s' must be public and may have parameters annotated with @Fact (and/or a parameter of type Facts).", actionMethod, rule.getClass().getName()));
+                throw new IllegalArgumentException(format("Action method '%s' defined in rule '%s' must be public, must return void type and may have parameters annotated with @Fact (and/or a parameter of type Facts).", actionMethod, rule.getClass().getName()));
             }
         }
     }
@@ -143,6 +143,7 @@ class RuleDefinitionValidator {
 
     private boolean isActionMethodWellDefined(final Method method) {
         return Modifier.isPublic(method.getModifiers())
+                && method.getReturnType().equals(Void.TYPE)
                 && validParameters(method);
     }
 
