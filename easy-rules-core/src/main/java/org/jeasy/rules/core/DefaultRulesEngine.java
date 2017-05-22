@@ -206,7 +206,10 @@ public final class DefaultRulesEngine implements RulesEngine {
     private void log(Facts facts) {
         LOGGER.log(Level.INFO, "Known facts:");
         for (Map.Entry<String, Object> fact : facts) {
-            LOGGER.log(Level.INFO, format("Fact { %s : %s }", fact.getKey(), fact.getValue().toString()));
+            LOGGER.log(Level.INFO, format("Fact { %s : %s }",
+                    fact.getKey(),
+                    fact.getValue() == null ? "null" : fact.getValue().toString())
+            );
         }
     }
 
