@@ -62,7 +62,6 @@ This is the hello world of Easy Rules. You can find other examples like the [Fiz
 |Presentation          | [https://speakerdeck.com/benas/easy-rules](https://speakerdeck.com/benas/easy-rules)  |
 |Continuous integration| [![Build Status](https://travis-ci.org/j-easy/easy-rules.svg?branch=master)](https://travis-ci.org/j-easy/easy-rules) |
 |Code coverage         | [![Coverage](https://coveralls.io/repos/j-easy/easy-rules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/j-easy/easy-rules?branch=master) |
-|Sonar analysis        | [![Quality Gate](https://sonarqube.com/api/badges/gate?key=org.easyrules:easyrules)](https://sonarqube.com/overview?id=org.easyrules%3Aeasyrules) |
 
 ## Current version
 
