@@ -33,16 +33,19 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AnnotationInheritanceTest {
+public class AnnotationInheritanceTest extends AbstractTest {
 
     @Test
     public void annotationsShouldBeInherited() throws Exception {
+        // Given
         MyChildRule myChildRule = new MyChildRule();
-        RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
-        Rules rules = new Rules();
         rules.register(myChildRule);
-        rulesEngine.fire(rules, new Facts());
 
+        // When
+        RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
+        rulesEngine.fire(rules, facts);
+
+        // Then
         assertThat(myChildRule.isExecuted()).isTrue();
     }
 

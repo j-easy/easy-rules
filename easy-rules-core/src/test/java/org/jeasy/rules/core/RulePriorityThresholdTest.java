@@ -51,18 +51,18 @@ public class RulePriorityThresholdTest extends AbstractTest {
 
     @Test
     public void rulesThatExceedPriorityThresholdMustNotBeExecuted() throws Exception {
-
+        // Given
         rules.register(rule1);
         rules.register(rule2);
 
+        // When
         rulesEngine.fire(rules, facts);
 
+        // Then
         //Rule 1 should be executed
         verify(rule1).execute(facts);
-
         //Rule 2 should be skipped since its priority (2) exceeds priority threshold (1)
         verify(rule2, never()).execute(facts);
-
     }
 
 }

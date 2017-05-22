@@ -37,7 +37,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AnnotatedRulesTest {
 
     @Test
-    public void test() throws Exception {
+    public void testFactInjection() throws Exception {
+        // Given
         Facts facts = new Facts();
         facts.add("rain", true);
         facts.add("age", 18);
@@ -46,23 +47,28 @@ public class AnnotatedRulesTest {
         AgeRule ageRule = new AgeRule();
         Rules rules = new Rules(weatherRule, ageRule);
 
+        // When
         RulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.fire(rules, facts);
 
+        // Then
         assertThat(ageRule.isExecuted()).isTrue();
         assertThat(weatherRule.isExecuted()).isTrue();
     }
 
     @Test(expected = RuntimeException.class)
     public void whenFactTypeDoesNotMatchParameterType_thenShouldThrowRuntimeException() throws Exception {
+        // Given
         Facts facts = new Facts();
         facts.add("age", "foo");
-
         Rules rules = new Rules(new AgeRule());
-
         RulesEngine rulesEngine = new DefaultRulesEngine();
 
+        // When
         rulesEngine.fire(rules, facts);
+
+        // Then
+        // expected exception
     }
 
     @Rule

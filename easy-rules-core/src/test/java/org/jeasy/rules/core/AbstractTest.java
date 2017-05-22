@@ -50,7 +50,7 @@ public abstract class AbstractTest {
         facts = new Facts();
         facts.add("fact1", fact1);
         facts.add("fact2", fact2);
-        rules = new Rules(rule1, rule2);
+        rules = new Rules();
 
         rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
     }

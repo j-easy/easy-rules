@@ -38,7 +38,6 @@ public class SkipOnFirstNonTriggeredRuleTest extends AbstractTest {
     @Before
     public void setup() throws Exception {
         super.setup();
-        setUpRule1();
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withSkipOnFirstNonTriggeredRule(true)
                 .build();
@@ -46,21 +45,21 @@ public class SkipOnFirstNonTriggeredRuleTest extends AbstractTest {
 
     @Test
     public void testSkipOnFirstNonTriggeredRule() throws Exception {
+        // Given
+        when(rule1.evaluate(facts)).thenReturn(false);
+        when(rule2.compareTo(rule1)).thenReturn(1);
 
+        rules.register(rule1);
+        rules.register(rule2);
+
+        // When
         rulesEngine.fire(rules, facts);
 
-        //Rule1 is non triggered
+        // Then
+        //Rule1 is not triggered
         verify(rule1, never()).execute(facts);
-
         //Rule 2 should be skipped since Rule 1 has not been executed
         verify(rule2, never()).execute(facts);
-
-    }
-
-    private void setUpRule1() throws Exception {
-        when(rule1.getName()).thenReturn("r1");
-        when(rule1.getPriority()).thenReturn(1);
-        when(rule1.evaluate(facts)).thenReturn(false);
     }
 
 }

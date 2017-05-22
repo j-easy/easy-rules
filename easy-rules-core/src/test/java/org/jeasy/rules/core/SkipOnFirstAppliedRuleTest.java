@@ -39,9 +39,6 @@ public class SkipOnFirstAppliedRuleTest extends AbstractTest {
     @Before
     public void setup() throws Exception {
         super.setup();
-
-        setUpRule1();
-
         rulesEngine = aNewRulesEngine()
                 .withSkipOnFirstAppliedRule(true)
                 .build();
@@ -49,32 +46,40 @@ public class SkipOnFirstAppliedRuleTest extends AbstractTest {
 
     @Test
     public void testSkipOnFirstAppliedRule() throws Exception {
+        // Given
+        when(rule2.compareTo(rule1)).thenReturn(1);
+        when(rule1.evaluate(facts)).thenReturn(true);
+        rules.register(rule1);
+        rules.register(rule2);
+
+        // When
         rulesEngine.fire(rules, facts);
 
+        // Then
         //Rule 1 should be executed
         verify(rule1).execute(facts);
 
         //Rule 2 should be skipped since Rule 1 has been executed
         verify(rule2, never()).execute(facts);
-
     }
 
     @Test
     public void testSkipOnFirstAppliedRuleWithException() throws Exception {
-        rulesEngine.fire(rules, facts);
-
-        //If an exception occurs when executing Rule 0, Rule 1 should still be applied
-        verify(rule1).execute(facts);
-
-        //Rule 2 should be skipped since Rule 1 has been executed
-        verify(rule2, never()).execute(facts);
-
-    }
-
-    private void setUpRule1() throws Exception {
+        // Given
         when(rule1.evaluate(facts)).thenReturn(true);
+        when(rule2.evaluate(facts)).thenReturn(true);
+        when(rule2.compareTo(rule1)).thenReturn(1);
         final Exception exception = new Exception("fatal error!");
         doThrow(exception).when(rule1).execute(facts);
+
+        rules.register(rule1);
+        rules.register(rule2);
+
+        // When
+        rulesEngine.fire(rules, facts);
+
+        //If an exception occurs when executing Rule 1, Rule 2 should still be applied
+        verify(rule2).execute(facts);
     }
 
 }

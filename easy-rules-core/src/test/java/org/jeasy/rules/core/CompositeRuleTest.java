@@ -52,24 +52,31 @@ public class CompositeRuleTest extends AbstractTest {
 
     @Test
     public void compositeRuleAndComposingRulesMustBeExecuted() throws Exception {
+        // Given
         compositeRule.addRule(rule1);
         compositeRule.addRule(rule2);
-        rules.clear(); // FIXME
         rules.register(compositeRule);
+
+        // When
         rulesEngine.fire(rules, facts);
+
+        // Then
         verify(rule1).execute(facts);
         verify(rule2).execute(facts);
     }
 
     @Test
     public void compositeRuleMustNotBeExecutedIfAComposingRuleEvaluatesToFalse() throws Exception {
+        // Given
         when(rule2.evaluate(facts)).thenReturn(false);
         compositeRule.addRule(rule1);
         compositeRule.addRule(rule2);
-        rules.clear(); // FIXME
         rules.register(compositeRule);
+
+        // When
         rulesEngine.fire(rules, facts);
 
+        // Then
         /*
          * The composing rules should not be executed
          * since not all rules conditions evaluate to TRUE
@@ -77,24 +84,22 @@ public class CompositeRuleTest extends AbstractTest {
 
         //Rule 1 should not be executed
         verify(rule1, never()).execute(facts);
-
         //Rule 2 should not be executed
         verify(rule2, never()).execute(facts);
-
     }
 
     @Test
     public void whenARuleIsRemoved_thenItShouldNotBeEvaluated() throws Exception {
-
+        // Given
         compositeRule.addRule(rule1);
         compositeRule.addRule(rule2);
         compositeRule.removeRule(rule2);
-
-        rules.clear(); // FIXME
         rules.register(compositeRule);
 
+        // When
         rulesEngine.fire(rules, facts);
 
+        // Then
         //Rule 1 should be executed
         verify(rule1).execute(facts);
 
@@ -111,28 +116,34 @@ public class CompositeRuleTest extends AbstractTest {
 
     @Test
     public void testCompositeRuleWithAnnotatedComposingRules() throws Exception {
+        // Given
         MyRule rule = new MyRule();
         compositeRule = new CompositeRule("myCompositeRule");
         compositeRule.addRule(rule);
+        rules.register(compositeRule);
 
-        rules.register(compositeRule);;
+        // When
         rulesEngine.fire(rules, facts);
 
+        // Then
         assertThat(rule.isExecuted()).isTrue();
     }
 
     @Test
     public void whenAnnotatedRuleIsRemoved_thenItsProxyShouldBeRetrieved() throws Exception {
+        // Given
         MyRule rule = new MyRule();
         MyAnnotatedRule annotatedRule = new MyAnnotatedRule();
         compositeRule = new CompositeRule("myCompositeRule", "composite rule with mixed types of rules");
         compositeRule.addRule(rule);
         compositeRule.addRule(annotatedRule);
         compositeRule.removeRule(annotatedRule);
-
         rules.register(compositeRule);
+
+        // When
         rulesEngine.fire(rules, facts);
 
+        // Then
         assertThat(rule.isExecuted()).isTrue();
         assertThat(annotatedRule.isExecuted()).isFalse();
     }

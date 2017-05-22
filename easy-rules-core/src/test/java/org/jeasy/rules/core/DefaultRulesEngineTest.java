@@ -29,7 +29,6 @@ import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Priority;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.RuleListener;
-import org.jeasy.rules.api.Rules;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,9 +48,6 @@ import static org.mockito.Mockito.*;
 public class DefaultRulesEngineTest extends AbstractTest {
 
     @Mock
-    private BasicRule rule, anotherRule;
-
-    @Mock
     private RuleListener ruleListener;
 
     private AnnotatedRule annotatedRule;
@@ -59,85 +55,98 @@ public class DefaultRulesEngineTest extends AbstractTest {
     @Before
     public void setup() throws Exception {
         super.setup();
-        when(rule.getName()).thenReturn("r");
-        when(rule.getDescription()).thenReturn("d");
-        when(rule.getPriority()).thenReturn(1);
+        when(rule1.getName()).thenReturn("r");
+        when(rule1.getDescription()).thenReturn("d");
+        when(rule1.getPriority()).thenReturn(1);
         annotatedRule = new AnnotatedRule();
     }
 
     @Test
     public void whenConditionIsTrue_thenActionShouldBeExecuted() throws Exception {
-        when(rule.evaluate(facts)).thenReturn(true);
+        // Given
+        when(rule1.evaluate(facts)).thenReturn(true);
+        rules.register(rule1);
 
-        rules.clear();// FIXME
-        rules.register(rule);
-
+        // When
         rulesEngine.fire(rules, facts);
 
-        verify(rule).execute(facts);
+        // Then
+        verify(rule1).execute(facts);
     }
 
     @Test
     public void whenConditionIsFalse_thenActionShouldNotBeExecuted() throws Exception {
-        when(rule.evaluate(facts)).thenReturn(false);
-        rules.clear();// FIXME
-        rules.register(rule);
+        // Given
+        when(rule1.evaluate(facts)).thenReturn(false);
+        rules.register(rule1);
 
+        // When
         rulesEngine.fire(rules, facts);
 
-        verify(rule, never()).execute(facts);
+        // Then
+        verify(rule1, never()).execute(facts);
     }
 
     @Test
     public void rulesMustBeTriggeredInTheirNaturalOrder() throws Exception {
-        when(rule.evaluate(facts)).thenReturn(true);
-        when(anotherRule.evaluate(facts)).thenReturn(true);
-        when(anotherRule.compareTo(rule)).thenReturn(1);
-        rules.clear();// FIXME
-        rules.register(rule);
-        rules.register(anotherRule);
+        // Given
+        when(rule1.evaluate(facts)).thenReturn(true);
+        when(rule2.evaluate(facts)).thenReturn(true);
+        when(rule2.compareTo(rule1)).thenReturn(1);
+        rules.register(rule1);
+        rules.register(rule2);
 
+        // When
         rulesEngine.fire(rules, facts);
 
-        InOrder inOrder = inOrder(rule, anotherRule);
-        inOrder.verify(rule).execute(facts);
-        inOrder.verify(anotherRule).execute(facts);
+        // Then
+        InOrder inOrder = inOrder(rule1, rule2);
+        inOrder.verify(rule1).execute(facts);
+        inOrder.verify(rule2).execute(facts);
     }
 
     @Test
     public void rulesMustBeCheckedInTheirNaturalOrder() throws Exception {
-        when(rule.evaluate(facts)).thenReturn(true);
-        when(anotherRule.evaluate(facts)).thenReturn(true);
-        when(anotherRule.compareTo(rule)).thenReturn(1);
-        rules.clear();// FIXME
-        rules.register(rule);
-        rules.register(anotherRule);
+        // Given
+        when(rule1.evaluate(facts)).thenReturn(true);
+        when(rule2.evaluate(facts)).thenReturn(true);
+        when(rule2.compareTo(rule1)).thenReturn(1);
+        rules.register(rule1);
+        rules.register(rule2);
 
+        // When
         rulesEngine.check(rules, facts);
 
-        InOrder inOrder = inOrder(rule, anotherRule);
-        inOrder.verify(rule).evaluate(facts);
-        inOrder.verify(anotherRule).evaluate(facts);
+        // Then
+        InOrder inOrder = inOrder(rule1, rule2);
+        inOrder.verify(rule1).evaluate(facts);
+        inOrder.verify(rule2).evaluate(facts);
     }
 
     @Test
     public void actionsMustBeExecutedInTheDefinedOrder() {
-        rules.clear(); // FIXME
+        // Given
         rules.register(annotatedRule);
+
+        // When
         rulesEngine.fire(rules, facts);
+
+        // Then
         assertEquals("012", annotatedRule.getActionSequence());
     }
 
     @Test
     public void annotatedRulesAndNonAnnotatedRulesShouldBeUsableTogether() throws Exception {
-        when(rule.evaluate(facts)).thenReturn(true);
-        rules.clear(); // FIXME
-        rules.register(rule);
+        // Given
+        when(rule1.evaluate(facts)).thenReturn(true);
+        rules.register(rule1);
         rules.register(annotatedRule);
 
+        // When
         rulesEngine.fire(rules, facts);
 
-        verify(rule).execute(facts);
+        // Then
+        verify(rule1).execute(facts);
         assertThat(annotatedRule.isExecuted()).isTrue();
     }
 
@@ -156,9 +165,8 @@ public class DefaultRulesEngineTest extends AbstractTest {
     @Test
     public void testCheckRules() throws Exception {
         // Given
-        when(rule.evaluate(facts)).thenReturn(true);
-        rules.clear(); // FIXME
-        rules.register(rule);
+        when(rule1.evaluate(facts)).thenReturn(true);
+        rules.register(rule1);
         rules.register(annotatedRule);
 
         // When
@@ -174,25 +182,23 @@ public class DefaultRulesEngineTest extends AbstractTest {
     @Test
     public void listenerShouldBeInvokedBeforeCheckingRules() throws Exception {
         // Given
-        when(rule.evaluate(facts)).thenReturn(true);
-        when(ruleListener.beforeEvaluate(rule, facts)).thenReturn(true);
+        when(rule1.evaluate(facts)).thenReturn(true);
+        when(ruleListener.beforeEvaluate(rule1, facts)).thenReturn(true);
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withRuleListener(ruleListener)
                 .build();
-        rules.clear(); // FIXME
-        rules.register(rule);
+        rules.register(rule1);
 
         // When
         rulesEngine.check(rules, facts);
 
         // Then
-        verify(ruleListener).beforeEvaluate(rule, facts);
+        verify(ruleListener).beforeEvaluate(rule1, facts);
     }
 
     @Test
     public void nullFactsShouldNotCrashTheEngine() {
         // Given
-        Facts facts = new Facts();
         facts.add("foo", null);
 
         // When
@@ -202,6 +208,8 @@ public class DefaultRulesEngineTest extends AbstractTest {
             Assertions.fail("Unable to fire rules on known facts", e);
         }
 
+        // Then
+        // Should not throw exception
     }
 
     @Test
@@ -210,8 +218,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
                 .withRuleListener(ruleListener)
                 .build();
 
-        assertThat(rulesEngine.getRuleListeners())
-                .contains(ruleListener);
+        assertThat(rulesEngine.getRuleListeners()).contains(ruleListener);
     }
 
     @After

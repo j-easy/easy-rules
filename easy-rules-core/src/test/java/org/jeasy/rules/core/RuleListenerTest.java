@@ -54,50 +54,50 @@ public class RuleListenerTest extends AbstractTest {
 
     @Test
     public void whenTheRuleExecutesSuccessfully_thenOnSuccessShouldBeExecuted() throws Exception {
+        // Given
         when(rule1.evaluate(facts)).thenReturn(true);
-        rules.clear(); // FIXME
         rules.register(rule1);
+
+        // When
         rulesEngine.fire(rules, facts);
 
+        // Then
         InOrder inOrder = inOrder(rule1, fact1, fact2, ruleListener1, ruleListener2);
         inOrder.verify(ruleListener1).beforeExecute(rule1, facts);
         inOrder.verify(ruleListener2).beforeExecute(rule1, facts);
         inOrder.verify(ruleListener1).onSuccess(rule1, facts);
         inOrder.verify(ruleListener2).onSuccess(rule1, facts);
-
     }
 
     @Test
     public void whenTheRuleFails_thenOnFailureShouldBeExecuted() throws Exception {
-
+        // Given
+        when(rule1.evaluate(facts)).thenReturn(true);
         final Exception exception = new Exception("fatal error!");
         doThrow(exception).when(rule1).execute(facts);
-        when(rule1.evaluate(facts)).thenReturn(true);
-
-        rules.clear(); // FIXME
         rules.register(rule1);
 
+        // When
         rulesEngine.fire(rules, facts);
 
+        // Then
         InOrder inOrder = inOrder(rule1, fact1, fact2, ruleListener1, ruleListener2);
         inOrder.verify(ruleListener1).beforeExecute(rule1, facts);
         inOrder.verify(ruleListener2).beforeExecute(rule1, facts);
         inOrder.verify(ruleListener1).onFailure(rule1, facts, exception);
         inOrder.verify(ruleListener2).onFailure(rule1, facts, exception);
-
     }
 
     @Test
-    public void whenListenerReturnsFalse_thenTheRuleShouldBeSkippedBeforeBeingEvaluated() throws Exception {
-
+    public void whenListenerBeforeEvaluateReturnsFalse_thenTheRuleShouldBeSkippedBeforeBeingEvaluated() throws Exception {
         // Given
         when(ruleListener1.beforeEvaluate(rule1, facts)).thenReturn(false);
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withRuleListener(ruleListener1)
                 .build();
+        rules.register(rule1);
 
         // When
-        rules.register(rule1);
         rulesEngine.fire(rules, facts);
 
         // Then
@@ -105,16 +105,15 @@ public class RuleListenerTest extends AbstractTest {
     }
 
     @Test
-    public void whenListenerReturnsTrue_thenTheRuleShouldBeEvaluated() throws Exception {
-
+    public void whenListenerBeforeEvaluateReturnsTrue_thenTheRuleShouldBeEvaluated() throws Exception {
         // Given
         when(ruleListener1.beforeEvaluate(rule1, facts)).thenReturn(true);
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withRuleListener(ruleListener1)
                 .build();
+        rules.register(rule1);
 
         // When
-        rules.register(rule1);
         rulesEngine.fire(rules, facts);
 
         // Then
@@ -128,10 +127,9 @@ public class RuleListenerTest extends AbstractTest {
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withRuleListener(ruleListener1)
                 .build();
+        rules.register(rule1);
 
         // When
-        rules.clear();
-        rules.register(rule1);
         rulesEngine.fire(rules, facts);
 
         // Then
@@ -145,10 +143,9 @@ public class RuleListenerTest extends AbstractTest {
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withRuleListener(ruleListener1)
                 .build();
+        rules.register(rule1);
 
         // When
-        rules.clear();
-        rules.register(rule1);
         rulesEngine.fire(rules, facts);
 
         // Then

@@ -38,7 +38,6 @@ public class SkipOnFirstFailedRuleTest extends AbstractTest {
     @Before
     public void setup() throws Exception {
         super.setup();
-        setUpRule1();
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withSkipOnFirstFailedRule(true)
                 .build();
@@ -46,23 +45,22 @@ public class SkipOnFirstFailedRuleTest extends AbstractTest {
 
     @Test
     public void testSkipOnFirstFailedRule() throws Exception {
-
-        rulesEngine.fire(rules, facts);
-
-        //Rule 1 should be executed
-        verify(rule1).execute(facts);
-
-        //Rule 2 should be skipped since Rule 1 has failed
-        verify(rule2, never()).execute(facts);
-
-    }
-
-    private void setUpRule1() throws Exception {
-        when(rule1.getName()).thenReturn("r1");
-        when(rule1.getPriority()).thenReturn(1);
+        // Given
         when(rule1.evaluate(facts)).thenReturn(true);
+        when(rule2.compareTo(rule1)).thenReturn(1);
         final Exception exception = new Exception("fatal error!");
         doThrow(exception).when(rule1).execute(facts);
+        rules.register(rule1);
+        rules.register(rule2);
+
+        // When
+        rulesEngine.fire(rules, facts);
+
+        // Then
+        //Rule 1 should be executed
+        verify(rule1).execute(facts);
+        //Rule 2 should be skipped since Rule 1 has failed
+        verify(rule2, never()).execute(facts);
     }
 
 }

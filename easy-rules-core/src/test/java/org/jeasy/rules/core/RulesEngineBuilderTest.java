@@ -40,8 +40,10 @@ public class RulesEngineBuilderTest {
 
     @Test
     public void testCreationWithDefaultParameters() {
+        // When
         RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
 
+        // Then
         assertThat(rulesEngine).isNotNull();
         RulesEngineParameters parameters = rulesEngine.getParameters();
 
@@ -55,9 +57,11 @@ public class RulesEngineBuilderTest {
 
     @Test
     public void testCreationWithCustomParameters() {
+        // Given
         String name = "myRulesEngine";
         int expectedThreshold = 10;
 
+        // When
         RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .named(name)
                 .withRuleListener(ruleListener)
@@ -68,9 +72,9 @@ public class RulesEngineBuilderTest {
                 .withSkipOnFirstFailedRule(true)
                 .build();
 
+        // Then
         assertThat(rulesEngine).isNotNull();
         RulesEngineParameters parameters = rulesEngine.getParameters();
-
         assertThat(parameters.getName()).isEqualTo(name);
         assertThat(parameters.getPriorityThreshold()).isEqualTo(expectedThreshold);
         assertThat(parameters.isSilentMode()).isTrue();

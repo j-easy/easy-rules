@@ -33,11 +33,14 @@ public class RuleProxyTest {
 
     @Test
     public void proxyingHappensEvenWhenRuleIsAnnotatedWithMetaRuleAnnotation() {
-        AnnotatedRuleWithMetaRuleAnnotation rule1 = new AnnotatedRuleWithMetaRuleAnnotation();
+        // Given
+        AnnotatedRuleWithMetaRuleAnnotation rule = new AnnotatedRuleWithMetaRuleAnnotation();
 
-        Rule rule = RuleProxy.asRule(rule1);
+        // When
+        Rule proxy = RuleProxy.asRule(rule);
 
-        assertNotNull(rule.getDescription());
-        assertNotNull(rule.getName());
+        // Then
+        assertNotNull(proxy.getDescription());
+        assertNotNull(proxy.getName());
     }
 }

@@ -46,7 +46,7 @@ public class CustomRuleOrderingTest extends AbstractTest {
 
     @Test
     public void whenCompareToIsOverridden_thenShouldExecuteRulesInTheCustomOrder() throws Exception {
-
+        // Given
         when(rule1.getName()).thenReturn("a");
         when(rule1.getPriority()).thenReturn(1);
         when(rule1.evaluate(facts)).thenReturn(true);
@@ -57,12 +57,13 @@ public class CustomRuleOrderingTest extends AbstractTest {
 
         when(rule2.compareTo(rule1)).thenCallRealMethod();
 
-        rules.clear();
         rules.register(rule1);
         rules.register(rule2);
 
+        // When
         rulesEngine.fire(rules, facts);
 
+        // Then
         /*
          * By default, if compareTo is not overridden, then rule2 should be executed first (priority 0 < 1).
          * But in this case, the compareTo method order rules by their name, so rule1 should be executed first ("a" < "b")
