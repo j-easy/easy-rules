@@ -102,6 +102,12 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 
 Thank you all for your contributions!
 
+## Easy Rules in other languages
+
+* [EasyRulesGo](https://github.com/CrowdStrike/easyrulesgo) : A port of EasyRules to Golang by [@jiminoc](https://github.com/jiminoc)
+* [EasyRulesGroovy](https://github.com/will-gilbert/easyrules-tutorials-groovy) : A port of EasyRules tutorials to Groovy by [@will-gilbert](https://github.com/will-gilbert)
+* [EasyRulesCsharp](https://github.com/feldrim/EasyRulesCsharp) : A port of EasyRules to CSharp (WIP) by [@feldrim](https://github.com/feldrim)
+
 ## Acknowledgments
 
 |YourKit|Travis CI|
