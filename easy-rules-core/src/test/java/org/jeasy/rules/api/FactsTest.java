@@ -33,8 +33,8 @@ public class FactsTest {
 
     @Test
     public void factsMustHaveUniqueName() throws Exception {
-        facts.add("foo", 1);
-        facts.add("foo", 2);
+        facts.put("foo", 1);
+        facts.put("foo", 2);
 
         assertThat(facts).hasSize(1);
         assertThat(facts.get("foo")).isEqualTo(2);
@@ -42,7 +42,7 @@ public class FactsTest {
 
     @Test
     public void remove() throws Exception {
-        facts.add("foo", 1);
+        facts.put("foo", 1);
         facts.remove("foo");
 
         assertThat(facts).isEmpty();
@@ -50,7 +50,7 @@ public class FactsTest {
 
     @Test
     public void get() throws Exception {
-        facts.add("foo", 1);
+        facts.put("foo", 1);
         assertThat(facts.get("foo")).isEqualTo(1);
     }
 

@@ -35,7 +35,7 @@ public class Launcher {
         //create a person instance (fact)
         Person tom = new Person("Tom", 14);
         Facts facts = new Facts();
-        facts.add("person", tom);
+        facts.put("person", tom);
 
         // create a rules set
         Rules rules = new Rules();

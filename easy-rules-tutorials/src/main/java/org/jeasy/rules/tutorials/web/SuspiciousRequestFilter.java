@@ -49,7 +49,7 @@ public class SuspiciousRequestFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         Facts facts = new Facts();
-        facts.add("request", request);
+        facts.put("request", request);
         rulesEngine.fire(rules, facts);
         filterChain.doFilter(request, response);
     }

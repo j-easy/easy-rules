@@ -40,8 +40,8 @@ public class AnnotatedRulesTest {
     public void testFactInjection() throws Exception {
         // Given
         Facts facts = new Facts();
-        facts.add("rain", true);
-        facts.add("age", 18);
+        facts.put("rain", true);
+        facts.put("age", 18);
 
         WeatherRule weatherRule = new WeatherRule();
         AgeRule ageRule = new AgeRule();
@@ -60,7 +60,7 @@ public class AnnotatedRulesTest {
     public void whenFactTypeDoesNotMatchParameterType_thenShouldThrowRuntimeException() throws Exception {
         // Given
         Facts facts = new Facts();
-        facts.add("age", "foo");
+        facts.put("age", "foo");
         Rules rules = new Rules(new AgeRule());
         RulesEngine rulesEngine = new DefaultRulesEngine();
 

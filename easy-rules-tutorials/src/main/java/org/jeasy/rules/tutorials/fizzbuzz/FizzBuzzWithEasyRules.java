@@ -47,7 +47,7 @@ public class FizzBuzzWithEasyRules {
         // fire rules
         Facts facts = new Facts();
         for (int i = 1; i <= 100; i++) {
-            facts.add("number", i);
+            facts.put("number", i);
             fizzBuzzEngine.fire(rules, facts);
             System.out.println();
         }

@@ -48,8 +48,8 @@ public abstract class AbstractTest {
     @Before
     public void setup() throws Exception {
         facts = new Facts();
-        facts.add("fact1", fact1);
-        facts.add("fact2", fact2);
+        facts.put("fact1", fact1);
+        facts.put("fact2", fact2);
         rules = new Rules();
 
         rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();

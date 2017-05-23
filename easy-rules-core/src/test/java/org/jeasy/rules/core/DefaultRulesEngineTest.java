@@ -199,7 +199,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
     @Test
     public void nullFactsShouldNotCrashTheEngine() {
         // Given
-        facts.add("foo", null);
+        facts.put("foo", null);
 
         // When
         try {
