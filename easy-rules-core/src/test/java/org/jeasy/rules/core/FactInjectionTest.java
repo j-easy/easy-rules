@@ -31,13 +31,40 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
-public class AnnotatedRulesTest {
+@RunWith(MockitoJUnitRunner.class)
+public class FactInjectionTest {
+
+    @Mock
+    private Object fact1, fact2;
 
     @Test
-    public void testFactInjection() throws Exception {
+    public void declaredFactsShouldBeCorrectlyInjectedByNameOrType() throws Exception {
+        // Given
+        Facts facts = new Facts();
+        facts.put("fact1", fact1);
+        facts.put("fact2", fact2);
+
+        DummyRule rule = new DummyRule();
+        Rules rules = new Rules(rule);
+
+        // When
+        RulesEngine rulesEngine = new DefaultRulesEngine();
+        rulesEngine.fire(rules, facts);
+
+        // Then
+        verify(rule).when(fact1, fact2, facts);
+        verify(rule).then(fact1, fact2, facts);
+    }
+
+    @Test
+    public void rulesShouldBeExecutedWhenFactsAreCorrectlyInjected() throws Exception {
         // Given
         Facts facts = new Facts();
         facts.put("rain", true);
@@ -72,6 +99,20 @@ public class AnnotatedRulesTest {
     }
 
     @Rule
+    class DummyRule {
+
+        @Condition
+        public boolean when(@Fact("fact1") Object fact1, @Fact("fact2") Object fact2, Facts facts) {
+            return true;
+        }
+
+        @Action
+        public void then(@Fact("fact1") Object fact1, @Fact("fact2") Object fact2, Facts facts) {
+        }
+
+    }
+
+    @Rule
     class AgeRule {
 
         private boolean isExecuted;
@@ -91,7 +132,6 @@ public class AnnotatedRulesTest {
             return isExecuted;
         }
     }
-
 
     @Rule
     class WeatherRule {
