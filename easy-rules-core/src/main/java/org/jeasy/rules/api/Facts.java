@@ -46,6 +46,7 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
      */
     @Deprecated
     public void add(String name, Object fact) {
+        Objects.requireNonNull(name);
         facts.put(name, fact);
     }
 
@@ -57,6 +58,7 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
      * @param fact object to put in the working memory
      */
     public void put(String name, Object fact) {
+        Objects.requireNonNull(name);
         facts.put(name, fact);
     }
 
@@ -66,6 +68,7 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
      * @param name of fact to remove
      */
     public void remove(String name) {
+        Objects.requireNonNull(name);
         facts.remove(name);
     }
 
@@ -76,6 +79,7 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
      * @return the fact having the given name, or null if there is no fact with the given name
      */
     public Object get(String name) {
+        Objects.requireNonNull(name);
         return facts.get(name);
     }
 

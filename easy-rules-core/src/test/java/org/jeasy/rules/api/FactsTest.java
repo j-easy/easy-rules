@@ -54,4 +54,23 @@ public class FactsTest {
         assertThat(facts.get("foo")).isEqualTo(1);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void addingNullFactsIsNotAllowed() throws Exception {
+        facts.add(null, "foo");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenPutNullFact_thenShouldThrowNullPointerException() throws Exception {
+        facts.put(null, "foo");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenRemoveNullFact_thenShouldThrowNullPointerException() throws Exception {
+        facts.remove(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenGetNullFact_thenShouldThrowNullPointerException() throws Exception {
+        facts.get(null);
+    }
 }

@@ -25,10 +25,7 @@ package org.jeasy.rules.api;
 
 import org.jeasy.rules.core.RuleProxy;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * This class encapsulates a set of rules and represents a rules namespace.
@@ -75,6 +72,7 @@ public class Rules implements Iterable<Rule> {
      * @param rule to register
      */
     public void register(Object rule) {
+        Objects.requireNonNull(rule);
         rules.add(RuleProxy.asRule(rule));
     }
 
@@ -84,6 +82,7 @@ public class Rules implements Iterable<Rule> {
      * @param rule to unregister
      */
     public void unregister(Object rule) {
+        Objects.requireNonNull(rule);
         rules.remove(RuleProxy.asRule(rule));
     }
 
@@ -93,6 +92,7 @@ public class Rules implements Iterable<Rule> {
      * @param ruleName the name of the rule to unregister
      */
     public void unregister(final String ruleName){
+        Objects.requireNonNull(ruleName);
         Rule rule = findRuleByName(ruleName);
         if(rule != null) {
             unregister(rule);

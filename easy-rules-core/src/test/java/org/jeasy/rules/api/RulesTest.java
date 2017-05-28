@@ -93,6 +93,16 @@ public class RulesTest {
         assertThat(rules).isEmpty();
     }
 
+    @Test(expected = NullPointerException.class)
+    public void whenRegisterNullRule_thenShouldThrowNullPointerException() throws Exception {
+        rules.register(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenUnregisterNullRule_thenShouldThrowNullPointerException() throws Exception {
+        rules.unregister(null);
+    }
+
     @org.jeasy.rules.annotation.Rule
     class DummyRule {
         @Condition
