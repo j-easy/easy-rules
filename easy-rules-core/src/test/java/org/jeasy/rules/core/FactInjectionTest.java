@@ -32,21 +32,18 @@ import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FactInjectionTest {
 
-    @Mock
-    private Object fact1, fact2;
-
     @Test
     public void declaredFactsShouldBeCorrectlyInjectedByNameOrType() throws Exception {
         // Given
+        Object fact1 = new Object();
+        Object fact2 = new Object();
         Facts facts = new Facts();
         facts.put("fact1", fact1);
         facts.put("fact2", fact2);
@@ -59,8 +56,9 @@ public class FactInjectionTest {
         rulesEngine.fire(rules, facts);
 
         // Then
-        verify(rule).when(fact1, fact2, facts);
-        verify(rule).then(fact1, fact2, facts);
+        assertThat(rule.getFact1()).isSameAs(fact1);
+        assertThat(rule.getFact2()).isSameAs(fact2);
+        assertThat(rule.getFacts()).isSameAs(facts);
     }
 
     @Test
@@ -101,15 +99,32 @@ public class FactInjectionTest {
     @Rule
     class DummyRule {
 
+        private Object fact1, fact2;
+        private Facts facts;
+
         @Condition
-        public boolean when(@Fact("fact1") Object fact1, @Fact("fact2") Object fact2, Facts facts) {
+        public boolean when(@Fact("fact1") Object fact1, @Fact("fact2") Object fact2) {
+            this.fact1 = fact1;
+            this.fact2 = fact2;
             return true;
         }
 
         @Action
-        public void then(@Fact("fact1") Object fact1, @Fact("fact2") Object fact2, Facts facts) {
+        public void then(Facts facts) {
+            this.facts = facts;
         }
 
+        public Object getFact1() {
+            return fact1;
+        }
+
+        public Object getFact2() {
+            return fact2;
+        }
+
+        public Facts getFacts() {
+            return facts;
+        }
     }
 
     @Rule

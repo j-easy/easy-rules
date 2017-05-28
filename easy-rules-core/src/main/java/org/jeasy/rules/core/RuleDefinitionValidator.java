@@ -67,7 +67,7 @@ class RuleDefinitionValidator {
         Method conditionMethod = conditionMethods.get(0);
 
         if (!isConditionMethodWellDefined(conditionMethod)) {
-            throw new IllegalArgumentException(format("Condition method '%s' defined in rule '%s' must be public, may have parameters annotated with @Fact (and/or a parameter of type Facts) and return boolean type.", conditionMethod, rule.getClass().getName()));
+            throw new IllegalArgumentException(format("Condition method '%s' defined in rule '%s' must be public, may have parameters annotated with @Fact (and/or exactly one parameter of type Facts) and return boolean type.", conditionMethod, rule.getClass().getName()));
         }
     }
 
@@ -79,7 +79,7 @@ class RuleDefinitionValidator {
 
         for (Method actionMethod : actionMethods) {
             if (!isActionMethodWellDefined(actionMethod)) {
-                throw new IllegalArgumentException(format("Action method '%s' defined in rule '%s' must be public, must return void type and may have parameters annotated with @Fact (and/or a parameter of type Facts).", actionMethod, rule.getClass().getName()));
+                throw new IllegalArgumentException(format("Action method '%s' defined in rule '%s' must be public, must return void type and may have parameters annotated with @Fact (and/or exactly one parameter of type Facts).", actionMethod, rule.getClass().getName()));
             }
         }
     }
@@ -132,9 +132,6 @@ class RuleDefinitionValidator {
             return false;
         }
         Class<?>[] parameterTypes = method.getParameterTypes();
-        if(parameterTypes.length > 1){
-            return false;
-        }
         if(parameterTypes.length == 1 && notAnnotatedParameterCount == 1){
             return parameterTypes[0].equals(Facts.class);
         }

@@ -24,6 +24,7 @@
 package org.jeasy.rules.core;
 
 
+import org.assertj.core.api.Assertions;
 import org.jeasy.rules.annotation.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -92,6 +93,11 @@ public class RuleDefinitionValidatorTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void actionMethodMustHaveExactlyOneArgumentOfTypeFactsIfAny() {
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithActionMethodHavingMoreThanOneArgumentOfTypeFacts());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void actionMethodMustReturnVoid() {
         ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithActionMethodThatReturnsNonVoidType());
     }
@@ -118,5 +124,18 @@ public class RuleDefinitionValidatorTest {
     @Test(expected = IllegalArgumentException.class)
     public void priorityMethodReturnTypeMustBeInteger() {
         ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithPriorityMethodHavingNonIntegerReturnType());
+    }
+
+    /*
+     * Valid definition tests
+     */
+    @Test
+    public void validAnnotationsShouldBeAccepted() {
+        try {
+            ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithMultipleAnnotatedParametersAndOneParameterOfTypeFacts());
+            ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithActionMethodHavingOneArgumentOfTypeFacts());
+        } catch (Throwable throwable) {
+            Assertions.fail("Should not throw exception for valid rule definitions");
+        }
     }
 }
