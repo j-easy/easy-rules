@@ -1,3 +1,28 @@
+***
+
+<div align="center">
+    <b><em>Easy Rules</em></b><br>
+    The simple, stupid rules engine for Java&trade;
+</div>
+
+<div align="center">
+
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
+[![Coverage](https://coveralls.io/repos/j-easy/easy-rules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/j-easy/easy-rules?branch=master)
+[![Build Status](https://travis-ci.org/j-easy/easy-rules.svg?branch=master)](https://travis-ci.org/j-easy/easy-rules)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jeasy/easy-rules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.jeasy|easy-rules-core|3.0.0|)
+[![Javadoc](https://javadoc-emblem.rhcloud.com/doc/org.jeasy/easy-rules-core/badge.svg)](http://www.javadoc.io/doc/org.jeasy/easy-rules-core)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/j-easy/easy-rules)
+
+</div>
+
+***
+
+## Latest news
+
+* 01/06/2017: Version 3.0.0 is finally out! See what's new [here](https://github.com/j-easy/easy-rules/releases).
+* 18/05/2017: Version 2.5.0 is out with new features and bug fixes. See all details in the [change log](https://github.com/j-easy/easy-rules/releases).
+
 ## What is Easy Rules?
 
 Easy Rules is a Java rules engine inspired by an article called *"[Should I use a Rules Engine?](http://martinfowler.com/bliki/RulesEngine.html)"* of [Martin Fowler](http://martinfowler.com/) in which Martin says:
@@ -40,7 +65,7 @@ public class Test {
     public static void main(String[] args) {
         // define facts
         Facts facts = new Facts();
-        facts.add("rain", true);
+        facts.put("rain", true);
 
         // define rules
         Rules rules = new Rules(new WeatherRule());
@@ -53,27 +78,6 @@ public class Test {
 ```
 
 This is the hello world of Easy Rules. You can find other examples like the [FizzBuzz](https://github.com/j-easy/easy-rules/wiki/fizz-buzz) or [WebApp](https://github.com/j-easy/easy-rules/wiki/web-app) tutorials in the wiki.
-
-## Quick links
-
-|Item                  |Link                                                                                   |
-|:---------------------|:--------------------------------------------------------------------------------------|
-|Project Home          | [https://github.com/j-easy/easy-rules/wiki](https://github.com/j-easy/easy-rules/wiki)|
-|Presentation          | [https://speakerdeck.com/benas/easy-rules](https://speakerdeck.com/benas/easy-rules)  |
-|Continuous integration| [![Build Status](https://travis-ci.org/j-easy/easy-rules.svg?branch=master)](https://travis-ci.org/j-easy/easy-rules) |
-|Code coverage         | [![Coverage](https://coveralls.io/repos/j-easy/easy-rules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/j-easy/easy-rules?branch=master) |
-
-## Current version
-
-* The current stable version is `2.5.0` : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.easyrules/easyrules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.easyrules|easyrules-core|2.5.0|)
-* The current development version is `3.0.0-SNAPSHOT`. In order to use the snapshot version, you need to add the following maven repository in your `pom.xml`:
-
-```xml
-<repository>
-    <id>ossrh</id>
-    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-</repository>
-```
 
 ## Contribution
 
@@ -108,7 +112,7 @@ Thank you all for your contributions!
 * [EasyRulesGroovy](https://github.com/will-gilbert/easyrules-tutorials-groovy) : A port of EasyRules tutorials to Groovy by [@will-gilbert](https://github.com/will-gilbert)
 * [EasyRulesCsharp](https://github.com/feldrim/EasyRulesCsharp) : A port of EasyRules to CSharp (WIP) by [@feldrim](https://github.com/feldrim)
 
-## Acknowledgments
+## Credits
 
 |YourKit|Travis CI|
 |:-:|:-:|
@@ -116,7 +120,7 @@ Thank you all for your contributions!
 |Many thanks to [YourKit, LLC](https://www.yourkit.com/) for providing a free license of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/index.jsp) to kindly support the development of Easy Rules.|Many thanks to [Travis CI](https://travis-ci.org) for providing a free continuous integration service for open source projects.|
 
 ## License
-Easy Rules is released under the [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT).
+Easy Rules is released under the terms of the MIT license:
 
 ```
 The MIT License (MIT)
@@ -141,4 +145,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ```
-
