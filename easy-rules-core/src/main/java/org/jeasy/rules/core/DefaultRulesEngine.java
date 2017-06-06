@@ -54,16 +54,33 @@ public final class DefaultRulesEngine implements RulesEngine {
      */
     private List<RuleListener> ruleListeners;
 
+    /**
+     * Create a new {@link DefaultRulesEngine} with default parameters.
+     */
     public DefaultRulesEngine() {
-        this.parameters = new RulesEngineParameters();
-        this.ruleListeners = new ArrayList<>();
-        this.ruleListeners.add(new DefaultRuleListener());
+        this(new RulesEngineParameters(), new ArrayList<RuleListener>());
     }
 
-    DefaultRulesEngine(final RulesEngineParameters parameters, final List<RuleListener> ruleListeners) {
+    /**
+     * Create a new {@link DefaultRulesEngine}.
+     *
+     * @param parameters of the engine
+     */
+    public DefaultRulesEngine(final RulesEngineParameters parameters) {
+        this(parameters, new ArrayList<RuleListener>());
+    }
+
+    /**
+     * Create a new {@link DefaultRulesEngine}.
+     *
+     * @param parameters of the engine
+     * @param ruleListeners listener of rules
+     */
+    public DefaultRulesEngine(final RulesEngineParameters parameters, final List<RuleListener> ruleListeners) {
         this.parameters = parameters;
-        this.ruleListeners = ruleListeners;
+        this.ruleListeners = new ArrayList<>();
         this.ruleListeners.add(new DefaultRuleListener());
+        this.ruleListeners.addAll(ruleListeners);
         if (parameters.isSilentMode()) {
             Utils.muteLoggers();
         }
