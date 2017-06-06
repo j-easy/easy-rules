@@ -50,14 +50,8 @@ public class RulesEngineBuilder {
     }
 
     private RulesEngineBuilder() {
-        parameters = new RulesEngineParameters(RulesEngineParameters.DEFAULT_NAME, false, false, RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD, false);
+        parameters = new RulesEngineParameters(false, false, RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD, false);
         ruleListeners = new ArrayList<>();
-    }
-
-    @Deprecated
-    public RulesEngineBuilder named(final String name) {
-        parameters.setName(name);
-        return this;
     }
 
     /**

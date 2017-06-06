@@ -55,11 +55,6 @@ public class FactsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void addingNullFactsIsNotAllowed() throws Exception {
-        facts.add(null, "foo");
-    }
-
-    @Test(expected = NullPointerException.class)
     public void whenPutNullFact_thenShouldThrowNullPointerException() throws Exception {
         facts.put(null, "foo");
     }

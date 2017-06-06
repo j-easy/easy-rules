@@ -23,11 +23,10 @@
  */
 package org.jeasy.rules.tutorials.shop;
 
-import static org.jeasy.rules.core.RulesEngineBuilder.aNewRulesEngine;
-
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.core.DefaultRulesEngine;
 
 public class Launcher {
 
@@ -43,9 +42,7 @@ public class Launcher {
         rules.register(new AlcoholRule());
 
         //create a rules engine and fire rules on known facts
-        RulesEngine rulesEngine = aNewRulesEngine()
-                .named("shop rules engine")
-                .build();
+        RulesEngine rulesEngine = new DefaultRulesEngine();
 
         System.out.println("Tom: Hi! can I have some Vodka please?");
         rulesEngine.fire(rules, facts);

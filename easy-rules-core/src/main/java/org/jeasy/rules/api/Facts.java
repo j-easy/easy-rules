@@ -37,20 +37,6 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
     private Map<String, Object> facts = new HashMap<>();
 
     /**
-     * Add a fact to the working memory.
-     * This will replace any fact having the same name.
-     *
-     * @param name fact name
-     * @param fact object
-     * @deprecated Use {@link Facts#put(java.lang.String, java.lang.Object)} instead. <strong>This will be removed in v3.0.0 final release</strong>
-     */
-    @Deprecated
-    public void add(String name, Object fact) {
-        Objects.requireNonNull(name);
-        facts.put(name, fact);
-    }
-
-    /**
      * Put a fact in the working memory.
      * This will replace any fact having the same name.
      *

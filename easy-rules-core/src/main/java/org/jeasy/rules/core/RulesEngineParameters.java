@@ -31,21 +31,9 @@ package org.jeasy.rules.core;
 public class RulesEngineParameters {
 
     /**
-     * Default engine name.
-     */
-    @Deprecated
-    public static String DEFAULT_NAME = "engine";
-
-    /**
      * Default rule priority threshold.
      */
     public static int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
-
-    /**
-     * The engine name.
-     */
-    @Deprecated
-    protected String name;
     
     /**
      * Parameter to skip next applicable rules when a rule is applied.
@@ -73,26 +61,14 @@ public class RulesEngineParameters {
     private boolean silentMode;
 
     public RulesEngineParameters() {
-        this.name = RulesEngineParameters.DEFAULT_NAME;
         this.priorityThreshold = RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD;
     }
 
-    public RulesEngineParameters(String name, boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, int priorityThreshold, boolean silentMode) {
-        this.name = name;
+    public RulesEngineParameters(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, int priorityThreshold, boolean silentMode) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
         this.priorityThreshold = priorityThreshold;
         this.silentMode = silentMode;
-    }
-
-    @Deprecated
-    public String getName() {
-        return name;
-    }
-
-    @Deprecated
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getPriorityThreshold() {
