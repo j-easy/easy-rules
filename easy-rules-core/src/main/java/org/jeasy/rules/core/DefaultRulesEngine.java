@@ -141,7 +141,18 @@ public final class DefaultRulesEngine implements RulesEngine {
                 LOGGER.log(Level.INFO, "Rule ''{0}'' has been skipped before being evaluated", name);
                 continue;
             }
-            if (rule.evaluate(facts)) {
+            boolean evaluationResult;
+            try {
+                evaluationResult = rule.evaluate(facts);
+            } catch (NoSuchFactException e) {
+                if (parameters.isSkipOnMissingFact()) {
+                    LOGGER.log(Level.INFO, "Rule ''{0}'' has been skipped due to missing fact ''{1}''", new Object[]{name, e.getMissingFact()});
+                    continue;
+                } else {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (evaluationResult) {
                 triggerListenersAfterEvaluate(rule, facts, true);
                 try {
                     triggerListenersBeforeExecute(rule, facts);
@@ -210,6 +221,7 @@ public final class DefaultRulesEngine implements RulesEngine {
         LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", parameters.isSkipOnFirstAppliedRule());
         LOGGER.log(Level.INFO, "Skip on first non triggered rule: {0}", parameters.isSkipOnFirstNonTriggeredRule());
         LOGGER.log(Level.INFO, "Skip on first failed rule: {0}", parameters.isSkipOnFirstFailedRule());
+        LOGGER.log(Level.INFO, "Skip on missing fact: {0}", parameters.isSkipOnMissingFact());
     }
 
     private void log(Rules rules) {
