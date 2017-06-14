@@ -102,6 +102,7 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 * [spearway](https://github.com/spearway)
 * [toudidel](https://github.com/toudidel)
 * [vinoct6](https://github.com/vinoct6)
+* [wg1j](https://github.com/wg1j)
 * [will-gilbert](https://github.com/will-gilbert)
 
 Thank you all for your contributions!
