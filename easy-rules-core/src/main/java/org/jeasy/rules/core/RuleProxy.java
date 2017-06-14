@@ -144,16 +144,15 @@ public class RuleProxy implements InvocationHandler {
     }
 
     private int compareTo(final Rule otherRule) throws Exception {
-        String otherName = otherRule.getName();
         int otherPriority = otherRule.getPriority();
-        String name = getRuleName();
         int priority = getRulePriority();
-
         if (priority < otherPriority) {
             return -1;
         } else if (priority > otherPriority) {
             return 1;
         } else {
+            String otherName = otherRule.getName();
+            String name = getRuleName();
             return name.compareTo(otherName);
         }
     }
@@ -164,7 +163,7 @@ public class RuleProxy implements InvocationHandler {
         Method[] methods = getMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(Priority.class)) {
-                priority = (Integer) method.invoke(target);
+                priority = (int) method.invoke(target);
                 break;
             }
         }
