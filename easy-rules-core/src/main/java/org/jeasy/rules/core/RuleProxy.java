@@ -163,7 +163,7 @@ public class RuleProxy implements InvocationHandler {
         Method[] methods = getMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(Priority.class)) {
-                priority = (Integer) method.invoke(target);
+                priority = (int) method.invoke(target);
                 break;
             }
         }
