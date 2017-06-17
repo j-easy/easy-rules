@@ -42,20 +42,28 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
      *
      * @param name fact name
      * @param fact object to put in the working memory
+     * @return the previous value associated with <tt>name</tt>, or
+     *         <tt>null</tt> if there was no mapping for <tt>name</tt>.
+     *         (A <tt>null</tt> return can also indicate that the map
+     *         previously associated <tt>null</tt> with <tt>name</tt>.)
      */
-    public void put(String name, Object fact) {
+    public Object put(String name, Object fact) {
         Objects.requireNonNull(name);
-        facts.put(name, fact);
+        return facts.put(name, fact);
     }
 
     /**
      * Remove fact.
      *
      * @param name of fact to remove
+     * @return the previous value associated with <tt>name</tt>, or
+     *         <tt>null</tt> if there was no mapping for <tt>name</tt>.
+     *         (A <tt>null</tt> return can also indicate that the map
+     *         previously associated <tt>null</tt> with <tt>name</tt>.)
      */
-    public void remove(String name) {
+    public Object remove(String name) {
         Objects.requireNonNull(name);
-        facts.remove(name);
+        return facts.remove(name);
     }
 
     /**
@@ -67,6 +75,15 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
     public Object get(String name) {
         Objects.requireNonNull(name);
         return facts.get(name);
+    }
+
+    /**
+     * Return facts as a map.
+     *
+     * @return the current facts as a {@link HashMap}
+     */
+    public Map<String, Object> asMap() {
+        return facts;
     }
 
     @Override
