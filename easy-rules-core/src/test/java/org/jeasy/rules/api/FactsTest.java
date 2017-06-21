@@ -25,6 +25,8 @@ package org.jeasy.rules.api;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FactsTest {
@@ -41,6 +43,15 @@ public class FactsTest {
     }
 
     @Test
+    public void returnOfPut() {
+        Object o1 = facts.put("foo", 1);
+        Object o2 = facts.put("foo", 2);
+
+        assertThat(o1).isEqualTo(null);
+        assertThat(o2).isEqualTo(1);
+    }
+
+    @Test
     public void remove() throws Exception {
         facts.put("foo", 1);
         facts.remove("foo");
@@ -49,9 +60,25 @@ public class FactsTest {
     }
 
     @Test
+    public void returnOfRemove() {
+        facts.put("foo", 1);
+        Object o1 = facts.remove("foo");
+        Object o2 = facts.remove("bar");
+
+        assertThat(o1).isEqualTo(1);
+        assertThat(o2).isEqualTo(null);
+    }
+
+    @Test
     public void get() throws Exception {
         facts.put("foo", 1);
         assertThat(facts.get("foo")).isEqualTo(1);
+    }
+
+    @Test
+    public void asMap() {
+        Object o = facts.asMap();
+        assertThat(o instanceof HashMap).isTrue();
     }
 
     @Test(expected = NullPointerException.class)
