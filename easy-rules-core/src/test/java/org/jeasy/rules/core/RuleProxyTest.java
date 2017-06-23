@@ -23,10 +23,13 @@
  */
 package org.jeasy.rules.core;
 
+import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.AnnotatedRuleWithMetaRuleAnnotation;
+import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.api.Rule;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class RuleProxyTest {
@@ -43,4 +46,48 @@ public class RuleProxyTest {
         assertNotNull(proxy.getDescription());
         assertNotNull(proxy.getName());
     }
+
+    @Test
+    public void asRuleForObjectThatImplementsRule() {
+        Object rule = new BasicRule();
+        Rule proxy = RuleProxy.asRule(rule);
+
+        assertNotNull(proxy.getDescription());
+        assertNotNull(proxy.getName());
+    }
+
+    @Test
+    public void asRuleForObjectThatExtendsBasicRule() {
+        Object rule = new CompositeRule();
+        Rule proxy = RuleProxy.asRule(rule);
+
+        assertNotNull(proxy.getDescription());
+        assertNotNull(proxy.getName());
+    }
+
+    @Test
+    public void asRuleForObjectThatHasProxied() {
+        Object rule = new DummyRule();
+        Rule proxy1 = RuleProxy.asRule(rule);
+        Rule proxy2 = RuleProxy.asRule(proxy1);
+
+        assertEquals(proxy1.getDescription(), proxy2.getDescription());
+        assertEquals(proxy1.getName(), proxy2.getName());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void asRuleForPojo() {
+        Object rule = new Object();
+        Rule proxy = RuleProxy.asRule(rule);
+    }
+
+    @org.jeasy.rules.annotation.Rule
+    class DummyRule {
+        @Condition
+        public boolean when() { return true; }
+
+        @Action
+        public void then() { }
+    }
 }
+
