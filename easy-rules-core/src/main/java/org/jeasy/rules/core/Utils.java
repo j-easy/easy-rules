@@ -72,16 +72,6 @@ final class Utils {
         }
     }
 
-    static List<Class<?>> getInterfaces(final Object rule) {
-        List<Class<?>> interfaces = new ArrayList<>();
-        Class<?> clazz = rule.getClass();
-        while (clazz.getSuperclass() != null) {
-            interfaces.addAll(asList(clazz.getInterfaces()));
-            clazz = clazz.getSuperclass();
-        }
-        return interfaces;
-    }
-
     static <A extends Annotation> A findAnnotation(final Class<A> targetAnnotation, final Class<?> annotatedType) {
 
         A foundAnnotation = annotatedType.getAnnotation(targetAnnotation);
