@@ -61,7 +61,7 @@ public class RuleProxy implements InvocationHandler {
      */
     public static Rule asRule(final Object rule) {
         Rule result;
-        if (Utils.getInterfaces(rule).contains(Rule.class)) {
+        if (rule instanceof Rule) {
             result = (Rule) rule;
         } else {
             ruleDefinitionValidator.validateRuleDefinition(rule);
