@@ -23,16 +23,19 @@
  */
 package org.jeasy.rules.core;
 
-import org.jeasy.rules.annotation.*;
-import org.jeasy.rules.api.Facts;
+import static java.lang.String.format;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.String.format;
+import org.jeasy.rules.annotation.Action;
+import org.jeasy.rules.annotation.Condition;
+import org.jeasy.rules.annotation.Fact;
+import org.jeasy.rules.annotation.Priority;
+import org.jeasy.rules.annotation.Rule;
+import org.jeasy.rules.api.Facts;
 
 /**
  * Validate that an annotated rule object is well defined.
@@ -67,7 +70,7 @@ class RuleDefinitionValidator {
         Method conditionMethod = conditionMethods.get(0);
 
         if (!isConditionMethodWellDefined(conditionMethod)) {
-            throw new IllegalArgumentException(format("Condition method '%s' defined in rule '%s' must be public, may have parameters annotated with @Fact (and/or exactly one parameter of type Facts) and return boolean type.", conditionMethod, rule.getClass().getName()));
+            throw new IllegalArgumentException(format("Condition method '%s' defined in rule '%s' must be public, may have parameters annotated with @Fact (and/or exactly one parameter of type or extending Facts) and return boolean type.", conditionMethod, rule.getClass().getName()));
         }
     }
 
@@ -79,7 +82,7 @@ class RuleDefinitionValidator {
 
         for (Method actionMethod : actionMethods) {
             if (!isActionMethodWellDefined(actionMethod)) {
-                throw new IllegalArgumentException(format("Action method '%s' defined in rule '%s' must be public, must return void type and may have parameters annotated with @Fact (and/or exactly one parameter of type Facts).", actionMethod, rule.getClass().getName()));
+                throw new IllegalArgumentException(format("Action method '%s' defined in rule '%s' must be public, must return void type and may have parameters annotated with @Fact (and/or exactly one parameter of type or extending Facts).", actionMethod, rule.getClass().getName()));
             }
         }
     }
@@ -133,7 +136,7 @@ class RuleDefinitionValidator {
         }
         Class<?>[] parameterTypes = method.getParameterTypes();
         if(parameterTypes.length == 1 && notAnnotatedParameterCount == 1){
-            return parameterTypes[0].equals(Facts.class);
+            return Facts.class.isAssignableFrom(parameterTypes[0]);
         }
         return true;
     }
