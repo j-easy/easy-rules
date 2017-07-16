@@ -133,6 +133,7 @@ public class RuleDefinitionValidatorTest {
     public void validAnnotationsShouldBeAccepted() {
         try {
             ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithMultipleAnnotatedParametersAndOneParameterOfTypeFacts());
+            ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithMultipleAnnotatedParametersAndOneParameterOfSubTypeFacts());
             ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithActionMethodHavingOneArgumentOfTypeFacts());
         } catch (Throwable throwable) {
             Assertions.fail("Should not throw exception for valid rule definitions");
