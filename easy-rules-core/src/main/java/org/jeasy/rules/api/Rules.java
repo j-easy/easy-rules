@@ -120,13 +120,6 @@ public class Rules implements Iterable<Rule> {
         return rules.iterator();
     }
 
-    /**
-     * Sort rules.
-     */
-    public void sort() {
-        rules = new TreeSet<>(rules);
-    }
-
     private Rule findRuleByName(String ruleName){
         for(Rule rule : rules){
             if(rule.getName().equalsIgnoreCase(ruleName))
