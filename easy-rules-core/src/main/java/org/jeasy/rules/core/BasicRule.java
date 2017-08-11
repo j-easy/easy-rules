@@ -34,7 +34,7 @@ import org.jeasy.rules.api.Rule;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class BasicRule implements Rule, Comparable<Rule> {
+public class BasicRule implements Rule {
 
     /**
      * Rule name.
