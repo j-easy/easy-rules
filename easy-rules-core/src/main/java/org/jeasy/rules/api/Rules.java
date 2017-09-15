@@ -43,7 +43,7 @@ public class Rules implements Iterable<Rule> {
      * @param rules to register
      */
     public Rules(Set<Rule> rules) {
-        this.rules = rules;
+        this.rules = new TreeSet<>(rules);
     }
 
     /**
