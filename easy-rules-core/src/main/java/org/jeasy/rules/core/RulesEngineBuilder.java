@@ -36,9 +36,9 @@ import java.util.List;
  */
 public class RulesEngineBuilder {
 
-    private RulesEngineParameters parameters;
+    private final RulesEngineParameters parameters;
 
-    private List<RuleListener> ruleListeners;
+    private final List<RuleListener> ruleListeners;
 
     /**
      * Create a new rules engine builder.
@@ -117,6 +117,15 @@ public class RulesEngineBuilder {
      */
     public RulesEngineBuilder withRuleListener(final RuleListener ruleListener) {
         this.ruleListeners.add(ruleListener);
+        return this;
+    }
+
+    /**
+     * @deprecated Silent mode is now log implementation config. Now it uses slf4j facade
+     * <strong>This will be removed in v3.2</strong>
+     */
+    @Deprecated
+    public RulesEngineBuilder withSilentMode(final boolean silentMode) {
         return this;
     }
 

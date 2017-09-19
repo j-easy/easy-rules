@@ -30,6 +30,7 @@
         <junit.version>4.12</junit.version>
         <assertj.version>2.6.0</assertj.version>
         <mockito.version>2.7.1</mockito.version>
+        <slf4j-api.version>1.7.25</slf4j-api.version>
         <maven-cobertura-plugin.version>2.7</maven-cobertura-plugin.version>
         <maven-coveralls-plugin.version>4.3.0</maven-coveralls-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
@@ -87,7 +88,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.25</version>
+                <version>${slf4j-api.version}</version>
             </dependency>
 
             <dependency>

@@ -35,13 +35,13 @@ class DefaultRuleListener implements RuleListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRuleListener.class);
 
     @Override
-    public boolean beforeEvaluate(Rule rule, Facts facts) {
+    public boolean beforeEvaluate(final Rule rule, final Facts facts) {
         return true;
     }
 
     @Override
-    public void afterEvaluate(Rule rule, Facts facts, boolean evaluationResult) {
-        String ruleName = rule.getName();
+    public void afterEvaluate(final Rule rule, final Facts facts, final boolean evaluationResult) {
+        final String ruleName = rule.getName();
         if (evaluationResult) {
             LOGGER.info("Rule ''{}'' triggered", ruleName);
         } else {
@@ -50,18 +50,19 @@ class DefaultRuleListener implements RuleListener {
     }
 
     @Override
-    public void beforeExecute(Rule rule, Facts facts) {
+    public void beforeExecute(final Rule rule, final Facts facts) {
 
     }
 
     @Override
-    public void onSuccess(Rule rule, Facts facts) {
+    public void onSuccess(final Rule rule, final Facts facts) {
         LOGGER.info("Rule ''{}'' performed successfully", rule.getName());
     }
 
     @Override
-    public void onFailure(Rule rule, Facts facts, Exception exception) {
-        LOGGER.info("Rule '{}' performed with error: {}",
-            rule.getName(), exception.getMessage());
+    public void onFailure(final Rule rule, final Facts facts, final Exception exception) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Rule '" + rule.getName() + "' performed with error", exception);
+        }
     }
 }
