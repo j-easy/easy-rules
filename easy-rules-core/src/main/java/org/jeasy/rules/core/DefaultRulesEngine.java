@@ -23,13 +23,17 @@
  */
 package org.jeasy.rules.core;
 
-import org.jeasy.rules.api.*;
-
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static java.lang.String.format;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.jeasy.rules.api.Facts;
+import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.api.RuleListener;
+import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.api.RulesEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Default {@link RulesEngine} implementation.
@@ -42,7 +46,7 @@ import static java.lang.String.format;
  */
 public final class DefaultRulesEngine implements RulesEngine {
 
-    private static final Logger LOGGER = Logger.getLogger(RulesEngine.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRuleListener.class);
 
     /**
      * The engine parameters
@@ -81,9 +85,6 @@ public final class DefaultRulesEngine implements RulesEngine {
         this.ruleListeners = new ArrayList<>();
         this.ruleListeners.add(new DefaultRuleListener());
         this.ruleListeners.addAll(ruleListeners);
-        if (parameters.isSilentMode()) {
-            Utils.muteLoggers();
-        }
     }
 
     @Override
@@ -99,7 +100,7 @@ public final class DefaultRulesEngine implements RulesEngine {
     @Override
     public void fire(Rules rules, Facts facts) {
         if (rules.isEmpty()) {
-            LOGGER.warning("No rules registered! Nothing to apply");
+            LOGGER.warn("No rules registered! Nothing to apply");
             return;
         }
         sort(rules);
@@ -132,13 +133,13 @@ public final class DefaultRulesEngine implements RulesEngine {
             final String name = rule.getName();
             final int priority = rule.getPriority();
             if (priority > parameters.getPriorityThreshold()) {
-                LOGGER.log(Level.INFO,
-                        "Rule priority threshold ({0}) exceeded at rule ''{1}'' with priority={2}, next rules will be skipped",
-                        new Object[]{parameters.getPriorityThreshold(), name, priority});
+                LOGGER.info("Rule priority threshold ({}) exceeded at rule ''{}'' with priority={}, next rules will be skipped",
+                        parameters.getPriorityThreshold(), name, priority);
                 break;
             }
             if (!shouldBeEvaluated(rule, facts)) {
-                LOGGER.log(Level.INFO, "Rule ''{0}'' has been skipped before being evaluated", name);
+                LOGGER.info("Rule ''{}'' has been skipped before being evaluated",
+                    name);
                 continue;
             }
             boolean evaluationResult;
@@ -146,7 +147,8 @@ public final class DefaultRulesEngine implements RulesEngine {
                 evaluationResult = rule.evaluate(facts);
             } catch (NoSuchFactException e) {
                 if (parameters.isSkipOnMissingFact()) {
-                    LOGGER.log(Level.INFO, "Rule ''{0}'' has been skipped due to missing fact ''{1}''", new Object[]{name, e.getMissingFact()});
+                    LOGGER.info("Rule ''{}'' has been skipped due to missing fact ''{}''",
+                        name, e.getMissingFact());
                     continue;
                 } else {
                     throw new RuntimeException(e);
@@ -217,29 +219,37 @@ public final class DefaultRulesEngine implements RulesEngine {
     }
 
     private void logEngineParameters() {
-        LOGGER.log(Level.INFO, "Rule priority threshold: {0}", parameters.getPriorityThreshold());
-        LOGGER.log(Level.INFO, "Skip on first applied rule: {0}", parameters.isSkipOnFirstAppliedRule());
-        LOGGER.log(Level.INFO, "Skip on first non triggered rule: {0}", parameters.isSkipOnFirstNonTriggeredRule());
-        LOGGER.log(Level.INFO, "Skip on first failed rule: {0}", parameters.isSkipOnFirstFailedRule());
-        LOGGER.log(Level.INFO, "Skip on missing fact: {0}", parameters.isSkipOnMissingFact());
+        LOGGER.info("Rule priority threshold: {}",
+            parameters.getPriorityThreshold());
+        LOGGER.info("Skip on first applied rule: {}",
+            parameters.isSkipOnFirstAppliedRule());
+        LOGGER.info("Skip on first non triggered rule: {}",
+            parameters.isSkipOnFirstNonTriggeredRule());
+        LOGGER.info("Skip on first failed rule: {}",
+            parameters.isSkipOnFirstFailedRule());
+        LOGGER.info("Skip on missing fact: {}",
+            parameters.isSkipOnMissingFact());
     }
 
     private void log(Rules rules) {
-        LOGGER.log(Level.INFO, "Registered rules:");
-        for (Rule rule : rules) {
-            LOGGER.log(Level.INFO, format("Rule { name = '%s', description = '%s', priority = '%s'}",
-                    rule.getName(), rule.getDescription(), rule.getPriority()));
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Registered rules:");
+            for (Rule rule : rules) {
+                LOGGER.info("Rule { name = '{}', description = '{}', priority = '{}'}",
+                    rule.getName(), rule.getDescription(), rule.getPriority());
+            }
         }
     }
 
     private void log(Facts facts) {
-        LOGGER.log(Level.INFO, "Known facts:");
-        for (Map.Entry<String, Object> fact : facts) {
-            LOGGER.log(Level.INFO, format("Fact { %s : %s }",
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Known facts:");
+            for (Map.Entry<String, Object> fact : facts) {
+                LOGGER.info("Fact { {} : {} }",
                     fact.getKey(),
-                    fact.getValue() == null ? "null" : fact.getValue().toString())
-            );
+                    fact.getValue() == null ? "null" : fact.getValue().toString()
+                );
+            }
         }
     }
-
 }

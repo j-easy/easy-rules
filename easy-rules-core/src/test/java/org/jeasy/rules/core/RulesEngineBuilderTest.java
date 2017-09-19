@@ -23,14 +23,14 @@
  */
 package org.jeasy.rules.core;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.jeasy.rules.api.RuleListener;
 import org.jeasy.rules.api.RulesEngine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RulesEngineBuilderTest {
@@ -64,7 +64,6 @@ public class RulesEngineBuilderTest {
         RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withRuleListener(ruleListener)
                 .withRulePriorityThreshold(expectedThreshold)
-                .withSilentMode(true)
                 .withSkipOnFirstNonTriggeredRule(true)
                 .withSkipOnFirstAppliedRule(true)
                 .withSkipOnFirstFailedRule(true)
@@ -74,7 +73,6 @@ public class RulesEngineBuilderTest {
         assertThat(rulesEngine).isNotNull();
         RulesEngineParameters parameters = rulesEngine.getParameters();
         assertThat(parameters.getPriorityThreshold()).isEqualTo(expectedThreshold);
-        assertThat(parameters.isSilentMode()).isTrue();
         assertThat(parameters.isSkipOnFirstAppliedRule()).isTrue();
         assertThat(parameters.isSkipOnFirstFailedRule()).isTrue();
         assertThat(parameters.isSkipOnFirstNonTriggeredRule()).isTrue();

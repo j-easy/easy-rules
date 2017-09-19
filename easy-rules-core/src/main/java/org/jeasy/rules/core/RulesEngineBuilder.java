@@ -50,7 +50,7 @@ public class RulesEngineBuilder {
     }
 
     private RulesEngineBuilder() {
-        parameters = new RulesEngineParameters(false, false, false, false, RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD, false);
+        parameters = new RulesEngineParameters(false, false, false, false, RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD);
         ruleListeners = new ArrayList<>();
     }
 
@@ -117,17 +117,6 @@ public class RulesEngineBuilder {
      */
     public RulesEngineBuilder withRuleListener(final RuleListener ruleListener) {
         this.ruleListeners.add(ruleListener);
-        return this;
-    }
-
-    /**
-     * Set silent mode to mute all loggers.
-     *
-     * @param silentMode to set
-     * @return the rules engine builder
-     */
-    public RulesEngineBuilder withSilentMode(final boolean silentMode) {
-        parameters.setSilentMode(silentMode);
         return this;
     }
 

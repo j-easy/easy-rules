@@ -61,11 +61,6 @@ public class RulesEngineParameters {
     private int priorityThreshold;
 
     /**
-     * Parameter to mute loggers.
-     */
-    private boolean silentMode;
-
-    /**
      * Create a new {@link RulesEngineParameters} with default values.
      */
     public RulesEngineParameters() {
@@ -74,15 +69,14 @@ public class RulesEngineParameters {
 
     /**
      * Create a new {@link RulesEngineParameters}
-     * @deprecated Use {@link RulesEngineParameters#RulesEngineParameters(boolean, boolean, boolean, boolean, int, boolean)} instead.
+     * @deprecated Use {@link RulesEngineParameters#RulesEngineParameters(boolean, boolean, boolean, boolean, int)} instead.
      * <strong>This constructor will be removed in v3.2</strong>
      */
     @Deprecated
-    public RulesEngineParameters(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, int priorityThreshold, boolean silentMode) {
+    public RulesEngineParameters(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, int priorityThreshold) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
         this.priorityThreshold = priorityThreshold;
-        this.silentMode = silentMode;
     }
 
     /**
@@ -93,15 +87,13 @@ public class RulesEngineParameters {
      * @param skipOnFirstNonTriggeredRule parameter to skip next applicable rules on first non triggered rule.
      * @param skipOnMissingFact parameter to skip a rule if a declared fact is missing.
      * @param priorityThreshold threshold after which rules should be skipped.
-     * @param silentMode parameter to mute all loggers.
      */
-    public RulesEngineParameters(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, boolean skipOnFirstNonTriggeredRule, boolean skipOnMissingFact, int priorityThreshold, boolean silentMode) {
+    public RulesEngineParameters(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, boolean skipOnFirstNonTriggeredRule, boolean skipOnMissingFact, int priorityThreshold) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
         this.skipOnFirstNonTriggeredRule = skipOnFirstNonTriggeredRule;
         this.skipOnMissingFact = skipOnMissingFact;
         this.priorityThreshold = priorityThreshold;
-        this.silentMode = silentMode;
     }
 
     public int getPriorityThreshold() {
@@ -110,14 +102,6 @@ public class RulesEngineParameters {
 
     public void setPriorityThreshold(int priorityThreshold) {
         this.priorityThreshold = priorityThreshold;
-    }
-
-    public boolean isSilentMode() {
-        return silentMode;
-    }
-
-    public void setSilentMode(boolean silentMode) {
-        this.silentMode = silentMode;
     }
 
     public boolean isSkipOnFirstAppliedRule() {
