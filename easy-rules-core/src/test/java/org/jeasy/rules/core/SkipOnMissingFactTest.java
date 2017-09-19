@@ -23,6 +23,8 @@
  */
 package org.jeasy.rules.core;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
@@ -31,8 +33,6 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test class of "skip on missing fact" parameter of Easy Rules default engine.
@@ -52,10 +52,10 @@ public class SkipOnMissingFactTest extends AbstractTest {
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withSkipOnMissingFact(true)
                 .build();
-        Facts facts = new Facts();
+        final Facts facts = new Facts();
         //facts.put("rain", true);
-        WeatherRule weatherRule = new WeatherRule();
-        Rules rules = new Rules(weatherRule);
+        final WeatherRule weatherRule = new WeatherRule();
+        final Rules rules = new Rules(weatherRule);
 
         // When
         rulesEngine.fire(rules, facts);
@@ -64,19 +64,19 @@ public class SkipOnMissingFactTest extends AbstractTest {
         assertThat(weatherRule.isExecuted()).isFalse();
     }
 
-    @Test(expected = RuntimeException.class)
-    public void whenSkipOnMissingFactIsNotActivated_thenShouldThrowAnException() throws Exception {
+    @Test
+    public void whenSkipOnMissingFactIsNotActivated_thenRuleShouldBeSkipped() throws Exception {
         // Given
-        Facts facts = new Facts();
+        final Facts facts = new Facts();
         //facts.put("rain", true);
-        WeatherRule weatherRule = new WeatherRule();
-        Rules rules = new Rules(weatherRule);
+        final WeatherRule weatherRule = new WeatherRule();
+        final Rules rules = new Rules(weatherRule);
 
         // When
         rulesEngine.fire(rules, facts);
 
         // Then
-        // expected exception
+        assertThat(weatherRule.isExecuted()).isFalse();
     }
 
     @Rule(name = "weather rule", description = "if it rains then take an umbrella" )
@@ -85,7 +85,7 @@ public class SkipOnMissingFactTest extends AbstractTest {
         private boolean executed = false;
 
         @Condition
-        public boolean itRains(@Fact("rain") boolean rain) {
+        public boolean itRains(@Fact("rain") final boolean rain) {
             return rain;
         }
 

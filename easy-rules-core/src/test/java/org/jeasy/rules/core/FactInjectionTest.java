@@ -23,6 +23,8 @@
  */
 package org.jeasy.rules.core;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
@@ -34,25 +36,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @RunWith(MockitoJUnitRunner.class)
 public class FactInjectionTest {
 
     @Test
     public void declaredFactsShouldBeCorrectlyInjectedByNameOrType() throws Exception {
         // Given
-        Object fact1 = new Object();
-        Object fact2 = new Object();
-        Facts facts = new Facts();
+        final Object fact1 = new Object();
+        final Object fact2 = new Object();
+        final Facts facts = new Facts();
         facts.put("fact1", fact1);
         facts.put("fact2", fact2);
 
-        DummyRule rule = new DummyRule();
-        Rules rules = new Rules(rule);
+        final DummyRule rule = new DummyRule();
+        final Rules rules = new Rules(rule);
 
         // When
-        RulesEngine rulesEngine = new DefaultRulesEngine();
+        final RulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.fire(rules, facts);
 
         // Then
@@ -64,16 +64,16 @@ public class FactInjectionTest {
     @Test
     public void rulesShouldBeExecutedWhenFactsAreCorrectlyInjected() throws Exception {
         // Given
-        Facts facts = new Facts();
+        final Facts facts = new Facts();
         facts.put("rain", true);
         facts.put("age", 18);
 
-        WeatherRule weatherRule = new WeatherRule();
-        AgeRule ageRule = new AgeRule();
-        Rules rules = new Rules(weatherRule, ageRule);
+        final WeatherRule weatherRule = new WeatherRule();
+        final AgeRule ageRule = new AgeRule();
+        final Rules rules = new Rules(weatherRule, ageRule);
 
         // When
-        RulesEngine rulesEngine = new DefaultRulesEngine();
+        final RulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.fire(rules, facts);
 
         // Then
@@ -81,19 +81,44 @@ public class FactInjectionTest {
         assertThat(weatherRule.isExecuted()).isTrue();
     }
 
-    @Test(expected = RuntimeException.class)
-    public void whenFactTypeDoesNotMatchParameterType_thenShouldThrowRuntimeException() throws Exception {
+    @Test
+    public void whenFactTypeDoesNotMatchParameterType_thenShouldFireRules() {
         // Given
-        Facts facts = new Facts();
+        final Facts facts = new Facts();
+        facts.put("rain", true);
         facts.put("age", "foo");
-        Rules rules = new Rules(new AgeRule());
-        RulesEngine rulesEngine = new DefaultRulesEngine();
+        final WeatherRule weatherRule = new WeatherRule();
+        final AgeRule ageRule = new AgeRule();
+        final Rules rules = new Rules(weatherRule, ageRule);
+        final RulesEngine rulesEngine = new DefaultRulesEngine();
 
         // When
         rulesEngine.fire(rules, facts);
 
         // Then
-        // expected exception
+        assertThat(ageRule.isExecuted()).isFalse();
+        assertThat(weatherRule.isExecuted()).isTrue();
+    }
+
+    @Test
+    public void whenFactTypeDoesNotMatchParameterType_thenShouldNotFireNextRules() {
+        // Given
+        final Facts facts = new Facts();
+        facts.put("rain", true);
+        facts.put("age", "foo");
+        final WeatherRule weatherRule = new WeatherRule();
+        final AgeRule ageRule = new AgeRule();
+        final Rules rules = new Rules(weatherRule, ageRule);
+        final RulesEngineParameters parameters = new RulesEngineParameters();
+        parameters.setSkipOnFirstFailedRule(true);
+        final RulesEngine rulesEngine = new DefaultRulesEngine(parameters);
+
+        // When
+        rulesEngine.fire(rules, facts);
+
+        // Then
+        assertThat(ageRule.isExecuted()).isFalse();
+        assertThat(weatherRule.isExecuted()).isFalse();
     }
 
     @Rule
@@ -103,14 +128,14 @@ public class FactInjectionTest {
         private Facts facts;
 
         @Condition
-        public boolean when(@Fact("fact1") Object fact1, @Fact("fact2") Object fact2) {
+        public boolean when(@Fact("fact1") final Object fact1, @Fact("fact2") final Object fact2) {
             this.fact1 = fact1;
             this.fact2 = fact2;
             return true;
         }
 
         @Action
-        public void then(Facts facts) {
+        public void then(final Facts facts) {
             this.facts = facts;
         }
 
@@ -133,7 +158,7 @@ public class FactInjectionTest {
         private boolean isExecuted;
 
         @Condition
-        public boolean isAdult(@Fact("age") int age) {
+        public boolean isAdult(@Fact("age") final int age) {
             return age >= 18;
         }
 
@@ -154,12 +179,12 @@ public class FactInjectionTest {
         private boolean isExecuted;
 
         @Condition
-        public boolean itRains(@Fact("rain") boolean rain) {
+        public boolean itRains(@Fact("rain") final boolean rain) {
             return rain;
         }
 
         @Action
-        public void takeAnUmbrella(Facts facts) {
+        public void takeAnUmbrella(final Facts facts) {
             System.out.println("It rains, take an umbrella!");
             isExecuted = true;
         }

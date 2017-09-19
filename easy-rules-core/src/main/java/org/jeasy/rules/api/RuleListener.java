@@ -49,6 +49,15 @@ public interface RuleListener {
     void afterEvaluate(Rule rule, Facts facts, boolean evaluationResult);
 
     /**
+     * Triggered after the evaluation of a rule has failed.
+     *
+     * @param rule      the current rule
+     * @param facts known facts after executing the rule
+     * @param exception the exception thrown when attempting to execute the rule
+     */
+    void onEvaluateFailure(Rule rule, Facts facts, Exception exception);
+
+    /**
      * Triggered before the execution of a rule.
      *
      * @param rule the current rule

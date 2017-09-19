@@ -50,6 +50,12 @@ class DefaultRuleListener implements RuleListener {
     }
 
     @Override
+    public void onEvaluateFailure(final Rule rule, final Facts facts, final Exception exception) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Rule '" + rule.getName() + "' evaluated with error", exception);
+        }
+    }
+
     public void beforeExecute(final Rule rule, final Facts facts) {
 
     }

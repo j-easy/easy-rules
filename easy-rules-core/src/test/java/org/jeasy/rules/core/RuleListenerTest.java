@@ -23,13 +23,17 @@
  */
 package org.jeasy.rules.core;
 
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.jeasy.rules.api.RuleListener;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-
-import static org.mockito.Mockito.*;
 
 /**
  * Test class of the execution of rule listeners.
@@ -62,7 +66,7 @@ public class RuleListenerTest extends AbstractTest {
         rulesEngine.fire(rules, facts);
 
         // Then
-        InOrder inOrder = inOrder(rule1, fact1, fact2, ruleListener1, ruleListener2);
+        final InOrder inOrder = inOrder(rule1, fact1, fact2, ruleListener1, ruleListener2);
         inOrder.verify(ruleListener1).beforeExecute(rule1, facts);
         inOrder.verify(ruleListener2).beforeExecute(rule1, facts);
         inOrder.verify(ruleListener1).onSuccess(rule1, facts);
@@ -81,11 +85,27 @@ public class RuleListenerTest extends AbstractTest {
         rulesEngine.fire(rules, facts);
 
         // Then
-        InOrder inOrder = inOrder(rule1, fact1, fact2, ruleListener1, ruleListener2);
+        final InOrder inOrder = inOrder(rule1, fact1, fact2, ruleListener1, ruleListener2);
         inOrder.verify(ruleListener1).beforeExecute(rule1, facts);
         inOrder.verify(ruleListener2).beforeExecute(rule1, facts);
         inOrder.verify(ruleListener1).onFailure(rule1, facts, exception);
         inOrder.verify(ruleListener2).onFailure(rule1, facts, exception);
+    }
+
+    @Test
+    public void whenTheRuleEvaluationFails_thenOnEvaluateFailureShouldBeExecuted() throws Exception {
+        // Given
+        final RuntimeException exception = new RuntimeException("fatal error!");
+        doThrow(exception).when(rule1).evaluate(facts);
+        rules.register(rule1);
+
+        // When
+        rulesEngine.fire(rules, facts);
+
+        // Then
+        final InOrder inOrder = inOrder(rule1, fact1, fact2, ruleListener1, ruleListener2);
+        inOrder.verify(ruleListener1).onEvaluateFailure(rule1, facts, exception);
+        inOrder.verify(ruleListener2).onEvaluateFailure(rule1, facts, exception);
     }
 
     @Test
