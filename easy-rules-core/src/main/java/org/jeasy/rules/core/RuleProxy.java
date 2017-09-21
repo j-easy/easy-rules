@@ -105,13 +105,14 @@ public class RuleProxy implements InvocationHandler {
             }
         }
         if (methodName.equals("equals")) {
-            return target.equals(args[0]);
+            Object otherRule = args[0];
+            return (otherRule instanceof Rule) ? equalsMethod((Rule) args[0]) : false;
         }
         if (methodName.equals("hashCode")) {
-            return target.hashCode();
+            return hashCodeMethod();
         }
         if (methodName.equals("toString")) {
-            return target.toString();
+            return toStringMethod();
         }
         if (methodName.equals("compareTo")) {
             Method compareToMethod = getCompareToMethod();
@@ -141,6 +142,35 @@ public class RuleProxy implements InvocationHandler {
             }
         }
         return actualParameters;
+    }
+
+    private boolean equalsMethod(final Rule otherRule) throws Exception {
+        int otherPriority = otherRule.getPriority();
+        int priority = getRulePriority();
+        if (priority != otherPriority) {
+            return false;
+        }
+        String otherName = otherRule.getName();
+        String name = getRuleName();
+        if (!name.equals(otherName)) {
+            return false;
+        }
+        String otherDescription = otherRule.getDescription();
+        String description =  getRuleDescription();
+        return !(description != null ? !description.equals(otherDescription) : otherDescription != null);
+    }
+
+    private int hashCodeMethod() throws Exception {
+        int result   = getRuleName().hashCode();
+        int priority = getRulePriority();
+        String description = getRuleDescription();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + priority;
+        return result;
+    }
+
+    private String toStringMethod(){
+       return getRuleName();
     }
 
     private int compareTo(final Rule otherRule) throws Exception {
