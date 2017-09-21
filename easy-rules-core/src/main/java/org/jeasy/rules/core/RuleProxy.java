@@ -105,8 +105,7 @@ public class RuleProxy implements InvocationHandler {
             }
         }
         if (methodName.equals("equals")) {
-            Object otherRule = args[0];
-            return (otherRule instanceof Rule) ? equalsMethod((Rule) args[0]) : false;
+            return (args[0] instanceof Rule) ? equalsMethod((Rule) args[0]) : false;
         }
         if (methodName.equals("hashCode")) {
             return hashCodeMethod();
