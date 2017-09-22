@@ -45,10 +45,6 @@ import static java.lang.String.format;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class RuleProxy implements InvocationHandler {
-    /**
-     * Invoke method names
-     */
-    private enum MethodName { getName, getDescription, getPriority, compareTo, evaluate, execute, equals, hashCode, toString }
 
     private Object target;
 
@@ -80,25 +76,25 @@ public class RuleProxy implements InvocationHandler {
 
     @Override
     public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-        MethodName methodName = MethodName.valueOf(method.getName());
+        String methodName = method.getName();
         switch (methodName) {
-            case getName :
+            case "getName":
                 return getRuleName();
-            case getDescription :
+            case "getDescription":
                 return getRuleDescription();
-            case getPriority :
+            case "getPriority":
                 return getRulePriority();
-            case compareTo :
+            case "compareTo":
                 return compareToMethod(args);
-            case evaluate :
+            case "evaluate":
                 return evaluateMethod(args);
-            case execute :
+            case "execute":
                 return executeMethod(args);
-            case equals :
+            case "equals":
                 return equalsMethod(args);
-            case hashCode :
+            case "hashCode":
                 return hashCodeMethod();
-            case toString :
+            case "toString":
                 return toStringMethod();
             default:
                 return null;
