@@ -32,6 +32,7 @@ import org.jeasy.rules.api.Rule;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.*;
@@ -76,55 +77,60 @@ public class RuleProxy implements InvocationHandler {
     @Override
     public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
         String methodName = method.getName();
-        if (methodName.equals("getName")) {
-            return getRuleName();
+        switch (methodName) {
+            case "getName":
+                return getRuleName();
+            case "getDescription":
+                return getRuleDescription();
+            case "getPriority":
+                return getRulePriority();
+            case "compareTo":
+                return compareToMethod(args);
+            case "evaluate":
+                return evaluateMethod(args);
+            case "execute":
+                return executeMethod(args);
+            case "equals":
+                return equalsMethod(args);
+            case "hashCode":
+                return hashCodeMethod();
+            case "toString":
+                return toStringMethod();
+            default:
+                return null;
         }
-        if (methodName.equals("getDescription")) {
-            return getRuleDescription();
+    }
+
+    private Object evaluateMethod(final Object[] args) throws IllegalAccessException, InvocationTargetException {
+        Facts facts = (Facts) args[0];
+        Method conditionMethod = getConditionMethod();
+        List<Object> actualParameters = getActualParameters(conditionMethod, facts);
+        try {
+            return conditionMethod.invoke(target, actualParameters.toArray()); // validated upfront
+        } catch (IllegalArgumentException e) {
+            String error = "Types of injected facts in method '%s' in rule '%s' do not match parameters types";
+            throw new RuntimeException(format(error, conditionMethod.getName(), target.getClass().getName()), e);
         }
-        if (methodName.equals("getPriority")) {
-            return getRulePriority();
-        }
-        if (methodName.equals("evaluate")) {
-            Facts facts = (Facts) args[0];
-            Method conditionMethod = getConditionMethod();
-            List<Object> actualParameters = getActualParameters(conditionMethod, facts);
-            try {
-                return conditionMethod.invoke(target, actualParameters.toArray()); // validated upfront
-            } catch (IllegalArgumentException e) {
-                String error = "Types of injected facts in method '%s' in rule '%s' do not match parameters types";
-                throw new RuntimeException(format(error, conditionMethod.getName(), target.getClass().getName()), e);
-            }
-        }
-        if (methodName.equals("execute")) {
-            for (ActionMethodOrderBean actionMethodBean : getActionMethodBeans()) {
-                Facts facts = (Facts) args[0];
-                Method actionMethod = actionMethodBean.getMethod();
-                List<Object> actualParameters = getActualParameters(actionMethod, facts);
-                actionMethod.invoke(target, actualParameters.toArray());
-            }
-        }
-        if (methodName.equals("equals")) {
-            return target.equals(args[0]);
-        }
-        if (methodName.equals("hashCode")) {
-            return target.hashCode();
-        }
-        if (methodName.equals("toString")) {
-            return target.toString();
-        }
-        if (methodName.equals("compareTo")) {
-            Method compareToMethod = getCompareToMethod();
-            if (compareToMethod != null) {
-                return compareToMethod.invoke(target, args);
-            } else {
-                Rule otherRule = (Rule) args[0];
-                return compareTo(otherRule);
-            }
+    }
+
+    private Object executeMethod(final Object[] args) throws IllegalAccessException, InvocationTargetException {
+        Facts facts = (Facts) args[0];
+        for (ActionMethodOrderBean actionMethodBean : getActionMethodBeans()) {
+            Method actionMethod = actionMethodBean.getMethod();
+            List<Object> actualParameters = getActualParameters(actionMethod, facts);
+            actionMethod.invoke(target, actualParameters.toArray());
         }
         return null;
     }
-
+    private Object compareToMethod(final Object[] args) throws Exception {
+        Method compareToMethod = getCompareToMethod();
+        if (compareToMethod != null) {
+            return compareToMethod.invoke(target, args);
+        } else {
+            Rule otherRule = (Rule) args[0];
+            return compareTo(otherRule);
+        }
+    }
     private List<Object> getActualParameters(Method method, Facts facts) {
         List<Object> actualParameters = new ArrayList<>();
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
@@ -141,6 +147,39 @@ public class RuleProxy implements InvocationHandler {
             }
         }
         return actualParameters;
+    }
+
+    private boolean equalsMethod(final Object[] args) throws Exception {
+        if (!(args[0] instanceof Rule)) {
+            return false;
+        }
+        Rule otherRule = (Rule) args[0];
+        int otherPriority = otherRule.getPriority();
+        int priority = getRulePriority();
+        if (priority != otherPriority) {
+            return false;
+        }
+        String otherName = otherRule.getName();
+        String name = getRuleName();
+        if (!name.equals(otherName)) {
+            return false;
+        }
+        String otherDescription = otherRule.getDescription();
+        String description =  getRuleDescription();
+        return !(description != null ? !description.equals(otherDescription) : otherDescription != null);
+    }
+
+    private int hashCodeMethod() throws Exception {
+        int result   = getRuleName().hashCode();
+        int priority = getRulePriority();
+        String description = getRuleDescription();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + priority;
+        return result;
+    }
+
+    private String toStringMethod(){
+       return getRuleName();
     }
 
     private int compareTo(final Rule otherRule) throws Exception {
