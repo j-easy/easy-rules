@@ -93,6 +93,19 @@ public class RulesTest {
         assertThat(rules).isEmpty();
     }
 
+    @Test
+    public void sort() throws Exception {
+        Rule r1 = new BasicRule("rule", "", 1);
+        Rule r2 = new BasicRule("rule", "", Integer.MAX_VALUE);
+        DummyRule r3 = new DummyRule();
+
+        rules.register(r3);
+        rules.register(r1);
+        rules.register(r2);
+
+        assertThat(rules).startsWith(r1).endsWith(r2);
+    }
+
     @Test(expected = NullPointerException.class)
     public void whenRegisterNullRule_thenShouldThrowNullPointerException() throws Exception {
         rules.register(null);

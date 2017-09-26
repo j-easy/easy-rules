@@ -102,7 +102,6 @@ public final class DefaultRulesEngine implements RulesEngine {
             LOGGER.warning("No rules registered! Nothing to apply");
             return;
         }
-        sort(rules);
         logEngineParameters();
         log(rules);
         log(facts);
@@ -112,7 +111,6 @@ public final class DefaultRulesEngine implements RulesEngine {
     @Override
     public Map<Rule, Boolean> check(Rules rules, Facts facts) {
         LOGGER.info("Checking rules");
-        sort(rules);
         Map<Rule, Boolean> result = new HashMap<>();
         for (Rule rule : rules) {
             if (shouldBeEvaluated(rule, facts)) {
@@ -120,10 +118,6 @@ public final class DefaultRulesEngine implements RulesEngine {
             }
         }
         return result;
-    }
-
-    private void sort(Rules rules) {
-        rules.sort();
     }
 
     private void apply(Rules rules, Facts facts) {
