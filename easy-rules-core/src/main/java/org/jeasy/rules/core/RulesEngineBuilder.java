@@ -36,9 +36,9 @@ import java.util.List;
  */
 public class RulesEngineBuilder {
 
-    private RulesEngineParameters parameters;
+    private final RulesEngineParameters parameters;
 
-    private List<RuleListener> ruleListeners;
+    private final List<RuleListener> ruleListeners;
 
     /**
      * Create a new rules engine builder.
@@ -50,7 +50,7 @@ public class RulesEngineBuilder {
     }
 
     private RulesEngineBuilder() {
-        parameters = new RulesEngineParameters(false, false, false, false, RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD, false);
+        parameters = new RulesEngineParameters(false, false, false, false, RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD);
         ruleListeners = new ArrayList<>();
     }
 
@@ -121,13 +121,11 @@ public class RulesEngineBuilder {
     }
 
     /**
-     * Set silent mode to mute all loggers.
-     *
-     * @param silentMode to set
-     * @return the rules engine builder
+     * @deprecated Silent mode is now log implementation config. Now it uses slf4j facade
+     * <strong>This will be removed in v3.2</strong>
      */
+    @Deprecated
     public RulesEngineBuilder withSilentMode(final boolean silentMode) {
-        parameters.setSilentMode(silentMode);
         return this;
     }
 

@@ -33,7 +33,7 @@ public class RulesEngineParameters {
     /**
      * Default rule priority threshold.
      */
-    public static int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
+    public static final int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
     
     /**
      * Parameter to skip next applicable rules when a rule is applied.
@@ -61,11 +61,6 @@ public class RulesEngineParameters {
     private int priorityThreshold;
 
     /**
-     * Parameter to mute loggers.
-     */
-    private boolean silentMode;
-
-    /**
      * Create a new {@link RulesEngineParameters} with default values.
      */
     public RulesEngineParameters() {
@@ -74,15 +69,24 @@ public class RulesEngineParameters {
 
     /**
      * Create a new {@link RulesEngineParameters}
-     * @deprecated Use {@link RulesEngineParameters#RulesEngineParameters(boolean, boolean, boolean, boolean, int, boolean)} instead.
+     * @deprecated Use {@link RulesEngineParameters#RulesEngineParameters(boolean, boolean, boolean, boolean, int)} instead.
      * <strong>This constructor will be removed in v3.2</strong>
      */
     @Deprecated
-    public RulesEngineParameters(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, int priorityThreshold, boolean silentMode) {
+    public RulesEngineParameters(final boolean skipOnFirstAppliedRule, final boolean skipOnFirstFailedRule, final int priorityThreshold, final boolean silentMode) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
         this.priorityThreshold = priorityThreshold;
-        this.silentMode = silentMode;
+    }
+
+    /**
+     * Create a new {@link RulesEngineParameters}.
+     * @deprecated Use {@link RulesEngineParameters#RulesEngineParameters(boolean, boolean, boolean, boolean, int)} instead.
+     * <strong>This constructor will be removed in v3.2</strong>
+     */
+    @Deprecated
+    public RulesEngineParameters(final boolean skipOnFirstAppliedRule, final boolean skipOnFirstFailedRule, final boolean skipOnFirstNonTriggeredRule, final boolean skipOnMissingFact, final int priorityThreshold, final boolean silentMode) {
+        this(skipOnFirstAppliedRule, skipOnFirstFailedRule, skipOnFirstNonTriggeredRule, skipOnMissingFact, priorityThreshold);
     }
 
     /**
@@ -93,38 +97,46 @@ public class RulesEngineParameters {
      * @param skipOnFirstNonTriggeredRule parameter to skip next applicable rules on first non triggered rule.
      * @param skipOnMissingFact parameter to skip a rule if a declared fact is missing.
      * @param priorityThreshold threshold after which rules should be skipped.
-     * @param silentMode parameter to mute all loggers.
      */
-    public RulesEngineParameters(boolean skipOnFirstAppliedRule, boolean skipOnFirstFailedRule, boolean skipOnFirstNonTriggeredRule, boolean skipOnMissingFact, int priorityThreshold, boolean silentMode) {
+    public RulesEngineParameters(final boolean skipOnFirstAppliedRule, final boolean skipOnFirstFailedRule, final boolean skipOnFirstNonTriggeredRule, final boolean skipOnMissingFact, final int priorityThreshold) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
         this.skipOnFirstNonTriggeredRule = skipOnFirstNonTriggeredRule;
         this.skipOnMissingFact = skipOnMissingFact;
         this.priorityThreshold = priorityThreshold;
-        this.silentMode = silentMode;
     }
 
     public int getPriorityThreshold() {
         return priorityThreshold;
     }
 
-    public void setPriorityThreshold(int priorityThreshold) {
-        this.priorityThreshold = priorityThreshold;
-    }
-
+    /**
+     * @deprecated Silent mode is now log implementation config. Now it uses slf4j facade
+     * <strong>This will be removed in v3.2</strong>
+     */
+    @Deprecated
     public boolean isSilentMode() {
-        return silentMode;
+        return false;
     }
 
-    public void setSilentMode(boolean silentMode) {
-        this.silentMode = silentMode;
+    /**
+     * @deprecated Silent mode is now log implementation config. Now it uses slf4j facade
+     * <strong>This will be removed in v3.2</strong>
+     */
+    @Deprecated
+    public void setSilentMode(final boolean silentMode) {
+
+    }
+
+    public void setPriorityThreshold(final int priorityThreshold) {
+        this.priorityThreshold = priorityThreshold;
     }
 
     public boolean isSkipOnFirstAppliedRule() {
         return skipOnFirstAppliedRule;
     }
 
-    public void setSkipOnFirstAppliedRule(boolean skipOnFirstAppliedRule) {
+    public void setSkipOnFirstAppliedRule(final boolean skipOnFirstAppliedRule) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
     }
 
@@ -132,7 +144,7 @@ public class RulesEngineParameters {
         return skipOnFirstNonTriggeredRule;
     }
 
-    public void setSkipOnFirstNonTriggeredRule(boolean skipOnFirstNonTriggeredRule) {
+    public void setSkipOnFirstNonTriggeredRule(final boolean skipOnFirstNonTriggeredRule) {
         this.skipOnFirstNonTriggeredRule = skipOnFirstNonTriggeredRule;
     }
 
@@ -140,7 +152,7 @@ public class RulesEngineParameters {
         return skipOnFirstFailedRule;
     }
 
-    public void setSkipOnFirstFailedRule(boolean skipOnFirstFailedRule) {
+    public void setSkipOnFirstFailedRule(final boolean skipOnFirstFailedRule) {
         this.skipOnFirstFailedRule = skipOnFirstFailedRule;
     }
 
@@ -148,7 +160,7 @@ public class RulesEngineParameters {
         return skipOnMissingFact;
     }
 
-    public void setSkipOnMissingFact(boolean skipOnMissingFact) {
+    public void setSkipOnMissingFact(final boolean skipOnMissingFact) {
         this.skipOnMissingFact = skipOnMissingFact;
     }
 }

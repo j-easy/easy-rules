@@ -23,53 +23,12 @@
  */
 package org.jeasy.rules.core;
 
-import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-
-import static java.util.Arrays.asList;
 
 final class Utils {
 
-    private static final Logger LOGGER = Logger.getLogger(Utils.class.getName());
-
-    static {
-        try {
-            if (System.getProperty("java.util.logging.config.file") == null &&
-                    System.getProperty("java.util.logging.config.class") == null) {
-                LogManager.getLogManager().readConfiguration(Utils.class.getResourceAsStream("/logging.properties"));
-            }
-        } catch (IOException e) {
-            LOGGER.log(Level.WARNING, "Unable to load logging configuration file", e);
-        }
-    }
-
     private Utils() {
 
-    }
-
-    static void muteLoggers() {
-        Enumeration<String> loggerNames = LogManager.getLogManager().getLoggerNames();
-        while (loggerNames.hasMoreElements()) {
-            String loggerName = loggerNames.nextElement();
-            if (loggerName.startsWith("org.jeasy.rules")) {
-                muteLogger(loggerName);
-            }
-        }
-    }
-
-    private static void muteLogger(final String logger) {
-        Logger.getLogger(logger).setUseParentHandlers(false);
-        Handler[] handlers = Logger.getLogger(logger).getHandlers();
-        for (Handler handler : handlers) {
-            Logger.getLogger(logger).removeHandler(handler);
-        }
     }
 
     static <A extends Annotation> A findAnnotation(final Class<A> targetAnnotation, final Class<?> annotatedType) {

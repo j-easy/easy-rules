@@ -23,15 +23,19 @@
  */
 package org.jeasy.rules.tutorials.web;
 
+import static org.jeasy.rules.core.RulesEngineBuilder.aNewRulesEngine;
+
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
-
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import java.io.IOException;
-
-import static org.jeasy.rules.core.RulesEngineBuilder.aNewRulesEngine;
 
 @WebFilter("/*")
 public class SuspiciousRequestFilter implements Filter {
@@ -41,7 +45,7 @@ public class SuspiciousRequestFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        rulesEngine = aNewRulesEngine().withSilentMode(true).build();
+        rulesEngine = aNewRulesEngine().build();
         rules = new Rules();
         rules.register(new SuspiciousRequestRule());
     }

@@ -27,40 +27,42 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.RuleListener;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class DefaultRuleListener implements RuleListener {
 
-    private static final Logger LOGGER = Logger.getLogger(DefaultRuleListener.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRuleListener.class);
 
     @Override
-    public boolean beforeEvaluate(Rule rule, Facts facts) {
+    public boolean beforeEvaluate(final Rule rule, final Facts facts) {
         return true;
     }
 
     @Override
-    public void afterEvaluate(Rule rule, Facts facts, boolean evaluationResult) {
-        String ruleName = rule.getName();
+    public void afterEvaluate(final Rule rule, final Facts facts, final boolean evaluationResult) {
+        final String ruleName = rule.getName();
         if (evaluationResult) {
-            LOGGER.log(Level.INFO, "Rule ''{0}'' triggered", ruleName);
+            LOGGER.info("Rule ''{}'' triggered", ruleName);
         } else {
-            LOGGER.log(Level.INFO, "Rule ''{0}'' has been evaluated to false, it has not been executed", ruleName);
+            LOGGER.info("Rule ''{}'' has been evaluated to false, it has not been executed", ruleName);
         }
     }
 
     @Override
-    public void beforeExecute(Rule rule, Facts facts) {
+    public void beforeExecute(final Rule rule, final Facts facts) {
 
     }
 
     @Override
-    public void onSuccess(Rule rule, Facts facts) {
-        LOGGER.log(Level.INFO, "Rule ''{0}'' performed successfully", rule.getName());
+    public void onSuccess(final Rule rule, final Facts facts) {
+        LOGGER.info("Rule ''{}'' performed successfully", rule.getName());
     }
 
     @Override
-    public void onFailure(Rule rule, Facts facts, Exception exception) {
-        LOGGER.log(Level.SEVERE, String.format("Rule '%s' performed with error", rule.getName()), exception);
+    public void onFailure(final Rule rule, final Facts facts, final Exception exception) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Rule '" + rule.getName() + "' performed with error", exception);
+        }
     }
 }
