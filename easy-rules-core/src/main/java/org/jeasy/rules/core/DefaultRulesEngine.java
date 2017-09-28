@@ -51,12 +51,12 @@ public final class DefaultRulesEngine implements RulesEngine {
     /**
      * The engine parameters
      */
-    private RulesEngineParameters parameters;
+    private final RulesEngineParameters parameters;
 
     /**
      * The registered rule listeners.
      */
-    private List<RuleListener> ruleListeners;
+    private final List<RuleListener> ruleListeners;
 
     /**
      * Create a new {@link DefaultRulesEngine} with default parameters.
@@ -98,7 +98,7 @@ public final class DefaultRulesEngine implements RulesEngine {
     }
 
     @Override
-    public void fire(Rules rules, Facts facts) {
+    public void fire(final Rules rules, final Facts facts) {
         if (rules.isEmpty()) {
             LOGGER.warn("No rules registered! Nothing to apply");
             return;
@@ -110,10 +110,10 @@ public final class DefaultRulesEngine implements RulesEngine {
     }
 
     @Override
-    public Map<Rule, Boolean> check(Rules rules, Facts facts) {
+    public Map<Rule, Boolean> check(final Rules rules, final Facts facts) {
         LOGGER.info("Checking rules");
-        Map<Rule, Boolean> result = new HashMap<>();
-        for (Rule rule : rules) {
+        final Map<Rule, Boolean> result = new HashMap<>();
+        for (final Rule rule : rules) {
             if (shouldBeEvaluated(rule, facts)) {
                 result.put(rule, rule.evaluate(facts));
             }
@@ -121,9 +121,9 @@ public final class DefaultRulesEngine implements RulesEngine {
         return result;
     }
 
-    private void apply(Rules rules, Facts facts) {
+    private void apply(final Rules rules, final Facts facts) {
         LOGGER.info("Rules evaluation started");
-        for (Rule rule : rules) {
+        for (final Rule rule : rules) {
             final String name = rule.getName();
             final int priority = rule.getPriority();
             if (priority > parameters.getPriorityThreshold()) {
@@ -136,17 +136,29 @@ public final class DefaultRulesEngine implements RulesEngine {
                     name);
                 continue;
             }
-            boolean evaluationResult;
+            final boolean evaluationResult;
             try {
                 evaluationResult = rule.evaluate(facts);
-            } catch (NoSuchFactException e) {
+            } catch (final NoSuchFactException e) {
                 if (parameters.isSkipOnMissingFact()) {
                     LOGGER.info("Rule ''{}'' has been skipped due to missing fact ''{}''",
                         name, e.getMissingFact());
                     continue;
                 } else {
-                    throw new RuntimeException(e);
+                    triggerListenersOnEvaluateFailure(rule, e, facts);
+                    if (parameters.isSkipOnFirstFailedRule()) {
+                        LOGGER.info("Next rules will be skipped since parameter skipOnFirstFailedRule is set");
+                        break;
+                    }
+                    continue;
                 }
+            } catch (final RuntimeException exception) {
+                triggerListenersOnEvaluateFailure(rule, exception, facts);
+                if (parameters.isSkipOnFirstFailedRule()) {
+                    LOGGER.info("Next rules will be skipped since parameter skipOnFirstFailedRule is set");
+                    break;
+                }
+                continue;
             }
             if (evaluationResult) {
                 triggerListenersAfterEvaluate(rule, facts, true);
@@ -158,7 +170,7 @@ public final class DefaultRulesEngine implements RulesEngine {
                         LOGGER.info("Next rules will be skipped since parameter skipOnFirstAppliedRule is set");
                         break;
                     }
-                } catch (Exception exception) {
+                } catch (final Exception exception) {
                     triggerListenersOnFailure(rule, exception, facts);
                     if (parameters.isSkipOnFirstFailedRule()) {
                         LOGGER.info("Next rules will be skipped since parameter skipOnFirstFailedRule is set");
@@ -175,26 +187,32 @@ public final class DefaultRulesEngine implements RulesEngine {
         }
     }
 
-    private void triggerListenersOnFailure(final Rule rule, final Exception exception, Facts facts) {
-        for (RuleListener ruleListener : ruleListeners) {
+    private void triggerListenersOnEvaluateFailure(final Rule rule, final Exception exception, final Facts facts) {
+        for (final RuleListener ruleListener : ruleListeners) {
+            ruleListener.onEvaluateFailure(rule, facts, exception);
+        }
+    }
+
+    private void triggerListenersOnFailure(final Rule rule, final Exception exception, final Facts facts) {
+        for (final RuleListener ruleListener : ruleListeners) {
             ruleListener.onFailure(rule, facts, exception);
         }
     }
 
-    private void triggerListenersOnSuccess(final Rule rule, Facts facts) {
-        for (RuleListener ruleListener : ruleListeners) {
+    private void triggerListenersOnSuccess(final Rule rule, final Facts facts) {
+        for (final RuleListener ruleListener : ruleListeners) {
             ruleListener.onSuccess(rule, facts);
         }
     }
 
-    private void triggerListenersBeforeExecute(final Rule rule, Facts facts) {
-        for (RuleListener ruleListener : ruleListeners) {
+    private void triggerListenersBeforeExecute(final Rule rule, final Facts facts) {
+        for (final RuleListener ruleListener : ruleListeners) {
             ruleListener.beforeExecute(rule, facts);
         }
     }
 
-    private boolean triggerListenersBeforeEvaluate(Rule rule, Facts facts) {
-        for (RuleListener ruleListener : ruleListeners) {
+    private boolean triggerListenersBeforeEvaluate(final Rule rule, final Facts facts) {
+        for (final RuleListener ruleListener : ruleListeners) {
             if (!ruleListener.beforeEvaluate(rule, facts)) {
                 return false;
             }
@@ -202,13 +220,13 @@ public final class DefaultRulesEngine implements RulesEngine {
         return true;
     }
 
-    private void triggerListenersAfterEvaluate(Rule rule, Facts facts, boolean evaluationResult) {
-        for (RuleListener ruleListener : ruleListeners) {
+    private void triggerListenersAfterEvaluate(final Rule rule, final Facts facts, final boolean evaluationResult) {
+        for (final RuleListener ruleListener : ruleListeners) {
             ruleListener.afterEvaluate(rule, facts, evaluationResult);
         }
     }
 
-    private boolean shouldBeEvaluated(Rule rule, Facts facts) {
+    private boolean shouldBeEvaluated(final Rule rule, final Facts facts) {
         return triggerListenersBeforeEvaluate(rule, facts);
     }
 
@@ -225,20 +243,20 @@ public final class DefaultRulesEngine implements RulesEngine {
             parameters.isSkipOnMissingFact());
     }
 
-    private void log(Rules rules) {
+    private void log(final Rules rules) {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Registered rules:");
-            for (Rule rule : rules) {
+            for (final Rule rule : rules) {
                 LOGGER.info("Rule { name = '{}', description = '{}', priority = '{}'}",
                     rule.getName(), rule.getDescription(), rule.getPriority());
             }
         }
     }
 
-    private void log(Facts facts) {
+    private void log(final Facts facts) {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Known facts:");
-            for (Map.Entry<String, Object> fact : facts) {
+            for (final Map.Entry<String, Object> fact : facts) {
                 LOGGER.info("Fact { {} : {} }",
                     fact.getKey(),
                     fact.getValue() == null ? "null" : fact.getValue().toString()
