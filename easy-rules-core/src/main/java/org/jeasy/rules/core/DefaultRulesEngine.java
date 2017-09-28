@@ -152,7 +152,7 @@ public final class DefaultRulesEngine implements RulesEngine {
                     }
                     continue;
                 }
-            } catch (final Exception exception) {
+            } catch (final RuntimeException exception) {
                 triggerListenersOnEvaluateFailure(rule, exception, facts);
                 if (parameters.isSkipOnFirstFailedRule()) {
                     LOGGER.info("Next rules will be skipped since parameter skipOnFirstFailedRule is set");
