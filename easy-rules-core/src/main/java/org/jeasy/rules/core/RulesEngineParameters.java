@@ -68,28 +68,6 @@ public class RulesEngineParameters {
     }
 
     /**
-     * Create a new {@link RulesEngineParameters}
-     * @deprecated Use {@link RulesEngineParameters#RulesEngineParameters(boolean, boolean, boolean, boolean, int)} instead.
-     * <strong>This constructor will be removed in v3.2</strong>
-     */
-    @Deprecated
-    public RulesEngineParameters(final boolean skipOnFirstAppliedRule, final boolean skipOnFirstFailedRule, final int priorityThreshold, final boolean silentMode) {
-        this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;
-        this.skipOnFirstFailedRule = skipOnFirstFailedRule;
-        this.priorityThreshold = priorityThreshold;
-    }
-
-    /**
-     * Create a new {@link RulesEngineParameters}.
-     * @deprecated Use {@link RulesEngineParameters#RulesEngineParameters(boolean, boolean, boolean, boolean, int)} instead.
-     * <strong>This constructor will be removed in v3.2</strong>
-     */
-    @Deprecated
-    public RulesEngineParameters(final boolean skipOnFirstAppliedRule, final boolean skipOnFirstFailedRule, final boolean skipOnFirstNonTriggeredRule, final boolean skipOnMissingFact, final int priorityThreshold, final boolean silentMode) {
-        this(skipOnFirstAppliedRule, skipOnFirstFailedRule, skipOnFirstNonTriggeredRule, skipOnMissingFact, priorityThreshold);
-    }
-
-    /**
      * Create a new {@link RulesEngineParameters}.
      *
      * @param skipOnFirstAppliedRule parameter to skip next applicable rules on first applied rule.
@@ -108,24 +86,6 @@ public class RulesEngineParameters {
 
     public int getPriorityThreshold() {
         return priorityThreshold;
-    }
-
-    /**
-     * @deprecated Silent mode is now log implementation config. Now it uses slf4j facade
-     * <strong>This will be removed in v3.2</strong>
-     */
-    @Deprecated
-    public boolean isSilentMode() {
-        return false;
-    }
-
-    /**
-     * @deprecated Silent mode is now log implementation config. Now it uses slf4j facade
-     * <strong>This will be removed in v3.2</strong>
-     */
-    @Deprecated
-    public void setSilentMode(final boolean silentMode) {
-
     }
 
     public void setPriorityThreshold(final int priorityThreshold) {

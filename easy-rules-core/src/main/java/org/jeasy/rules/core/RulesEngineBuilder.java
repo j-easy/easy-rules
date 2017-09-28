@@ -121,15 +121,6 @@ public class RulesEngineBuilder {
     }
 
     /**
-     * @deprecated Silent mode is now log implementation config. Now it uses slf4j facade
-     * <strong>This will be removed in v3.2</strong>
-     */
-    @Deprecated
-    public RulesEngineBuilder withSilentMode(final boolean silentMode) {
-        return this;
-    }
-
-    /**
      * Build a rules engine instance.
      *
      * @return a rules engine instance
