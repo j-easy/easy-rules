@@ -136,19 +136,7 @@ public final class DefaultRulesEngine implements RulesEngine {
                     name);
                 continue;
             }
-            boolean evaluationResult;
-            try {
-                evaluationResult = rule.evaluate(facts);
-            } catch (NoSuchFactException e) {
-                if (parameters.isSkipOnMissingFact()) {
-                    LOGGER.info("Rule ''{}'' has been skipped due to missing fact ''{}''",
-                        name, e.getMissingFact());
-                    continue;
-                } else {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (evaluationResult) {
+            if (rule.evaluate(facts)) {
                 triggerListenersAfterEvaluate(rule, facts, true);
                 try {
                     triggerListenersBeforeExecute(rule, facts);
@@ -221,8 +209,6 @@ public final class DefaultRulesEngine implements RulesEngine {
             parameters.isSkipOnFirstNonTriggeredRule());
         LOGGER.info("Skip on first failed rule: {}",
             parameters.isSkipOnFirstFailedRule());
-        LOGGER.info("Skip on missing fact: {}",
-            parameters.isSkipOnMissingFact());
     }
 
     private void log(Rules rules) {

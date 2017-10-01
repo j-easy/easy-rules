@@ -96,6 +96,36 @@ public class FactInjectionTest {
         // expected exception
     }
 
+    @Test
+    public void whenADeclaredFactIsMissingInEvaluateMethod_thenTheRuleShouldNotBeExecuted() throws Exception {
+        // Given
+        Facts facts = new Facts();
+        AgeRule ageRule = new AgeRule();
+        Rules rules = new Rules(ageRule);
+        RulesEngine rulesEngine = new DefaultRulesEngine();
+
+        // When
+        rulesEngine.fire(rules, facts);
+
+        // Then
+        assertThat(ageRule.isExecuted()).isFalse();
+    }
+
+    @Test
+    public void whenADeclaredFactIsMissingInExecuteMethod_thenTheRuleShouldNotBeExecuted() throws Exception {
+        // Given
+        Facts facts = new Facts();
+        AnotherDummyRule rule = new AnotherDummyRule();
+        Rules rules = new Rules(rule);
+        RulesEngine rulesEngine = new DefaultRulesEngine();
+
+        // When
+        rulesEngine.fire(rules, facts);
+
+        // Then
+        assertThat(rule.isExecuted()).isFalse();
+    }
+
     @Rule
     class DummyRule {
 
@@ -125,6 +155,27 @@ public class FactInjectionTest {
         public Facts getFacts() {
             return facts;
         }
+    }
+
+    @Rule
+    class AnotherDummyRule {
+
+        private boolean isExecuted;
+
+        @Condition
+        public boolean when() {
+            return true;
+        }
+
+        @Action
+        public void then(@Fact("foo") Object fact) {
+            isExecuted = true;
+        }
+
+        public boolean isExecuted() {
+            return isExecuted;
+        }
+
     }
 
     @Rule

@@ -29,6 +29,8 @@ import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Priority;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
@@ -49,6 +51,8 @@ public class RuleProxy implements InvocationHandler {
     private Object target;
 
     private static RuleDefinitionValidator ruleDefinitionValidator = new RuleDefinitionValidator();
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RuleProxy.class);
 
     private RuleProxy(final Object target) {
         this.target = target;
@@ -104,12 +108,16 @@ public class RuleProxy implements InvocationHandler {
     private Object evaluateMethod(final Object[] args) throws IllegalAccessException, InvocationTargetException {
         Facts facts = (Facts) args[0];
         Method conditionMethod = getConditionMethod();
-        List<Object> actualParameters = getActualParameters(conditionMethod, facts);
         try {
+            List<Object> actualParameters = getActualParameters(conditionMethod, facts);
             return conditionMethod.invoke(target, actualParameters.toArray()); // validated upfront
+        } catch (NoSuchFactException e) {
+            LOGGER.info("Rule '{}' has been evaluated to false due to a declared but missing fact '{}' in {}",
+                    getTargetClass().getName(), e.getMissingFact(), facts);
+            return false;
         } catch (IllegalArgumentException e) {
             String error = "Types of injected facts in method '%s' in rule '%s' do not match parameters types";
-            throw new RuntimeException(format(error, conditionMethod.getName(), target.getClass().getName()), e);
+            throw new RuntimeException(format(error, conditionMethod.getName(), getTargetClass().getName()), e);
         }
     }
 
@@ -139,7 +147,7 @@ public class RuleProxy implements InvocationHandler {
                 String factName = ((Fact) (annotations[0])).value(); //validated upfront.
                 Object fact = facts.get(factName);
                 if (fact == null) {
-                    throw new NoSuchFactException(format("No fact named %s found in known facts: \n%s", factName, facts), factName);
+                    throw new NoSuchFactException(format("No fact named '%s' found in known facts: \n%s", factName, facts), factName);
                 }
                 actualParameters.add(fact);
             } else {

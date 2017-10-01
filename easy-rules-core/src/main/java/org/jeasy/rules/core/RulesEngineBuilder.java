@@ -50,7 +50,7 @@ public class RulesEngineBuilder {
     }
 
     private RulesEngineBuilder() {
-        parameters = new RulesEngineParameters(false, false, false, false, RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD);
+        parameters = new RulesEngineParameters(false, false, false, RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD);
         ruleListeners = new ArrayList<>();
     }
 
@@ -84,17 +84,6 @@ public class RulesEngineBuilder {
      */
     public RulesEngineBuilder withSkipOnFirstFailedRule(final boolean skipOnFirstFailedRule) {
         parameters.setSkipOnFirstFailedRule(skipOnFirstFailedRule);
-        return this;
-    }
-
-    /**
-     * Set <code>skipOnMissingFact</code> parameter.
-     *
-     * @param skipOnMissingFact to set
-     * @return the rules engine builder
-     */
-    public RulesEngineBuilder withSkipOnMissingFact(final boolean skipOnMissingFact) {
-        parameters.setSkipOnMissingFact(skipOnMissingFact);
         return this;
     }
 
