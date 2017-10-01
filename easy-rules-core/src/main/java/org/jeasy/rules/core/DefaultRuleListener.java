@@ -43,9 +43,9 @@ class DefaultRuleListener implements RuleListener {
     public void afterEvaluate(final Rule rule, final Facts facts, final boolean evaluationResult) {
         final String ruleName = rule.getName();
         if (evaluationResult) {
-            LOGGER.info("Rule ''{}'' triggered", ruleName);
+            LOGGER.info("Rule '{}' triggered", ruleName);
         } else {
-            LOGGER.info("Rule ''{}'' has been evaluated to false, it has not been executed", ruleName);
+            LOGGER.info("Rule '{}' has been evaluated to false, it has not been executed", ruleName);
         }
     }
 
@@ -56,13 +56,11 @@ class DefaultRuleListener implements RuleListener {
 
     @Override
     public void onSuccess(final Rule rule, final Facts facts) {
-        LOGGER.info("Rule ''{}'' performed successfully", rule.getName());
+        LOGGER.info("Rule '{}' performed successfully", rule.getName());
     }
 
     @Override
     public void onFailure(final Rule rule, final Facts facts, final Exception exception) {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Rule '" + rule.getName() + "' performed with error", exception);
-        }
+        LOGGER.info("Rule '" + rule.getName() + "' performed with error", exception);
     }
 }

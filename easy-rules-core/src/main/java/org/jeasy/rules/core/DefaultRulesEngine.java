@@ -127,12 +127,12 @@ public final class DefaultRulesEngine implements RulesEngine {
             final String name = rule.getName();
             final int priority = rule.getPriority();
             if (priority > parameters.getPriorityThreshold()) {
-                LOGGER.info("Rule priority threshold ({}) exceeded at rule ''{}'' with priority={}, next rules will be skipped",
+                LOGGER.info("Rule priority threshold ({}) exceeded at rule '{}' with priority={}, next rules will be skipped",
                         parameters.getPriorityThreshold(), name, priority);
                 break;
             }
             if (!shouldBeEvaluated(rule, facts)) {
-                LOGGER.info("Rule ''{}'' has been skipped before being evaluated",
+                LOGGER.info("Rule '{}' has been skipped before being evaluated",
                     name);
                 continue;
             }
