@@ -219,9 +219,7 @@ public final class DefaultRulesEngine implements RulesEngine {
             LOGGER.info("Known facts:");
             for (Map.Entry<String, Object> fact : facts) {
                 LOGGER.info("Fact { {} : {} }",
-                    fact.getKey(),
-                    fact.getValue() == null ? "null" : fact.getValue().toString()
-                );
+                    fact.getKey(), String.valueOf(fact.getValue()));
             }
         }
     }
