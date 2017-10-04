@@ -26,6 +26,7 @@ package org.jeasy.rules.core;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -128,14 +129,14 @@ public class PathRule extends CompositeRule {
 
         PathRule pathRule = (PathRule) o;
         return primaryRule.equals(pathRule.primaryRule) &&
-                successfulEvaluations.equals(pathRule.successfulEvaluations);
+                rules.equals(pathRule.rules);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (primaryRule == null ? 0 : primaryRule.hashCode());
-        result = 31 * result + (successfulEvaluations == null ? 0 : successfulEvaluations.hashCode());
+        result = 31 * result + (rules == null ? 0 : rules.hashCode());
         return result;
     }
 

@@ -183,6 +183,27 @@ public class PathRuleTest extends AbstractTest {
         assertThat(annotatedRule.isExecuted()).isFalse();
     }
 
+    @Test
+    public void testEquals() {
+        MyRule myRule = new MyRule();
+        assertThat(pathRule.equals(myRule)).isFalse();
+        assertThat(pathRule.equals(pathRule)).isTrue();
+        PathRule pathRule2 = new PathRule(primaryRule);
+        assertThat(pathRule.equals(pathRule2)).isTrue();
+        pathRule2.addRule(myRule);
+        assertThat(pathRule.equals(pathRule2)).isFalse();
+        assertThat(pathRule2.equals(pathRule)).isFalse();
+    }
+
+    @Test
+    public void testHashCode() {
+        assertThat(pathRule.hashCode()).isNotEqualTo(0);
+        PathRule pathRule2 = new PathRule(primaryRule);
+        assertThat(pathRule.hashCode()).isEqualTo(pathRule2.hashCode());
+        pathRule2.addRule(new MyRule());
+        assertThat(pathRule.hashCode()).isNotEqualTo(pathRule2.hashCode());
+    }
+
     @Rule
     class MyRule {
         boolean executed;
