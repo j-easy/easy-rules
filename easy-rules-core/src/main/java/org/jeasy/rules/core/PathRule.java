@@ -39,7 +39,7 @@ import java.util.Set;
 public class PathRule extends CompositeRule {
 
     private Rule primaryRule;
-    private Set<Rule> succesfullEvaluations;
+    private Set<Rule> successfulEvaluations;
 
     /**
      * Create a new {@link PathRule}.
@@ -86,11 +86,11 @@ public class PathRule extends CompositeRule {
      */
     @Override
     public boolean evaluate(Facts facts) {
-        succesfullEvaluations = new HashSet<>();
+        successfulEvaluations = new HashSet<>();
         if (primaryRule.evaluate(facts)) {
             for (Rule rule : rules) {
                 if (rule.evaluate(facts)) {
-                    succesfullEvaluations.add(rule);
+                    successfulEvaluations.add(rule);
                 }
             }
             return true;
@@ -109,10 +109,34 @@ public class PathRule extends CompositeRule {
     @Override
     public void execute(Facts facts) throws Exception {
         primaryRule.execute(facts);
-        for (Rule rule : succesfullEvaluations) {
+        for (Rule rule : successfulEvaluations) {
             rule.execute(facts);
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        PathRule pathRule = (PathRule) o;
+        return primaryRule.equals(pathRule.primaryRule) &&
+                successfulEvaluations.equals(pathRule.successfulEvaluations);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (primaryRule == null ? 0 : primaryRule.hashCode());
+        result = 31 * result + (successfulEvaluations == null ? 0 : successfulEvaluations.hashCode());
+        return result;
+    }
 
 }
