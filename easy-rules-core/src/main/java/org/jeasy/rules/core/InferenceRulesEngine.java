@@ -88,7 +88,11 @@ public final class InferenceRulesEngine implements RulesEngine {
         do {
             LOGGER.info("Selecting candidate rules based on the following {}", facts);
             selectedRules = selectCandidates(rules, facts);
-            delegate.apply(new Rules(selectedRules), facts);
+            if(!selectedRules.isEmpty()) {
+                delegate.apply(new Rules(selectedRules), facts);
+            } else {
+                LOGGER.info("No candidate rules found for {}", facts);
+            }
         } while (!selectedRules.isEmpty());
     }
 
