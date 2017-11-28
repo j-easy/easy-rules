@@ -15,7 +15,7 @@ import java.util.*;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class InferenceRulesEngine implements RulesEngine {
+public final class InferenceRulesEngine implements RulesEngine {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InferenceRulesEngine.class);
 
