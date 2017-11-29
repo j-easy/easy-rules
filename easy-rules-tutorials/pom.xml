@@ -18,6 +18,7 @@
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
         <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
+        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <scm>
@@ -62,6 +63,13 @@
             <artifactId>easy-rules-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>javax.servlet</groupId>
