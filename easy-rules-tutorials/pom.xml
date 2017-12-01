@@ -172,6 +172,28 @@
             </build>
         </profile>
         <profile>
+            <id>runAircoTutorial</id>
+            <build>
+                <defaultGoal>exec:java</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>${maven-exec-plugin.version}</version>
+                        <configuration>
+                            <mainClass>org.jeasy.rules.tutorials.airco.Launcher</mainClass>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>java.util.logging.SimpleFormatter.format</key>
+                                    <value>[%1$tc] %4$s: %5$s%n</value>
+                                </systemProperty>
+                            </systemProperties>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>runShopTutorial</id>
             <build>
                 <defaultGoal>exec:java</defaultGoal>
