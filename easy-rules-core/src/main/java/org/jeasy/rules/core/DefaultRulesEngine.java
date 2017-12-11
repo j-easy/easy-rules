@@ -92,6 +92,7 @@ public final class DefaultRulesEngine implements RulesEngine {
         this.ruleListeners.add(new DefaultRuleListener());
         this.ruleListeners.addAll(ruleListeners);
         this.rulesEngineListeners = new ArrayList<>();
+        this.rulesEngineListeners.add(new DefaultRulesEngineListener(parameters));
         this.rulesEngineListeners.addAll(rulesEngineListeners);
     }
 
@@ -113,33 +114,11 @@ public final class DefaultRulesEngine implements RulesEngine {
     @Override
     public void fire(Rules rules, Facts facts) {
         triggerListenersBeforeRules(rules, facts);
-        if (rules.isEmpty()) {
-            LOGGER.warn("No rules registered! Nothing to apply");
-            return;
-        }
-        logEngineParameters();
-        log(rules);
-        log(facts);
         apply(rules, facts);
         triggerListenersAfterRules(rules, facts);
     }
 
-    @Override
-    public Map<Rule, Boolean> check(Rules rules, Facts facts) {
-        triggerListenersBeforeRules(rules, facts);
-        LOGGER.info("Checking rules");
-        Map<Rule, Boolean> result = new HashMap<>();
-        for (Rule rule : rules) {
-            if (shouldBeEvaluated(rule, facts)) {
-                result.put(rule, rule.evaluate(facts));
-            }
-        }
-        triggerListenersAfterRules(rules, facts);
-        return result;
-    }
-
     void apply(Rules rules, Facts facts) {
-        LOGGER.info("Rules evaluation started");
         for (Rule rule : rules) {
             final String name = rule.getName();
             final int priority = rule.getPriority();
@@ -178,6 +157,25 @@ public final class DefaultRulesEngine implements RulesEngine {
                 }
             }
         }
+    }
+
+    @Override
+    public Map<Rule, Boolean> check(Rules rules, Facts facts) {
+        triggerListenersBeforeRules(rules, facts);
+        Map<Rule, Boolean> result = doCheck(rules, facts);
+        triggerListenersAfterRules(rules, facts);
+        return result;
+    }
+
+    private Map<Rule, Boolean> doCheck(Rules rules, Facts facts) {
+        LOGGER.info("Checking rules");
+        Map<Rule, Boolean> result = new HashMap<>();
+        for (Rule rule : rules) {
+            if (shouldBeEvaluated(rule, facts)) {
+                result.put(rule, rule.evaluate(facts));
+            }
+        }
+        return result;
     }
 
     private void triggerListenersOnFailure(final Rule rule, final Exception exception, Facts facts) {
@@ -229,27 +227,4 @@ public final class DefaultRulesEngine implements RulesEngine {
         return triggerListenersBeforeEvaluate(rule, facts);
     }
 
-    private void logEngineParameters() {
-        LOGGER.info(parameters.toString());
-    }
-
-    private void log(Rules rules) {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Registered rules:");
-            for (Rule rule : rules) {
-                LOGGER.info("Rule { name = '{}', description = '{}', priority = '{}'}",
-                    rule.getName(), rule.getDescription(), rule.getPriority());
-            }
-        }
-    }
-
-    private void log(Facts facts) {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Known facts:");
-            for (Map.Entry<String, Object> fact : facts) {
-                LOGGER.info("Fact { {} : {} }",
-                    fact.getKey(), String.valueOf(fact.getValue()));
-            }
-        }
-    }
 }
