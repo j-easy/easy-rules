@@ -1,0 +1,113 @@
+/**
+ * The MIT License
+ *
+ *  Copyright (c) 2017, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in
+ *  all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
+ */
+package org.jeasy.rules.core;
+
+import org.jeasy.rules.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.*;
+
+/**
+ * Inference {@link RulesEngine} implementation.
+ *
+ * Rules are selected based on given facts and fired according to their natural order which is priority by default.
+ *
+ * The engine continuously select and fire rules until no more rules are applicable.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ */
+public final class InferenceRulesEngine implements RulesEngine {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(InferenceRulesEngine.class);
+
+    private RulesEngineParameters parameters;
+    private List<RuleListener> ruleListeners;
+    private DefaultRulesEngine delegate;
+
+    /**
+     * Create a new inference rules engine with default parameters.
+     */
+    public InferenceRulesEngine() {
+        this(new RulesEngineParameters());
+    }
+
+    /**
+     * Create a new inference rules engine.
+     * @param parameters of the engine
+     */
+    public InferenceRulesEngine(RulesEngineParameters parameters) {
+        this(parameters, new ArrayList<RuleListener>());
+    }
+
+    /**
+     * Create a new inference rules engine.
+     * @param parameters of the engine
+     * @param ruleListeners to apply for each rule
+     */
+    public InferenceRulesEngine(RulesEngineParameters parameters, List<RuleListener> ruleListeners) {
+        this.parameters = parameters;
+        this.ruleListeners = ruleListeners;
+        delegate = new DefaultRulesEngine(parameters, ruleListeners);
+    }
+
+    @Override
+    public RulesEngineParameters getParameters() {
+        return parameters;
+    }
+
+    @Override
+    public List<RuleListener> getRuleListeners() {
+        return ruleListeners;
+    }
+
+    @Override
+    public void fire(Rules rules, Facts facts) {
+        Set<Rule> selectedRules;
+        do {
+            LOGGER.info("Selecting candidate rules based on the following {}", facts);
+            selectedRules = selectCandidates(rules, facts);
+            if(!selectedRules.isEmpty()) {
+                delegate.apply(new Rules(selectedRules), facts);
+            } else {
+                LOGGER.info("No candidate rules found for {}", facts);
+            }
+        } while (!selectedRules.isEmpty());
+    }
+
+    private Set<Rule> selectCandidates(Rules rules, Facts facts) {
+        Set<Rule> candidates = new TreeSet<>();
+        for (Rule rule : rules) {
+            if (rule.evaluate(facts)) {
+                candidates.add(rule);
+            }
+        }
+        return candidates;
+    }
+
+    @Override
+    public Map<Rule, Boolean> check(Rules rules, Facts facts) {
+        return delegate.check(rules, facts);
+    }
+}

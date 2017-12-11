@@ -121,7 +121,7 @@ public final class DefaultRulesEngine implements RulesEngine {
         return result;
     }
 
-    private void apply(Rules rules, Facts facts) {
+    void apply(Rules rules, Facts facts) {
         LOGGER.info("Rules evaluation started");
         for (Rule rule : rules) {
             final String name = rule.getName();
