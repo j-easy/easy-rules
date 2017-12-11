@@ -213,13 +213,13 @@ public final class DefaultRulesEngine implements RulesEngine {
 
     private void triggerListenersBeforeRules(Rules rule, Facts facts) {
         for (RulesEngineListener rulesEngineListener : rulesEngineListeners) {
-            rulesEngineListener.beforeFiringRules(rule, facts);
+            rulesEngineListener.beforeEvaluate(rule, facts);
         }
     }
 
     private void triggerListenersAfterRules(Rules rule, Facts facts) {
         for (RulesEngineListener rulesEngineListener : rulesEngineListeners) {
-            rulesEngineListener.afterFiringRules(rule, facts);
+            rulesEngineListener.afterExecute(rule, facts);
         }
     }
 

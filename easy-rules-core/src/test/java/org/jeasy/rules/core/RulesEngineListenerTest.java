@@ -51,7 +51,7 @@ public class RulesEngineListenerTest extends AbstractTest {
     }
 
     @Test
-    public void rulesEngineListenersShouldBeCalledInOrder() throws Exception {
+    public void rulesEngineListenersShouldBeCalledInOrderWhenFiringRules() throws Exception {
         // Given
         when(rule1.evaluate(facts)).thenReturn(true);
         rules.register(rule1);
@@ -61,12 +61,12 @@ public class RulesEngineListenerTest extends AbstractTest {
 
         // Then
         InOrder inOrder = inOrder(rule1, fact1, fact2, rulesEngineListener1, rulesEngineListener2);
-        inOrder.verify(rulesEngineListener1).beforeFiringRules(rules, facts);
-        inOrder.verify(rulesEngineListener2).beforeFiringRules(rules, facts);
+        inOrder.verify(rulesEngineListener1).beforeEvaluate(rules, facts);
+        inOrder.verify(rulesEngineListener2).beforeEvaluate(rules, facts);
         inOrder.verify(rule1).evaluate(facts);
         inOrder.verify(rule1).execute(facts);
-        inOrder.verify(rulesEngineListener1).afterFiringRules(rules, facts);
-        inOrder.verify(rulesEngineListener2).afterFiringRules(rules, facts);
+        inOrder.verify(rulesEngineListener1).afterExecute(rules, facts);
+        inOrder.verify(rulesEngineListener2).afterExecute(rules, facts);
     }
 
 }
