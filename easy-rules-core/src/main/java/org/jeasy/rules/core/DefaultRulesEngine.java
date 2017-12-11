@@ -126,6 +126,7 @@ public final class DefaultRulesEngine implements RulesEngine {
 
     @Override
     public Map<Rule, Boolean> check(Rules rules, Facts facts) {
+        triggerListenersBeforeRules(rules, facts);
         LOGGER.info("Checking rules");
         Map<Rule, Boolean> result = new HashMap<>();
         for (Rule rule : rules) {
@@ -133,6 +134,7 @@ public final class DefaultRulesEngine implements RulesEngine {
                 result.put(rule, rule.evaluate(facts));
             }
         }
+        triggerListenersAfterRules(rules, facts);
         return result;
     }
 
