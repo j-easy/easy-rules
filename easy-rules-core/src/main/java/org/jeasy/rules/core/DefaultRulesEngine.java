@@ -114,11 +114,11 @@ public final class DefaultRulesEngine implements RulesEngine {
     @Override
     public void fire(Rules rules, Facts facts) {
         triggerListenersBeforeRules(rules, facts);
-        apply(rules, facts);
+        doFire(rules, facts);
         triggerListenersAfterRules(rules, facts);
     }
 
-    void apply(Rules rules, Facts facts) {
+    void doFire(Rules rules, Facts facts) {
         for (Rule rule : rules) {
             final String name = rule.getName();
             final int priority = rule.getPriority();
