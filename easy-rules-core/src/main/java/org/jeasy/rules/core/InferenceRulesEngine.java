@@ -44,6 +44,7 @@ public final class InferenceRulesEngine implements RulesEngine {
 
     private RulesEngineParameters parameters;
     private List<RuleListener> ruleListeners;
+    private List<RulesEngineListener> rulesEngineListeners;
     private DefaultRulesEngine delegate;
 
     /**
@@ -55,6 +56,7 @@ public final class InferenceRulesEngine implements RulesEngine {
 
     /**
      * Create a new inference rules engine.
+     *
      * @param parameters of the engine
      */
     public InferenceRulesEngine(RulesEngineParameters parameters) {
@@ -63,13 +65,25 @@ public final class InferenceRulesEngine implements RulesEngine {
 
     /**
      * Create a new inference rules engine.
+     *
      * @param parameters of the engine
      * @param ruleListeners to apply for each rule
      */
     public InferenceRulesEngine(RulesEngineParameters parameters, List<RuleListener> ruleListeners) {
+        this(parameters, ruleListeners, new ArrayList<RulesEngineListener>());
+    }
+
+    /**
+     * Create a new inference rules engine.
+     * @param parameters of the engine
+     * @param ruleListeners to apply for each rule
+     * @param rulesEngineListeners to apply for each rule set
+     */
+    public InferenceRulesEngine(RulesEngineParameters parameters, List<RuleListener> ruleListeners, List<RulesEngineListener> rulesEngineListeners) {
         this.parameters = parameters;
         this.ruleListeners = ruleListeners;
-        delegate = new DefaultRulesEngine(parameters, ruleListeners);
+        this.rulesEngineListeners = rulesEngineListeners;
+        delegate = new DefaultRulesEngine(parameters, ruleListeners, rulesEngineListeners);
     }
 
     @Override
@@ -80,6 +94,11 @@ public final class InferenceRulesEngine implements RulesEngine {
     @Override
     public List<RuleListener> getRuleListeners() {
         return ruleListeners;
+    }
+
+    @Override
+    public List<RulesEngineListener> getRulesEngineListeners() {
+        return rulesEngineListeners;
     }
 
     @Override

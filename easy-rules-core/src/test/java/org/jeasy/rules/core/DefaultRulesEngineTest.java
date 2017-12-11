@@ -30,12 +30,14 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Priority;
 import org.jeasy.rules.api.RuleListener;
+import org.jeasy.rules.api.RulesEngineListener;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,6 +53,9 @@ public class DefaultRulesEngineTest extends AbstractTest {
 
     @Mock
     private RuleListener ruleListener;
+
+    @Mock
+    private RulesEngineListener rulesEngineListener;
 
     private AnnotatedRule annotatedRule;
 
@@ -215,11 +220,30 @@ public class DefaultRulesEngineTest extends AbstractTest {
 
     @Test
     public void testGetRuleListeners() throws Exception {
+        // Given
         rulesEngine = RulesEngineBuilder.aNewRulesEngine()
                 .withRuleListener(ruleListener)
                 .build();
 
-        assertThat(rulesEngine.getRuleListeners()).contains(ruleListener);
+        // When
+        List<RuleListener> ruleListeners = rulesEngine.getRuleListeners();
+
+        // Then
+        assertThat(ruleListeners).contains(ruleListener);
+    }
+
+    @Test
+    public void testGetRulesEngineListeners() throws Exception {
+        // Given
+        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
+                .withRulesEngineListener(rulesEngineListener)
+                .build();
+
+        // When
+        List<RulesEngineListener> rulesEngineListeners = rulesEngine.getRulesEngineListeners();
+
+        // Then
+        assertThat(rulesEngineListeners).contains(rulesEngineListener);
     }
 
     @After

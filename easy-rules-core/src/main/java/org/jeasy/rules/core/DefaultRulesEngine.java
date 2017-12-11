@@ -30,6 +30,7 @@ import java.util.Map;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.RuleListener;
+import org.jeasy.rules.api.RulesEngineListener;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.slf4j.Logger;
@@ -48,21 +49,15 @@ public final class DefaultRulesEngine implements RulesEngine {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRuleListener.class);
 
-    /**
-     * The engine parameters
-     */
     private RulesEngineParameters parameters;
-
-    /**
-     * The registered rule listeners.
-     */
     private List<RuleListener> ruleListeners;
+    private List<RulesEngineListener> rulesEngineListeners;
 
     /**
      * Create a new {@link DefaultRulesEngine} with default parameters.
      */
     public DefaultRulesEngine() {
-        this(new RulesEngineParameters(), new ArrayList<RuleListener>());
+        this(new RulesEngineParameters());
     }
 
     /**
@@ -78,13 +73,26 @@ public final class DefaultRulesEngine implements RulesEngine {
      * Create a new {@link DefaultRulesEngine}.
      *
      * @param parameters of the engine
-     * @param ruleListeners listener of rules
+     * @param ruleListeners to apply for each rule
      */
     public DefaultRulesEngine(final RulesEngineParameters parameters, final List<RuleListener> ruleListeners) {
+        this(parameters, ruleListeners, new ArrayList<RulesEngineListener>());
+    }
+
+    /**
+     * Create a new {@link DefaultRulesEngine}.
+     *
+     * @param parameters of the engine
+     * @param ruleListeners to apply for each rule
+     * @param rulesEngineListeners to apply for each rule set
+     */
+    public DefaultRulesEngine(final RulesEngineParameters parameters, final List<RuleListener> ruleListeners, final List<RulesEngineListener> rulesEngineListeners) {
         this.parameters = parameters;
         this.ruleListeners = new ArrayList<>();
         this.ruleListeners.add(new DefaultRuleListener());
         this.ruleListeners.addAll(ruleListeners);
+        this.rulesEngineListeners = new ArrayList<>();
+        this.rulesEngineListeners.addAll(rulesEngineListeners);
     }
 
     @Override
@@ -98,7 +106,13 @@ public final class DefaultRulesEngine implements RulesEngine {
     }
 
     @Override
+    public List<RulesEngineListener> getRulesEngineListeners() {
+        return rulesEngineListeners;
+    }
+
+    @Override
     public void fire(Rules rules, Facts facts) {
+        triggerListenersBeforeRules(rules, facts);
         if (rules.isEmpty()) {
             LOGGER.warn("No rules registered! Nothing to apply");
             return;
@@ -107,6 +121,7 @@ public final class DefaultRulesEngine implements RulesEngine {
         log(rules);
         log(facts);
         apply(rules, facts);
+        triggerListenersAfterRules(rules, facts);
     }
 
     @Override
@@ -193,6 +208,18 @@ public final class DefaultRulesEngine implements RulesEngine {
     private void triggerListenersAfterEvaluate(Rule rule, Facts facts, boolean evaluationResult) {
         for (RuleListener ruleListener : ruleListeners) {
             ruleListener.afterEvaluate(rule, facts, evaluationResult);
+        }
+    }
+
+    private void triggerListenersBeforeRules(Rules rule, Facts facts) {
+        for (RulesEngineListener rulesEngineListener : rulesEngineListeners) {
+            rulesEngineListener.beforeFiringRules(rule, facts);
+        }
+    }
+
+    private void triggerListenersAfterRules(Rules rule, Facts facts) {
+        for (RulesEngineListener rulesEngineListener : rulesEngineListeners) {
+            rulesEngineListener.afterFiringRules(rule, facts);
         }
     }
 

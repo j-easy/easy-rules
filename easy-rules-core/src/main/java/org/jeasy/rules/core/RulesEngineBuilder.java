@@ -25,6 +25,7 @@ package org.jeasy.rules.core;
 
 import org.jeasy.rules.api.RuleListener;
 import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.api.RulesEngineListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class RulesEngineBuilder {
     private final RulesEngineParameters parameters;
 
     private final List<RuleListener> ruleListeners;
+    private final List<RulesEngineListener> rulesEngineListeners;
 
     /**
      * Create a new rules engine builder.
@@ -52,6 +54,7 @@ public class RulesEngineBuilder {
     private RulesEngineBuilder() {
         parameters = new RulesEngineParameters(false, false, false, RulesEngineParameters.DEFAULT_RULE_PRIORITY_THRESHOLD);
         ruleListeners = new ArrayList<>();
+        rulesEngineListeners = new ArrayList<>();
     }
 
     /**
@@ -110,6 +113,17 @@ public class RulesEngineBuilder {
     }
 
     /**
+     * Register a rules engine listener.
+     *
+     * @param rulesEngineListener to register
+     * @return the rules engine builder
+     */
+    public RulesEngineBuilder withRulesEngineListener(final RulesEngineListener rulesEngineListener) {
+        this.rulesEngineListeners.add(rulesEngineListener);
+        return this;
+    }
+
+    /**
      * @deprecated Silent mode is now log implementation config. Now it uses slf4j facade
      * <strong>This will be removed in v3.2</strong>
      */
@@ -124,7 +138,7 @@ public class RulesEngineBuilder {
      * @return a rules engine instance
      */
     public RulesEngine build() {
-        return new DefaultRulesEngine(parameters, ruleListeners);
+        return new DefaultRulesEngine(parameters, ruleListeners, rulesEngineListeners);
     }
 
 }

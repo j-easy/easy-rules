@@ -23,47 +23,30 @@
  */
 package org.jeasy.rules.api;
 
-import java.util.List;
-import java.util.Map;
-
-import org.jeasy.rules.core.RulesEngineParameters;
+import org.jeasy.rules.core.InferenceRulesEngine;
 
 /**
- * Rules engine interface.
+ * A listener for rules engine execution events.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public interface RulesEngine {
+public interface RulesEngineListener {
 
     /**
-     * Return the rules engine parameters.
+     * Triggered before firing the rule set.
+     * <strong>When this listener is used with a {@link InferenceRulesEngine}, this method will be triggered before each candidate rule set in each iteration.</strong>
      *
-     * @return The rules engine parameters
+     * @param rules to fire
+     * @param facts present before firing rules
      */
-    RulesEngineParameters getParameters();
+    void beforeFiringRules(Rules rules, Facts facts);
 
     /**
-     * Return the list of registered rule listeners.
+     * Triggered after firing the rule set
+     * <strong>When this listener is used with a {@link InferenceRulesEngine}, this method will be triggered after each candidate rule set in each iteration.</strong>
      *
-     * @return the list of registered rule listeners
+     * @param rules fired
+     * @param facts present after firing rules
      */
-    List<RuleListener> getRuleListeners();
-
-    /**
-     * Return the list of registered rules engine listeners.
-     *
-     * @return the list of registered rules engine listeners
-     */
-    List<RulesEngineListener> getRulesEngineListeners();
-
-    /**
-     * Fire all registered rules on given facts.
-     */
-    void fire(Rules rules, Facts facts);
-
-    /**
-     * Check rules without firing them.
-     * @return a map with the result of evaluation of each rule
-     */
-    Map<Rule, Boolean> check(Rules rules, Facts facts);
+    void afterFiringRules(Rules rules, Facts facts);
 }
