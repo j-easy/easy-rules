@@ -36,13 +36,13 @@ public class AgeRule extends BasicRule {
 
     @Override
     public boolean evaluate(Facts facts) {
-        Person person = (Person) facts.get("person");
+        Person person = facts.get("person");
         return person.getAge() > ADULT_AGE;
     }
 
     @Override
     public void execute(Facts facts) {
-        Person person = (Person) facts.get("person");
+        Person person = facts.get("person");
         person.setAdult(true);
         System.out.printf("Person %s has been marked as adult", person.getName());
         System.out.println();

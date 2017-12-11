@@ -69,12 +69,14 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
     /**
      * Get a fact by name.
      *
-     * @param name of fact to get.
+     * @param name of the fact
+     * @param <T> type of the fact
      * @return the fact having the given name, or null if there is no fact with the given name
      */
-    public Object get(String name) {
+    @SuppressWarnings("unchecked")
+    public <T> T get(String name) {
         Objects.requireNonNull(name);
-        return facts.get(name);
+        return (T) facts.get(name);
     }
 
     /**

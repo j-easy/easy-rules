@@ -34,13 +34,13 @@ public class AlcoholRule extends BasicRule {
 
     @Override
     public boolean evaluate(Facts facts) {
-        Person person = (Person) facts.get("person");
+        Person person = facts.get("person");
         return !person.isAdult();
     }
 
     @Override
     public void execute(Facts facts){
-        Person person = (Person) facts.get("person");
+        Person person = facts.get("person");
         System.out.printf("Shop: Sorry %s, you are not allowed to buy alcohol", person.getName());
         System.out.println();
     }

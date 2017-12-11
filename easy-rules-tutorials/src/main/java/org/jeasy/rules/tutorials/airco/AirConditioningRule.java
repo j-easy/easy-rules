@@ -17,7 +17,7 @@ public class AirConditioningRule {
     @Action
     public void coolAir(Facts facts) {
         System.out.println("It is hot! cooling air..");
-        Integer temperature = (Integer) facts.get("temperature");
+        Integer temperature = facts.get("temperature");
         facts.put("temperature", temperature - 1);
     }
 
