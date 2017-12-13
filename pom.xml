@@ -16,7 +16,8 @@
         <module>easy-rules-archetype</module>
         <module>easy-rules-core</module>
         <module>easy-rules-tutorials</module>
-  </modules>
+        <module>easy-rules-mvel</module>
+    </modules>
 
     <packaging>pom</packaging>
 
