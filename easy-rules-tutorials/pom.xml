@@ -220,6 +220,12 @@
                         <version>${maven-exec-plugin.version}</version>
                         <configuration>
                             <mainClass>org.jeasy.rules.tutorials.fizzbuzz.FizzBuzzWithEasyRules</mainClass>
+                            <systemProperties>
+                                <property>
+                                    <key>org.slf4j.simpleLogger.defaultLogLevel</key>
+                                    <value>off</value>
+                                </property>
+                            </systemProperties>
                         </configuration>
                     </plugin>
                 </plugins>
