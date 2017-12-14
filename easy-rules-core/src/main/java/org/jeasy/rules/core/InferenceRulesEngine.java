@@ -105,12 +105,12 @@ public final class InferenceRulesEngine implements RulesEngine {
     public void fire(Rules rules, Facts facts) {
         Set<Rule> selectedRules;
         do {
-            LOGGER.info("Selecting candidate rules based on the following {}", facts);
+            LOGGER.info("Selecting candidate rules based on the following facts: {}", facts);
             selectedRules = selectCandidates(rules, facts);
             if(!selectedRules.isEmpty()) {
                 delegate.doFire(new Rules(selectedRules), facts);
             } else {
-                LOGGER.info("No candidate rules found for {}", facts);
+                LOGGER.info("No candidate rules found for facts: {}", facts);
             }
         } while (!selectedRules.isEmpty());
     }

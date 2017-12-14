@@ -95,12 +95,16 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("Facts {").append("\n");
-        for (Map.Entry<String, Object> fact : facts.entrySet()) {
-            stringBuilder.append(format("   Fact { %s : %s }", fact.getKey(), String.valueOf(fact.getValue())));
-            stringBuilder.append("\n");
+        StringBuilder stringBuilder = new StringBuilder("[");
+        List<Map.Entry<String, Object>> entries = new ArrayList<>(facts.entrySet());
+        for (int i = 0; i < entries.size(); i++) {
+            Map.Entry<String, Object> entry = entries.get(i);
+            stringBuilder.append(format(" { %s : %s } ", entry.getKey(), String.valueOf(entry.getValue())));
+            if (i < entries.size() - 1) {
+                stringBuilder.append(",");
+            }
         }
-        stringBuilder.append("}");
+        stringBuilder.append("]");
         return  stringBuilder.toString();
     }
 }
