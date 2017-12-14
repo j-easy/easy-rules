@@ -157,10 +157,10 @@ public class RulesEngineParameters {
     @Override
     public String toString() {
         return "Engine parameters { " +
-                "skipOnFirstAppliedRule=" + skipOnFirstAppliedRule +
-                ", skipOnFirstNonTriggeredRule=" + skipOnFirstNonTriggeredRule +
-                ", skipOnFirstFailedRule=" + skipOnFirstFailedRule +
-                ", priorityThreshold=" + priorityThreshold +
+                "skipOnFirstAppliedRule = " + skipOnFirstAppliedRule +
+                ", skipOnFirstNonTriggeredRule = " + skipOnFirstNonTriggeredRule +
+                ", skipOnFirstFailedRule = " + skipOnFirstFailedRule +
+                ", priorityThreshold = " + priorityThreshold +
                 " }";
     }
 }
