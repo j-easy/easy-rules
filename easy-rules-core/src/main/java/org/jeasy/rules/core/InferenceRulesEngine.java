@@ -60,30 +60,10 @@ public final class InferenceRulesEngine implements RulesEngine {
      * @param parameters of the engine
      */
     public InferenceRulesEngine(RulesEngineParameters parameters) {
-        this(parameters, new ArrayList<RuleListener>());
-    }
-
-    /**
-     * Create a new inference rules engine.
-     *
-     * @param parameters of the engine
-     * @param ruleListeners to apply for each rule
-     */
-    public InferenceRulesEngine(RulesEngineParameters parameters, List<RuleListener> ruleListeners) {
-        this(parameters, ruleListeners, new ArrayList<RulesEngineListener>());
-    }
-
-    /**
-     * Create a new inference rules engine.
-     * @param parameters of the engine
-     * @param ruleListeners to apply for each rule
-     * @param rulesEngineListeners to apply for each rule set
-     */
-    public InferenceRulesEngine(RulesEngineParameters parameters, List<RuleListener> ruleListeners, List<RulesEngineListener> rulesEngineListeners) {
         this.parameters = parameters;
-        this.ruleListeners = ruleListeners;
-        this.rulesEngineListeners = rulesEngineListeners;
-        delegate = new DefaultRulesEngine(parameters, ruleListeners, rulesEngineListeners);
+        delegate = new DefaultRulesEngine(parameters);
+        ruleListeners = new ArrayList<>();
+        rulesEngineListeners = new ArrayList<>();
     }
 
     @Override
@@ -128,5 +108,41 @@ public final class InferenceRulesEngine implements RulesEngine {
     @Override
     public Map<Rule, Boolean> check(Rules rules, Facts facts) {
         return delegate.check(rules, facts);
+    }
+
+    /**
+     * Register a rule listener.
+     * @param ruleListener to register
+     */
+    public void registerRuleListener(RuleListener ruleListener) {
+        ruleListeners.add(ruleListener);
+        delegate.registerRuleListener(ruleListener);
+    }
+
+    /**
+     * Register a list of rule listener.
+     * @param ruleListeners to register
+     */
+    public void registerRuleListeners(List<RuleListener> ruleListeners) {
+        this.ruleListeners.addAll(ruleListeners);
+        delegate.registerRuleListeners(ruleListeners);
+    }
+
+    /**
+     * Register a rules engine listener.
+     * @param rulesEngineListener to register
+     */
+    public void registerRulesEngineListener(RulesEngineListener rulesEngineListener) {
+        rulesEngineListeners.add(rulesEngineListener);
+        delegate.registerRulesEngineListener(rulesEngineListener);
+    }
+
+    /**
+     * Register a list of rules engine listener.
+     * @param rulesEngineListeners to register
+     */
+    public void registerRulesEngineListeners(List<RulesEngineListener> rulesEngineListeners) {
+        this.rulesEngineListeners.addAll(rulesEngineListeners);
+        delegate.registerRulesEngineListeners(rulesEngineListeners);
     }
 }

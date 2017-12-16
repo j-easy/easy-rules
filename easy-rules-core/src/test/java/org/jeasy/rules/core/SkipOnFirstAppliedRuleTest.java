@@ -26,7 +26,6 @@ package org.jeasy.rules.core;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.jeasy.rules.core.RulesEngineBuilder.aNewRulesEngine;
 import static org.mockito.Mockito.*;
 
 /**
@@ -39,9 +38,9 @@ public class SkipOnFirstAppliedRuleTest extends AbstractTest {
     @Before
     public void setup() throws Exception {
         super.setup();
-        rulesEngine = aNewRulesEngine()
-                .withSkipOnFirstAppliedRule(true)
-                .build();
+        RulesEngineParameters parameters = new RulesEngineParameters();
+        parameters.setSkipOnFirstAppliedRule(true);
+        rulesEngine = new DefaultRulesEngine(parameters);
     }
 
     @Test

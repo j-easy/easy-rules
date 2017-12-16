@@ -33,8 +33,11 @@ import java.util.List;
 /**
  * Builder for rules engine instances.
  *
+ * @deprecated This builder will be removed in v3.2
+ *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Deprecated
 public class RulesEngineBuilder {
 
     private final RulesEngineParameters parameters;
@@ -138,7 +141,10 @@ public class RulesEngineBuilder {
      * @return a rules engine instance
      */
     public RulesEngine build() {
-        return new DefaultRulesEngine(parameters, ruleListeners, rulesEngineListeners);
+        DefaultRulesEngine defaultRulesEngine = new DefaultRulesEngine(parameters);
+        defaultRulesEngine.registerRuleListeners(ruleListeners);
+        defaultRulesEngine.registerRulesEngineListeners(rulesEngineListeners);
+        return defaultRulesEngine;
     }
 
 }

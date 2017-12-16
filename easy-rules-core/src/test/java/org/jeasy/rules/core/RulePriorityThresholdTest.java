@@ -44,9 +44,9 @@ public class RulePriorityThresholdTest extends AbstractTest {
         when(rule1.getPriority()).thenReturn(1);
         when(rule1.evaluate(facts)).thenReturn(true);
 
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withRulePriorityThreshold(1)
-                .build();
+        RulesEngineParameters parameters = new RulesEngineParameters();
+        parameters.setPriorityThreshold(1);
+        rulesEngine = new DefaultRulesEngine(parameters);
     }
 
     @Test

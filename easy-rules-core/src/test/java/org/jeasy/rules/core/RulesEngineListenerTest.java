@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 
+import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
 
 /**
@@ -44,10 +45,7 @@ public class RulesEngineListenerTest extends AbstractTest {
     @Before
     public void setup() throws Exception {
         super.setup();
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withRulesEngineListener(rulesEngineListener1)
-                .withRulesEngineListener(rulesEngineListener2)
-                .build();
+        rulesEngine.registerRulesEngineListeners(asList(rulesEngineListener1, rulesEngineListener2));
     }
 
     @Test

@@ -43,7 +43,7 @@ public abstract class AbstractTest {
     protected Facts facts;
     protected Rules rules;
 
-    protected RulesEngine rulesEngine;
+    protected DefaultRulesEngine rulesEngine;
 
     @Before
     public void setup() throws Exception {
@@ -52,7 +52,7 @@ public abstract class AbstractTest {
         facts.put("fact2", fact2);
         rules = new Rules();
 
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
+        rulesEngine = new DefaultRulesEngine();
     }
 
 }

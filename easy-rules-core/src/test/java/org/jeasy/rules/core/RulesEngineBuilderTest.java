@@ -76,5 +76,6 @@ public class RulesEngineBuilderTest {
         assertThat(parameters.isSkipOnFirstAppliedRule()).isTrue();
         assertThat(parameters.isSkipOnFirstFailedRule()).isTrue();
         assertThat(parameters.isSkipOnFirstNonTriggeredRule()).isTrue();
+        assertThat(rulesEngine.getRuleListeners()).hasSize(2).contains(ruleListener);
     }
 }

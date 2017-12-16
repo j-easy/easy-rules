@@ -42,7 +42,7 @@ public class AnnotationInheritanceTest extends AbstractTest {
         rules.register(myChildRule);
 
         // When
-        RulesEngine rulesEngine = RulesEngineBuilder.aNewRulesEngine().build();
+        RulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.fire(rules, facts);
 
         // Then

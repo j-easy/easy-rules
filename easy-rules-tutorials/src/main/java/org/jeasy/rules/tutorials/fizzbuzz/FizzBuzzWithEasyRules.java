@@ -23,18 +23,18 @@
  */
 package org.jeasy.rules.tutorials.fizzbuzz;
 
-import static org.jeasy.rules.core.RulesEngineBuilder.aNewRulesEngine;
-
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.core.DefaultRulesEngine;
+import org.jeasy.rules.core.RulesEngineParameters;
 
 public class FizzBuzzWithEasyRules {
     public static void main(String[] args) {
         // create rules engine
-        RulesEngine fizzBuzzEngine = aNewRulesEngine()
-                .withSkipOnFirstAppliedRule(true)
-                .build();
+        RulesEngineParameters parameters = new RulesEngineParameters();
+        parameters.setSkipOnFirstAppliedRule(true);
+        RulesEngine fizzBuzzEngine = new DefaultRulesEngine(parameters);
 
         // create rules
         Rules rules = new Rules();

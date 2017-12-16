@@ -190,9 +190,8 @@ public class DefaultRulesEngineTest extends AbstractTest {
         // Given
         when(rule1.evaluate(facts)).thenReturn(true);
         when(ruleListener.beforeEvaluate(rule1, facts)).thenReturn(true);
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withRuleListener(ruleListener)
-                .build();
+        DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
+        rulesEngine.registerRuleListener(ruleListener);
         rules.register(rule1);
 
         // When
@@ -221,9 +220,8 @@ public class DefaultRulesEngineTest extends AbstractTest {
     @Test
     public void testGetRuleListeners() throws Exception {
         // Given
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withRuleListener(ruleListener)
-                .build();
+        DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
+        rulesEngine.registerRuleListener(ruleListener);
 
         // When
         List<RuleListener> ruleListeners = rulesEngine.getRuleListeners();
@@ -235,9 +233,8 @@ public class DefaultRulesEngineTest extends AbstractTest {
     @Test
     public void testGetRulesEngineListeners() throws Exception {
         // Given
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withRulesEngineListener(rulesEngineListener)
-                .build();
+        DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
+        rulesEngine.registerRulesEngineListener(rulesEngineListener);
 
         // When
         List<RulesEngineListener> rulesEngineListeners = rulesEngine.getRulesEngineListeners();

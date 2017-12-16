@@ -38,9 +38,9 @@ public class SkipOnFirstNonTriggeredRuleTest extends AbstractTest {
     @Before
     public void setup() throws Exception {
         super.setup();
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withSkipOnFirstNonTriggeredRule(true)
-                .build();
+        RulesEngineParameters parameters = new RulesEngineParameters();
+        parameters.setSkipOnFirstNonTriggeredRule(true);
+        rulesEngine = new DefaultRulesEngine(parameters);
     }
 
     @Test

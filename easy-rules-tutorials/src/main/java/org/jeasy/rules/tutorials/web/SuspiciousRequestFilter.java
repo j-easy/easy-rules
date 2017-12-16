@@ -23,7 +23,6 @@
  */
 package org.jeasy.rules.tutorials.web;
 
-import static org.jeasy.rules.core.RulesEngineBuilder.aNewRulesEngine;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -36,6 +35,7 @@ import javax.servlet.annotation.WebFilter;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.core.DefaultRulesEngine;
 
 @WebFilter("/*")
 public class SuspiciousRequestFilter implements Filter {
@@ -45,7 +45,7 @@ public class SuspiciousRequestFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        rulesEngine = aNewRulesEngine().build();
+        rulesEngine = new DefaultRulesEngine();
         rules = new Rules();
         rules.register(new SuspiciousRequestRule());
     }

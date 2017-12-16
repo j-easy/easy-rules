@@ -46,10 +46,8 @@ public class RuleListenerTest extends AbstractTest {
         super.setup();
         when(ruleListener1.beforeEvaluate(rule1, facts)).thenReturn(true);
         when(ruleListener2.beforeEvaluate(rule1, facts)).thenReturn(true);
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withRuleListener(ruleListener1)
-                .withRuleListener(ruleListener2)
-                .build();
+        rulesEngine.registerRuleListener(ruleListener1);
+        rulesEngine.registerRuleListener(ruleListener2);
     }
 
     @Test
@@ -92,9 +90,6 @@ public class RuleListenerTest extends AbstractTest {
     public void whenListenerBeforeEvaluateReturnsFalse_thenTheRuleShouldBeSkippedBeforeBeingEvaluated() throws Exception {
         // Given
         when(ruleListener1.beforeEvaluate(rule1, facts)).thenReturn(false);
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withRuleListener(ruleListener1)
-                .build();
         rules.register(rule1);
 
         // When
@@ -108,9 +103,6 @@ public class RuleListenerTest extends AbstractTest {
     public void whenListenerBeforeEvaluateReturnsTrue_thenTheRuleShouldBeEvaluated() throws Exception {
         // Given
         when(ruleListener1.beforeEvaluate(rule1, facts)).thenReturn(true);
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withRuleListener(ruleListener1)
-                .build();
         rules.register(rule1);
 
         // When
@@ -124,9 +116,6 @@ public class RuleListenerTest extends AbstractTest {
     public void whenTheRuleEvaluatesToTrue_thenTheListenerShouldBeInvoked() throws Exception {
         // Given
         when(rule1.evaluate(facts)).thenReturn(true);
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withRuleListener(ruleListener1)
-                .build();
         rules.register(rule1);
 
         // When
@@ -140,9 +129,6 @@ public class RuleListenerTest extends AbstractTest {
     public void whenTheRuleEvaluatesToFalse_thenTheListenerShouldBeInvoked() throws Exception {
         // Given
         when(rule1.evaluate(facts)).thenReturn(false);
-        rulesEngine = RulesEngineBuilder.aNewRulesEngine()
-                .withRuleListener(ruleListener1)
-                .build();
         rules.register(rule1);
 
         // When
