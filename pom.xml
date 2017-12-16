@@ -17,6 +17,7 @@
         <module>easy-rules-core</module>
         <module>easy-rules-tutorials</module>
         <module>easy-rules-mvel</module>
+        <module>easy-rules-support</module>
     </modules>
 
     <packaging>pom</packaging>
