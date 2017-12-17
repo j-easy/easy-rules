@@ -31,11 +31,6 @@ import org.mockito.Mock;
 
 import static org.mockito.Mockito.*;
 
-/**
- * Test class of the execution of rule listeners.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
 public class RuleListenerTest extends AbstractTest {
 
     @Mock

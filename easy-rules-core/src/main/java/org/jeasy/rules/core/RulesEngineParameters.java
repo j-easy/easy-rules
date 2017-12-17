@@ -27,8 +27,8 @@ package org.jeasy.rules.core;
  * Parameters of a rules engine.
  *
  * <ul>
- *     <li>When parameters are used with a {@link DefaultRulesEngine}, they are applied on all registered rules.</li>
- *     <li>When parameters are used with a {@link InferenceRulesEngine}, they are applied on candidate rules in each iteration.</li>
+ *     <li>When parameters are used with a {@link DefaultRulesEngine}, they are applied on <strong>all registered rules</strong>.</li>
+ *     <li>When parameters are used with a {@link InferenceRulesEngine}, they are applied on <strong>candidate rules in each iteration</strong>.</li>
  * </ul>
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)

@@ -28,11 +28,6 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-/**
- * Test class of "skip on first non triggered rule" parameter of Easy Rules default engine.
- *
- * @author Krzysztof Kozlowski (krzysztof.kozlowski@coderion.pl)
- */
 public class SkipOnFirstNonTriggeredRuleTest extends AbstractTest {
 
     @Before

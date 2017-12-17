@@ -32,11 +32,6 @@ import org.mockito.Mock;
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
 
-/**
- * Test class of the execution of rules engine listeners.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
 public class RulesEngineListenerTest extends AbstractTest {
 
     @Mock

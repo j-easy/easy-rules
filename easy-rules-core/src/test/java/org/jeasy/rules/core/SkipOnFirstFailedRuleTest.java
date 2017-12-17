@@ -28,11 +28,6 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-/**
- * Test class of "skip on first failed rule" parameter of Easy Rules default engine.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
 public class SkipOnFirstFailedRuleTest extends AbstractTest {
 
     @Before

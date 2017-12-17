@@ -37,6 +37,7 @@ public class MVELRuleFactory {
 
     /**
      * Create a new {@link MVELRule} from a rule descriptor.
+     *
      * @param ruleDescriptor in yaml format
      * @return a new rule
      * @throws FileNotFoundException if the rule descriptor cannot be found

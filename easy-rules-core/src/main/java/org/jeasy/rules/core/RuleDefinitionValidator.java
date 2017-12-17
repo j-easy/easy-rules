@@ -38,7 +38,7 @@ import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 
 /**
- * Validate that an annotated rule object is well defined.
+ * This component validates that an annotated rule object is well defined.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */

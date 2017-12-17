@@ -32,11 +32,6 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-/**
- * Test class for composite rule execution.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
 public class CompositeRuleTest extends AbstractTest {
 
     private CompositeRule compositeRule;

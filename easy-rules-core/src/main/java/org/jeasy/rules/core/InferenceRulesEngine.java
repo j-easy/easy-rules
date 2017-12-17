@@ -34,7 +34,7 @@ import java.util.*;
  *
  * Rules are selected based on given facts and fired according to their natural order which is priority by default.
  *
- * The engine continuously select and fire rules until no more rules are applicable.
+ * The engine continuously selects and fires rules until no more rules are applicable.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */

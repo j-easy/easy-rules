@@ -26,7 +26,7 @@ package org.jeasy.rules.api;
 /**
  * Abstraction for a rule that can be fired by the rules engine.
  *
- * Rules are registered in the rules engine registry and must have a <strong>unique</strong> name.
+ * Rules are registered in a rule set of type <code>Rules</code> in which they must have a <strong>unique</strong> name.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */

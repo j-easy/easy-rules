@@ -44,11 +44,6 @@ import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 
-/**
- * Test class for {@link DefaultRulesEngine}.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- */
 public class DefaultRulesEngineTest extends AbstractTest {
 
     @Mock
