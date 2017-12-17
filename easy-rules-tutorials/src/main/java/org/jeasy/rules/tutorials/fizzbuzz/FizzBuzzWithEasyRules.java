@@ -32,8 +32,7 @@ import org.jeasy.rules.core.RulesEngineParameters;
 public class FizzBuzzWithEasyRules {
     public static void main(String[] args) {
         // create rules engine
-        RulesEngineParameters parameters = new RulesEngineParameters();
-        parameters.setSkipOnFirstAppliedRule(true);
+        RulesEngineParameters parameters = new RulesEngineParameters().skipOnFirstAppliedRule(true);
         RulesEngine fizzBuzzEngine = new DefaultRulesEngine(parameters);
 
         // create rules

@@ -33,8 +33,7 @@ public class SkipOnFirstFailedRuleTest extends AbstractTest {
     @Before
     public void setup() throws Exception {
         super.setup();
-        RulesEngineParameters parameters = new RulesEngineParameters();
-        parameters.setSkipOnFirstFailedRule(true);
+        RulesEngineParameters parameters = new RulesEngineParameters().skipOnFirstFailedRule(true);
         rulesEngine = new DefaultRulesEngine(parameters);
     }
 
