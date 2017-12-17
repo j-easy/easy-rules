@@ -26,6 +26,7 @@ package org.jeasy.rules.mvel;
 import org.jeasy.rules.api.Action;
 import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
+import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.core.BasicRule;
 
 import java.util.ArrayList;
@@ -42,37 +43,43 @@ public class MVELRule extends BasicRule {
     private List<Action> actions = new ArrayList<>();
 
     /**
-     * Create a new MVEL action.
+     * Create a new MVEL rule.
      */
     public MVELRule() {
+        super(Rule.DEFAULT_NAME, Rule.DEFAULT_DESCRIPTION, Rule.DEFAULT_PRIORITY);
     }
 
     /**
-     * Create a new MVEL action.
+     * Set rule name.
      *
      * @param name of the rule
+     * @return this rule
      */
-    public MVELRule(String name) {
-        super(name);
+    public MVELRule name(String name) {
+        this.name = name;
+        return this;
     }
 
     /**
-     * Create a new MVEL action.
-     * @param name of the rule
+     * Set rule description.
+     *
      * @param description of the rule
+     * @return this rule
      */
-    public MVELRule(String name, String description) {
-        super(name, description);
+    public MVELRule description(String description) {
+        this.description = description;
+        return this;
     }
 
     /**
-     * Create a new MVEL action.
-     * @param name of the rule
-     * @param description of the rule
+     * Set rule priority.
+     *
      * @param priority of the rule
+     * @return this rule
      */
-    public MVELRule(String name, String description, int priority) {
-        super(name, description, priority);
+    public MVELRule priority(int priority) {
+        this.priority = priority;
+        return this;
     }
 
     /**

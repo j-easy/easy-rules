@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MVELRuleTest {
 
     private Facts facts = new Facts();
-    private MVELRule mvelRule = new MVELRule("rn", "rd", 1);
+    private MVELRule mvelRule = new MVELRule().name("rn").description("rd").priority(1);
 
     @Before
     public void setUp() throws Exception {
