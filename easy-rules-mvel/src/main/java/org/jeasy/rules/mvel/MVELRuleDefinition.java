@@ -75,9 +75,12 @@ class MVELRuleDefinition {
         this.actions = actions;
     }
 
-    Rule create() {
-        MVELRule mvelRule = new MVELRule(name, description, priority);
-        mvelRule.when(condition);
+    MVELRule create() {
+        MVELRule mvelRule = new MVELRule()
+                .name(name)
+                .description(description)
+                .priority(priority)
+                .when(condition);
         for (String action : actions) {
             mvelRule.then(action);
         }

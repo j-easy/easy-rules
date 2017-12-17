@@ -23,8 +23,6 @@
  */
 package org.jeasy.rules.mvel;
 
-import org.jeasy.rules.api.Rule;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -43,7 +41,7 @@ public class MVELRuleFactory {
      * @return a new rule
      * @throws FileNotFoundException if the rule descriptor cannot be found
      */
-    public static Rule createRuleFrom(File ruleDescriptor) throws FileNotFoundException {
+    public static MVELRule createRuleFrom(File ruleDescriptor) throws FileNotFoundException {
         MVELRuleDefinition ruleDefinition = reader.read(ruleDescriptor);
         return ruleDefinition.create();
     }
