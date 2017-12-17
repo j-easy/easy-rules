@@ -39,21 +39,17 @@ public class RuleBuilder {
     private Condition condition = Condition.FALSE;
     private List<Action> actions = new ArrayList<>();
 
-    public static RuleBuilder aNewRule() {
-        return new RuleBuilder();
-    }
-
-    public RuleBuilder named(String name) {
+    public RuleBuilder name(String name) {
         this.name = name;
         return this;
     }
 
-    public RuleBuilder withDescription(String description) {
+    public RuleBuilder description(String description) {
         this.description = description;
         return this;
     }
 
-    public RuleBuilder withPriority(int priority) {
+    public RuleBuilder priority(int priority) {
         this.priority = priority;
         return this;
     }

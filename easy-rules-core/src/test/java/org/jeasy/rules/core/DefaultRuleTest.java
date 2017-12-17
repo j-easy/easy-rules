@@ -44,7 +44,7 @@ public class DefaultRuleTest extends AbstractTest {
     public void WhenConditionIsTrue_ThenActionsShouldBeExecutedInOrder() throws Exception {
         // given
         when(condition.evaluate(facts)).thenReturn(true);
-        Rule rule = RuleBuilder.aNewRule()
+        Rule rule = new RuleBuilder()
                 .when(condition)
                 .then(action1)
                 .then(action2)
@@ -64,7 +64,7 @@ public class DefaultRuleTest extends AbstractTest {
     public void WhenConditionIsFalse_ThenActionsShouldNotBeExecuted() throws Exception {
         // given
         when(condition.evaluate(facts)).thenReturn(false);
-        Rule rule = RuleBuilder.aNewRule()
+        Rule rule = new RuleBuilder()
                 .when(condition)
                 .then(action1)
                 .then(action2)

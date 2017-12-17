@@ -45,7 +45,7 @@ public class RuleBuilderTest {
     @Test
     public void testDefaultRuleCreationWithDefaultValues() throws Exception {
         // when
-        Rule rule = RuleBuilder.aNewRule().build();
+        Rule rule = new RuleBuilder().build();
 
         // then
         assertThat(rule.getName()).isEqualTo(Rule.DEFAULT_NAME);
@@ -57,10 +57,10 @@ public class RuleBuilderTest {
     @Test
     public void testDefaultRuleCreationWithCustomValues() throws Exception {
         // when
-        Rule rule = RuleBuilder.aNewRule()
-                .named("myRule")
-                .withDescription("myRuleDescription")
-                .withPriority(3)
+        Rule rule = new RuleBuilder()
+                .name("myRule")
+                .description("myRuleDescription")
+                .priority(3)
                 .when(condition)
                 .then(action1)
                 .then(action2)
