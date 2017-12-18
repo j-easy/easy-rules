@@ -83,6 +83,22 @@ Rule weatherRule = new MVELRule()
         .then("System.out.println(\"It rains, take an umbrella!\");");
 ```
 
+#### Or using a rule descriptor:
+
+Like in the following `weather-rule.yml` example file:
+
+```yaml
+name: "weather rule"
+description: "if it rains then take an umbrella"
+condition: "rain == true"
+actions:
+  - "System.out.println(\"It rains, take an umbrella!\");"
+```
+
+```java
+Rule weatherRule = MVELRuleFactory.createRuleFrom(new File("weather-rule.yml"));
+```
+
 ### 2. Then, fire it!
 
 ```java
