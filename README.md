@@ -20,7 +20,7 @@
 
 ## Latest news
 
-* 17/12/2017: Version 3.1.0 is out with a new inference engine and finally Expression Language support! See all new features and improvements in the [change log](https://github.com/j-easy/easy-rules/releases).
+* 17/12/2017: Version 3.1.0 is out with a [new inference engine](https://github.com/j-easy/easy-rules/wiki/defining-rules-engine) and finally [Expression Language support](https://github.com/j-easy/easy-rules/wiki/expression-language-support)! See all new features and improvements in the [change log](https://github.com/j-easy/easy-rules/releases).
 * 01/06/2017: Version 3.0.0 is finally out! See what's new [here](https://github.com/j-easy/easy-rules/releases).
 * 18/05/2017: Version 2.5.0 is out with new features and bug fixes. See all details in the [change log](https://github.com/j-easy/easy-rules/releases).
 
@@ -38,7 +38,7 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
  * POJO based development with annotation programming model
  * Useful abstractions to define business rules and apply them easily with Java
  * The ability to create composite rules from primitive ones
- * The ability to define rules with Expression Language
+ * The ability to define rules using the Expression Language
 
 ## Example
 
@@ -104,7 +104,7 @@ public class Test {
 }
 ```
 
-This is the hello world of Easy Rules. You can find other examples like the [FizzBuzz](https://github.com/j-easy/easy-rules/wiki/fizz-buzz) or [WebApp](https://github.com/j-easy/easy-rules/wiki/web-app) tutorials in the wiki.
+This is the hello world of Easy Rules. You can find other examples like the [Shop](https://github.com/j-easy/easy-rules/wiki/shop), [Airco](https://github.com/j-easy/easy-rules/wiki/air-conditioning) or [WebApp](https://github.com/j-easy/easy-rules/wiki/web-app) tutorials in the wiki.
 
 ## Contribution
 
