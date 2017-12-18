@@ -20,7 +20,7 @@
 
 ## Latest news
 
-* 17/12/2017: Version 3.1.0 is out with a new inference engine and finally Expression Language support! See what's new [here](https://github.com/j-easy/easy-rules/releases).
+* 17/12/2017: Version 3.1.0 is out with a new inference engine and finally Expression Language support! See all new features and improvements in the [change log](https://github.com/j-easy/easy-rules/releases).
 * 01/06/2017: Version 3.0.0 is finally out! See what's new [here](https://github.com/j-easy/easy-rules/releases).
 * 18/05/2017: Version 2.5.0 is out with new features and bug fixes. See all details in the [change log](https://github.com/j-easy/easy-rules/releases).
 
@@ -42,7 +42,9 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
 
 ## Example
 
-##### First, define your rule..
+### 1. First, define your rule..
+
+#### Either in a declarative way using annotations:
 
 ```java
 @Rule(name = "weather rule", description = "if it rains then take an umbrella" )
@@ -60,7 +62,28 @@ public class WeatherRule {
 }
 ```
 
-##### Then, fire it!
+#### Or in a programmatic way with a fluent API:
+
+```java
+Rule weatherRule = new RuleBuilder()
+        .name("weather rule")
+        .description("if it rains then take an umbrella")
+        .when(facts -> facts.get("rain").equals(true))
+        .then(facts -> System.out.println("It rains, take an umbrella!"))
+        .build();
+```
+
+#### Or using an Expression Language:
+
+```java
+Rule weatherRule = new MVELRule()
+        .name("weather rule")
+        .description("if it rains then take an umbrella")
+        .when("rain == true")
+        .then("System.out.println(\"It rains, take an umbrella!\");");
+```
+
+### 2. Then, fire it!
 
 ```java
 public class Test {
@@ -70,7 +93,9 @@ public class Test {
         facts.put("rain", true);
 
         // define rules
-        Rules rules = new Rules(new WeatherRule());
+        Rule weatherRule = ...
+        Rules rules = new Rules();
+        rules.register(weatherRule);
 
         // fire rules on known facts
         RulesEngine rulesEngine = new DefaultRulesEngine();
