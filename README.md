@@ -10,7 +10,7 @@
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
 [![Coverage](https://coveralls.io/repos/j-easy/easy-rules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/j-easy/easy-rules?branch=master)
 [![Build Status](https://travis-ci.org/j-easy/easy-rules.svg?branch=master)](https://travis-ci.org/j-easy/easy-rules)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jeasy/easy-rules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.jeasy|easy-rules-core|3.0.0|)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jeasy/easy-rules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.jeasy|easy-rules-core|3.1.0|)
 [![Javadoc](https://www.javadoc.io/badge/org.jeasy/easy-rules-core.svg)](http://www.javadoc.io/doc/org.jeasy/easy-rules-core)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/j-easy/easy-rules)
 
@@ -20,6 +20,7 @@
 
 ## Latest news
 
+* 17/12/2017: Version 3.1.0 is out with a new inference engine and finally Expression Language support! See what's new [here](https://github.com/j-easy/easy-rules/releases).
 * 01/06/2017: Version 3.0.0 is finally out! See what's new [here](https://github.com/j-easy/easy-rules/releases).
 * 18/05/2017: Version 2.5.0 is out with new features and bug fixes. See all details in the [change log](https://github.com/j-easy/easy-rules/releases).
 
@@ -37,6 +38,7 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
  * POJO based development with annotation programming model
  * Useful abstractions to define business rules and apply them easily with Java
  * The ability to create composite rules from primitive ones
+ * The ability to define rules with Expression Language
 
 ## Example
 
@@ -92,6 +94,7 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 * [andersonkyle](https://github.com/andersonkyle)
 * [beccagaspard](https://github.com/beccagaspard)
 * [cgonul](https://github.com/cgonul)
+* [cemo](https://github.com/cemo)
 * [drem-darios](https://github.com/drem-darios)
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [JurMarky](https://github.com/JurMarky)
@@ -105,6 +108,7 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 * [wg1j](https://github.com/wg1j)
 * [will-gilbert](https://github.com/will-gilbert)
 * [sanmibuh](https://github.com/sanmibuh)
+* [shivmitra](https://github.com/sanmibuh)
 
 Thank you all for your contributions!
 
