@@ -21,10 +21,12 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.core;
+package org.jeasy.rules.support;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.core.BasicRule;
+import org.jeasy.rules.core.RuleProxy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,24 +34,18 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Class representing a composite rule composed of a set of rules.
- *
- * A composite rule is triggered if <strong>ALL</strong> conditions of its composing rules are satisfied.
- * When a composite rule is applied, actions of <strong>ALL</strong> composing rules are performed.
- *
- * @deprecated use <code>UnitRuleGroup</code> instead. This class is deprecated in v3.2 and will be removed in v3.3 .
+ * Base class representing a composite rule composed of a set of rules.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-@Deprecated
-public class CompositeRule extends BasicRule {
+public abstract class CompositeRule extends BasicRule {
 
     /**
      * The set of composing rules.
      */
     protected Set<Rule> rules;
 
-    protected Map<Object, Rule> proxyRules;
+    private Map<Object, Rule> proxyRules;
 
     /**
      * Create a new {@link CompositeRule}.
@@ -90,35 +86,11 @@ public class CompositeRule extends BasicRule {
         proxyRules = new HashMap<>();
     }
 
-    /**
-     * A composite rule is triggered if <strong>ALL</strong> conditions of all composing rules are evaluated to true.
-     * @return true if <strong>ALL</strong> conditions of composing rules are evaluated to true
-     */
     @Override
-    public boolean evaluate(Facts facts) {
-        if (!rules.isEmpty()) {
-            for (Rule rule : rules) {
-                if (!rule.evaluate(facts)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
+    public abstract boolean evaluate(Facts facts);
 
-    /**
-     * When a composite rule is applied, <strong>ALL</strong> actions of composing rules are performed
-     * in their natural order.
-     *
-     * @throws Exception thrown if an exception occurs during actions performing
-     */
     @Override
-    public void execute(Facts facts) throws Exception {
-        for (Rule rule : rules) {
-            rule.execute(facts);
-        }
-    }
+    public abstract void execute(Facts facts) throws Exception;
 
     /**
      * Add a rule to the composite rule.
