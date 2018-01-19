@@ -69,6 +69,4 @@ public class MVELRuleDefinitionReaderTest {
         assertThat(adultRuleDefinition.getCondition()).isEqualTo("person.age > 18");
         assertThat(adultRuleDefinition.getActions()).isEqualTo(Collections.singletonList("person.setAdult(true);"));
     }
-
-
 }
