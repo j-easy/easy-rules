@@ -42,6 +42,12 @@ class MVELRuleDefinitionReader {
         return createRuleDefinitionFrom(map);
     }
 
+    MVELRuleDefinition read(String descriptor) throws NullPointerException {
+        Object object = yaml.load(descriptor);
+        Map<String, Object> map = (Map<String, Object>) object;
+        return createRuleDefinitionFrom(map);
+    }
+
     private static MVELRuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {
         MVELRuleDefinition ruleDefinition = new MVELRuleDefinition();
         ruleDefinition.setName((String) map.get("name"));
