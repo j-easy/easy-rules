@@ -57,5 +57,4 @@ class MVELRuleDefinitionReader {
         ruleDefinition.setActions((List<String>) map.get("actions"));
         return ruleDefinition;
     }
-
 }
