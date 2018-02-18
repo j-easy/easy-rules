@@ -79,6 +79,18 @@ public class RulesTest {
 
         assertThat(rules).hasSize(1).containsExactly(r1);
     }
+    
+    @Test
+    public void unregisterByNameNonExistingRule() throws Exception {
+        Rule r1 = new BasicRule("rule1");
+        Set<Rule> ruleSet = new HashSet<>();
+        ruleSet.add(r1);
+        
+        rules = new Rules(ruleSet);
+        rules.unregister("rule2");
+
+        assertThat(rules).hasSize(1).containsExactly(r1);
+    }
 
     @Test
     public void isEmpty() throws Exception {
