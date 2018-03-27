@@ -37,7 +37,7 @@ public class MVELRuleDefinitionReaderTest {
     private MVELRuleDefinitionReader ruleDefinitionReader = new MVELRuleDefinitionReader();
 
     @Test
-    public void testRuleDefinitionReading() throws Exception {
+    public void testRuleDefinitionReadingFromFile() throws Exception {
         // given
         File adultRuleDescriptor = new File("src/test/resources/adult-rule.yml");
 

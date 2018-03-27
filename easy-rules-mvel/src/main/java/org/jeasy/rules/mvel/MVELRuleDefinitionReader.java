@@ -27,7 +27,9 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Reader;
 import java.io.FileReader;
+import java.io.StringReader;
 import java.util.List;
 import java.util.Map;
 
@@ -37,13 +39,15 @@ class MVELRuleDefinitionReader {
     private Yaml yaml = new Yaml();
 
     MVELRuleDefinition read(File descriptor) throws FileNotFoundException {
-        Object object = yaml.load(new FileReader(descriptor));
-        Map<String, Object> map = (Map<String, Object>) object;
-        return createRuleDefinitionFrom(map);
+        return read(new FileReader(descriptor));
     }
 
-    MVELRuleDefinition read(String descriptor) throws NullPointerException {
-        Object object = yaml.load(descriptor);
+    MVELRuleDefinition read(String descriptor) {
+        return read(new StringReader(descriptor));
+    }
+
+    private MVELRuleDefinition read(Reader reader) {
+        Object object = yaml.load(reader);
         Map<String, Object> map = (Map<String, Object>) object;
         return createRuleDefinitionFrom(map);
     }
