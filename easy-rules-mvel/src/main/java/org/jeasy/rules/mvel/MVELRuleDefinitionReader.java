@@ -23,6 +23,7 @@
  */
 package org.jeasy.rules.mvel;
 
+import org.jeasy.rules.api.Rule;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -54,11 +55,28 @@ class MVELRuleDefinitionReader {
 
     private static MVELRuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {
         MVELRuleDefinition ruleDefinition = new MVELRuleDefinition();
-        ruleDefinition.setName((String) map.get("name"));
-        ruleDefinition.setDescription((String) map.get("description"));
-        ruleDefinition.setPriority((Integer) map.get("priority"));
-        ruleDefinition.setCondition((String) map.get("condition"));
-        ruleDefinition.setActions((List<String>) map.get("actions"));
+
+        String name = (String) map.get("name");
+        ruleDefinition.setName(name != null ? name : Rule.DEFAULT_NAME);
+
+        String description = (String) map.get("description");
+        ruleDefinition.setDescription(description != null ? description : Rule.DEFAULT_DESCRIPTION);
+
+        Integer priority = (Integer) map.get("priority");
+        ruleDefinition.setPriority(priority != null ? priority : Rule.DEFAULT_PRIORITY);
+
+        String condition = (String) map.get("condition");
+        if (condition == null ) {
+            throw new IllegalArgumentException("The rule condition must be specified");
+        }
+        ruleDefinition.setCondition(condition);
+
+        List<String> actions = (List<String>) map.get("actions");
+        if (actions == null || actions.isEmpty()) {
+            throw new IllegalArgumentException("The rule action(s) must be specified");
+        }
+        ruleDefinition.setActions(actions);
+
         return ruleDefinition;
     }
 }
