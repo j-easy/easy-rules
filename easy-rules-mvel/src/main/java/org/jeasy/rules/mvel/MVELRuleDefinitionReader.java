@@ -23,11 +23,14 @@
  */
 package org.jeasy.rules.mvel;
 
+import org.jeasy.rules.api.Rule;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Reader;
 import java.io.FileReader;
+import java.io.StringReader;
 import java.util.List;
 import java.util.Map;
 
@@ -37,19 +40,43 @@ class MVELRuleDefinitionReader {
     private Yaml yaml = new Yaml();
 
     MVELRuleDefinition read(File descriptor) throws FileNotFoundException {
-        Object object = yaml.load(new FileReader(descriptor));
+        return read(new FileReader(descriptor));
+    }
+
+    MVELRuleDefinition read(String descriptor) {
+        return read(new StringReader(descriptor));
+    }
+
+    private MVELRuleDefinition read(Reader reader) {
+        Object object = yaml.load(reader);
         Map<String, Object> map = (Map<String, Object>) object;
         return createRuleDefinitionFrom(map);
     }
 
     private static MVELRuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {
         MVELRuleDefinition ruleDefinition = new MVELRuleDefinition();
-        ruleDefinition.setName((String) map.get("name"));
-        ruleDefinition.setDescription((String) map.get("description"));
-        ruleDefinition.setPriority((Integer) map.get("priority"));
-        ruleDefinition.setCondition((String) map.get("condition"));
-        ruleDefinition.setActions((List<String>) map.get("actions"));
+
+        String name = (String) map.get("name");
+        ruleDefinition.setName(name != null ? name : Rule.DEFAULT_NAME);
+
+        String description = (String) map.get("description");
+        ruleDefinition.setDescription(description != null ? description : Rule.DEFAULT_DESCRIPTION);
+
+        Integer priority = (Integer) map.get("priority");
+        ruleDefinition.setPriority(priority != null ? priority : Rule.DEFAULT_PRIORITY);
+
+        String condition = (String) map.get("condition");
+        if (condition == null ) {
+            throw new IllegalArgumentException("The rule condition must be specified");
+        }
+        ruleDefinition.setCondition(condition);
+
+        List<String> actions = (List<String>) map.get("actions");
+        if (actions == null || actions.isEmpty()) {
+            throw new IllegalArgumentException("The rule action(s) must be specified");
+        }
+        ruleDefinition.setActions(actions);
+
         return ruleDefinition;
     }
-
 }

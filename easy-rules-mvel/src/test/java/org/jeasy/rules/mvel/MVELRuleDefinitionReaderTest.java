@@ -23,9 +23,12 @@
  */
 package org.jeasy.rules.mvel;
 
+import org.jeasy.rules.api.Rule;
 import org.junit.Test;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,7 +38,7 @@ public class MVELRuleDefinitionReaderTest {
     private MVELRuleDefinitionReader ruleDefinitionReader = new MVELRuleDefinitionReader();
 
     @Test
-    public void testRuleDefinitionReading() throws Exception {
+    public void testRuleDefinitionReadingFromFile() throws Exception {
         // given
         File adultRuleDescriptor = new File("src/test/resources/adult-rule.yml");
 
@@ -51,4 +54,61 @@ public class MVELRuleDefinitionReaderTest {
         assertThat(adultRuleDefinition.getActions()).isEqualTo(Collections.singletonList("person.setAdult(true);"));
     }
 
+    @Test
+    public void testRuleDefinitionReadingFromString() throws Exception {
+        // given
+        String adultRuleDescriptor = new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.yml")));
+
+        // when
+        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(adultRuleDescriptor);
+
+        // then
+        assertThat(adultRuleDefinition).isNotNull();
+        assertThat(adultRuleDefinition.getName()).isEqualTo("adult rule");
+        assertThat(adultRuleDefinition.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(adultRuleDefinition.getPriority()).isEqualTo(1);
+        assertThat(adultRuleDefinition.getCondition()).isEqualTo("person.age > 18");
+        assertThat(adultRuleDefinition.getActions()).isEqualTo(Collections.singletonList("person.setAdult(true);"));
+    }
+
+    @Test
+    public void testRuleDefinitionReading_withDefaultValues() throws Exception {
+        // given
+        File adultRuleDescriptor = new File("src/test/resources/adult-rule-with-default-values.yml");
+
+        // when
+        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(adultRuleDescriptor);
+
+        // then
+        assertThat(adultRuleDefinition).isNotNull();
+        assertThat(adultRuleDefinition.getName()).isEqualTo(Rule.DEFAULT_NAME);
+        assertThat(adultRuleDefinition.getDescription()).isEqualTo(Rule.DEFAULT_DESCRIPTION);
+        assertThat(adultRuleDefinition.getPriority()).isEqualTo(Rule.DEFAULT_PRIORITY);
+        assertThat(adultRuleDefinition.getCondition()).isEqualTo("person.age > 18");
+        assertThat(adultRuleDefinition.getActions()).isEqualTo(Collections.singletonList("person.setAdult(true);"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidRuleDefinitionReading_whenNoCondition() throws Exception {
+        // given
+        File adultRuleDescriptor = new File("src/test/resources/adult-rule-without-condition.yml");
+
+        // when
+        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(adultRuleDescriptor);
+
+        // then
+        // expected exception
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidRuleDefinitionReading_whenNoActions() throws Exception {
+        // given
+        File adultRuleDescriptor = new File("src/test/resources/adult-rule-without-actions.yml");
+
+        // when
+        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(adultRuleDescriptor);
+
+        // then
+        // expected exception
+    }
 }

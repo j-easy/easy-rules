@@ -26,6 +26,11 @@ package org.jeasy.rules.mvel;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.Reader;
+import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,6 +43,34 @@ public class MVELRuleFactoryTest {
 
         // when
         MVELRule adultRule = MVELRuleFactory.createRuleFrom(adultRuleDescriptor);
+
+        // then
+        assertThat(adultRule.getName()).isEqualTo("adult rule");
+        assertThat(adultRule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(adultRule.getPriority()).isEqualTo(1);
+    }
+
+    @Test
+    public void testRuleCreationFromFileReader() throws Exception{
+        // given
+        Reader adultRuleDescriptorAsReader = new FileReader("src/test/resources/adult-rule.yml");
+
+        // when
+        MVELRule adultRule = MVELRuleFactory.createRuleFrom(adultRuleDescriptorAsReader);
+
+        // then
+        assertThat(adultRule.getName()).isEqualTo("adult rule");
+        assertThat(adultRule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(adultRule.getPriority()).isEqualTo(1);
+    }
+
+    @Test
+    public void testRuleCreationFromStringReader() throws Exception{
+        // given
+        Reader adultRuleDescriptorAsReader = new StringReader(new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.yml"))));
+
+        // when
+        MVELRule adultRule = MVELRuleFactory.createRuleFrom(adultRuleDescriptorAsReader);
 
         // then
         assertThat(adultRule.getName()).isEqualTo("adult rule");

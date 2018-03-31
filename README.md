@@ -134,8 +134,10 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 
 * [andersonkyle](https://github.com/andersonkyle)
 * [beccagaspard](https://github.com/beccagaspard)
+* [bpoussin](https://github.com/bpoussin)
 * [cgonul](https://github.com/cgonul)
 * [cemo](https://github.com/cemo)
+* [dagframstad](https://github.com/dagframstad)
 * [drem-darios](https://github.com/drem-darios)
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [JurMarky](https://github.com/JurMarky)
