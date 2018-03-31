@@ -117,7 +117,8 @@ public class RuleProxyTest {
         assertNotEquals(proxy2, null);
         assertNotEquals(proxy3, null);
     }
-
+    
+    
     @Test
     public void invokeHashCode() {
 
@@ -139,6 +140,20 @@ public class RuleProxyTest {
         assertNotEquals(rule, proxy1);
         assertNotEquals(rule.hashCode(), proxy1.hashCode());
     }
+    
+    @Test
+    public void invokeToString() {
+
+        Object rule = new DummyRule();
+        Rule proxy1 = RuleProxy.asRule(rule);
+        Rule proxy2 = RuleProxy.asRule(proxy1);
+        
+        assertEquals(proxy1.toString(), proxy1.toString());
+                
+        assertEquals(proxy1.toString(), proxy2.toString());
+        
+        assertEquals(rule.toString(), proxy1.toString());
+    }
 
     @org.jeasy.rules.annotation.Rule
     class DummyRule {
@@ -147,6 +162,13 @@ public class RuleProxyTest {
 
         @Action
         public void then() { }
+        
+        @Override
+        public String toString() {
+        	return "I am a Dummy rule";
+        }
+        
+        
     }
 }
 
