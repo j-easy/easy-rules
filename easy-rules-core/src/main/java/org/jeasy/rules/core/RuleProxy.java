@@ -186,7 +186,13 @@ public class RuleProxy implements InvocationHandler {
         return result;
     }
 
-    private String toStringMethod(){
+    private String toStringMethod() throws Exception {
+        Method[] methods = getMethods();
+        for (Method method : methods) {
+            if ("toString".equals(method.getName())) {
+                return (String) method.invoke(target);
+            }
+        }
        return getRuleName();
     }
 
