@@ -31,6 +31,7 @@ import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.io.FileReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,16 @@ class MVELRuleDefinitionReader {
         Object object = yaml.load(reader);
         Map<String, Object> map = (Map<String, Object>) object;
         return createRuleDefinitionFrom(map);
+    }
+
+    List<MVELRuleDefinition> readAll(Reader reader) {
+        List<MVELRuleDefinition> ruleDefinitions = new ArrayList<>();
+        Iterable<Object> rules = yaml.loadAll(reader);
+        for (Object rule : rules) {
+            Map<String, Object> map = (Map<String, Object>) rule;
+            ruleDefinitions.add(createRuleDefinitionFrom(map));
+        }
+        return ruleDefinitions;
     }
 
     private static MVELRuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {

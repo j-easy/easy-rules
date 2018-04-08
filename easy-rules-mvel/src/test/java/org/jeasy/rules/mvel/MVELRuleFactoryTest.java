@@ -23,6 +23,8 @@
  */
 package org.jeasy.rules.mvel;
 
+import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.api.Rules;
 import org.junit.Test;
 
 import java.io.File;
@@ -31,6 +33,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Iterator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,6 +51,31 @@ public class MVELRuleFactoryTest {
         assertThat(adultRule.getName()).isEqualTo("adult rule");
         assertThat(adultRule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
         assertThat(adultRule.getPriority()).isEqualTo(1);
+    }
+
+    @Test
+    public void testRulesCreation() throws Exception {
+        // given
+        File rulesDescriptor = new File("src/test/resources/rules.yml");
+
+        // when
+        Rules rules = MVELRuleFactory.createRulesFrom(new FileReader(rulesDescriptor));
+
+        // then
+        assertThat(rules).hasSize(2);
+        Iterator<Rule> iterator = rules.iterator();
+
+        Rule rule = iterator.next();
+        assertThat(rule).isNotNull();
+        assertThat(rule.getName()).isEqualTo("adult rule");
+        assertThat(rule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(rule.getPriority()).isEqualTo(1);
+
+        rule = iterator.next();
+        assertThat(rule).isNotNull();
+        assertThat(rule.getName()).isEqualTo("weather rule");
+        assertThat(rule.getDescription()).isEqualTo("when it rains, then take an umbrella");
+        assertThat(rule.getPriority()).isEqualTo(2);
     }
 
     @Test

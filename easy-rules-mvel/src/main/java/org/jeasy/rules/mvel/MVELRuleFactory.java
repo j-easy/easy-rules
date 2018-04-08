@@ -23,10 +23,13 @@
  */
 package org.jeasy.rules.mvel;
 
+import org.jeasy.rules.api.Rules;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 /**
  * Factory to create {@link MVELRule} instances.
@@ -67,5 +70,21 @@ public class MVELRuleFactory {
 
         MVELRuleDefinition ruleDefinition = reader.read(ruleDescriptor.toString());
         return ruleDefinition.create();
+    }
+
+    /**
+     * Create a set of {@link MVELRule} from a Reader.
+     *
+     * @param rulesDescriptorReader as a Reader
+     * @return a set of rules
+     * @throws IOException if the I/O operation failed
+     */
+    public static Rules createRulesFrom(Reader rulesDescriptorReader) throws IOException {
+        Rules rules = new Rules();
+        List<MVELRuleDefinition> ruleDefinition = reader.readAll(rulesDescriptorReader);
+        for (MVELRuleDefinition mvelRuleDefinition : ruleDefinition) {
+            rules.register(mvelRuleDefinition.create());
+        }
+        return rules;
     }
 }

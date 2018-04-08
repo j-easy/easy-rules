@@ -27,9 +27,11 @@ import org.jeasy.rules.api.Rule;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -110,5 +112,44 @@ public class MVELRuleDefinitionReaderTest {
 
         // then
         // expected exception
+    }
+
+    @Test
+    public void testRulesDefinitionReading() throws Exception {
+        // given
+        File rulesDescriptor = new File("src/test/resources/rules.yml");
+
+        // when
+        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.readAll(new FileReader(rulesDescriptor));
+
+        // then
+        assertThat(ruleDefinitions).hasSize(2);
+        MVELRuleDefinition ruleDefinition = ruleDefinitions.get(0);
+        assertThat(ruleDefinition).isNotNull();
+        assertThat(ruleDefinition.getName()).isEqualTo("adult rule");
+        assertThat(ruleDefinition.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(ruleDefinition.getPriority()).isEqualTo(1);
+        assertThat(ruleDefinition.getCondition()).isEqualTo("person.age > 18");
+        assertThat(ruleDefinition.getActions()).isEqualTo(Collections.singletonList("person.setAdult(true);"));
+
+        ruleDefinition = ruleDefinitions.get(1);
+        assertThat(ruleDefinition).isNotNull();
+        assertThat(ruleDefinition.getName()).isEqualTo("weather rule");
+        assertThat(ruleDefinition.getDescription()).isEqualTo("when it rains, then take an umbrella");
+        assertThat(ruleDefinition.getPriority()).isEqualTo(2);
+        assertThat(ruleDefinition.getCondition()).isEqualTo("rain == true");
+        assertThat(ruleDefinition.getActions()).isEqualTo(Collections.singletonList("System.out.println(\"It rains, take an umbrella!\");"));
+    }
+
+    @Test
+    public void testEmptyRulesDefinitionReading() throws Exception {
+        // given
+        File rulesDescriptor = new File("src/test/resources/rules-empty.yml");
+
+        // when
+        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.readAll(new FileReader(rulesDescriptor));
+
+        // then
+        assertThat(ruleDefinitions).hasSize(0);
     }
 }
