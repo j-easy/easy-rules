@@ -138,6 +138,7 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 * [cgonul](https://github.com/cgonul)
 * [cemo](https://github.com/cemo)
 * [dagframstad](https://github.com/dagframstad)
+* [danrivcap](https://github.com/danrivcap)
 * [drem-darios](https://github.com/drem-darios)
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [JurMarky](https://github.com/JurMarky)
