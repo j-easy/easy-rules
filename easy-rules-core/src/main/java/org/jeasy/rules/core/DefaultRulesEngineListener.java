@@ -34,7 +34,7 @@ import java.util.Map;
 
 class DefaultRulesEngineListener implements RulesEngineListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRuleListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRulesEngineListener.class);
 
     private RulesEngineParameters parameters;
 
