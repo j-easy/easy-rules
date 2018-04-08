@@ -48,4 +48,10 @@ public @interface Rule {
      */
     String description() default  org.jeasy.rules.api.Rule.DEFAULT_DESCRIPTION;
 
+    /**
+     * The rule priority.
+     * @return The rule priority
+     */
+    int priority() default org.jeasy.rules.api.Rule.DEFAULT_PRIORITY;
+
 }

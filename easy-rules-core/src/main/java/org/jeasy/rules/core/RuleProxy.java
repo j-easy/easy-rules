@@ -213,6 +213,11 @@ public class RuleProxy implements InvocationHandler {
     private int getRulePriority() throws Exception {
         int priority = Rule.DEFAULT_PRIORITY;
 
+        org.jeasy.rules.annotation.Rule rule = getRuleAnnotation();
+        if (rule.priority() != Rule.DEFAULT_PRIORITY) {
+            priority = rule.priority();
+        }
+
         Method[] methods = getMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(Priority.class)) {

@@ -26,6 +26,7 @@ package org.jeasy.rules.core;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.AnnotatedRuleWithMetaRuleAnnotation;
 import org.jeasy.rules.annotation.Condition;
+import org.jeasy.rules.annotation.Priority;
 import org.jeasy.rules.api.Rule;
 import org.junit.Test;
 
@@ -155,6 +156,80 @@ public class RuleProxyTest {
         assertEquals(rule.toString(), proxy1.toString());
     }
 
+    @Test
+    public void testPriorityFromAnnotation() {
+
+        @org.jeasy.rules.annotation.Rule(priority = 1)
+        class MyRule {
+            @Condition
+            public boolean when() { return true; }
+
+            @Action
+            public void then() { }
+        }
+
+        Object rule = new MyRule();
+        Rule proxy = RuleProxy.asRule(rule);
+        assertEquals(1, proxy.getPriority());
+    }
+
+    @Test
+    public void testPriorityFromMethod() {
+
+        @org.jeasy.rules.annotation.Rule
+        class MyRule {
+            @Condition
+            public boolean when() { return true; }
+
+            @Action
+            public void then() { }
+
+            @Priority
+            public int getPriority() { return 2; }
+        }
+
+        Object rule = new MyRule();
+        Rule proxy = RuleProxy.asRule(rule);
+        assertEquals(2, proxy.getPriority());
+    }
+
+    @Test
+    public void testPriorityPrecedence() {
+
+        @org.jeasy.rules.annotation.Rule(priority = 1)
+        class MyRule {
+            @Condition
+            public boolean when() { return true; }
+
+            @Action
+            public void then() { }
+
+            @Priority
+            public int getPriority() { return 2; }
+        }
+
+        Object rule = new MyRule();
+        Rule proxy = RuleProxy.asRule(rule);
+        assertEquals(2, proxy.getPriority());
+    }
+
+    @Test
+    public void testDefaultPriority() {
+
+        @org.jeasy.rules.annotation.Rule
+        class MyRule {
+            @Condition
+            public boolean when() { return true; }
+
+            @Action
+            public void then() { }
+        }
+
+        Object rule = new MyRule();
+        Rule proxy = RuleProxy.asRule(rule);
+        assertEquals(Rule.DEFAULT_PRIORITY, proxy.getPriority());
+    }
+
     @org.jeasy.rules.annotation.Rule
     class DummyRule {
         @Condition
@@ -168,7 +243,6 @@ public class RuleProxyTest {
         	return "I am a Dummy rule";
         }
         
-        
     }
-}
 
+}
