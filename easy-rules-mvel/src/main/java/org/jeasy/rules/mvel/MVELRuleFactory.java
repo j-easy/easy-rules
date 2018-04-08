@@ -27,7 +27,6 @@ import org.jeasy.rules.api.Rules;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 
@@ -46,7 +45,10 @@ public class MVELRuleFactory {
      * @param ruleDescriptor in yaml format
      * @return a new rule
      * @throws FileNotFoundException if the rule descriptor cannot be found
+     *
+     * @deprecated use {@link MVELRuleFactory#createRuleFrom(java.io.Reader)} instead. This method will be removed in v3.3
      */
+    @Deprecated
     public static MVELRule createRuleFrom(File ruleDescriptor) throws FileNotFoundException {
         MVELRuleDefinition ruleDefinition = reader.read(ruleDescriptor);
         return ruleDefinition.create();
@@ -55,33 +57,23 @@ public class MVELRuleFactory {
     /**
      * Create a new {@link MVELRule} from a Reader.
      *
-     * @param ruleDescriptorReader as a Reader
+     * @param ruleDescriptor as a Reader
      * @return a new rule
-     * @throws IOException if the I/O operation failed
      */
-    public static MVELRule createRuleFrom(Reader ruleDescriptorReader) throws IOException {
-        StringBuilder ruleDescriptor = new StringBuilder();
-
-        int charValue;
-        while ((charValue = ruleDescriptorReader.read()) != -1) {
-            ruleDescriptor.append((char) charValue);
-        }
-        ruleDescriptorReader.close();
-
-        MVELRuleDefinition ruleDefinition = reader.read(ruleDescriptor.toString());
+    public static MVELRule createRuleFrom(Reader ruleDescriptor) {
+        MVELRuleDefinition ruleDefinition = reader.read(ruleDescriptor);
         return ruleDefinition.create();
     }
 
     /**
      * Create a set of {@link MVELRule} from a Reader.
      *
-     * @param rulesDescriptorReader as a Reader
+     * @param rulesDescriptor as a Reader
      * @return a set of rules
-     * @throws IOException if the I/O operation failed
      */
-    public static Rules createRulesFrom(Reader rulesDescriptorReader) throws IOException {
+    public static Rules createRulesFrom(Reader rulesDescriptor) {
         Rules rules = new Rules();
-        List<MVELRuleDefinition> ruleDefinition = reader.readAll(rulesDescriptorReader);
+        List<MVELRuleDefinition> ruleDefinition = reader.readAll(rulesDescriptor);
         for (MVELRuleDefinition mvelRuleDefinition : ruleDefinition) {
             rules.register(mvelRuleDefinition.create());
         }

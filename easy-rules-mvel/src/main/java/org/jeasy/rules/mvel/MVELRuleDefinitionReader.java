@@ -30,7 +30,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.io.FileReader;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,15 +39,13 @@ class MVELRuleDefinitionReader {
 
     private Yaml yaml = new Yaml();
 
+    // TODO to remove once MVELRuleFactory.createRuleFrom(java.io.File) is removed
+    @Deprecated
     MVELRuleDefinition read(File descriptor) throws FileNotFoundException {
         return read(new FileReader(descriptor));
     }
 
-    MVELRuleDefinition read(String descriptor) {
-        return read(new StringReader(descriptor));
-    }
-
-    private MVELRuleDefinition read(Reader reader) {
+    MVELRuleDefinition read(Reader reader) {
         Object object = yaml.load(reader);
         Map<String, Object> map = (Map<String, Object>) object;
         return createRuleDefinitionFrom(map);

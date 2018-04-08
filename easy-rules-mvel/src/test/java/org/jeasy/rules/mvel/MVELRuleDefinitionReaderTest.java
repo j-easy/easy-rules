@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -45,7 +46,7 @@ public class MVELRuleDefinitionReaderTest {
         File adultRuleDescriptor = new File("src/test/resources/adult-rule.yml");
 
         // when
-        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(adultRuleDescriptor);
+        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
 
         // then
         assertThat(adultRuleDefinition).isNotNull();
@@ -62,7 +63,7 @@ public class MVELRuleDefinitionReaderTest {
         String adultRuleDescriptor = new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.yml")));
 
         // when
-        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(adultRuleDescriptor);
+        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(new StringReader(adultRuleDescriptor));
 
         // then
         assertThat(adultRuleDefinition).isNotNull();
@@ -79,7 +80,7 @@ public class MVELRuleDefinitionReaderTest {
         File adultRuleDescriptor = new File("src/test/resources/adult-rule-with-default-values.yml");
 
         // when
-        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(adultRuleDescriptor);
+        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
 
         // then
         assertThat(adultRuleDefinition).isNotNull();
@@ -96,7 +97,7 @@ public class MVELRuleDefinitionReaderTest {
         File adultRuleDescriptor = new File("src/test/resources/adult-rule-without-condition.yml");
 
         // when
-        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(adultRuleDescriptor);
+        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
 
         // then
         // expected exception
@@ -108,7 +109,7 @@ public class MVELRuleDefinitionReaderTest {
         File adultRuleDescriptor = new File("src/test/resources/adult-rule-without-actions.yml");
 
         // when
-        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(adultRuleDescriptor);
+        MVELRuleDefinition adultRuleDefinition = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
 
         // then
         // expected exception
