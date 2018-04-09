@@ -145,6 +145,7 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 * [jordanjennings](https://github.com/jordanjennings)
 * [khandelwalankit](https://github.com/khandelwalankit)
 * [mrcritical](https://github.com/mrcritical)
+* [paulbrejla](https://github.com/paulbrejla)
 * [richdouglasevans](https://github.com/richdouglasevans)
 * [spearway](https://github.com/spearway)
 * [toudidel](https://github.com/toudidel)
