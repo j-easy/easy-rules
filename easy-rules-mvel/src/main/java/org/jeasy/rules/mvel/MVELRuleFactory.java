@@ -25,8 +25,6 @@ package org.jeasy.rules.mvel;
 
 import org.jeasy.rules.api.Rules;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.util.List;
 
@@ -38,21 +36,6 @@ import java.util.List;
 public class MVELRuleFactory {
 
     private static MVELRuleDefinitionReader reader = new MVELRuleDefinitionReader();
-
-    /**
-     * Create a new {@link MVELRule} from a rule descriptor.
-     *
-     * @param ruleDescriptor in yaml format
-     * @return a new rule
-     * @throws FileNotFoundException if the rule descriptor cannot be found
-     *
-     * @deprecated use {@link MVELRuleFactory#createRuleFrom(java.io.Reader)} instead. This method will be removed in v3.3
-     */
-    @Deprecated
-    public static MVELRule createRuleFrom(File ruleDescriptor) throws FileNotFoundException {
-        MVELRuleDefinition ruleDefinition = reader.read(ruleDescriptor);
-        return ruleDefinition.create();
-    }
 
     /**
      * Create a new {@link MVELRule} from a Reader.

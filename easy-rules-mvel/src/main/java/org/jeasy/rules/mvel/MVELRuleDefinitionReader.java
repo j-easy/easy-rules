@@ -26,10 +26,7 @@ package org.jeasy.rules.mvel;
 import org.jeasy.rules.api.Rule;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.Reader;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,12 +35,6 @@ import java.util.Map;
 class MVELRuleDefinitionReader {
 
     private Yaml yaml = new Yaml();
-
-    // TODO to remove once MVELRuleFactory.createRuleFrom(java.io.File) is removed
-    @Deprecated
-    MVELRuleDefinition read(File descriptor) throws FileNotFoundException {
-        return read(new FileReader(descriptor));
-    }
 
     MVELRuleDefinition read(Reader reader) {
         Object object = yaml.load(reader);

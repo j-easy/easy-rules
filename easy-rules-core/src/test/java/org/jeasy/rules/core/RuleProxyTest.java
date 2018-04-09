@@ -59,15 +59,6 @@ public class RuleProxyTest {
     }
 
     @Test
-    public void asRuleForObjectThatExtendsBasicRule() {
-        Object rule = new CompositeRule();
-        Rule proxy = RuleProxy.asRule(rule);
-
-        assertNotNull(proxy.getDescription());
-        assertNotNull(proxy.getName());
-    }
-
-    @Test
     public void asRuleForObjectThatHasProxied() {
         Object rule = new DummyRule();
         Rule proxy1 = RuleProxy.asRule(rule);
