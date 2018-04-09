@@ -23,9 +23,9 @@
  */
 package org.jeasy.rules.tutorials.fizzbuzz;
 
-import org.jeasy.rules.core.CompositeRule;
+import org.jeasy.rules.support.UnitRuleGroup;
 
-public class FizzBuzzRule extends CompositeRule {
+public class FizzBuzzRule extends UnitRuleGroup {
 
     public FizzBuzzRule(Object... rules) {
         for (Object rule : rules) {

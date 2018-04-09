@@ -30,8 +30,8 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class Launcher {
 
@@ -48,7 +48,7 @@ public class Launcher {
                 .priority(1)
                 .when("person.age > 18")
                 .then("person.setAdult(true);");
-        MVELRule alcoholRule = MVELRuleFactory.createRuleFrom(new File("src/main/java/org/jeasy/rules/tutorials/shop/alcohol-rule.yml"));
+        MVELRule alcoholRule = MVELRuleFactory.createRuleFrom(new FileReader("src/main/java/org/jeasy/rules/tutorials/shop/alcohol-rule.yml"));
 
         // create a rule set
         Rules rules = new Rules();
