@@ -30,7 +30,7 @@ import org.jeasy.rules.api.RuleListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class DefaultRuleListener implements RuleListener {
+public final class DefaultRuleListener implements RuleListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRuleListener.class);
 
