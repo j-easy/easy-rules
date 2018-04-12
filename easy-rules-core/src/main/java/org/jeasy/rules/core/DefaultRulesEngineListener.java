@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-class DefaultRulesEngineListener implements RulesEngineListener {
+public class DefaultRulesEngineListener implements RulesEngineListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRulesEngineListener.class);
 
