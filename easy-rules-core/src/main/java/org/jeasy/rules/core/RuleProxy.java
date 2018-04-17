@@ -147,7 +147,7 @@ public class RuleProxy implements InvocationHandler {
                 String factName = ((Fact) (annotations[0])).value(); //validated upfront.
                 Object fact = facts.get(factName);
                 if (fact == null && !facts.asMap().containsKey(factName)) {
-                    throw new NoSuchFactException(format("No fact named '%s' found in known facts: \n%s", factName, facts), factName);
+                    throw new NoSuchFactException(format("No fact named '%s' found in known facts: %n%s", factName, facts), factName);
                 }
                 actualParameters.add(fact);
             } else {
