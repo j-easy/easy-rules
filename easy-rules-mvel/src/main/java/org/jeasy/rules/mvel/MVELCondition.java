@@ -38,7 +38,7 @@ import java.io.Serializable;
  */
 public class MVELCondition implements Condition {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(MVELCondition.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MVELCondition.class);
 
     private String expression;
     private Serializable compiledExpression;

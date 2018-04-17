@@ -38,7 +38,7 @@ import java.io.Serializable;
  */
 public class MVELAction implements Action {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(MVELAction.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MVELAction.class);
 
     private String expression;
     private Serializable compiledExpression;
