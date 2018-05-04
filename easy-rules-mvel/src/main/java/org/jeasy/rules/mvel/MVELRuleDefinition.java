@@ -24,7 +24,10 @@
 package org.jeasy.rules.mvel;
 
 import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.api.Rules;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class MVELRuleDefinition {
@@ -34,6 +37,11 @@ class MVELRuleDefinition {
     private int priority = Rule.DEFAULT_PRIORITY;
     private String condition;
     private List<String> actions;
+    private Rules subrules;
+    private String compositeRuleType;
+    private List<String> allowedCompositeTypes = new ArrayList<>(
+            Arrays.asList("UnitRuleGroup", "ConditionalRuleGroup", "ActivationRuleGroup")
+    );
 
     public String getName() {
         return name;
@@ -75,15 +83,62 @@ class MVELRuleDefinition {
         this.actions = actions;
     }
 
-    MVELRule create() {
-        MVELRule mvelRule = new MVELRule()
-                .name(name)
-                .description(description)
-                .priority(priority)
-                .when(condition);
-        for (String action : actions) {
-            mvelRule.then(action);
+    public void setSubrules(List<MVELRuleDefinition> subruleDefinitions, String compositeRuleType) {
+        subrules = new Rules();
+        for (MVELRuleDefinition ruleDef : subruleDefinitions) {
+            MVELRule r = ruleDef.create();
+            subrules.register(r);
         }
-        return mvelRule;
+        setCompositeRuleType(compositeRuleType);
+    }
+
+    public void setCompositeRuleType(String compositeRuleType) { this.compositeRuleType = compositeRuleType; }
+
+    public String getCompositeRuleType() { return compositeRuleType; }
+
+    public Rules getSubrules() { return subrules; }
+
+    MVELRule create() {
+        if (subrules == null) {
+            MVELRule mvelRule = new MVELRule()
+                    .name(name)
+                    .description(description)
+                    .priority(priority)
+                    .when(condition);
+            for (String action : actions) {
+                mvelRule.then(action);
+            }
+            return mvelRule;
+        } else {
+            if (allowedCompositeTypes.contains(compositeRuleType)) {
+                MVELCompositeRule compositeRule;
+
+                switch (compositeRuleType) {
+                    case "UnitRuleGroup":
+                        compositeRule = new MVELUnitRuleGroup();
+                        break;
+                    case "ActivationRuleGroup":
+                        compositeRule = new MVELActivationRuleGroup();
+                        break;
+                    case "ConditionalRuleGroup":
+                        compositeRule = new MVELConditionalRuleGroup();
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid composite rule type");
+                }
+
+                compositeRule.name(name);
+                compositeRule.description(description);
+                compositeRule.priority(priority);
+
+                for (Rule rule : subrules) {
+                    compositeRule.addRule(rule);
+                }
+
+                return compositeRule;
+            } else {
+                throw new IllegalArgumentException("Invalid composite rule type");
+            }
+        }
     }
 }

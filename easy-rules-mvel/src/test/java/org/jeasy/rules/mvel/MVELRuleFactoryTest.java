@@ -91,4 +91,29 @@ public class MVELRuleFactoryTest {
         assertThat(adultRule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
         assertThat(adultRule.getPriority()).isEqualTo(1);
     }
+
+    @Test
+    public void testRuleCreationFromFileReader__withCompositeRules() throws Exception{
+        // given
+        File rulesDescriptor = new File("src/test/resources/composite-rule.yml");
+
+        // when
+        Rules rules = MVELRuleFactory.createRulesFrom(new FileReader(rulesDescriptor));
+
+        // then
+        assertThat(rules).hasSize(2);
+        Iterator<Rule> iterator = rules.iterator();
+
+        Rule rule = iterator.next();
+        assertThat(rule).isNotNull();
+        assertThat(rule.getName()).isEqualTo("Movie id rule");
+        assertThat(rule.getDescription()).isEqualTo("description");
+        assertThat(rule.getPriority()).isEqualTo(1);
+
+        rule = iterator.next();
+        assertThat(rule).isNotNull();
+        assertThat(rule.getName()).isEqualTo("weather rule");
+        assertThat(rule.getDescription()).isEqualTo("when it rains, then take an umbrella");
+        assertThat(rule.getPriority()).isEqualTo(1);;
+    }
 }

@@ -153,4 +153,35 @@ public class MVELRuleDefinitionReaderTest {
         // then
         assertThat(ruleDefinitions).hasSize(0);
     }
+
+    @Test
+    public void testRuleDefinitionReading_withCompositeAndBasicRules() throws Exception {
+        // given
+        File compositeRuleDescriptor = new File("src/test/resources/composite-rule.yml");
+
+        // when
+        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.readAll(new FileReader(compositeRuleDescriptor));
+
+        // then
+        assertThat(ruleDefinitions).hasSize(2);
+
+        // then
+        MVELRuleDefinition ruleDefinition = ruleDefinitions.get(0);
+        assertThat(ruleDefinition).isNotNull();
+        assertThat(ruleDefinition.getName()).isEqualTo("Movie id rule");
+        assertThat(ruleDefinition.getDescription()).isEqualTo("description");
+        assertThat(ruleDefinition.getCompositeRuleType()).isEqualTo("UnitRuleGroup");
+        assertThat(ruleDefinition.getSubrules().isEmpty()).isFalse();
+        for (Rule subrule : ruleDefinition.getSubrules()) {
+            assertThat(subrule.getPriority()).isEqualTo(1);
+        }
+
+        ruleDefinition = ruleDefinitions.get(1);
+        assertThat(ruleDefinition).isNotNull();
+        assertThat(ruleDefinition.getName()).isEqualTo("weather rule");
+        assertThat(ruleDefinition.getDescription()).isEqualTo("when it rains, then take an umbrella");
+        assertThat(ruleDefinition.getSubrules()).isNull();
+        assertThat(ruleDefinition.getCondition()).isEqualTo("rain == True");
+        assertThat(ruleDefinition.getActions()).isEqualTo(Collections.singletonList("System.out.println(\"It rains, take an umbrella!\");"));
+    }
 }
