@@ -64,17 +64,33 @@ class MVELRuleDefinitionReader {
         Integer priority = (Integer) map.get("priority");
         ruleDefinition.setPriority(priority != null ? priority : Rule.DEFAULT_PRIORITY);
 
+        String compositeRuleType = (String) map.get("compositeType");
+
         String condition = (String) map.get("condition");
-        if (condition == null ) {
+        if (condition == null && compositeRuleType == null) {
             throw new IllegalArgumentException("The rule condition must be specified");
         }
         ruleDefinition.setCondition(condition);
 
         List<String> actions = (List<String>) map.get("actions");
-        if (actions == null || actions.isEmpty()) {
+        if ((actions == null || actions.isEmpty()) && compositeRuleType == null) {
             throw new IllegalArgumentException("The rule action(s) must be specified");
         }
         ruleDefinition.setActions(actions);
+
+        List<Object> subrules = (List<Object>) map.get("subrules");
+        if (subrules != null && compositeRuleType == null) {
+            throw new IllegalArgumentException("Non-composite rules cannot have subrules");
+        } else if (subrules == null && compositeRuleType != null) {
+            throw new IllegalArgumentException("Composite rules must have subrules specified");
+        } else if (subrules != null) {
+            List<MVELRuleDefinition> subruleDefinitions = new ArrayList<>();
+            for (Object rule : subrules){
+                Map<String, Object> subruleMap = (Map<String, Object>) rule;
+                subruleDefinitions.add(createRuleDefinitionFrom(subruleMap));
+            }
+            ruleDefinition.setSubrules(subruleDefinitions, compositeRuleType);
+        }
 
         return ruleDefinition;
     }
