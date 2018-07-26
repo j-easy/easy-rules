@@ -44,4 +44,11 @@ public abstract class MVELCompositeRule extends MVELRule {
         }
     }
 
+    /**
+     * Get the member rules in this composite.
+     */
+    public Set<Rule> getRules() {
+        return rules;
+    }
+
 }
