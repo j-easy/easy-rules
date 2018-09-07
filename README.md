@@ -122,6 +122,30 @@ public class Test {
 
 This is the hello world of Easy Rules. You can find other examples like the [Shop](https://github.com/j-easy/easy-rules/wiki/shop), [Airco](https://github.com/j-easy/easy-rules/wiki/air-conditioning) or [WebApp](https://github.com/j-easy/easy-rules/wiki/web-app) tutorials in the wiki.
 
+## Installation
+
+<b> Maven </b>
+```xml
+<dependency>
+    <groupId>org.jeasy</groupId>
+    <artifactId>easy-rules</artifactId>
+    <version>3.2.0</version>
+    <type>pom</type>
+</dependency>
+```
+
+<b>Gradle</b>
+
+implementation 'org.jeasy:easy-rules:3.2.0'
+
+Remember add mavenCentral in the repositories
+
+```
+repositories {
+        mavenCentral()
+}
+```
+
 ## Contribution
 
 You are welcome to contribute to the project with pull requests on GitHub.
