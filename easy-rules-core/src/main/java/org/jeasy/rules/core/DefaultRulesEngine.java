@@ -72,10 +72,11 @@ public final class DefaultRulesEngine implements RulesEngine {
         this.rulesEngineListeners = new ArrayList<>();
         this.rulesEngineListeners.add(new DefaultRulesEngineListener(parameters));
     }
-
+    /*makes and returns a shallow copy of the parameters object*/
     @Override
     public RulesEngineParameters getParameters() {
-        return parameters;
+        RulesEngineParameters copy = (RulesEngineParameters) parameters.clone();
+        return copy;
     }
 
     @Override
