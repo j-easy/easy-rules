@@ -74,7 +74,7 @@ public final class DefaultRulesEngine implements RulesEngine {
     }
     /*makes and returns a shallow copy of the parameters object*/
     @Override
-    public RulesEngineParameters getParameters() {
+    public RulesEngineParameters getParameters() throws CloneNotSupportedException {
         RulesEngineParameters copy = (RulesEngineParameters) parameters.clone();
         return copy;
     }
