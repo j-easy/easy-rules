@@ -40,7 +40,7 @@ public interface RulesEngine {
      *
      * @return The rules engine parameters
      */
-    RulesEngineParameters getParameters();
+    RulesEngineParameters getParameters() throws CloneNotSupportedException;
 
     /**
      * Return the list of registered rule listeners.
