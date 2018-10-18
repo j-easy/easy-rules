@@ -33,7 +33,7 @@ package org.jeasy.rules.core;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class RulesEngineParameters {
+public class RulesEngineParameters implements Cloneable {
 
     /**
      * Default rule priority threshold.
@@ -143,4 +143,10 @@ public class RulesEngineParameters {
                 ", priorityThreshold = " + priorityThreshold +
                 " }";
     }
+    /*function for getting a copy of this object*/
+    @Override
+        public Object clone() throws CloneNotSupportedException {
+	    return super.clone();
+	}
+    
 }
