@@ -153,7 +153,7 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 * [wg1j](https://github.com/wg1j)
 * [will-gilbert](https://github.com/will-gilbert)
 * [sanmibuh](https://github.com/sanmibuh)
-* [shivmitra](https://github.com/sanmibuh)
+* [shivmitra](https://github.com/shivmitra)
 
 Thank you all for your contributions!
 
