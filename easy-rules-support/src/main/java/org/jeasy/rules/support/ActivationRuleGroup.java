@@ -91,6 +91,8 @@ public class ActivationRuleGroup extends CompositeRule {
 
     @Override
     public void execute(Facts facts) throws Exception {
-        selectedRule.execute(facts);
+        if(evaluate(facts)){
+            selectedRule.execute(facts);
+        }
     }
 }
