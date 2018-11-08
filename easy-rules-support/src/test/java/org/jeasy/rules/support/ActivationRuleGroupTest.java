@@ -25,6 +25,7 @@ package org.jeasy.rules.support;
 
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
+import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.core.DefaultRulesEngine;
@@ -82,6 +83,22 @@ public class ActivationRuleGroupTest {
         }
     }
 
+    @Test
+    public void nothingHappen_whenNoSelectedRule(){
+        Rule4 rule=new Rule4();
+        ActivationRuleGroup activationRuleGroup = new ActivationRuleGroup("my activation rule", "rule2 xor rule3");
+        activationRuleGroup.addRule(rule);
+
+        //when
+        rules.register(activationRuleGroup);
+
+        //then
+        rulesEngine.fire(rules,facts);
+
+        // rule will not be selected,so hope return false
+        assertThat(rule.isExecuted()).isFalse();
+    }
+
     @org.jeasy.rules.annotation.Rule(priority = 1)
     public class Rule1 {
         private boolean executed;
@@ -119,5 +136,23 @@ public class ActivationRuleGroupTest {
         public void then() { executed = true; }
 
         public boolean isExecuted() { return executed; }
+    }
+
+    /**
+     * A rule can not be selected
+     */
+    @org.jeasy.rules.annotation.Rule(priority = 1)
+    public class Rule4{
+
+        private boolean executed;
+
+        @Condition
+        public boolean when() { return false; }
+
+        @Action
+        public void then() { executed = true; }
+
+        public boolean isExecuted() { return executed; }
+
     }
 }

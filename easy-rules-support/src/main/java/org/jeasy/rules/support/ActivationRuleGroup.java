@@ -91,6 +91,8 @@ public class ActivationRuleGroup extends CompositeRule {
 
     @Override
     public void execute(Facts facts) throws Exception {
-        selectedRule.execute(facts);
+        if(selectedRule!=null){//handle no rule has been selected will throw NPE
+            selectedRule.execute(facts);
+        }
     }
 }
