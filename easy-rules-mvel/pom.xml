@@ -13,9 +13,9 @@
     <description>MVEL integration module</description>
 
     <properties>
-        <mvel2.version>2.4.0.Final</mvel2.version>
-        <system-rules.version>1.17.1</system-rules.version>
-        <jackson-dataformat-yaml.version>2.9.5</jackson-dataformat-yaml.version>
+        <mvel2.version>2.4.3.Final</mvel2.version>
+        <system-rules.version>1.19.0</system-rules.version>
+        <jackson-dataformat-yaml.version>2.9.8</jackson-dataformat-yaml.version>
     </properties>
 
     <scm>
