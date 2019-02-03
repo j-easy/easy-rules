@@ -48,7 +48,7 @@ class DefaultRulesEngineListener implements RulesEngineListener {
             logEngineParameters();
             log(rules);
             log(facts);
-            LOGGER.info("Rules evaluation started");
+            LOGGER.debug("Rules evaluation started");
         } else {
             LOGGER.warn("No rules registered! Nothing to apply");
         }
@@ -60,21 +60,21 @@ class DefaultRulesEngineListener implements RulesEngineListener {
     }
 
     private void logEngineParameters() {
-        LOGGER.info(parameters.toString());
+        LOGGER.debug(parameters.toString());
     }
 
     private void log(Rules rules) {
-        LOGGER.info("Registered rules:");
+        LOGGER.debug("Registered rules:");
         for (Rule rule : rules) {
-            LOGGER.info("Rule { name = '{}', description = '{}', priority = '{}'}",
+            LOGGER.debug("Rule { name = '{}', description = '{}', priority = '{}'}",
                     rule.getName(), rule.getDescription(), rule.getPriority());
         }
     }
 
     private void log(Facts facts) {
-        LOGGER.info("Known facts:");
+        LOGGER.debug("Known facts:");
         for (Map.Entry<String, Object> fact : facts) {
-            LOGGER.info("Fact { {} : {} }",
+            LOGGER.debug("Fact { {} : {} }",
                     fact.getKey(), String.valueOf(fact.getValue()));
         }
     }

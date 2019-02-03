@@ -112,7 +112,7 @@ public class RuleProxy implements InvocationHandler {
             List<Object> actualParameters = getActualParameters(conditionMethod, facts);
             return conditionMethod.invoke(target, actualParameters.toArray()); // validated upfront
         } catch (NoSuchFactException e) {
-            LOGGER.info("Rule '{}' has been evaluated to false due to a declared but missing fact '{}' in {}",
+            LOGGER.error("Rule '{}' has been evaluated to false due to a declared but missing fact '{}' in {}",
                     getTargetClass().getName(), e.getMissingFact(), facts);
             return false;
         } catch (IllegalArgumentException e) {

@@ -58,7 +58,7 @@ public class MVELCondition implements Condition {
         try {
             return (boolean) MVEL.executeExpression(compiledExpression, facts.asMap());
         } catch (Exception e) {
-            LOGGER.debug("Unable to evaluate expression: '" + expression + "' on facts: " + facts, e);
+            LOGGER.error("Unable to evaluate expression: '" + expression + "' on facts: " + facts, e);
             return false;
         }
     }
