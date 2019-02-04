@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- *  Copyright (c) 2018, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ *  Copyright (c) 2019, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -100,12 +100,12 @@ public final class DefaultRulesEngine implements RulesEngine {
             final String name = rule.getName();
             final int priority = rule.getPriority();
             if (priority > parameters.getPriorityThreshold()) {
-                LOGGER.info("Rule priority threshold ({}) exceeded at rule '{}' with priority={}, next rules will be skipped",
+                LOGGER.debug("Rule priority threshold ({}) exceeded at rule '{}' with priority={}, next rules will be skipped",
                         parameters.getPriorityThreshold(), name, priority);
                 break;
             }
             if (!shouldBeEvaluated(rule, facts)) {
-                LOGGER.info("Rule '{}' has been skipped before being evaluated",
+                LOGGER.debug("Rule '{}' has been skipped before being evaluated",
                     name);
                 continue;
             }
@@ -116,20 +116,20 @@ public final class DefaultRulesEngine implements RulesEngine {
                     rule.execute(facts);
                     triggerListenersOnSuccess(rule, facts);
                     if (parameters.isSkipOnFirstAppliedRule()) {
-                        LOGGER.info("Next rules will be skipped since parameter skipOnFirstAppliedRule is set");
+                        LOGGER.debug("Next rules will be skipped since parameter skipOnFirstAppliedRule is set");
                         break;
                     }
                 } catch (Exception exception) {
                     triggerListenersOnFailure(rule, exception, facts);
                     if (parameters.isSkipOnFirstFailedRule()) {
-                        LOGGER.info("Next rules will be skipped since parameter skipOnFirstFailedRule is set");
+                        LOGGER.debug("Next rules will be skipped since parameter skipOnFirstFailedRule is set");
                         break;
                     }
                 }
             } else {
                 triggerListenersAfterEvaluate(rule, facts, false);
                 if (parameters.isSkipOnFirstNonTriggeredRule()) {
-                    LOGGER.info("Next rules will be skipped since parameter skipOnFirstNonTriggeredRule is set");
+                    LOGGER.debug("Next rules will be skipped since parameter skipOnFirstNonTriggeredRule is set");
                     break;
                 }
             }
@@ -145,7 +145,7 @@ public final class DefaultRulesEngine implements RulesEngine {
     }
 
     private Map<Rule, Boolean> doCheck(Rules rules, Facts facts) {
-        LOGGER.info("Checking rules");
+        LOGGER.debug("Checking rules");
         Map<Rule, Boolean> result = new HashMap<>();
         for (Rule rule : rules) {
             if (shouldBeEvaluated(rule, facts)) {

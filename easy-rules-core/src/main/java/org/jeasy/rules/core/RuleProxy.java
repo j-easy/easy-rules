@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- *  Copyright (c) 2018, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ *  Copyright (c) 2019, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -112,7 +112,7 @@ public class RuleProxy implements InvocationHandler {
             List<Object> actualParameters = getActualParameters(conditionMethod, facts);
             return conditionMethod.invoke(target, actualParameters.toArray()); // validated upfront
         } catch (NoSuchFactException e) {
-            LOGGER.info("Rule '{}' has been evaluated to false due to a declared but missing fact '{}' in {}",
+            LOGGER.error("Rule '{}' has been evaluated to false due to a declared but missing fact '{}' in {}",
                     getTargetClass().getName(), e.getMissingFact(), facts);
             return false;
         } catch (IllegalArgumentException e) {

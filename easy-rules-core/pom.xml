@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.jeasy</groupId>
         <artifactId>easy-rules</artifactId>
-        <version>3.2.1-SNAPSHOT</version>
+        <version>3.3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>easy-rules-core</artifactId>
@@ -95,7 +95,7 @@
                 <configuration>
                     <header>${project.basedir}/licence-header-template.txt</header>
                     <properties>
-                        <currentYear>2018</currentYear>
+                        <currentYear>2019</currentYear>
                     </properties>
                     <strictCheck>true</strictCheck>
                     <includes>

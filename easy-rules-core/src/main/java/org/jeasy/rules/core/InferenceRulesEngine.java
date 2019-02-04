@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- *  Copyright (c) 2018, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ *  Copyright (c) 2019, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -85,12 +85,12 @@ public final class InferenceRulesEngine implements RulesEngine {
     public void fire(Rules rules, Facts facts) {
         Set<Rule> selectedRules;
         do {
-            LOGGER.info("Selecting candidate rules based on the following facts: {}", facts);
+            LOGGER.debug("Selecting candidate rules based on the following facts: {}", facts);
             selectedRules = selectCandidates(rules, facts);
             if(!selectedRules.isEmpty()) {
                 delegate.doFire(new Rules(selectedRules), facts);
             } else {
-                LOGGER.info("No candidate rules found for facts: {}", facts);
+                LOGGER.debug("No candidate rules found for facts: {}", facts);
             }
         } while (!selectedRules.isEmpty());
     }

@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.jeasy</groupId>
         <artifactId>easy-rules</artifactId>
-        <version>3.2.1-SNAPSHOT</version>
+        <version>3.3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>easy-rules-mvel</artifactId>
@@ -13,9 +13,9 @@
     <description>MVEL integration module</description>
 
     <properties>
-        <mvel2.version>2.4.0.Final</mvel2.version>
-        <system-rules.version>1.17.1</system-rules.version>
-        <jackson-dataformat-yaml.version>2.9.5</jackson-dataformat-yaml.version>
+        <mvel2.version>2.4.3.Final</mvel2.version>
+        <system-rules.version>1.19.0</system-rules.version>
+        <jackson-dataformat-yaml.version>2.9.8</jackson-dataformat-yaml.version>
     </properties>
 
     <scm>
@@ -109,7 +109,7 @@
                 <configuration>
                     <header>${project.basedir}/licence-header-template.txt</header>
                     <properties>
-                        <currentYear>2018</currentYear>
+                        <currentYear>2019</currentYear>
                     </properties>
                     <strictCheck>true</strictCheck>
                     <includes>
