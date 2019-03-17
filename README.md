@@ -147,6 +147,7 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 * [mrcritical](https://github.com/mrcritical)
 * [paulbrejla](https://github.com/paulbrejla)
 * [richdouglasevans](https://github.com/richdouglasevans)
+* [ruanjiehui](https://github.com/ruanjiehui)
 * [spearway](https://github.com/spearway)
 * [toudidel](https://github.com/toudidel)
 * [vinoct6](https://github.com/vinoct6)
