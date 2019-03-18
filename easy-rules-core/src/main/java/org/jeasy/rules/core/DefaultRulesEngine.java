@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class DefaultRulesEngine implements RulesEngine {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRuleListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRulesEngine.class);
 
     private RulesEngineParameters parameters;
     private List<RuleListener> ruleListeners;
