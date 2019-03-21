@@ -28,6 +28,7 @@ import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.api.RulesEngineListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -60,12 +61,12 @@ abstract class AbstractRuleEngine implements RulesEngine {
 
     @Override
     public List<RuleListener> getRuleListeners() {
-        return ruleListeners;
+        return Collections.unmodifiableList(ruleListeners);
     }
 
     @Override
     public List<RulesEngineListener> getRulesEngineListeners() {
-        return rulesEngineListeners;
+        return Collections.unmodifiableList(rulesEngineListeners);
     }
 
     public void registerRuleListener(RuleListener ruleListener) {
