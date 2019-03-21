@@ -23,18 +23,12 @@
  */
 package org.jeasy.rules.core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.jeasy.rules.api.Facts;
-import org.jeasy.rules.api.Rule;
-import org.jeasy.rules.api.RuleListener;
-import org.jeasy.rules.api.RulesEngineListener;
-import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Default {@link RulesEngine} implementation.
@@ -45,19 +39,15 @@ import org.slf4j.LoggerFactory;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public final class DefaultRulesEngine implements RulesEngine {
+public final class DefaultRulesEngine extends AbstractRuleEngine {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRulesEngine.class);
-
-    private RulesEngineParameters parameters;
-    private List<RuleListener> ruleListeners;
-    private List<RulesEngineListener> rulesEngineListeners;
 
     /**
      * Create a new {@link DefaultRulesEngine} with default parameters.
      */
     public DefaultRulesEngine() {
-        this(new RulesEngineParameters());
+        super();
     }
 
     /**
@@ -66,26 +56,7 @@ public final class DefaultRulesEngine implements RulesEngine {
      * @param parameters of the engine
      */
     public DefaultRulesEngine(final RulesEngineParameters parameters) {
-        this.parameters = parameters;
-        this.ruleListeners = new ArrayList<>();
-        this.ruleListeners.add(new DefaultRuleListener());
-        this.rulesEngineListeners = new ArrayList<>();
-        this.rulesEngineListeners.add(new DefaultRulesEngineListener(parameters));
-    }
-
-    @Override
-    public RulesEngineParameters getParameters() {
-        return parameters;
-    }
-
-    @Override
-    public List<RuleListener> getRuleListeners() {
-        return ruleListeners;
-    }
-
-    @Override
-    public List<RulesEngineListener> getRulesEngineListeners() {
-        return rulesEngineListeners;
+        super(parameters);
     }
 
     @Override
@@ -204,35 +175,4 @@ public final class DefaultRulesEngine implements RulesEngine {
         return triggerListenersBeforeEvaluate(rule, facts);
     }
 
-    /**
-     * Register a rule listener.
-     * @param ruleListener to register
-     */
-    public void registerRuleListener(RuleListener ruleListener) {
-        ruleListeners.add(ruleListener);
-    }
-
-    /**
-     * Register a list of rule listener.
-     * @param ruleListeners to register
-     */
-    public void registerRuleListeners(List<RuleListener> ruleListeners) {
-        this.ruleListeners.addAll(ruleListeners);
-    }
-
-    /**
-     * Register a rules engine listener.
-     * @param rulesEngineListener to register
-     */
-    public void registerRulesEngineListener(RulesEngineListener rulesEngineListener) {
-        rulesEngineListeners.add(rulesEngineListener);
-    }
-
-    /**
-     * Register a list of rules engine listener.
-     * @param rulesEngineListeners to register
-     */
-    public void registerRulesEngineListeners(List<RulesEngineListener> rulesEngineListeners) {
-        this.rulesEngineListeners.addAll(rulesEngineListeners);
-    }
 }

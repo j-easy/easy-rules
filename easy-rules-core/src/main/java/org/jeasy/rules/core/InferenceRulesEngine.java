@@ -38,13 +38,10 @@ import java.util.*;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public final class InferenceRulesEngine implements RulesEngine {
+public final class InferenceRulesEngine extends AbstractRuleEngine {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InferenceRulesEngine.class);
 
-    private RulesEngineParameters parameters;
-    private List<RuleListener> ruleListeners;
-    private List<RulesEngineListener> rulesEngineListeners;
     private DefaultRulesEngine delegate;
 
     /**
@@ -60,25 +57,8 @@ public final class InferenceRulesEngine implements RulesEngine {
      * @param parameters of the engine
      */
     public InferenceRulesEngine(RulesEngineParameters parameters) {
-        this.parameters = parameters;
+        super(parameters);
         delegate = new DefaultRulesEngine(parameters);
-        ruleListeners = new ArrayList<>();
-        rulesEngineListeners = new ArrayList<>();
-    }
-
-    @Override
-    public RulesEngineParameters getParameters() {
-        return parameters;
-    }
-
-    @Override
-    public List<RuleListener> getRuleListeners() {
-        return ruleListeners;
-    }
-
-    @Override
-    public List<RulesEngineListener> getRulesEngineListeners() {
-        return rulesEngineListeners;
     }
 
     @Override
@@ -115,7 +95,7 @@ public final class InferenceRulesEngine implements RulesEngine {
      * @param ruleListener to register
      */
     public void registerRuleListener(RuleListener ruleListener) {
-        ruleListeners.add(ruleListener);
+        super.registerRuleListener(ruleListener);
         delegate.registerRuleListener(ruleListener);
     }
 
@@ -124,7 +104,7 @@ public final class InferenceRulesEngine implements RulesEngine {
      * @param ruleListeners to register
      */
     public void registerRuleListeners(List<RuleListener> ruleListeners) {
-        this.ruleListeners.addAll(ruleListeners);
+        super.registerRuleListeners(ruleListeners);
         delegate.registerRuleListeners(ruleListeners);
     }
 
@@ -133,7 +113,7 @@ public final class InferenceRulesEngine implements RulesEngine {
      * @param rulesEngineListener to register
      */
     public void registerRulesEngineListener(RulesEngineListener rulesEngineListener) {
-        rulesEngineListeners.add(rulesEngineListener);
+        super.registerRulesEngineListener(rulesEngineListener);
         delegate.registerRulesEngineListener(rulesEngineListener);
     }
 
@@ -142,7 +122,7 @@ public final class InferenceRulesEngine implements RulesEngine {
      * @param rulesEngineListeners to register
      */
     public void registerRulesEngineListeners(List<RulesEngineListener> rulesEngineListeners) {
-        this.rulesEngineListeners.addAll(rulesEngineListeners);
+        super.registerRulesEngineListeners(rulesEngineListeners);
         delegate.registerRulesEngineListeners(rulesEngineListeners);
     }
 }
