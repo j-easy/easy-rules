@@ -59,6 +59,7 @@ public class MVELAction implements Action {
             MVEL.executeExpression(compiledExpression, facts.asMap());
         } catch (Exception e) {
             LOGGER.error("Unable to evaluate expression: '" + expression + "' on facts: " + facts, e);
+            throw e;
         }
     }
 }
