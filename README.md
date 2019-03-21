@@ -154,6 +154,7 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 * [vinoct6](https://github.com/vinoct6)
 * [wg1j](https://github.com/wg1j)
 * [will-gilbert](https://github.com/will-gilbert)
+* [WayneCui](https://github.com/WayneCui)
 * [sanmibuh](https://github.com/sanmibuh)
 * [shivmitra](https://github.com/shivmitra)
 
