@@ -29,6 +29,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.rules.ExpectedException;
+import org.mvel2.ParserContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -83,5 +84,21 @@ public class MVELActionTest {
 
         // then
         // excepted exception
+    }
+
+    @Test
+    public void testMVELActionWithExpressionAndParserContext() throws Exception {
+        // given
+        ParserContext context = new ParserContext();
+        context.addPackageImport("java.util");
+        Action printAction = new MVELAction("def random() { System.out.println(\"Random from MVEL = \" + new java.util.Random(123).nextInt(10)); }; random();", context);
+        Facts facts = new Facts();
+
+        // when
+        printAction.execute(facts);
+
+        // then
+        assertThat(systemOutRule.getLog()).contains("Random from MVEL = 2");
+
     }
 }
