@@ -143,6 +143,7 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [JurMarky](https://github.com/JurMarky)
 * [jordanjennings](https://github.com/jordanjennings)
+* [kayeight](https://github.com/kayeight)
 * [khandelwalankit](https://github.com/khandelwalankit)
 * [lranasingha](https://github.com/lranasingha)
 * [mrcritical](https://github.com/mrcritical)

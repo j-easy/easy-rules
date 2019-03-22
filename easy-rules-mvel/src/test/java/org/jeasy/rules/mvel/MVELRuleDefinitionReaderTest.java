@@ -24,6 +24,7 @@
 package org.jeasy.rules.mvel;
 
 import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.api.Rules;
 import org.junit.Test;
 
 import java.io.File;
@@ -32,6 +33,7 @@ import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -171,10 +173,21 @@ public class MVELRuleDefinitionReaderTest {
         assertThat(ruleDefinition.getName()).isEqualTo("Movie id rule");
         assertThat(ruleDefinition.getDescription()).isEqualTo("description");
         assertThat(ruleDefinition.getCompositeRuleType()).isEqualTo("UnitRuleGroup");
-        assertThat(ruleDefinition.getSubrules().isEmpty()).isFalse();
-        for (Rule subrule : ruleDefinition.getSubrules()) {
-            assertThat(subrule.getPriority()).isEqualTo(1);
-        }
+        assertThat(ruleDefinition.getSubrules()).isNotEmpty();
+
+        Rules subrules = ruleDefinition.getSubrules();
+        assertThat(subrules).hasSize(2);
+        Iterator<Rule> iterator = subrules.iterator();
+
+        Rule subrule = iterator.next();
+        assertThat(subrule.getName()).isEqualTo("Movie is rated R");
+        assertThat(subrule.getDescription()).isEqualTo("If the movie is rated R");
+        assertThat(subrule.getPriority()).isEqualTo(1);
+
+        subrule = iterator.next();
+        assertThat(subrule.getName()).isEqualTo("Time is evening");
+        assertThat(subrule.getDescription()).isEqualTo("If it's later than 7pm");
+        assertThat(subrule.getPriority()).isEqualTo(1);
 
         ruleDefinition = ruleDefinitions.get(1);
         assertThat(ruleDefinition).isNotNull();

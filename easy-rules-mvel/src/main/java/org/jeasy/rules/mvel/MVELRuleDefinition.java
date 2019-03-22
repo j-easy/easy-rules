@@ -25,6 +25,10 @@ package org.jeasy.rules.mvel;
 
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.support.ActivationRuleGroup;
+import org.jeasy.rules.support.CompositeRule;
+import org.jeasy.rules.support.ConditionalRuleGroup;
+import org.jeasy.rules.support.UnitRuleGroup;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,7 +90,7 @@ class MVELRuleDefinition {
     public void setSubrules(List<MVELRuleDefinition> subruleDefinitions, String compositeRuleType) {
         subrules = new Rules();
         for (MVELRuleDefinition ruleDef : subruleDefinitions) {
-            MVELRule r = ruleDef.create();
+            Rule r = ruleDef.create();
             subrules.register(r);
         }
         setCompositeRuleType(compositeRuleType);
@@ -98,7 +102,7 @@ class MVELRuleDefinition {
 
     public Rules getSubrules() { return subrules; }
 
-    MVELRule create() {
+    Rule create() {
         if (subrules == null) {
             MVELRule mvelRule = new MVELRule()
                     .name(name)
@@ -111,25 +115,24 @@ class MVELRuleDefinition {
             return mvelRule;
         } else {
             if (allowedCompositeTypes.contains(compositeRuleType)) {
-                MVELCompositeRule compositeRule;
+                final CompositeRule compositeRule;
 
                 switch (compositeRuleType) {
                     case "UnitRuleGroup":
-                        compositeRule = new MVELUnitRuleGroup();
+                        compositeRule = new UnitRuleGroup(name);
                         break;
                     case "ActivationRuleGroup":
-                        compositeRule = new MVELActivationRuleGroup();
+                        compositeRule = new ActivationRuleGroup(name);
                         break;
                     case "ConditionalRuleGroup":
-                        compositeRule = new MVELConditionalRuleGroup();
+                        compositeRule = new ConditionalRuleGroup(name);
                         break;
                     default:
                         throw new IllegalArgumentException("Invalid composite rule type");
                 }
 
-                compositeRule.name(name);
-                compositeRule.description(description);
-                compositeRule.priority(priority);
+                compositeRule.setDescription(description);
+                compositeRule.setPriority(priority);
 
                 for (Rule rule : subrules) {
                     compositeRule.addRule(rule);

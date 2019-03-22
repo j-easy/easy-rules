@@ -23,6 +23,7 @@
  */
 package org.jeasy.rules.mvel;
 
+import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
 
 import java.io.Reader;
@@ -43,7 +44,7 @@ public class MVELRuleFactory {
      * @param ruleDescriptor as a Reader
      * @return a new rule
      */
-    public static MVELRule createRuleFrom(Reader ruleDescriptor) {
+    public static Rule createRuleFrom(Reader ruleDescriptor) {
         MVELRuleDefinition ruleDefinition = reader.read(ruleDescriptor);
         return ruleDefinition.create();
     }

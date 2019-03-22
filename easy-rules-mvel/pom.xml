@@ -57,7 +57,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jeasy</groupId>
-            <artifactId>easy-rules-core</artifactId>
+            <artifactId>easy-rules-support</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

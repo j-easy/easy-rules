@@ -24,6 +24,7 @@
 package org.jeasy.rules.tutorials.shop;
 
 import org.jeasy.rules.api.Facts;
+import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
@@ -48,7 +49,7 @@ public class Launcher {
                 .priority(1)
                 .when("person.age > 18")
                 .then("person.setAdult(true);");
-        MVELRule alcoholRule = MVELRuleFactory.createRuleFrom(new FileReader("src/main/java/org/jeasy/rules/tutorials/shop/alcohol-rule.yml"));
+        Rule alcoholRule = MVELRuleFactory.createRuleFrom(new FileReader("src/main/java/org/jeasy/rules/tutorials/shop/alcohol-rule.yml"));
 
         // create a rule set
         Rules rules = new Rules();

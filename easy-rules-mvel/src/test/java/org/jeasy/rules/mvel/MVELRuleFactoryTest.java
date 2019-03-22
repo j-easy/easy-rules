@@ -25,6 +25,7 @@ package org.jeasy.rules.mvel;
 
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.support.UnitRuleGroup;
 import org.junit.Test;
 
 import java.io.File;
@@ -70,7 +71,7 @@ public class MVELRuleFactoryTest {
         Reader adultRuleDescriptorAsReader = new FileReader("src/test/resources/adult-rule.yml");
 
         // when
-        MVELRule adultRule = MVELRuleFactory.createRuleFrom(adultRuleDescriptorAsReader);
+        Rule adultRule = MVELRuleFactory.createRuleFrom(adultRuleDescriptorAsReader);
 
         // then
         assertThat(adultRule.getName()).isEqualTo("adult rule");
@@ -84,7 +85,7 @@ public class MVELRuleFactoryTest {
         Reader adultRuleDescriptorAsReader = new StringReader(new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.yml"))));
 
         // when
-        MVELRule adultRule = MVELRuleFactory.createRuleFrom(adultRuleDescriptorAsReader);
+        Rule adultRule = MVELRuleFactory.createRuleFrom(adultRuleDescriptorAsReader);
 
         // then
         assertThat(adultRule.getName()).isEqualTo("adult rule");
@@ -93,7 +94,7 @@ public class MVELRuleFactoryTest {
     }
 
     @Test
-    public void testRuleCreationFromFileReader__withCompositeRules() throws Exception{
+    public void testRuleCreationFromFileReader_withCompositeRules() throws Exception{
         // given
         File rulesDescriptor = new File("src/test/resources/composite-rule.yml");
 
@@ -109,6 +110,7 @@ public class MVELRuleFactoryTest {
         assertThat(rule.getName()).isEqualTo("Movie id rule");
         assertThat(rule.getDescription()).isEqualTo("description");
         assertThat(rule.getPriority()).isEqualTo(1);
+        assertThat(rule).isInstanceOf(UnitRuleGroup.class);
 
         rule = iterator.next();
         assertThat(rule).isNotNull();
