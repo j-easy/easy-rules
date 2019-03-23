@@ -27,6 +27,7 @@ import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.support.UnitRuleGroup;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.io.FileReader;
@@ -39,6 +40,9 @@ import java.util.Iterator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MVELRuleFactoryTest {
+
+    @org.junit.Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void testRulesCreation() throws Exception {
@@ -94,7 +98,7 @@ public class MVELRuleFactoryTest {
     }
 
     @Test
-    public void testRuleCreationFromFileReader_withCompositeRules() throws Exception{
+    public void testRuleCreationFromFileReader_withCompositeRules() throws Exception {
         // given
         File rulesDescriptor = new File("src/test/resources/composite-rule.yml");
 
@@ -117,5 +121,47 @@ public class MVELRuleFactoryTest {
         assertThat(rule.getName()).isEqualTo("weather rule");
         assertThat(rule.getDescription()).isEqualTo("when it rains, then take an umbrella");
         assertThat(rule.getPriority()).isEqualTo(1);;
+    }
+
+    @Test
+    public void testRuleCreationFromFileReader_withInvalidCompositeRuleType() throws Exception {
+        // given
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Invalid composite rule type, must be one of [UnitRuleGroup, ConditionalRuleGroup, ActivationRuleGroup]");
+        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-composite-rule-type.yml");
+
+        // when
+        Rules rules = MVELRuleFactory.createRulesFrom(new FileReader(rulesDescriptor));
+
+        // then
+        // expected exception
+    }
+
+    @Test
+    public void testRuleCreationFromFileReader_withEmptyComposingRules() throws Exception {
+        // given
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Composite rules must have composing rules specified");
+        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-empty-composing-rules.yml");
+
+        // when
+        Rules rules = MVELRuleFactory.createRulesFrom(new FileReader(rulesDescriptor));
+
+        // then
+        // expected exception
+    }
+
+    @Test
+    public void testRuleCreationFromFileReader_withNonCompositeRuleDeclaresComposingRules() throws Exception {
+        // given
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Non-composite rules cannot have composing rules");
+        File rulesDescriptor = new File("src/test/resources/non-composite-rule-with-composing-rules.yml");
+
+        // when
+        Rules rules = MVELRuleFactory.createRulesFrom(new FileReader(rulesDescriptor));
+
+        // then
+        // expected exception
     }
 }

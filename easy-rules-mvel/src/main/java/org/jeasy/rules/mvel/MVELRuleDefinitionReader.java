@@ -64,7 +64,7 @@ class MVELRuleDefinitionReader {
         Integer priority = (Integer) map.get("priority");
         ruleDefinition.setPriority(priority != null ? priority : Rule.DEFAULT_PRIORITY);
 
-        String compositeRuleType = (String) map.get("compositeType");
+        String compositeRuleType = (String) map.get("compositeRuleType");
 
         String condition = (String) map.get("condition");
         if (condition == null && compositeRuleType == null) {
@@ -78,18 +78,19 @@ class MVELRuleDefinitionReader {
         }
         ruleDefinition.setActions(actions);
 
-        List<Object> subrules = (List<Object>) map.get("subrules");
-        if (subrules != null && compositeRuleType == null) {
-            throw new IllegalArgumentException("Non-composite rules cannot have subrules");
-        } else if (subrules == null && compositeRuleType != null) {
-            throw new IllegalArgumentException("Composite rules must have subrules specified");
-        } else if (subrules != null) {
-            List<MVELRuleDefinition> subruleDefinitions = new ArrayList<>();
-            for (Object rule : subrules){
-                Map<String, Object> subruleMap = (Map<String, Object>) rule;
-                subruleDefinitions.add(createRuleDefinitionFrom(subruleMap));
+        List<Object> composingRules = (List<Object>) map.get("composingRules");
+        if (composingRules != null && compositeRuleType == null) {
+            throw new IllegalArgumentException("Non-composite rules cannot have composing rules");
+        } else if (composingRules == null && compositeRuleType != null) {
+            throw new IllegalArgumentException("Composite rules must have composing rules specified");
+        } else if (composingRules != null) {
+            List<MVELRuleDefinition> composingRuleDefinitions = new ArrayList<>();
+            for (Object rule : composingRules){
+                Map<String, Object> composingRulesMap = (Map<String, Object>) rule;
+                composingRuleDefinitions.add(createRuleDefinitionFrom(composingRulesMap));
             }
-            ruleDefinition.setSubrules(subruleDefinitions, compositeRuleType);
+            ruleDefinition.setComposingRules(composingRuleDefinitions);
+            ruleDefinition.setCompositeRuleType(compositeRuleType);
         }
 
         return ruleDefinition;

@@ -41,10 +41,10 @@ class MVELRuleDefinition {
     private int priority = Rule.DEFAULT_PRIORITY;
     private String condition;
     private List<String> actions;
-    private Rules subrules;
+    private Rules composingRules;
     private String compositeRuleType;
-    private List<String> allowedCompositeTypes = new ArrayList<>(
-            Arrays.asList("UnitRuleGroup", "ConditionalRuleGroup", "ActivationRuleGroup")
+    private List<String> allowedCompositeRuleTypes = new ArrayList<>(
+            Arrays.asList(UnitRuleGroup.class.getSimpleName(), ConditionalRuleGroup.class.getSimpleName(), ActivationRuleGroup.class.getSimpleName())
     );
 
     public String getName() {
@@ -87,61 +87,72 @@ class MVELRuleDefinition {
         this.actions = actions;
     }
 
-    public void setSubrules(List<MVELRuleDefinition> subruleDefinitions, String compositeRuleType) {
-        subrules = new Rules();
-        for (MVELRuleDefinition ruleDef : subruleDefinitions) {
-            Rule r = ruleDef.create();
-            subrules.register(r);
+    void setComposingRules(List<MVELRuleDefinition> composingRuleDefinitions) {
+        composingRules = new Rules();
+        for (MVELRuleDefinition ruleDefinition : composingRuleDefinitions) {
+            Rule rule = ruleDefinition.create();
+            composingRules.register(rule);
         }
-        setCompositeRuleType(compositeRuleType);
     }
 
-    public void setCompositeRuleType(String compositeRuleType) { this.compositeRuleType = compositeRuleType; }
+    void setCompositeRuleType(String compositeRuleType) {
+        this.compositeRuleType = compositeRuleType;
+    }
 
-    public String getCompositeRuleType() { return compositeRuleType; }
+    String getCompositeRuleType() {
+        return compositeRuleType;
+    }
 
-    public Rules getSubrules() { return subrules; }
+    Rules getComposingRules() {
+        return composingRules;
+    }
 
     Rule create() {
-        if (subrules == null) {
-            MVELRule mvelRule = new MVELRule()
-                    .name(name)
-                    .description(description)
-                    .priority(priority)
-                    .when(condition);
-            for (String action : actions) {
-                mvelRule.then(action);
-            }
-            return mvelRule;
+        if (isCompositeRule()) {
+            return createCompositeRule();
         } else {
-            if (allowedCompositeTypes.contains(compositeRuleType)) {
-                final CompositeRule compositeRule;
-
-                switch (compositeRuleType) {
-                    case "UnitRuleGroup":
-                        compositeRule = new UnitRuleGroup(name);
-                        break;
-                    case "ActivationRuleGroup":
-                        compositeRule = new ActivationRuleGroup(name);
-                        break;
-                    case "ConditionalRuleGroup":
-                        compositeRule = new ConditionalRuleGroup(name);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Invalid composite rule type");
-                }
-
-                compositeRule.setDescription(description);
-                compositeRule.setPriority(priority);
-
-                for (Rule rule : subrules) {
-                    compositeRule.addRule(rule);
-                }
-
-                return compositeRule;
-            } else {
-                throw new IllegalArgumentException("Invalid composite rule type");
-            }
+            return createSimpleRule();
         }
+    }
+
+    private Rule createSimpleRule() {
+        MVELRule mvelRule = new MVELRule()
+                .name(name)
+                .description(description)
+                .priority(priority)
+                .when(condition);
+        for (String action : actions) {
+            mvelRule.then(action);
+        }
+        return mvelRule;
+    }
+
+    private Rule createCompositeRule() {
+        CompositeRule compositeRule;
+        switch (compositeRuleType) {
+            case "UnitRuleGroup":
+                compositeRule = new UnitRuleGroup(name);
+                break;
+            case "ActivationRuleGroup":
+                compositeRule = new ActivationRuleGroup(name);
+                break;
+            case "ConditionalRuleGroup":
+                compositeRule = new ConditionalRuleGroup(name);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid composite rule type, must be one of " + allowedCompositeRuleTypes);
+        }
+        compositeRule.setDescription(description);
+        compositeRule.setPriority(priority);
+
+        for (Rule rule : composingRules) {
+            compositeRule.addRule(rule);
+        }
+
+        return compositeRule;
+    }
+
+    private boolean isCompositeRule() {
+        return composingRules != null;
     }
 }

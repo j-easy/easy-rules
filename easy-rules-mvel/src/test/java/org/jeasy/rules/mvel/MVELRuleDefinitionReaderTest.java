@@ -173,9 +173,9 @@ public class MVELRuleDefinitionReaderTest {
         assertThat(ruleDefinition.getName()).isEqualTo("Movie id rule");
         assertThat(ruleDefinition.getDescription()).isEqualTo("description");
         assertThat(ruleDefinition.getCompositeRuleType()).isEqualTo("UnitRuleGroup");
-        assertThat(ruleDefinition.getSubrules()).isNotEmpty();
+        assertThat(ruleDefinition.getComposingRules()).isNotEmpty();
 
-        Rules subrules = ruleDefinition.getSubrules();
+        Rules subrules = ruleDefinition.getComposingRules();
         assertThat(subrules).hasSize(2);
         Iterator<Rule> iterator = subrules.iterator();
 
@@ -193,7 +193,7 @@ public class MVELRuleDefinitionReaderTest {
         assertThat(ruleDefinition).isNotNull();
         assertThat(ruleDefinition.getName()).isEqualTo("weather rule");
         assertThat(ruleDefinition.getDescription()).isEqualTo("when it rains, then take an umbrella");
-        assertThat(ruleDefinition.getSubrules()).isNull();
+        assertThat(ruleDefinition.getComposingRules()).isNull();
         assertThat(ruleDefinition.getCondition()).isEqualTo("rain == True");
         assertThat(ruleDefinition.getActions()).isEqualTo(Collections.singletonList("System.out.println(\"It rains, take an umbrella!\");"));
     }
