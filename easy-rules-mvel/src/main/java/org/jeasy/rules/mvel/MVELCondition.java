@@ -26,6 +26,7 @@ package org.jeasy.rules.mvel;
 import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
 import org.mvel2.MVEL;
+import org.mvel2.ParserContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +52,17 @@ public class MVELCondition implements Condition {
     public MVELCondition(String expression) {
         this.expression = expression;
         compiledExpression = MVEL.compileExpression(expression);
+    }
+
+    /**
+     * Create a new {@link MVELCondition}.
+     *
+     * @param expression    the condition written in expression language
+     * @param parserContext the MVEL parser context
+     */
+    public MVELCondition(String expression, ParserContext parserContext) {
+        this.expression = expression;
+        compiledExpression = MVEL.compileExpression(expression, parserContext);
     }
 
     @Override
