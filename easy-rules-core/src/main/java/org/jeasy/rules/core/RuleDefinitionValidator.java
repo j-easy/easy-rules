@@ -70,7 +70,7 @@ class RuleDefinitionValidator {
         Method conditionMethod = conditionMethods.get(0);
 
         if (!isConditionMethodWellDefined(conditionMethod)) {
-            throw new IllegalArgumentException(format("Condition method '%s' defined in rule '%s' must be public, may have parameters annotated with @Fact (and/or exactly one parameter of type or extending Facts) and return boolean type.", conditionMethod, rule.getClass().getName()));
+            throw new IllegalArgumentException(format("Condition method '%s' defined in rule '%s' must be public, must return boolean type and may have parameters annotated with @Fact (and/or exactly one parameter of type Facts or one of its sub-types).", conditionMethod, rule.getClass().getName()));
         }
     }
 
@@ -82,7 +82,7 @@ class RuleDefinitionValidator {
 
         for (Method actionMethod : actionMethods) {
             if (!isActionMethodWellDefined(actionMethod)) {
-                throw new IllegalArgumentException(format("Action method '%s' defined in rule '%s' must be public, must return void type and may have parameters annotated with @Fact (and/or exactly one parameter of type or extending Facts).", actionMethod, rule.getClass().getName()));
+                throw new IllegalArgumentException(format("Action method '%s' defined in rule '%s' must be public, must return void type and may have parameters annotated with @Fact (and/or exactly one parameter of type Facts or one of its sub-types).", actionMethod, rule.getClass().getName()));
             }
         }
     }
@@ -134,11 +134,24 @@ class RuleDefinitionValidator {
         if(notAnnotatedParameterCount > 1){
             return false;
         }
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        if(parameterTypes.length == 1 && notAnnotatedParameterCount == 1){
-            return Facts.class.isAssignableFrom(parameterTypes[0]);
+        if (notAnnotatedParameterCount == 1) {
+            Class<?>[] parameterTypes = method.getParameterTypes();
+            int index = getIndexOfParameterOfTypeFacts(method); // TODO use method.getParameters when moving to Java 8
+            return Facts.class.isAssignableFrom(parameterTypes[index]);
         }
         return true;
+    }
+
+    private int getIndexOfParameterOfTypeFacts(Method method) {
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        int index = 0;
+        for (Class<?> parameterType : parameterTypes) {
+            if (Facts.class.isAssignableFrom(parameterType)) {
+                return index;
+            }
+            index++;
+        }
+        return 0;
     }
 
     private boolean isActionMethodWellDefined(final Method method) {

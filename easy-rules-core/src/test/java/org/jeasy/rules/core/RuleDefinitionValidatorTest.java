@@ -74,6 +74,11 @@ public class RuleDefinitionValidatorTest {
         ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithConditionMethodHavingNonBooleanReturnType());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void conditionMethodParametersShouldAllBeAnnotatedWithFactUnlessExactlyOneOfThemIsOfTypeFacts() {
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithOneParameterNotAnnotatedWithFactAndNotOfTypeFacts());
+    }
+
     /*
      * Action method tests
      */
@@ -100,6 +105,11 @@ public class RuleDefinitionValidatorTest {
     @Test(expected = IllegalArgumentException.class)
     public void actionMethodMustReturnVoid() {
         ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithActionMethodThatReturnsNonVoidType());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void actionMethodParametersShouldAllBeAnnotatedWithFactUnlessExactlyOneOfThemIsOfTypeFacts() {
+        ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithOneParameterNotAnnotatedWithFactAndNotOfTypeFacts());
     }
 
     /*
