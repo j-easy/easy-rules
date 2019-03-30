@@ -25,8 +25,14 @@ package org.jeasy.rules.mvel;
 
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.support.ActivationRuleGroup;
+import org.jeasy.rules.support.CompositeRule;
+import org.jeasy.rules.support.ConditionalRuleGroup;
+import org.jeasy.rules.support.UnitRuleGroup;
+import org.mvel2.ParserContext;
 
 import java.io.Reader;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,7 +42,13 @@ import java.util.List;
  */
 public class MVELRuleFactory {
 
-    private static MVELRuleDefinitionReader reader = new MVELRuleDefinitionReader();
+    private static final MVELRuleDefinitionReader READER = new MVELRuleDefinitionReader();
+
+    private static final List<String> ALLOWED_COMPOSITE_RULE_TYPES = Arrays.asList(
+            UnitRuleGroup.class.getSimpleName(),
+            ConditionalRuleGroup.class.getSimpleName(),
+            ActivationRuleGroup.class.getSimpleName()
+    );
 
     /**
      * Create a new {@link MVELRule} from a Reader.
@@ -45,8 +57,19 @@ public class MVELRuleFactory {
      * @return a new rule
      */
     public static Rule createRuleFrom(Reader ruleDescriptor) {
-        MVELRuleDefinition ruleDefinition = reader.read(ruleDescriptor);
-        return ruleDefinition.create();
+        return createRuleFrom(ruleDescriptor, new ParserContext());
+    }
+
+    /**
+     * Create a new {@link MVELRule} from a Reader.
+     *
+     * @param ruleDescriptor as a Reader
+     * @param parserContext the MVEL parser context
+     * @return a new rule
+     */
+    public static Rule createRuleFrom(Reader ruleDescriptor, ParserContext parserContext) {
+        MVELRuleDefinition ruleDefinition = READER.read(ruleDescriptor);
+        return createRule(ruleDefinition, parserContext);
     }
 
     /**
@@ -56,11 +79,67 @@ public class MVELRuleFactory {
      * @return a set of rules
      */
     public static Rules createRulesFrom(Reader rulesDescriptor) {
+        return createRulesFrom(rulesDescriptor, new ParserContext());
+    }
+
+    /**
+     * Create a set of {@link MVELRule} from a Reader.
+     *
+     * @param rulesDescriptor as a Reader
+     * @return a set of rules
+     */
+    public static Rules createRulesFrom(Reader rulesDescriptor, ParserContext parserContext) {
         Rules rules = new Rules();
-        List<MVELRuleDefinition> ruleDefinition = reader.readAll(rulesDescriptor);
+        List<MVELRuleDefinition> ruleDefinition = READER.readAll(rulesDescriptor);
         for (MVELRuleDefinition mvelRuleDefinition : ruleDefinition) {
-            rules.register(mvelRuleDefinition.create());
+            rules.register(createRule(mvelRuleDefinition, parserContext));
         }
         return rules;
+    }
+
+    private static Rule createRule(MVELRuleDefinition ruleDefinition, ParserContext context) {
+        if (ruleDefinition.isCompositeRule()) {
+            return createCompositeRule(ruleDefinition, context);
+        } else {
+            return createSimpleRule(ruleDefinition, context);
+        }
+    }
+
+    private static Rule createSimpleRule(MVELRuleDefinition ruleDefinition, ParserContext parserContext) {
+        MVELRule mvelRule = new MVELRule()
+                .name(ruleDefinition.getName())
+                .description(ruleDefinition.getDescription())
+                .priority(ruleDefinition.getPriority())
+                .when(ruleDefinition.getCondition(), parserContext);
+        for (String action : ruleDefinition.getActions()) {
+            mvelRule.then(action, parserContext);
+        }
+        return mvelRule;
+    }
+
+    private static Rule createCompositeRule(MVELRuleDefinition ruleDefinition, ParserContext parserContext) {
+        CompositeRule compositeRule;
+        String name = ruleDefinition.getName();
+        switch (ruleDefinition.getCompositeRuleType()) {
+            case "UnitRuleGroup":
+                compositeRule = new UnitRuleGroup(name);
+                break;
+            case "ActivationRuleGroup":
+                compositeRule = new ActivationRuleGroup(name);
+                break;
+            case "ConditionalRuleGroup":
+                compositeRule = new ConditionalRuleGroup(name);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid composite rule type, must be one of " + ALLOWED_COMPOSITE_RULE_TYPES);
+        }
+        compositeRule.setDescription(ruleDefinition.getDescription());
+        compositeRule.setPriority(ruleDefinition.getPriority());
+
+        for (MVELRuleDefinition composingRuleDefinition : ruleDefinition.getComposingRules()) {
+            compositeRule.addRule(createRule(composingRuleDefinition, parserContext));
+        }
+
+        return compositeRule;
     }
 }

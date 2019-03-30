@@ -86,8 +86,8 @@ class MVELRuleDefinitionReader {
         } else if (composingRules != null) {
             List<MVELRuleDefinition> composingRuleDefinitions = new ArrayList<>();
             for (Object rule : composingRules){
-                Map<String, Object> composingRulesMap = (Map<String, Object>) rule;
-                composingRuleDefinitions.add(createRuleDefinitionFrom(composingRulesMap));
+                Map<String, Object> composingRuleMap = (Map<String, Object>) rule;
+                composingRuleDefinitions.add(createRuleDefinitionFrom(composingRuleMap));
             }
             ruleDefinition.setComposingRules(composingRuleDefinitions);
             ruleDefinition.setCompositeRuleType(compositeRuleType);

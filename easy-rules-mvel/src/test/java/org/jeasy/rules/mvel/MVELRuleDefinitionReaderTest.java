@@ -172,28 +172,28 @@ public class MVELRuleDefinitionReaderTest {
         assertThat(ruleDefinition).isNotNull();
         assertThat(ruleDefinition.getName()).isEqualTo("Movie id rule");
         assertThat(ruleDefinition.getDescription()).isEqualTo("description");
+        assertThat(ruleDefinition.getPriority()).isEqualTo(1);
         assertThat(ruleDefinition.getCompositeRuleType()).isEqualTo("UnitRuleGroup");
         assertThat(ruleDefinition.getComposingRules()).isNotEmpty();
 
-        Rules subrules = ruleDefinition.getComposingRules();
+        List<MVELRuleDefinition> subrules = ruleDefinition.getComposingRules();
         assertThat(subrules).hasSize(2);
-        Iterator<Rule> iterator = subrules.iterator();
 
-        Rule subrule = iterator.next();
-        assertThat(subrule.getName()).isEqualTo("Movie is rated R");
-        assertThat(subrule.getDescription()).isEqualTo("If the movie is rated R");
-        assertThat(subrule.getPriority()).isEqualTo(1);
-
-        subrule = iterator.next();
+        MVELRuleDefinition subrule = subrules.get(0);
         assertThat(subrule.getName()).isEqualTo("Time is evening");
         assertThat(subrule.getDescription()).isEqualTo("If it's later than 7pm");
+        assertThat(subrule.getPriority()).isEqualTo(1);
+
+        subrule = subrules.get(1);
+        assertThat(subrule.getName()).isEqualTo("Movie is rated R");
+        assertThat(subrule.getDescription()).isEqualTo("If the movie is rated R");
         assertThat(subrule.getPriority()).isEqualTo(1);
 
         ruleDefinition = ruleDefinitions.get(1);
         assertThat(ruleDefinition).isNotNull();
         assertThat(ruleDefinition.getName()).isEqualTo("weather rule");
         assertThat(ruleDefinition.getDescription()).isEqualTo("when it rains, then take an umbrella");
-        assertThat(ruleDefinition.getComposingRules()).isNull();
+        assertThat(ruleDefinition.getComposingRules()).isEmpty();
         assertThat(ruleDefinition.getCondition()).isEqualTo("rain == True");
         assertThat(ruleDefinition.getActions()).isEqualTo(Collections.singletonList("System.out.println(\"It rains, take an umbrella!\");"));
     }

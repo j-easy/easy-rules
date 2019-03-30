@@ -24,14 +24,8 @@
 package org.jeasy.rules.mvel;
 
 import org.jeasy.rules.api.Rule;
-import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.support.ActivationRuleGroup;
-import org.jeasy.rules.support.CompositeRule;
-import org.jeasy.rules.support.ConditionalRuleGroup;
-import org.jeasy.rules.support.UnitRuleGroup;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 class MVELRuleDefinition {
@@ -40,12 +34,9 @@ class MVELRuleDefinition {
     private String description = Rule.DEFAULT_DESCRIPTION;
     private int priority = Rule.DEFAULT_PRIORITY;
     private String condition;
-    private List<String> actions;
-    private Rules composingRules;
+    private List<String> actions = new ArrayList<>();
+    private List<MVELRuleDefinition> composingRules = new ArrayList<>();
     private String compositeRuleType;
-    private List<String> allowedCompositeRuleTypes = new ArrayList<>(
-            Arrays.asList(UnitRuleGroup.class.getSimpleName(), ConditionalRuleGroup.class.getSimpleName(), ActivationRuleGroup.class.getSimpleName())
-    );
 
     public String getName() {
         return name;
@@ -88,11 +79,7 @@ class MVELRuleDefinition {
     }
 
     void setComposingRules(List<MVELRuleDefinition> composingRuleDefinitions) {
-        composingRules = new Rules();
-        for (MVELRuleDefinition ruleDefinition : composingRuleDefinitions) {
-            Rule rule = ruleDefinition.create();
-            composingRules.register(rule);
-        }
+        this.composingRules = composingRuleDefinitions;
     }
 
     void setCompositeRuleType(String compositeRuleType) {
@@ -103,56 +90,11 @@ class MVELRuleDefinition {
         return compositeRuleType;
     }
 
-    Rules getComposingRules() {
+    List<MVELRuleDefinition> getComposingRules() {
         return composingRules;
     }
 
-    Rule create() {
-        if (isCompositeRule()) {
-            return createCompositeRule();
-        } else {
-            return createSimpleRule();
-        }
-    }
-
-    private Rule createSimpleRule() {
-        MVELRule mvelRule = new MVELRule()
-                .name(name)
-                .description(description)
-                .priority(priority)
-                .when(condition);
-        for (String action : actions) {
-            mvelRule.then(action);
-        }
-        return mvelRule;
-    }
-
-    private Rule createCompositeRule() {
-        CompositeRule compositeRule;
-        switch (compositeRuleType) {
-            case "UnitRuleGroup":
-                compositeRule = new UnitRuleGroup(name);
-                break;
-            case "ActivationRuleGroup":
-                compositeRule = new ActivationRuleGroup(name);
-                break;
-            case "ConditionalRuleGroup":
-                compositeRule = new ConditionalRuleGroup(name);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid composite rule type, must be one of " + allowedCompositeRuleTypes);
-        }
-        compositeRule.setDescription(description);
-        compositeRule.setPriority(priority);
-
-        for (Rule rule : composingRules) {
-            compositeRule.addRule(rule);
-        }
-
-        return compositeRule;
-    }
-
-    private boolean isCompositeRule() {
-        return composingRules != null;
+    boolean isCompositeRule() {
+        return !composingRules.isEmpty();
     }
 }

@@ -28,6 +28,7 @@ import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.core.BasicRule;
+import org.mvel2.ParserContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +89,17 @@ public class MVELRule extends BasicRule {
      * @return this rule
      */
     public MVELRule when(String condition) {
-        this.condition = new MVELCondition(condition);
+        return this.when(condition, new ParserContext());
+    }
+
+    /**
+     * Specify the rule's condition as MVEL expression.
+     * @param condition of the rule
+     * @param parserContext the MVEL parser context
+     * @return this rule
+     */
+    public MVELRule when(String condition, ParserContext parserContext) {
+        this.condition = new MVELCondition(condition, parserContext);
         return this;
     }
 
@@ -98,7 +109,17 @@ public class MVELRule extends BasicRule {
      * @return this rule
      */
     public MVELRule then(String action) {
-        this.actions.add(new MVELAction(action));
+        return this.then(action, new ParserContext());
+    }
+
+    /**
+     * Add an action specified as an MVEL expression to the rule.
+     * @param action to add to the rule
+     * @param parserContext the MVEL parser context
+     * @return this rule
+     */
+    public MVELRule then(String action, ParserContext parserContext) {
+        this.actions.add(new MVELAction(action, parserContext));
         return this;
     }
 
