@@ -92,13 +92,13 @@ public class UnitRuleGroupTest {
     @Test
     public void compositeRuleMustNotBeExecutedIfAComposingRuleEvaluatesToFalse() throws Exception {
         // Given
+        when(rule2.evaluate(facts)).thenReturn(false);
         unitRuleGroup = new UnitRuleGroup();
         unitRuleGroup.addRule(rule1);
         unitRuleGroup.addRule(rule2);
         rules.register(unitRuleGroup);
 
         // When
-        when(rule2.evaluate(facts)).thenReturn(false);
         rulesEngine.fire(rules, facts);
 
         // Then

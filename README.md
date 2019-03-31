@@ -158,6 +158,7 @@ For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy
 * [WayneCui](https://github.com/WayneCui)
 * [sanmibuh](https://github.com/sanmibuh)
 * [shivmitra](https://github.com/shivmitra)
+* [zhhaojie](https://github.com/zhhaojie)
 
 Thank you all for your contributions!
 
