@@ -218,6 +218,24 @@ public class DefaultRulesEngineTest extends AbstractTest {
     }
 
     @Test
+    public void getParametersShouldReturnACopyOfTheParameters() {
+        // Given
+        RulesEngineParameters parameters = new RulesEngineParameters()
+                .skipOnFirstAppliedRule(true)
+                .skipOnFirstFailedRule(true)
+                .skipOnFirstNonTriggeredRule(true)
+                .priorityThreshold(42);
+        DefaultRulesEngine rulesEngine = new DefaultRulesEngine(parameters);
+
+        // When
+        RulesEngineParameters engineParameters = rulesEngine.getParameters();
+
+        // Then
+        Assertions.assertThat(engineParameters).isNotSameAs(parameters);
+        Assertions.assertThat(engineParameters).isEqualToComparingFieldByField(parameters);
+    }
+
+    @Test
     public void testGetRuleListeners() throws Exception {
         // Given
         DefaultRulesEngine rulesEngine = new DefaultRulesEngine();

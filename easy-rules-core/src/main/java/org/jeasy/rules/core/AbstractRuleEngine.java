@@ -56,7 +56,12 @@ abstract class AbstractRuleEngine implements RulesEngine {
 
     @Override
     public RulesEngineParameters getParameters() {
-        return parameters;
+        return new RulesEngineParameters(
+                parameters.isSkipOnFirstAppliedRule(),
+                parameters.isSkipOnFirstFailedRule(),
+                parameters.isSkipOnFirstNonTriggeredRule(),
+                parameters.getPriorityThreshold()
+        );
     }
 
     @Override
