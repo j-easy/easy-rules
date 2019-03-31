@@ -86,7 +86,7 @@ public class ActivationRuleGroupTest {
     public void whenNoSelectedRule_thenNothingShouldHappen(){
         // given
         Rule4 rule4 = new Rule4();
-        ActivationRuleGroup activationRuleGroup = new ActivationRuleGroup("my activation rule", "rule2 xor rule3");
+        ActivationRuleGroup activationRuleGroup = new ActivationRuleGroup("my activation rule", "rule4");
         activationRuleGroup.addRule(rule4);
 
         //when
