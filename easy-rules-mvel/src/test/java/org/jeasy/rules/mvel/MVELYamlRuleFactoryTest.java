@@ -39,10 +39,13 @@ import java.util.Iterator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MVELRuleFactoryTest {
+// TODO use parametrized test to merge this test class with MVELJsonRuleFactoryTest
+public class MVELYamlRuleFactoryTest {
 
     @org.junit.Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    private MVELRuleFactory factory = new MVELRuleFactory(new MVELYamlRuleDefinitionReader());
 
     @Test
     public void testRulesCreation() throws Exception {
@@ -50,7 +53,7 @@ public class MVELRuleFactoryTest {
         File rulesDescriptor = new File("src/test/resources/rules.yml");
 
         // when
-        Rules rules = MVELRuleFactory.createRulesFrom(new FileReader(rulesDescriptor));
+        Rules rules = factory.createRules(new FileReader(rulesDescriptor));
 
         // then
         assertThat(rules).hasSize(2);
@@ -75,7 +78,7 @@ public class MVELRuleFactoryTest {
         Reader adultRuleDescriptorAsReader = new FileReader("src/test/resources/adult-rule.yml");
 
         // when
-        Rule adultRule = MVELRuleFactory.createRuleFrom(adultRuleDescriptorAsReader);
+        Rule adultRule = factory.createRule(adultRuleDescriptorAsReader);
 
         // then
         assertThat(adultRule.getName()).isEqualTo("adult rule");
@@ -89,7 +92,7 @@ public class MVELRuleFactoryTest {
         Reader adultRuleDescriptorAsReader = new StringReader(new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.yml"))));
 
         // when
-        Rule adultRule = MVELRuleFactory.createRuleFrom(adultRuleDescriptorAsReader);
+        Rule adultRule = factory.createRule(adultRuleDescriptorAsReader);
 
         // then
         assertThat(adultRule.getName()).isEqualTo("adult rule");
@@ -100,10 +103,10 @@ public class MVELRuleFactoryTest {
     @Test
     public void testRuleCreationFromFileReader_withCompositeRules() throws Exception {
         // given
-        File rulesDescriptor = new File("src/test/resources/composite-rule.yml");
+        File rulesDescriptor = new File("src/test/resources/composite-rules.yml");
 
         // when
-        Rules rules = MVELRuleFactory.createRulesFrom(new FileReader(rulesDescriptor));
+        Rules rules = factory.createRules(new FileReader(rulesDescriptor));
 
         // then
         assertThat(rules).hasSize(2);
@@ -131,7 +134,7 @@ public class MVELRuleFactoryTest {
         File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-composite-rule-type.yml");
 
         // when
-        Rules rules = MVELRuleFactory.createRulesFrom(new FileReader(rulesDescriptor));
+        Rule rule = factory.createRule(new FileReader(rulesDescriptor));
 
         // then
         // expected exception
@@ -145,7 +148,7 @@ public class MVELRuleFactoryTest {
         File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-empty-composing-rules.yml");
 
         // when
-        Rules rules = MVELRuleFactory.createRulesFrom(new FileReader(rulesDescriptor));
+        Rule rule = factory.createRule(new FileReader(rulesDescriptor));
 
         // then
         // expected exception
@@ -159,7 +162,7 @@ public class MVELRuleFactoryTest {
         File rulesDescriptor = new File("src/test/resources/non-composite-rule-with-composing-rules.yml");
 
         // when
-        Rules rules = MVELRuleFactory.createRulesFrom(new FileReader(rulesDescriptor));
+        Rule rule = factory.createRule(new FileReader(rulesDescriptor));
 
         // then
         // expected exception

@@ -23,76 +23,28 @@
  */
 package org.jeasy.rules.mvel;
 
-import org.jeasy.rules.api.Rule;
-import org.yaml.snakeyaml.Yaml;
-
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-@SuppressWarnings("unchecked")
-class MVELRuleDefinitionReader {
+/**
+ * Strategy interface for {@link MVELRuleDefinition} readers.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ * @see MVELJsonRuleDefinitionReader
+ * @see MVELYamlRuleDefinitionReader
+ */
+public interface MVELRuleDefinitionReader {
 
-    private Yaml yaml = new Yaml();
+    /**
+     * Read a list of rule definitions from a rules descriptor.
+     *
+     * <strong> The descriptor is expected to contain a collection of rule definitions
+     * even for a single rule.</strong>
+     *
+     * @param reader of the rules descriptor
+     * @return a list of rule definitions
+     * @throws Exception if a problem occurs during rule defintion parsing
+     */
+    List<MVELRuleDefinition> read(Reader reader) throws Exception;
 
-    MVELRuleDefinition read(Reader reader) {
-        Object object = yaml.load(reader);
-        Map<String, Object> map = (Map<String, Object>) object;
-        return createRuleDefinitionFrom(map);
-    }
-
-    List<MVELRuleDefinition> readAll(Reader reader) {
-        List<MVELRuleDefinition> ruleDefinitions = new ArrayList<>();
-        Iterable<Object> rules = yaml.loadAll(reader);
-        for (Object rule : rules) {
-            Map<String, Object> map = (Map<String, Object>) rule;
-            ruleDefinitions.add(createRuleDefinitionFrom(map));
-        }
-        return ruleDefinitions;
-    }
-
-    private static MVELRuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {
-        MVELRuleDefinition ruleDefinition = new MVELRuleDefinition();
-
-        String name = (String) map.get("name");
-        ruleDefinition.setName(name != null ? name : Rule.DEFAULT_NAME);
-
-        String description = (String) map.get("description");
-        ruleDefinition.setDescription(description != null ? description : Rule.DEFAULT_DESCRIPTION);
-
-        Integer priority = (Integer) map.get("priority");
-        ruleDefinition.setPriority(priority != null ? priority : Rule.DEFAULT_PRIORITY);
-
-        String compositeRuleType = (String) map.get("compositeRuleType");
-
-        String condition = (String) map.get("condition");
-        if (condition == null && compositeRuleType == null) {
-            throw new IllegalArgumentException("The rule condition must be specified");
-        }
-        ruleDefinition.setCondition(condition);
-
-        List<String> actions = (List<String>) map.get("actions");
-        if ((actions == null || actions.isEmpty()) && compositeRuleType == null) {
-            throw new IllegalArgumentException("The rule action(s) must be specified");
-        }
-        ruleDefinition.setActions(actions);
-
-        List<Object> composingRules = (List<Object>) map.get("composingRules");
-        if (composingRules != null && compositeRuleType == null) {
-            throw new IllegalArgumentException("Non-composite rules cannot have composing rules");
-        } else if (composingRules == null && compositeRuleType != null) {
-            throw new IllegalArgumentException("Composite rules must have composing rules specified");
-        } else if (composingRules != null) {
-            List<MVELRuleDefinition> composingRuleDefinitions = new ArrayList<>();
-            for (Object rule : composingRules){
-                Map<String, Object> composingRuleMap = (Map<String, Object>) rule;
-                composingRuleDefinitions.add(createRuleDefinitionFrom(composingRuleMap));
-            }
-            ruleDefinition.setComposingRules(composingRuleDefinitions);
-            ruleDefinition.setCompositeRuleType(compositeRuleType);
-        }
-
-        return ruleDefinition;
-    }
 }

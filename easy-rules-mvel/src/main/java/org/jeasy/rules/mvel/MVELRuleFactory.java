@@ -42,7 +42,10 @@ import java.util.List;
  */
 public class MVELRuleFactory {
 
-    private static final MVELRuleDefinitionReader READER = new MVELRuleDefinitionReader();
+    // for backward compatibility only, will be removed in v3.4
+    private static final MVELRuleDefinitionReader READER = new MVELYamlRuleDefinitionReader();
+
+    private MVELRuleDefinitionReader reader;
 
     private static final List<String> ALLOWED_COMPOSITE_RULE_TYPES = Arrays.asList(
             UnitRuleGroup.class.getSimpleName(),
@@ -51,25 +54,76 @@ public class MVELRuleFactory {
     );
 
     /**
+     * Create a new {@link MVELRuleFactory} with a given reader.
+     *
+     * @param reader to use to read rule definitions
+     * @see MVELYamlRuleDefinitionReader
+     * @see MVELJsonRuleDefinitionReader
+     */
+    public MVELRuleFactory(MVELRuleDefinitionReader reader) {
+        this.reader = reader;
+    }
+
+    /**
      * Create a new {@link MVELRule} from a Reader.
      *
      * @param ruleDescriptor as a Reader
      * @return a new rule
      */
-    public static Rule createRuleFrom(Reader ruleDescriptor) {
-        return createRuleFrom(ruleDescriptor, new ParserContext());
+    public Rule createRule(Reader ruleDescriptor) throws Exception {
+        return createRule(ruleDescriptor, new ParserContext());
     }
 
     /**
      * Create a new {@link MVELRule} from a Reader.
+     *
+     * The rule descriptor should contain a single rule definition.
+     * If no rule definitions are found, a {@link IllegalArgumentException} will be thrown.
+     * If more than a rule is defined in the descriptor, the first rule will be returned.
      *
      * @param ruleDescriptor as a Reader
      * @param parserContext the MVEL parser context
      * @return a new rule
      */
-    public static Rule createRuleFrom(Reader ruleDescriptor, ParserContext parserContext) {
-        MVELRuleDefinition ruleDefinition = READER.read(ruleDescriptor);
-        return createRule(ruleDefinition, parserContext);
+    public Rule createRule(Reader ruleDescriptor, ParserContext parserContext) throws Exception {
+        List<MVELRuleDefinition> ruleDefinitions = reader.read(ruleDescriptor);
+        if (ruleDefinitions.isEmpty()) {
+            throw new IllegalArgumentException("rule descriptor is empty");
+        }
+        return createRule(ruleDefinitions.get(0), parserContext);
+    }
+
+    /**
+     * Create a new {@link MVELRule} using a {@link MVELYamlRuleDefinitionReader}.
+     *
+     * @param ruleDescriptor as a Reader
+     * @return a new rule
+     * @deprecated Use {@link MVELRuleFactory#createRule(java.io.Reader)} instead. This method will be removed in v3.4.
+     */
+    @Deprecated
+    public static Rule createRuleFrom(Reader ruleDescriptor) throws Exception {
+        return createRuleFrom(ruleDescriptor, new ParserContext());
+    }
+
+    /**
+     * Create a new {@link MVELRule} using a {@link MVELYamlRuleDefinitionReader}.
+     *
+     * The rule descriptor should contain a single rule definition.
+     * If no rule definitions are found, a {@link IllegalArgumentException} will be thrown.
+     * If more than a rule is defined in the descriptor, the first rule will be returned.
+     *
+     * @param ruleDescriptor as a Reader
+     * @param parserContext the MVEL parser context
+     * @return a new rule
+     * @deprecated Use {@link MVELRuleFactory#createRule(java.io.Reader, org.mvel2.ParserContext)} instead. This method will be removed in v3.4.
+     */
+    @Deprecated
+    public static Rule createRuleFrom(Reader ruleDescriptor, ParserContext parserContext) throws Exception {
+        List<MVELRuleDefinition> ruleDefinitions = READER.read(ruleDescriptor);
+        if (ruleDefinitions.isEmpty()) {
+            throw new IllegalArgumentException("rule descriptor is empty");
+        }
+        return createRule(ruleDefinitions.get(0), parserContext);
     }
 
     /**
@@ -78,19 +132,48 @@ public class MVELRuleFactory {
      * @param rulesDescriptor as a Reader
      * @return a set of rules
      */
-    public static Rules createRulesFrom(Reader rulesDescriptor) {
+    public Rules createRules(Reader rulesDescriptor) throws Exception {
+        return createRules(rulesDescriptor, new ParserContext());
+    }
+
+    /**
+     * Create a set of {@link MVELRule} from a Reader.
+     *
+     * @param rulesDescriptor as a Reader
+     * @return a set of rules
+     */
+    public Rules createRules(Reader rulesDescriptor, ParserContext parserContext) throws Exception {
+        Rules rules = new Rules();
+        List<MVELRuleDefinition> ruleDefinition = reader.read(rulesDescriptor);
+        for (MVELRuleDefinition mvelRuleDefinition : ruleDefinition) {
+            rules.register(createRule(mvelRuleDefinition, parserContext));
+        }
+        return rules;
+    }
+
+    /**
+     * Create a set of {@link MVELRule} using a {@link MVELYamlRuleDefinitionReader}.
+     *
+     * @param rulesDescriptor as a Reader
+     * @return a set of rules
+     * @deprecated Use {@link MVELRuleFactory#createRules(java.io.Reader)} instead. This method will be removed in v3.4.
+     */
+    @Deprecated
+    public static Rules createRulesFrom(Reader rulesDescriptor) throws Exception {
         return createRulesFrom(rulesDescriptor, new ParserContext());
     }
 
     /**
-     * Create a set of {@link MVELRule} from a Reader.
+     * Create a set of {@link MVELRule} using a {@link MVELYamlRuleDefinitionReader}.
      *
      * @param rulesDescriptor as a Reader
      * @return a set of rules
+     * @deprecated Use {@link MVELRuleFactory#createRules(java.io.Reader, org.mvel2.ParserContext)} instead. This method will be removed in v3.4.
      */
-    public static Rules createRulesFrom(Reader rulesDescriptor, ParserContext parserContext) {
+    @Deprecated
+    public static Rules createRulesFrom(Reader rulesDescriptor, ParserContext parserContext) throws Exception {
         Rules rules = new Rules();
-        List<MVELRuleDefinition> ruleDefinition = READER.readAll(rulesDescriptor);
+        List<MVELRuleDefinition> ruleDefinition = READER.read(rulesDescriptor);
         for (MVELRuleDefinition mvelRuleDefinition : ruleDefinition) {
             rules.register(createRule(mvelRuleDefinition, parserContext));
         }

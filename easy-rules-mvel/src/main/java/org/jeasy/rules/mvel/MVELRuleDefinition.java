@@ -28,7 +28,15 @@ import org.jeasy.rules.api.Rule;
 import java.util.ArrayList;
 import java.util.List;
 
-class MVELRuleDefinition {
+/**
+ * Rule definition as defined in a rule description.
+ * This class encapsulates static definition of an {@link MVELRule}.
+ *
+ * This definition is produced by a {@link MVELRuleDefinitionReader}.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ */
+public class MVELRuleDefinition {
 
     private String name = Rule.DEFAULT_NAME;
     private String description = Rule.DEFAULT_DESCRIPTION;

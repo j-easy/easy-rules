@@ -1,0 +1,8 @@
+[
+  {
+    "condition": "person.age > 18",
+    "actions": [
+      "person.setAdult(true);"
+    ]
+  }
+]

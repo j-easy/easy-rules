@@ -30,13 +30,13 @@ import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
+import org.jeasy.rules.mvel.MVELYamlRuleDefinitionReader;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class Launcher {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws Exception {
         //create a person instance (fact)
         Person tom = new Person("Tom", 14);
         Facts facts = new Facts();
@@ -49,7 +49,8 @@ public class Launcher {
                 .priority(1)
                 .when("person.age > 18")
                 .then("person.setAdult(true);");
-        Rule alcoholRule = MVELRuleFactory.createRuleFrom(new FileReader("src/main/java/org/jeasy/rules/tutorials/shop/alcohol-rule.yml"));
+        MVELRuleFactory ruleFactory = new MVELRuleFactory(new MVELYamlRuleDefinitionReader());
+        Rule alcoholRule = ruleFactory.createRule(new FileReader("src/main/java/org/jeasy/rules/tutorials/shop/alcohol-rule.yml"));
 
         // create a rule set
         Rules rules = new Rules();

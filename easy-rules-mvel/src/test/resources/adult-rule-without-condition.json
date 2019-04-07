@@ -1,0 +1,7 @@
+[
+  {
+    "actions": [
+      "person.setAdult(true);"
+    ]
+  }
+]
