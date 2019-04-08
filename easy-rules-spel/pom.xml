@@ -7,10 +7,16 @@
         <version>3.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>easy-rules-support</artifactId>
+    <artifactId>easy-rules-spel</artifactId>
     <packaging>jar</packaging>
-    <name>Easy Rules Support module</name>
-    <description>Support classes module</description>
+    <name>Easy Rules SpEL module</name>
+    <description>Spring Expression Language integration module</description>
+
+    <properties>
+        <spring.version>5.1.6.RELEASE</spring.version>
+        <system-rules.version>1.19.0</system-rules.version>
+        <jackson.version>2.9.8</jackson.version>
+    </properties>
 
     <scm>
         <url>git@github.com:j-easy/easy-rules.git</url>
@@ -51,7 +57,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jeasy</groupId>
-            <artifactId>easy-rules-core</artifactId>
+            <artifactId>easy-rules-support</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -72,6 +78,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -84,6 +95,12 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.stefanbirkner</groupId>
+            <artifactId>system-rules</artifactId>
+            <version>${system-rules.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

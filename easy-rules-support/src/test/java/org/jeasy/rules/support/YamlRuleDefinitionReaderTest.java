@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.mvel;
+package org.jeasy.rules.support;
 
 import org.jeasy.rules.api.Rule;
 import org.junit.Test;
@@ -36,10 +36,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO use parametrized test to merge this test class with MVELJsonRuleDefinitionReaderTest
-public class MVELYamlRuleDefinitionReaderTest {
+// TODO use parametrized test to merge this test class with JsonRuleDefinitionReaderTest
+public class YamlRuleDefinitionReaderTest {
 
-    private MVELRuleDefinitionReader ruleDefinitionReader = new MVELYamlRuleDefinitionReader();
+    private RuleDefinitionReader ruleDefinitionReader = new YamlRuleDefinitionReader();
 
     @Test
     public void testRuleDefinitionReadingFromFile() throws Exception {
@@ -47,11 +47,11 @@ public class MVELYamlRuleDefinitionReaderTest {
         File adultRuleDescriptor = new File("src/test/resources/adult-rule.yml");
 
         // when
-        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
+        List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
 
         // then
         assertThat(ruleDefinitions).hasSize(1);
-        MVELRuleDefinition adultRuleDefinition = ruleDefinitions.get(0);
+        RuleDefinition adultRuleDefinition = ruleDefinitions.get(0);
         assertThat(adultRuleDefinition).isNotNull();
         assertThat(adultRuleDefinition.getName()).isEqualTo("adult rule");
         assertThat(adultRuleDefinition.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
@@ -66,11 +66,11 @@ public class MVELYamlRuleDefinitionReaderTest {
         String adultRuleDescriptor = new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.yml")));
 
         // when
-        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new StringReader(adultRuleDescriptor));
+        List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new StringReader(adultRuleDescriptor));
 
         // then
         assertThat(ruleDefinitions).hasSize(1);
-        MVELRuleDefinition adultRuleDefinition = ruleDefinitions.get(0);
+        RuleDefinition adultRuleDefinition = ruleDefinitions.get(0);
         assertThat(adultRuleDefinition).isNotNull();
         assertThat(adultRuleDefinition.getName()).isEqualTo("adult rule");
         assertThat(adultRuleDefinition.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
@@ -85,11 +85,11 @@ public class MVELYamlRuleDefinitionReaderTest {
         File adultRuleDescriptor = new File("src/test/resources/adult-rule-with-default-values.yml");
 
         // when
-        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
+        List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
 
         // then
         assertThat(ruleDefinitions).hasSize(1);
-        MVELRuleDefinition adultRuleDefinition = ruleDefinitions.get(0);
+        RuleDefinition adultRuleDefinition = ruleDefinitions.get(0);
         assertThat(adultRuleDefinition).isNotNull();
         assertThat(adultRuleDefinition.getName()).isEqualTo(Rule.DEFAULT_NAME);
         assertThat(adultRuleDefinition.getDescription()).isEqualTo(Rule.DEFAULT_DESCRIPTION);
@@ -104,7 +104,7 @@ public class MVELYamlRuleDefinitionReaderTest {
         File adultRuleDescriptor = new File("src/test/resources/adult-rule-without-condition.yml");
 
         // when
-        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
+        List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
 
         // then
         // expected exception
@@ -116,7 +116,7 @@ public class MVELYamlRuleDefinitionReaderTest {
         File adultRuleDescriptor = new File("src/test/resources/adult-rule-without-actions.yml");
 
         // when
-        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
+        List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
 
         // then
         // expected exception
@@ -128,11 +128,11 @@ public class MVELYamlRuleDefinitionReaderTest {
         File rulesDescriptor = new File("src/test/resources/rules.yml");
 
         // when
-        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(rulesDescriptor));
+        List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(rulesDescriptor));
 
         // then
         assertThat(ruleDefinitions).hasSize(2);
-        MVELRuleDefinition ruleDefinition = ruleDefinitions.get(0);
+        RuleDefinition ruleDefinition = ruleDefinitions.get(0);
         assertThat(ruleDefinition).isNotNull();
         assertThat(ruleDefinition.getName()).isEqualTo("adult rule");
         assertThat(ruleDefinition.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
@@ -155,7 +155,7 @@ public class MVELYamlRuleDefinitionReaderTest {
         File rulesDescriptor = new File("src/test/resources/rules-empty.yml");
 
         // when
-        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(rulesDescriptor));
+        List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(rulesDescriptor));
 
         // then
         assertThat(ruleDefinitions).hasSize(0);
@@ -167,13 +167,13 @@ public class MVELYamlRuleDefinitionReaderTest {
         File compositeRuleDescriptor = new File("src/test/resources/composite-rules.yml");
 
         // when
-        List<MVELRuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(compositeRuleDescriptor));
+        List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(compositeRuleDescriptor));
 
         // then
         assertThat(ruleDefinitions).hasSize(2);
 
         // then
-        MVELRuleDefinition ruleDefinition = ruleDefinitions.get(0);
+        RuleDefinition ruleDefinition = ruleDefinitions.get(0);
         assertThat(ruleDefinition).isNotNull();
         assertThat(ruleDefinition.getName()).isEqualTo("Movie id rule");
         assertThat(ruleDefinition.getDescription()).isEqualTo("description");
@@ -181,10 +181,10 @@ public class MVELYamlRuleDefinitionReaderTest {
         assertThat(ruleDefinition.getCompositeRuleType()).isEqualTo("UnitRuleGroup");
         assertThat(ruleDefinition.getComposingRules()).isNotEmpty();
 
-        List<MVELRuleDefinition> subrules = ruleDefinition.getComposingRules();
+        List<RuleDefinition> subrules = ruleDefinition.getComposingRules();
         assertThat(subrules).hasSize(2);
 
-        MVELRuleDefinition subrule = subrules.get(0);
+        RuleDefinition subrule = subrules.get(0);
         assertThat(subrule.getName()).isEqualTo("Time is evening");
         assertThat(subrule.getDescription()).isEqualTo("If it's later than 7pm");
         assertThat(subrule.getPriority()).isEqualTo(1);

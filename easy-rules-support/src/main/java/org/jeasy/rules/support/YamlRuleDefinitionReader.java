@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.mvel;
+package org.jeasy.rules.support;
 
 import org.jeasy.rules.api.Rule;
 import org.yaml.snakeyaml.Yaml;
@@ -45,28 +45,28 @@ import java.util.Map;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @SuppressWarnings("unchecked")
-public class MVELYamlRuleDefinitionReader implements MVELRuleDefinitionReader {
+public class YamlRuleDefinitionReader implements RuleDefinitionReader {
 
     private Yaml yaml;
 
     /**
-     * Create a new {@link MVELYamlRuleDefinitionReader}.
+     * Create a new {@link YamlRuleDefinitionReader}.
      */
-    public MVELYamlRuleDefinitionReader() {
-        yaml = new Yaml();
+    public YamlRuleDefinitionReader() {
+        this(new Yaml());
     }
 
     /**
-     * Create a new {@link MVELYamlRuleDefinitionReader}.
+     * Create a new {@link YamlRuleDefinitionReader}.
      *
      * @param yaml to use to read rule definitions
      */
-    public MVELYamlRuleDefinitionReader(Yaml yaml) {
+    public YamlRuleDefinitionReader(Yaml yaml) {
         this.yaml = yaml;
     }
 
-    public List<MVELRuleDefinition> read(Reader reader) {
-        List<MVELRuleDefinition> ruleDefinitions = new ArrayList<>();
+    public List<RuleDefinition> read(Reader reader) {
+        List<RuleDefinition> ruleDefinitions = new ArrayList<>();
         Iterable<Object> rules = yaml.loadAll(reader);
         for (Object rule : rules) {
             Map<String, Object> map = (Map<String, Object>) rule;
@@ -75,8 +75,8 @@ public class MVELYamlRuleDefinitionReader implements MVELRuleDefinitionReader {
         return ruleDefinitions;
     }
 
-    private MVELRuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {
-        MVELRuleDefinition ruleDefinition = new MVELRuleDefinition();
+    private RuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {
+        RuleDefinition ruleDefinition = new RuleDefinition();
 
         String name = (String) map.get("name");
         ruleDefinition.setName(name != null ? name : Rule.DEFAULT_NAME);
@@ -104,10 +104,10 @@ public class MVELYamlRuleDefinitionReader implements MVELRuleDefinitionReader {
         List<Object> composingRules = (List<Object>) map.get("composingRules");
         if (composingRules != null && compositeRuleType == null) {
             throw new IllegalArgumentException("Non-composite rules cannot have composing rules");
-        } else if (composingRules == null && compositeRuleType != null) {
+        } else if ((composingRules == null || composingRules.isEmpty()) && compositeRuleType != null) {
             throw new IllegalArgumentException("Composite rules must have composing rules specified");
         } else if (composingRules != null) {
-            List<MVELRuleDefinition> composingRuleDefinitions = new ArrayList<>();
+            List<RuleDefinition> composingRuleDefinitions = new ArrayList<>();
             for (Object rule : composingRules){
                 Map<String, Object> composingRuleMap = (Map<String, Object>) rule;
                 composingRuleDefinitions.add(createRuleDefinitionFrom(composingRuleMap));

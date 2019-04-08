@@ -30,7 +30,7 @@ import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
-import org.jeasy.rules.mvel.MVELYamlRuleDefinitionReader;
+import org.jeasy.rules.support.YamlRuleDefinitionReader;
 
 import java.io.FileReader;
 
@@ -49,7 +49,7 @@ public class Launcher {
                 .priority(1)
                 .when("person.age > 18")
                 .then("person.setAdult(true);");
-        MVELRuleFactory ruleFactory = new MVELRuleFactory(new MVELYamlRuleDefinitionReader());
+        MVELRuleFactory ruleFactory = new MVELRuleFactory(new YamlRuleDefinitionReader());
         Rule alcoholRule = ruleFactory.createRule(new FileReader("src/main/java/org/jeasy/rules/tutorials/shop/alcohol-rule.yml"));
 
         // create a rule set

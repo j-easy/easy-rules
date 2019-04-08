@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.mvel;
+package org.jeasy.rules.support;
 
 import org.jeasy.rules.api.Rule;
 
@@ -29,21 +29,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Rule definition as defined in a rule description.
- * This class encapsulates static definition of an {@link MVELRule}.
+ * Rule definition as defined in a rule descriptor.
+ * This class encapsulates static definition of an {@link Rule}.
  *
- * This definition is produced by a {@link MVELRuleDefinitionReader}.
+ * This definition is produced by a {@link RuleDefinitionReader}
+ * and consumed by rule factories to create rules.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class MVELRuleDefinition {
+public class RuleDefinition {
 
     private String name = Rule.DEFAULT_NAME;
     private String description = Rule.DEFAULT_DESCRIPTION;
     private int priority = Rule.DEFAULT_PRIORITY;
     private String condition;
     private List<String> actions = new ArrayList<>();
-    private List<MVELRuleDefinition> composingRules = new ArrayList<>();
+    private List<RuleDefinition> composingRules = new ArrayList<>();
     private String compositeRuleType;
 
     public String getName() {
@@ -86,23 +87,23 @@ public class MVELRuleDefinition {
         this.actions = actions;
     }
 
-    void setComposingRules(List<MVELRuleDefinition> composingRuleDefinitions) {
+    public void setComposingRules(List<RuleDefinition> composingRuleDefinitions) {
         this.composingRules = composingRuleDefinitions;
     }
 
-    void setCompositeRuleType(String compositeRuleType) {
+    public void setCompositeRuleType(String compositeRuleType) {
         this.compositeRuleType = compositeRuleType;
     }
 
-    String getCompositeRuleType() {
+    public String getCompositeRuleType() {
         return compositeRuleType;
     }
 
-    List<MVELRuleDefinition> getComposingRules() {
+    public List<RuleDefinition> getComposingRules() {
         return composingRules;
     }
 
-    boolean isCompositeRule() {
+    public boolean isCompositeRule() {
         return !composingRules.isEmpty();
     }
 }

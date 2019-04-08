@@ -25,6 +25,7 @@ package org.jeasy.rules.mvel;
 
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.support.YamlRuleDefinitionReader;
 import org.jeasy.rules.support.UnitRuleGroup;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -45,7 +46,7 @@ public class MVELYamlRuleFactoryTest {
     @org.junit.Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    private MVELRuleFactory factory = new MVELRuleFactory(new MVELYamlRuleDefinitionReader());
+    private MVELRuleFactory factory = new MVELRuleFactory(new YamlRuleDefinitionReader());
 
     @Test
     public void testRulesCreation() throws Exception {

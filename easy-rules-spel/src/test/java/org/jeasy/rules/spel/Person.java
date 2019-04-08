@@ -21,30 +21,44 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.mvel;
+package org.jeasy.rules.spel;
 
-import java.io.Reader;
-import java.util.List;
+public class Person {
 
-/**
- * Strategy interface for {@link MVELRuleDefinition} readers.
- *
- * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
- * @see MVELJsonRuleDefinitionReader
- * @see MVELYamlRuleDefinitionReader
- */
-public interface MVELRuleDefinitionReader {
+    private String name;
+    private int age;
+    private boolean isAdult;
 
-    /**
-     * Read a list of rule definitions from a rules descriptor.
-     *
-     * <strong> The descriptor is expected to contain a collection of rule definitions
-     * even for a single rule.</strong>
-     *
-     * @param reader of the rules descriptor
-     * @return a list of rule definitions
-     * @throws Exception if a problem occurs during rule defintion parsing
-     */
-    List<MVELRuleDefinition> read(Reader reader) throws Exception;
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public boolean isAdult() {
+        return isAdult;
+    }
+
+    public void setAdult(boolean adult) {
+        isAdult = adult;
+    }
+
+    public static void sayHello() {
+        System.out.println("hello");
+    }
 }

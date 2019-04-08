@@ -15,7 +15,6 @@
     <properties>
         <mvel2.version>2.4.3.Final</mvel2.version>
         <system-rules.version>1.19.0</system-rules.version>
-        <jackson.version>2.9.8</jackson.version>
     </properties>
 
     <scm>
@@ -60,16 +59,7 @@
             <artifactId>easy-rules-support</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
+
 
         <dependency>
             <groupId>org.slf4j</groupId>

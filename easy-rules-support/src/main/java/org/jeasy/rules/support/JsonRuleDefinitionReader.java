@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.mvel;
+package org.jeasy.rules.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jeasy.rules.api.Rule;
@@ -43,28 +43,28 @@ import java.util.Map;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @SuppressWarnings("unchecked")
-public class MVELJsonRuleDefinitionReader implements MVELRuleDefinitionReader {
+public class JsonRuleDefinitionReader implements RuleDefinitionReader {
 
     private ObjectMapper objectMapper;
 
     /**
-     * Create a new {@link MVELJsonRuleDefinitionReader}.
+     * Create a new {@link JsonRuleDefinitionReader}.
      */
-    public MVELJsonRuleDefinitionReader() {
-        objectMapper = new ObjectMapper();
+    public JsonRuleDefinitionReader() {
+        this(new ObjectMapper());
     }
 
     /**
-     * Create a new {@link MVELJsonRuleDefinitionReader}.
+     * Create a new {@link JsonRuleDefinitionReader}.
      *
      * @param objectMapper to use to read rule definitions
      */
-    public MVELJsonRuleDefinitionReader(ObjectMapper objectMapper) {
+    public JsonRuleDefinitionReader(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 
-    public List<MVELRuleDefinition> read(Reader reader) throws Exception {
-        List<MVELRuleDefinition> ruleDefinitions = new ArrayList<>();
+    public List<RuleDefinition> read(Reader reader) throws Exception {
+        List<RuleDefinition> ruleDefinitions = new ArrayList<>();
         Object[] rules = objectMapper.readValue(reader, Object[].class );
 
         for (Object rule : rules) {
@@ -74,8 +74,8 @@ public class MVELJsonRuleDefinitionReader implements MVELRuleDefinitionReader {
         return ruleDefinitions;
     }
 
-    private MVELRuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {
-        MVELRuleDefinition ruleDefinition = new MVELRuleDefinition();
+    private RuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {
+        RuleDefinition ruleDefinition = new RuleDefinition();
 
         String name = (String) map.get("name");
         ruleDefinition.setName(name != null ? name : Rule.DEFAULT_NAME);
@@ -106,7 +106,7 @@ public class MVELJsonRuleDefinitionReader implements MVELRuleDefinitionReader {
         } else if ((composingRules == null || composingRules.isEmpty()) && compositeRuleType != null) {
             throw new IllegalArgumentException("Composite rules must have composing rules specified");
         } else if (composingRules != null) {
-            List<MVELRuleDefinition> composingRuleDefinitions = new ArrayList<>();
+            List<RuleDefinition> composingRuleDefinitions = new ArrayList<>();
             for (Object rule : composingRules){
                 Map<String, Object> composingRuleMap = (Map<String, Object>) rule;
                 composingRuleDefinitions.add(createRuleDefinitionFrom(composingRuleMap));

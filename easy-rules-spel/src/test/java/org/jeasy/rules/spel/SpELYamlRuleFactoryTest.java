@@ -21,12 +21,12 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.mvel;
+package org.jeasy.rules.spel;
 
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.support.JsonRuleDefinitionReader;
 import org.jeasy.rules.support.UnitRuleGroup;
+import org.jeasy.rules.support.YamlRuleDefinitionReader;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -40,18 +40,18 @@ import java.util.Iterator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO use parametrized test to merge this test class with MVELYamlRuleFactoryTest
-public class MVELJsonRuleFactoryTest {
+// TODO use parametrized test to merge this test class with SpELJsonRuleFactoryTest
+public class SpELYamlRuleFactoryTest {
 
     @org.junit.Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    private MVELRuleFactory factory = new MVELRuleFactory(new JsonRuleDefinitionReader());
+    private SpELRuleFactory factory = new SpELRuleFactory(new YamlRuleDefinitionReader());
 
     @Test
     public void testRulesCreation() throws Exception {
         // given
-        File rulesDescriptor = new File("src/test/resources/rules.json");
+        File rulesDescriptor = new File("src/test/resources/rules.yml");
 
         // when
         Rules rules = factory.createRules(new FileReader(rulesDescriptor));
@@ -76,7 +76,7 @@ public class MVELJsonRuleFactoryTest {
     @Test
     public void testRuleCreationFromFileReader() throws Exception{
         // given
-        Reader adultRuleDescriptorAsReader = new FileReader("src/test/resources/adult-rule.json");
+        Reader adultRuleDescriptorAsReader = new FileReader("src/test/resources/adult-rule.yml");
 
         // when
         Rule adultRule = factory.createRule(adultRuleDescriptorAsReader);
@@ -90,7 +90,7 @@ public class MVELJsonRuleFactoryTest {
     @Test
     public void testRuleCreationFromStringReader() throws Exception{
         // given
-        Reader adultRuleDescriptorAsReader = new StringReader(new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.json"))));
+        Reader adultRuleDescriptorAsReader = new StringReader(new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.yml"))));
 
         // when
         Rule adultRule = factory.createRule(adultRuleDescriptorAsReader);
@@ -104,7 +104,7 @@ public class MVELJsonRuleFactoryTest {
     @Test
     public void testRuleCreationFromFileReader_withCompositeRules() throws Exception {
         // given
-        File rulesDescriptor = new File("src/test/resources/composite-rules.json");
+        File rulesDescriptor = new File("src/test/resources/composite-rules.yml");
 
         // when
         Rules rules = factory.createRules(new FileReader(rulesDescriptor));
@@ -132,7 +132,7 @@ public class MVELJsonRuleFactoryTest {
         // given
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Invalid composite rule type, must be one of [UnitRuleGroup, ConditionalRuleGroup, ActivationRuleGroup]");
-        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-composite-rule-type.json");
+        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-composite-rule-type.yml");
 
         // when
         Rule rule = factory.createRule(new FileReader(rulesDescriptor));
@@ -146,7 +146,7 @@ public class MVELJsonRuleFactoryTest {
         // given
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Composite rules must have composing rules specified");
-        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-empty-composing-rules.json");
+        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-empty-composing-rules.yml");
 
         // when
         Rule rule = factory.createRule(new FileReader(rulesDescriptor));
@@ -160,7 +160,7 @@ public class MVELJsonRuleFactoryTest {
         // given
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Non-composite rules cannot have composing rules");
-        File rulesDescriptor = new File("src/test/resources/non-composite-rule-with-composing-rules.json");
+        File rulesDescriptor = new File("src/test/resources/non-composite-rule-with-composing-rules.yml");
 
         // when
         Rule rule = factory.createRule(new FileReader(rulesDescriptor));

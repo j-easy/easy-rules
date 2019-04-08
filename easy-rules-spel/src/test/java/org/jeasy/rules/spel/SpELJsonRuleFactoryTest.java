@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.mvel;
+package org.jeasy.rules.spel;
 
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
@@ -40,13 +40,13 @@ import java.util.Iterator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO use parametrized test to merge this test class with MVELYamlRuleFactoryTest
-public class MVELJsonRuleFactoryTest {
+// TODO use parametrized test to merge this test class with SpELYamlRuleFactoryTest
+public class SpELJsonRuleFactoryTest {
 
     @org.junit.Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    private MVELRuleFactory factory = new MVELRuleFactory(new JsonRuleDefinitionReader());
+    private SpELRuleFactory factory = new SpELRuleFactory(new JsonRuleDefinitionReader());
 
     @Test
     public void testRulesCreation() throws Exception {
