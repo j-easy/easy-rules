@@ -156,7 +156,7 @@ public class ConditionalRuleGroupTest {
         // Given
         when(conditionalRule.evaluate(facts)).thenReturn(true);
         MyRule rule = new MyRule();
-        conditionalRuleGroup = new ConditionalRuleGroup("myConditinalRule");
+        conditionalRuleGroup = new ConditionalRuleGroup("myConditionalRule");
         conditionalRuleGroup.addRule(rule);
         when(conditionalRule.compareTo(any(Rule.class))).thenReturn(1);
         conditionalRuleGroup.addRule(conditionalRule);
@@ -215,7 +215,7 @@ public class ConditionalRuleGroupTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void aRuleWithoutPriorityHasAHighPriororty() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void aRuleWithoutPriorityHasAHighPriority() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         MyOtherRule rule1 = new MyOtherRule(3);
         conditionalRuleGroup.addRule(rule1);
         conditionalRuleGroup.addRule(new UnprioritizedRule());
