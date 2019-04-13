@@ -27,9 +27,8 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.List;
 import java.util.Set;
 
@@ -112,13 +111,13 @@ public class ConditionalRuleGroup extends CompositeRule {
     @Override
     public void execute(Facts facts) throws Exception {
         conditionalRule.execute(facts);
-        for (Rule rule : successfulEvaluations) {
+        for (Rule rule : sort(successfulEvaluations)) {
             rule.execute(facts);
         }
     }
 
     private Rule getRuleWithHighestPriority() {
-        List<Rule> copy = sortRules();
+        List<Rule> copy = sort(rules);
         // make sure that we only have one rule with the highest priority
         Rule highest = copy.get(0);
         if (copy.size() > 1 && copy.get(1).getPriority() == highest.getPriority()) {
@@ -127,16 +126,8 @@ public class ConditionalRuleGroup extends CompositeRule {
         return highest;
     }
 
-    private List<Rule> sortRules() {
-        List<Rule> copy = new ArrayList<>(rules);
-        Collections.sort(copy, new Comparator<Rule>() {
-            @Override
-            public int compare(Rule o1, Rule o2) {
-                Integer i2 = o2.getPriority();
-                return i2.compareTo(o1.getPriority());
-            }
-        });
-        return copy;
+    private List<Rule> sort(Set<Rule> rules) {
+        return new ArrayList<>(new TreeSet<>(rules));
     }
 
 }
