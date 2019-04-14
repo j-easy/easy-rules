@@ -36,6 +36,10 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 /**
  * This class is an implementation of {@link Condition} that uses <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#expressions">SpEL</a> to evaluate the condition.
  *
+ * Each fact is set as a variable in the {@link org.springframework.expression.EvaluationContext}.
+ *
+ * The facts map is set as the root object of the {@link org.springframework.expression.EvaluationContext}.
+ *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class SpELCondition implements Condition {
@@ -72,6 +76,7 @@ public class SpELCondition implements Condition {
     public boolean evaluate(Facts facts) {
         try {
             StandardEvaluationContext context = new StandardEvaluationContext();
+            context.setRootObject(facts.asMap());
             context.setVariables(facts.asMap());
             return  compiledExpression.getValue(context, Boolean.class);
         } catch (Exception e) {

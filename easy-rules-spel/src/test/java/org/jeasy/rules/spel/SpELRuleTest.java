@@ -31,19 +31,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SpELRuleTest {
 
-    private Facts facts = new Facts();
-    private SpELRule spelRule = new SpELRule().name("rn").description("rd").priority(1);
+    private Facts facts;
+    private SpELRule spelRule;
 
     @Before
     public void setUp() {
-        spelRule.when("#person.age > 18");
-        spelRule.then("#person.setAdult(true)");
+        facts = new Facts();
+        spelRule = new SpELRule().name("spel rule").description("rule using SpEL").priority(1)
+                .when("#person.age > 18")
+                .then("#person.setAdult(true)");
     }
 
     @Test
     public void whenTheRuleIsTriggered_thenConditionShouldBeEvaluated() {
         // given
-        facts.put("person", new Person("foo", 20));
+        Person person = new Person("foo", 20);
+        facts.put("person", person);
 
         // when
         boolean evaluationResult = spelRule.evaluate(facts);
@@ -57,6 +60,22 @@ public class SpELRuleTest {
         // given
         Person foo = new Person("foo", 20);
         facts.put("person", foo);
+
+        // when
+        spelRule.execute(facts);
+
+        // then
+        assertThat(foo.isAdult()).isTrue();
+    }
+
+    @Test
+    public void testRuleWithRootVariable() throws Exception {
+        // given
+        Person foo = new Person("foo", 20);
+        facts.put("person", foo);
+        spelRule = new SpELRule().name("rn").description("rd").priority(1)
+                .when("#root['person'].age > 18")
+                .then("#root['person'].setAdult(true)");
 
         // when
         spelRule.execute(facts);
