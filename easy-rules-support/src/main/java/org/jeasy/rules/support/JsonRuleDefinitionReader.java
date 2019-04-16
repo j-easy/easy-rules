@@ -24,7 +24,6 @@
 package org.jeasy.rules.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.jeasy.rules.api.Rule;
 
 import java.io.Reader;
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ import java.util.Map;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @SuppressWarnings("unchecked")
-public class JsonRuleDefinitionReader implements RuleDefinitionReader {
+public class JsonRuleDefinitionReader extends AbstractRuleDefinitionReader {
 
     private ObjectMapper objectMapper;
 
@@ -63,58 +62,14 @@ public class JsonRuleDefinitionReader implements RuleDefinitionReader {
         this.objectMapper = objectMapper;
     }
 
-    public List<RuleDefinition> read(Reader reader) throws Exception {
-        List<RuleDefinition> ruleDefinitions = new ArrayList<>();
-        Object[] rules = objectMapper.readValue(reader, Object[].class );
-
+    @Override
+    protected Iterable<Map<String, Object>> loadRules(Reader reader) throws Exception {
+        List<Map<String, Object>> rulesList = new ArrayList<>();
+        Object[] rules = objectMapper.readValue(reader, Object[].class);
         for (Object rule : rules) {
-            Map<String, Object> map = (Map<String, Object>) rule;
-            ruleDefinitions.add(createRuleDefinitionFrom(map));
+            rulesList.add((Map<String, Object>) rule);
         }
-        return ruleDefinitions;
+        return rulesList;
     }
 
-    private RuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {
-        RuleDefinition ruleDefinition = new RuleDefinition();
-
-        String name = (String) map.get("name");
-        ruleDefinition.setName(name != null ? name : Rule.DEFAULT_NAME);
-
-        String description = (String) map.get("description");
-        ruleDefinition.setDescription(description != null ? description : Rule.DEFAULT_DESCRIPTION);
-
-        Integer priority = (Integer) map.get("priority");
-        ruleDefinition.setPriority(priority != null ? priority : Rule.DEFAULT_PRIORITY);
-
-        String compositeRuleType = (String) map.get("compositeRuleType");
-
-        String condition = (String) map.get("condition");
-        if (condition == null && compositeRuleType == null) {
-            throw new IllegalArgumentException("The rule condition must be specified");
-        }
-        ruleDefinition.setCondition(condition);
-
-        List<String> actions = (List<String>) map.get("actions");
-        if ((actions == null || actions.isEmpty()) && compositeRuleType == null) {
-            throw new IllegalArgumentException("The rule action(s) must be specified");
-        }
-        ruleDefinition.setActions(actions);
-
-        List<Object> composingRules = (List<Object>) map.get("composingRules");
-        if (composingRules != null && compositeRuleType == null) {
-            throw new IllegalArgumentException("Non-composite rules cannot have composing rules");
-        } else if ((composingRules == null || composingRules.isEmpty()) && compositeRuleType != null) {
-            throw new IllegalArgumentException("Composite rules must have composing rules specified");
-        } else if (composingRules != null) {
-            List<RuleDefinition> composingRuleDefinitions = new ArrayList<>();
-            for (Object rule : composingRules){
-                Map<String, Object> composingRuleMap = (Map<String, Object>) rule;
-                composingRuleDefinitions.add(createRuleDefinitionFrom(composingRuleMap));
-            }
-            ruleDefinition.setComposingRules(composingRuleDefinitions);
-            ruleDefinition.setCompositeRuleType(compositeRuleType);
-        }
-
-        return ruleDefinition;
-    }
 }

@@ -23,7 +23,6 @@
  */
 package org.jeasy.rules.support;
 
-import org.jeasy.rules.api.Rule;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.Reader;
@@ -45,7 +44,7 @@ import java.util.Map;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @SuppressWarnings("unchecked")
-public class YamlRuleDefinitionReader implements RuleDefinitionReader {
+public class YamlRuleDefinitionReader extends AbstractRuleDefinitionReader {
 
     private Yaml yaml;
 
@@ -65,57 +64,13 @@ public class YamlRuleDefinitionReader implements RuleDefinitionReader {
         this.yaml = yaml;
     }
 
-    public List<RuleDefinition> read(Reader reader) {
-        List<RuleDefinition> ruleDefinitions = new ArrayList<>();
+    @Override
+    protected Iterable<Map<String, Object>> loadRules(Reader reader) {
+        List<Map<String, Object>> rulesList = new ArrayList<>();
         Iterable<Object> rules = yaml.loadAll(reader);
         for (Object rule : rules) {
-            Map<String, Object> map = (Map<String, Object>) rule;
-            ruleDefinitions.add(createRuleDefinitionFrom(map));
+            rulesList.add((Map<String, Object>) rule);
         }
-        return ruleDefinitions;
-    }
-
-    private RuleDefinition createRuleDefinitionFrom(Map<String, Object> map) {
-        RuleDefinition ruleDefinition = new RuleDefinition();
-
-        String name = (String) map.get("name");
-        ruleDefinition.setName(name != null ? name : Rule.DEFAULT_NAME);
-
-        String description = (String) map.get("description");
-        ruleDefinition.setDescription(description != null ? description : Rule.DEFAULT_DESCRIPTION);
-
-        Integer priority = (Integer) map.get("priority");
-        ruleDefinition.setPriority(priority != null ? priority : Rule.DEFAULT_PRIORITY);
-
-        String compositeRuleType = (String) map.get("compositeRuleType");
-
-        String condition = (String) map.get("condition");
-        if (condition == null && compositeRuleType == null) {
-            throw new IllegalArgumentException("The rule condition must be specified");
-        }
-        ruleDefinition.setCondition(condition);
-
-        List<String> actions = (List<String>) map.get("actions");
-        if ((actions == null || actions.isEmpty()) && compositeRuleType == null) {
-            throw new IllegalArgumentException("The rule action(s) must be specified");
-        }
-        ruleDefinition.setActions(actions);
-
-        List<Object> composingRules = (List<Object>) map.get("composingRules");
-        if (composingRules != null && compositeRuleType == null) {
-            throw new IllegalArgumentException("Non-composite rules cannot have composing rules");
-        } else if ((composingRules == null || composingRules.isEmpty()) && compositeRuleType != null) {
-            throw new IllegalArgumentException("Composite rules must have composing rules specified");
-        } else if (composingRules != null) {
-            List<RuleDefinition> composingRuleDefinitions = new ArrayList<>();
-            for (Object rule : composingRules){
-                Map<String, Object> composingRuleMap = (Map<String, Object>) rule;
-                composingRuleDefinitions.add(createRuleDefinitionFrom(composingRuleMap));
-            }
-            ruleDefinition.setComposingRules(composingRuleDefinitions);
-            ruleDefinition.setCompositeRuleType(compositeRuleType);
-        }
-
-        return ruleDefinition;
+        return rulesList;
     }
 }
