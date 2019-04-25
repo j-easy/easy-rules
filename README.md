@@ -95,7 +95,8 @@ actions:
 ```
 
 ```java
-Rule weatherRule = MVELRuleFactory.createRuleFrom(new FileReader("weather-rule.yml"));
+MVELRuleFactory ruleFactory = new MVELRuleFactory(new YamlRuleDefinitionReader());
+Rule weatherRule = ruleFactory.createRule(new FileReader("weather-rule.yml"));
 ```
 
 ### 2. Then, fire it!
