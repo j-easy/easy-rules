@@ -10,7 +10,7 @@
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
 [![Coverage](https://coveralls.io/repos/j-easy/easy-rules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/j-easy/easy-rules?branch=master)
 [![Build Status](https://travis-ci.org/j-easy/easy-rules.svg?branch=master)](https://travis-ci.org/j-easy/easy-rules)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jeasy/easy-rules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.jeasy|easy-rules-core|3.2.0|)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jeasy/easy-rules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.jeasy|easy-rules-core|3.3.0|)
 [![Javadoc](https://www.javadoc.io/badge/org.jeasy/easy-rules-core.svg)](http://www.javadoc.io/doc/org.jeasy/easy-rules-core)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/j-easy/easy-rules)
 
@@ -20,9 +20,8 @@
 
 ## Latest news
 
+* 25/04/2019: Version 3.3.0 is out with JSON and SpEL support! Checkout what's new [here](https://github.com/j-easy/easy-rules/releases).
 * 09/04/2018: Version 3.2.0 is out with new features and bug fixes. Checkout what's new [here](https://github.com/j-easy/easy-rules/releases).
-* 17/12/2017: Version 3.1.0 is out with a [new inference engine](https://github.com/j-easy/easy-rules/wiki/defining-rules-engine) and finally [Expression Language support](https://github.com/j-easy/easy-rules/wiki/expression-language-support)! See all new features and improvements in the [change log](https://github.com/j-easy/easy-rules/releases).
-* 01/06/2017: Version 3.0.0 is finally out! See all the new goodies in details [here](https://github.com/j-easy/easy-rules/releases).
 
 ## What is Easy Rules?
 
@@ -38,7 +37,7 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
  * POJO based development with annotation programming model
  * Useful abstractions to define business rules and apply them easily with Java
  * The ability to create composite rules from primitive ones
- * The ability to define rules using the Expression Language
+ * The ability to define rules using an Expression Language (Like MVEL and SpEL)
 
 ## Example
 
