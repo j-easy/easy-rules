@@ -39,9 +39,6 @@ import java.util.List;
  */
 public class MVELRuleFactory {
 
-    // for backward compatibility only, will be removed in v3.4
-    private static final RuleDefinitionReader READER = new YamlRuleDefinitionReader();
-
     private RuleDefinitionReader reader;
 
     private static final List<String> ALLOWED_COMPOSITE_RULE_TYPES = Arrays.asList(
@@ -91,39 +88,6 @@ public class MVELRuleFactory {
     }
 
     /**
-     * Create a new {@link MVELRule} using a {@link YamlRuleDefinitionReader}.
-     *
-     * @param ruleDescriptor as a Reader
-     * @return a new rule
-     * @deprecated Use {@link MVELRuleFactory#createRule(java.io.Reader)} instead. This method will be removed in v3.4.
-     */
-    @Deprecated
-    public static Rule createRuleFrom(Reader ruleDescriptor) throws Exception {
-        return createRuleFrom(ruleDescriptor, new ParserContext());
-    }
-
-    /**
-     * Create a new {@link MVELRule} using a {@link YamlRuleDefinitionReader}.
-     *
-     * The rule descriptor should contain a single rule definition.
-     * If no rule definitions are found, a {@link IllegalArgumentException} will be thrown.
-     * If more than a rule is defined in the descriptor, the first rule will be returned.
-     *
-     * @param ruleDescriptor as a Reader
-     * @param parserContext the MVEL parser context
-     * @return a new rule
-     * @deprecated Use {@link MVELRuleFactory#createRule(java.io.Reader, org.mvel2.ParserContext)} instead. This method will be removed in v3.4.
-     */
-    @Deprecated
-    public static Rule createRuleFrom(Reader ruleDescriptor, ParserContext parserContext) throws Exception {
-        List<RuleDefinition> ruleDefinitions = READER.read(ruleDescriptor);
-        if (ruleDefinitions.isEmpty()) {
-            throw new IllegalArgumentException("rule descriptor is empty");
-        }
-        return createRule(ruleDefinitions.get(0), parserContext);
-    }
-
-    /**
      * Create a set of {@link MVELRule} from a Reader.
      *
      * @param rulesDescriptor as a Reader
@@ -142,35 +106,6 @@ public class MVELRuleFactory {
     public Rules createRules(Reader rulesDescriptor, ParserContext parserContext) throws Exception {
         Rules rules = new Rules();
         List<RuleDefinition> ruleDefinition = reader.read(rulesDescriptor);
-        for (RuleDefinition mvelRuleDefinition : ruleDefinition) {
-            rules.register(createRule(mvelRuleDefinition, parserContext));
-        }
-        return rules;
-    }
-
-    /**
-     * Create a set of {@link MVELRule} using a {@link YamlRuleDefinitionReader}.
-     *
-     * @param rulesDescriptor as a Reader
-     * @return a set of rules
-     * @deprecated Use {@link MVELRuleFactory#createRules(java.io.Reader)} instead. This method will be removed in v3.4.
-     */
-    @Deprecated
-    public static Rules createRulesFrom(Reader rulesDescriptor) throws Exception {
-        return createRulesFrom(rulesDescriptor, new ParserContext());
-    }
-
-    /**
-     * Create a set of {@link MVELRule} using a {@link YamlRuleDefinitionReader}.
-     *
-     * @param rulesDescriptor as a Reader
-     * @return a set of rules
-     * @deprecated Use {@link MVELRuleFactory#createRules(java.io.Reader, org.mvel2.ParserContext)} instead. This method will be removed in v3.4.
-     */
-    @Deprecated
-    public static Rules createRulesFrom(Reader rulesDescriptor, ParserContext parserContext) throws Exception {
-        Rules rules = new Rules();
-        List<RuleDefinition> ruleDefinition = READER.read(rulesDescriptor);
         for (RuleDefinition mvelRuleDefinition : ruleDefinition) {
             rules.register(createRule(mvelRuleDefinition, parserContext));
         }
