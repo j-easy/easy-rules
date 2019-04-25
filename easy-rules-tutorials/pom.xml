@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.jeasy</groupId>
         <artifactId>easy-rules</artifactId>
-        <version>3.3.0</version>
+        <version>3.3.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>easy-rules-tutorials</artifactId>
@@ -25,7 +25,7 @@
         <url>git@github.com:j-easy/easy-rules.git</url>
         <connection>scm:git:git@github.com:j-easy/easy-rules.git</connection>
         <developerConnection>scm:git:git@github.com:j-easy/easy-rules.git</developerConnection>
-        <tag>easy-rules-3.3.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
