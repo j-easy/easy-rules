@@ -30,7 +30,6 @@ import org.springframework.expression.ParserContext;
 import org.springframework.expression.common.TemplateParserContext;
 
 import java.io.Reader;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -38,15 +37,9 @@ import java.util.List;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class SpELRuleFactory {
+public class SpELRuleFactory extends AbstractRuleFactory<ParserContext> {
 
     private RuleDefinitionReader reader;
-
-    private static final List<String> ALLOWED_COMPOSITE_RULE_TYPES = Arrays.asList(
-            UnitRuleGroup.class.getSimpleName(),
-            ConditionalRuleGroup.class.getSimpleName(),
-            ActivationRuleGroup.class.getSimpleName()
-    );
 
     /**
      * Create a new {@link SpELRuleFactory} with a given reader.
@@ -106,22 +99,14 @@ public class SpELRuleFactory {
      */
     public Rules createRules(Reader rulesDescriptor, ParserContext parserContext) throws Exception {
         Rules rules = new Rules();
-        List<RuleDefinition> ruleDefinition = reader.read(rulesDescriptor);
-        for (RuleDefinition spelRuleDefinition : ruleDefinition) {
-            rules.register(createRule(spelRuleDefinition, parserContext));
+        List<RuleDefinition> ruleDefinitions = reader.read(rulesDescriptor);
+        for (RuleDefinition ruleDefinition : ruleDefinitions) {
+            rules.register(createRule(ruleDefinition, parserContext));
         }
         return rules;
     }
 
-    private static Rule createRule(RuleDefinition ruleDefinition, ParserContext context) {
-        if (ruleDefinition.isCompositeRule()) {
-            return createCompositeRule(ruleDefinition, context);
-        } else {
-            return createSimpleRule(ruleDefinition, context);
-        }
-    }
-
-    private static Rule createSimpleRule(RuleDefinition ruleDefinition, ParserContext parserContext) {
+    protected Rule createSimpleRule(RuleDefinition ruleDefinition, ParserContext parserContext) {
         SpELRule spELRule = new SpELRule()
                 .name(ruleDefinition.getName())
                 .description(ruleDefinition.getDescription())
@@ -133,29 +118,4 @@ public class SpELRuleFactory {
         return spELRule;
     }
 
-    private static Rule createCompositeRule(RuleDefinition ruleDefinition, ParserContext parserContext) {
-        CompositeRule compositeRule;
-        String name = ruleDefinition.getName();
-        switch (ruleDefinition.getCompositeRuleType()) {
-            case "UnitRuleGroup":
-                compositeRule = new UnitRuleGroup(name);
-                break;
-            case "ActivationRuleGroup":
-                compositeRule = new ActivationRuleGroup(name);
-                break;
-            case "ConditionalRuleGroup":
-                compositeRule = new ConditionalRuleGroup(name);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid composite rule type, must be one of " + ALLOWED_COMPOSITE_RULE_TYPES);
-        }
-        compositeRule.setDescription(ruleDefinition.getDescription());
-        compositeRule.setPriority(ruleDefinition.getPriority());
-
-        for (RuleDefinition composingRuleDefinition : ruleDefinition.getComposingRules()) {
-            compositeRule.addRule(createRule(composingRuleDefinition, parserContext));
-        }
-
-        return compositeRule;
-    }
 }
