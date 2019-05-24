@@ -14,7 +14,6 @@
 
     <properties>
         <mvel2.version>2.4.3.Final</mvel2.version>
-        <system-rules.version>1.19.0</system-rules.version>
     </properties>
 
     <scm>
