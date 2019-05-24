@@ -14,7 +14,6 @@
 
     <properties>
         <mvel2.version>2.4.3.Final</mvel2.version>
-        <system-rules.version>1.19.0</system-rules.version>
     </properties>
 
     <scm>
@@ -92,6 +91,12 @@
             <artifactId>system-rules</artifactId>
             <version>${system-rules.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit-dep</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
