@@ -34,7 +34,7 @@
         <assertj.version>2.9.1</assertj.version>
         <mockito.version>2.24.0</mockito.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
-        <jackson.version>2.9.8</jackson.version>
+        <jackson.version>2.9.9</jackson.version>
         <maven-cobertura-plugin.version>2.7</maven-cobertura-plugin.version>
         <maven-coveralls-plugin.version>4.3.0</maven-coveralls-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
