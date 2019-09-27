@@ -38,8 +38,8 @@ import java.util.List;
  */
 abstract class AbstractRuleEngine implements RulesEngine {
 
-    RulesEngineParameters parameters;
-    List<RuleListener> ruleListeners;
+    RulesEngineParameters     parameters;
+    List<RuleListener>        ruleListeners;
     List<RulesEngineListener> rulesEngineListeners;
 
     AbstractRuleEngine() {
@@ -56,12 +56,8 @@ abstract class AbstractRuleEngine implements RulesEngine {
 
     @Override
     public RulesEngineParameters getParameters() {
-        return new RulesEngineParameters(
-                parameters.isSkipOnFirstAppliedRule(),
-                parameters.isSkipOnFirstFailedRule(),
-                parameters.isSkipOnFirstNonTriggeredRule(),
-                parameters.getPriorityThreshold()
-        );
+        return new RulesEngineParameters(parameters.isSkipOnFirstAppliedRule(), parameters.isSkipOnFirstFailedRule(), parameters.isSkipOnFirstNonTriggeredRule(),
+            parameters.getPriorityThreshold());
     }
 
     @Override
@@ -74,19 +70,43 @@ abstract class AbstractRuleEngine implements RulesEngine {
         return Collections.unmodifiableList(rulesEngineListeners);
     }
 
+    /**
+     * Register rule listener
+     *
+     * @param ruleListener of type RuleListener
+     */
+    @Override
     public void registerRuleListener(RuleListener ruleListener) {
         ruleListeners.add(ruleListener);
     }
 
-    public void registerRuleListeners(List<RuleListener> ruleListeners) {
+    /**
+     * Register multiple rule listeners
+     *
+     * @param ruleListeners of type List<RuleListener>
+     */
+    @Override
+    public void registerRuleListener(List<RuleListener> ruleListeners) {
         this.ruleListeners.addAll(ruleListeners);
     }
 
+    /**
+     * Register rules engine listener
+     *
+     * @param rulesEngineListener of type RulesEngineListener
+     */
+    @Override
     public void registerRulesEngineListener(RulesEngineListener rulesEngineListener) {
         rulesEngineListeners.add(rulesEngineListener);
     }
 
-    public void registerRulesEngineListeners(List<RulesEngineListener> rulesEngineListeners) {
+    /**
+     * Register multiple rules engine listeners
+     *
+     * @param rulesEngineListeners of type List<RulesEngineListener>
+     */
+    @Override
+    public void registerRulesEngineListener(List<RulesEngineListener> rulesEngineListeners) {
         this.rulesEngineListeners.addAll(rulesEngineListeners);
     }
 }

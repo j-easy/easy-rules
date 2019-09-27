@@ -93,6 +93,7 @@ public class BasicRule implements Rule {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean evaluate(Facts facts) {
         return false;
     }
@@ -100,14 +101,17 @@ public class BasicRule implements Rule {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void execute(Facts facts) throws Exception {
         // no op
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
@@ -116,6 +120,7 @@ public class BasicRule implements Rule {
         this.description = description;
     }
 
+    @Override
     public int getPriority() {
         return priority;
     }

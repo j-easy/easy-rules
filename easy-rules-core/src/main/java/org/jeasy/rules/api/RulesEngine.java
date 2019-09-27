@@ -23,10 +23,10 @@
  */
 package org.jeasy.rules.api;
 
+import org.jeasy.rules.core.RulesEngineParameters;
+
 import java.util.List;
 import java.util.Map;
-
-import org.jeasy.rules.core.RulesEngineParameters;
 
 /**
  * Rules engine interface.
@@ -66,4 +66,32 @@ public interface RulesEngine {
      * @return a map with the result of evaluation of each rule
      */
     Map<Rule, Boolean> check(Rules rules, Facts facts);
+
+    /**
+     * Register rule listener
+     *
+     * @param ruleListener of type RuleListener
+     */
+    void registerRuleListener(RuleListener ruleListener);
+
+    /**
+     * Register multiple rule listeners
+     *
+     * @param ruleListeners of type List<RuleListener>
+     */
+    void registerRuleListener(List<RuleListener> ruleListeners);
+
+    /**
+     * Register rules engine listener
+     *
+     * @param rulesEngineListener of type RulesEngineListener
+     */
+    void registerRulesEngineListener(RulesEngineListener rulesEngineListener);
+
+    /**
+     * Register multiple rules engine listeners
+     *
+     * @param rulesEngineListeners of type List<RulesEngineListener>
+     */
+    void registerRulesEngineListener(List<RulesEngineListener> rulesEngineListeners);
 }

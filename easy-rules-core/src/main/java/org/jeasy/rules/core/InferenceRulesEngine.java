@@ -94,6 +94,7 @@ public final class InferenceRulesEngine extends AbstractRuleEngine {
      * Register a rule listener.
      * @param ruleListener to register
      */
+    @Override
     public void registerRuleListener(RuleListener ruleListener) {
         super.registerRuleListener(ruleListener);
         delegate.registerRuleListener(ruleListener);
@@ -103,15 +104,17 @@ public final class InferenceRulesEngine extends AbstractRuleEngine {
      * Register a list of rule listener.
      * @param ruleListeners to register
      */
-    public void registerRuleListeners(List<RuleListener> ruleListeners) {
-        super.registerRuleListeners(ruleListeners);
-        delegate.registerRuleListeners(ruleListeners);
+    @Override
+    public void registerRuleListener(List<RuleListener> ruleListeners) {
+        super.registerRuleListener(ruleListeners);
+        delegate.registerRuleListener(ruleListeners);
     }
 
     /**
      * Register a rules engine listener.
      * @param rulesEngineListener to register
      */
+    @Override
     public void registerRulesEngineListener(RulesEngineListener rulesEngineListener) {
         super.registerRulesEngineListener(rulesEngineListener);
         delegate.registerRulesEngineListener(rulesEngineListener);
@@ -121,8 +124,9 @@ public final class InferenceRulesEngine extends AbstractRuleEngine {
      * Register a list of rules engine listener.
      * @param rulesEngineListeners to register
      */
-    public void registerRulesEngineListeners(List<RulesEngineListener> rulesEngineListeners) {
-        super.registerRulesEngineListeners(rulesEngineListeners);
-        delegate.registerRulesEngineListeners(rulesEngineListeners);
+    @Override
+    public void registerRulesEngineListener(List<RulesEngineListener> rulesEngineListeners) {
+        super.registerRulesEngineListener(rulesEngineListeners);
+        delegate.registerRulesEngineListener(rulesEngineListeners);
     }
 }

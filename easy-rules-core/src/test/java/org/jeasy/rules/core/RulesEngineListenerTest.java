@@ -40,7 +40,7 @@ public class RulesEngineListenerTest extends AbstractTest {
     @Before
     public void setup() throws Exception {
         super.setup();
-        rulesEngine.registerRulesEngineListeners(asList(rulesEngineListener1, rulesEngineListener2));
+        rulesEngine.registerRulesEngineListener(asList(rulesEngineListener1, rulesEngineListener2));
     }
 
     @Test
