@@ -71,7 +71,7 @@ public class RuleBuilderTest {
         assertThat(rule.getDescription()).isEqualTo("myRuleDescription");
         assertThat(rule.getPriority()).isEqualTo(3);
         assertThat(rule).isInstanceOf(DefaultRule.class);
-        assertThat(rule).extracting("condition").containsExactly(condition);
-        assertThat(rule).extracting("actions").containsExactly(asList(action1, action2));
+        assertThat(rule).extracting("condition").isEqualTo(condition);
+        assertThat(rule).extracting("actions").isEqualTo(asList(action1, action2));
     }
 }

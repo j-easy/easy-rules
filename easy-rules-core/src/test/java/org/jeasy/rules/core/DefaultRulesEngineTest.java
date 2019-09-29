@@ -23,20 +23,12 @@
  */
 package org.jeasy.rules.core;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Priority;
 import org.jeasy.rules.api.RuleListener;
+import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.api.RulesEngineListener;
 import org.junit.After;
 import org.junit.Before;
@@ -45,6 +37,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.InOrder;
 import org.mockito.Mock;
+
+import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class DefaultRulesEngineTest extends AbstractTest {
 
@@ -266,7 +265,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
     @Test
     public void testGetRulesEngineListeners() throws Exception {
         // Given
-        DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
+        RulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.registerRulesEngineListener(rulesEngineListener);
 
         // When
