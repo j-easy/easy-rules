@@ -23,15 +23,24 @@
  */
 package org.jeasy.rules.core;
 
+import org.jeasy.rules.annotation.Action;
+import org.jeasy.rules.annotation.Condition;
+import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.annotation.*;
-import org.jeasy.rules.api.Facts;
-import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.api.*;
 import org.junit.Test;
+import org.mockito.Mock;
+
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class InferenceRulesEngineTest {
+public class InferenceRulesEngineTest extends AbstractTest {
+
+    @Mock
+    private RuleListener              ruleListener;
+    @Mock
+    private RulesEngineListener       rulesEngineListener;
 
     @Test
     public void testCandidateSelection() throws Exception {
@@ -49,6 +58,12 @@ public class InferenceRulesEngineTest {
         // Then
         assertThat(dummyRule.isExecuted()).isTrue();
         assertThat(anotherDummyRule.isExecuted()).isFalse();
+
+        rulesEngine.registerRuleListener(ruleListener);
+        rulesEngine.registerRulesEngineListener(rulesEngineListener);
+        rulesEngine.registerRuleListener(new ArrayList<>());
+        rulesEngine.registerRulesEngineListener(new ArrayList<>());
+        rulesEngine.check(rules, facts);
     }
 
     @Test
@@ -75,7 +90,7 @@ public class InferenceRulesEngineTest {
     class DummyRule {
 
         private boolean isExecuted;
-        private long timestamp;
+        private long    timestamp;
 
         @Condition
         public boolean when(@Fact("foo") boolean foo) {
@@ -107,7 +122,7 @@ public class InferenceRulesEngineTest {
     class AnotherDummyRule {
 
         private boolean isExecuted;
-        private long timestamp;
+        private long    timestamp;
 
         @Condition
         public boolean when(@Fact("bar") boolean bar) {

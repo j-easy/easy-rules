@@ -77,7 +77,7 @@ abstract class AbstractRuleEngine implements RulesEngine {
      */
     @Override
     public void registerRuleListener(RuleListener ruleListener) {
-        ruleListeners.add(ruleListener);
+        this.ruleListeners.add(ruleListener);
     }
 
     /**
@@ -97,7 +97,7 @@ abstract class AbstractRuleEngine implements RulesEngine {
      */
     @Override
     public void registerRulesEngineListener(RulesEngineListener rulesEngineListener) {
-        rulesEngineListeners.add(rulesEngineListener);
+        this.rulesEngineListeners.add(rulesEngineListener);
     }
 
     /**
