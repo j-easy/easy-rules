@@ -2,6 +2,6 @@ name: adult rule
 description: when age is greater then 18, then mark as adult
 priority: 1
 condition: "person.age > 18"
-operator: "AND"
+operator: "AND" 
 actions:
   - "person.setAdult(true);"
