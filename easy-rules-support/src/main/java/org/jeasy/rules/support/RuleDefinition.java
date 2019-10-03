@@ -46,8 +46,17 @@ public class RuleDefinition {
     private List<String> actions = new ArrayList<>();
     private List<RuleDefinition> composingRules = new ArrayList<>();
     private String compositeRuleType;
+    private String operator;
 
-    public String getName() {
+    public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
+
+	public String getName() {
         return name;
     }
 

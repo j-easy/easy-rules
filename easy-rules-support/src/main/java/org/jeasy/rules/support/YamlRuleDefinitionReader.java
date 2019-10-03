@@ -1,3 +1,5 @@
+package org.jeasy.rules.support;
+
 /**
  * The MIT License
  *
@@ -21,14 +23,15 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.support;
 
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.jeasy.rules.support.AbstractRuleDefinitionReader;
+import org.yaml.snakeyaml.Yaml;
 
 /**
  * Rule definition reader based on <a href="https://github.com/FasterXML/jackson-dataformats-text/tree/master/yaml">Jackson Yaml</a>.

@@ -69,6 +69,9 @@ public abstract class AbstractRuleDefinitionReader implements RuleDefinitionRead
 
         String description = (String) map.get("description");
         ruleDefinition.setDescription(description != null ? description : Rule.DEFAULT_DESCRIPTION);
+        //added my code biswa
+        String operator = (String) map.get("operator");
+        ruleDefinition.setOperator(operator != null ? operator : "OR");
 
         Integer priority = (Integer) map.get("priority");
         ruleDefinition.setPriority(priority != null ? priority : Rule.DEFAULT_PRIORITY);

@@ -1,3 +1,5 @@
+package org.jeasy.rules.support;
+
 /**
  * The MIT License
  *
@@ -21,9 +23,12 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.support;
+
 
 import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.support.RuleDefinition;
+import org.jeasy.rules.support.RuleDefinitionReader;
+import org.jeasy.rules.support.YamlRuleDefinitionReader;
 import org.junit.Test;
 
 import java.io.File;
@@ -36,7 +41,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO use parametrized test to merge this test class with JsonRuleDefinitionReaderTest
+// TODO use parameterized test to merge this test class with JsonRuleDefinitionReaderTest
 public class YamlRuleDefinitionReaderTest {
 
     private RuleDefinitionReader ruleDefinitionReader = new YamlRuleDefinitionReader();
@@ -48,15 +53,17 @@ public class YamlRuleDefinitionReaderTest {
 
         // when
         List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
-
+System.out.println("ruleDefinitions@@@"+ruleDefinitions.toString()  );
         // then
         assertThat(ruleDefinitions).hasSize(1);
         RuleDefinition adultRuleDefinition = ruleDefinitions.get(0);
+        System.out.println("ruleDefinitions@@@"+ruleDefinitions.toString() + adultRuleDefinition.getOperator() );        
         assertThat(adultRuleDefinition).isNotNull();
         assertThat(adultRuleDefinition.getName()).isEqualTo("adult rule");
         assertThat(adultRuleDefinition.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
         assertThat(adultRuleDefinition.getPriority()).isEqualTo(1);
         assertThat(adultRuleDefinition.getCondition()).isEqualTo("person.age > 18");
+        assertThat(adultRuleDefinition.getOperator()).isEqualTo("AND");
         assertThat(adultRuleDefinition.getActions()).isEqualTo(Collections.singletonList("person.setAdult(true);"));
     }
 
