@@ -88,7 +88,7 @@ public abstract class AbstractRuleDefinitionReader implements RuleDefinitionRead
         ruleDefinition.setActions(actions);
 
         List<Object> composingRules = (List<Object>) map.get("composingRules");
-        if (composingRules != null && compositeRuleType == null) {
+        if ((composingRules != null && !composingRules.isEmpty()) && compositeRuleType == null) {
             throw new IllegalArgumentException("Non-composite rules cannot have composing rules");
         } else if ((composingRules == null || composingRules.isEmpty()) && compositeRuleType != null) {
             throw new IllegalArgumentException("Composite rules must have composing rules specified");
