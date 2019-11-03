@@ -30,6 +30,10 @@ import org.jeasy.rules.annotation.Priority;
 import org.jeasy.rules.api.Rule;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -236,4 +240,21 @@ public class RuleProxyTest {
         
     }
 
+    @Test
+    public void forceCoverActionMethodOrderBean() throws Exception{
+        Method m = Object.class.getMethod("toString");
+        ActionMethodOrderBean bean = new ActionMethodOrderBean(m,0);
+        ActionMethodOrderBean anotherBean = new ActionMethodOrderBean(m,0);
+        assertEquals( 0, bean.compareTo(bean));
+        assertEquals( bean, bean);
+        assertEquals( bean, anotherBean);
+        assertEquals( 0, bean.compareTo(anotherBean));
+        // force hashCode?
+        Set<ActionMethodOrderBean> set = new HashSet<>();
+        set.add(bean);
+        set.add(anotherBean);
+        assertEquals(1, set.size());
+        ActionMethodOrderBean yetAnotherBean = new ActionMethodOrderBean(m,10);
+        assertEquals(-1, bean.compareTo(yetAnotherBean));
+    }
 }
