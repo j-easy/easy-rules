@@ -30,9 +30,9 @@ import java.util.List;
 
 /**
  * Rule definition as defined in a rule descriptor.
- * This class encapsulates static definition of an {@link Rule}.
+ * This class encapsulates the static definition of a {@link Rule}.
  *
- * This definition is produced by a {@link RuleDefinitionReader}
+ * A rule definition is produced by a {@link RuleDefinitionReader}
  * and consumed by rule factories to create rules.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
