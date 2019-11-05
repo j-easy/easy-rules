@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * Default {@link RulesEngine} implementation.
  *
- * This implementation handles a set of rules with unique name.
+ * This implementation handles a set of rules with unique names.
  *
  * Rules are fired according to their natural order which is priority by default.
  *
