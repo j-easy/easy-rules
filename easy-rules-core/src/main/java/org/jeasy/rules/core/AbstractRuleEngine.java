@@ -49,9 +49,7 @@ abstract class AbstractRuleEngine implements RulesEngine {
     AbstractRuleEngine(final RulesEngineParameters parameters) {
         this.parameters = parameters;
         this.ruleListeners = new ArrayList<>();
-        this.ruleListeners.add(new DefaultRuleListener());
         this.rulesEngineListeners = new ArrayList<>();
-        this.rulesEngineListeners.add(new DefaultRulesEngineListener(parameters));
     }
 
     @Override

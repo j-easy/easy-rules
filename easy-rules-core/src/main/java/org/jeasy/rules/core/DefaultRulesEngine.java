@@ -67,6 +67,14 @@ public final class DefaultRulesEngine extends AbstractRuleEngine {
     }
 
     void doFire(Rules rules, Facts facts) {
+        if (rules.isEmpty()) {
+            LOGGER.warn("No rules registered! Nothing to apply");
+            return;
+        }
+        logEngineParameters();
+        log(rules);
+        log(facts);
+        LOGGER.debug("Rules evaluation started");
         for (Rule rule : rules) {
             final String name = rule.getName();
             final int priority = rule.getPriority();
@@ -81,16 +89,19 @@ public final class DefaultRulesEngine extends AbstractRuleEngine {
                 continue;
             }
             if (rule.evaluate(facts)) {
+                LOGGER.debug("Rule '{}' triggered", name);
                 triggerListenersAfterEvaluate(rule, facts, true);
                 try {
                     triggerListenersBeforeExecute(rule, facts);
                     rule.execute(facts);
+                    LOGGER.debug("Rule '{}' performed successfully", name);
                     triggerListenersOnSuccess(rule, facts);
                     if (parameters.isSkipOnFirstAppliedRule()) {
                         LOGGER.debug("Next rules will be skipped since parameter skipOnFirstAppliedRule is set");
                         break;
                     }
                 } catch (Exception exception) {
+                    LOGGER.error("Rule '" + name + "' performed with error", exception);
                     triggerListenersOnFailure(rule, exception, facts);
                     if (parameters.isSkipOnFirstFailedRule()) {
                         LOGGER.debug("Next rules will be skipped since parameter skipOnFirstFailedRule is set");
@@ -98,12 +109,33 @@ public final class DefaultRulesEngine extends AbstractRuleEngine {
                     }
                 }
             } else {
+                LOGGER.debug("Rule '{}' has been evaluated to false, it has not been executed", name);
                 triggerListenersAfterEvaluate(rule, facts, false);
                 if (parameters.isSkipOnFirstNonTriggeredRule()) {
                     LOGGER.debug("Next rules will be skipped since parameter skipOnFirstNonTriggeredRule is set");
                     break;
                 }
             }
+        }
+    }
+
+    private void logEngineParameters() {
+        LOGGER.debug(parameters.toString());
+    }
+
+    private void log(Rules rules) {
+        LOGGER.debug("Registered rules:");
+        for (Rule rule : rules) {
+            LOGGER.debug("Rule { name = '{}', description = '{}', priority = '{}'}",
+                    rule.getName(), rule.getDescription(), rule.getPriority());
+        }
+    }
+
+    private void log(Facts facts) {
+        LOGGER.debug("Known facts:");
+        for (Map.Entry<String, Object> fact : facts) {
+            LOGGER.debug("Fact { {} : {} }",
+                    fact.getKey(), fact.getValue());
         }
     }
 
