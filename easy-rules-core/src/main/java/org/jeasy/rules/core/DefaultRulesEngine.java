@@ -39,7 +39,7 @@ import java.util.Map;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public final class DefaultRulesEngine extends AbstractRuleEngine {
+public final class DefaultRulesEngine extends AbstractRulesEngine {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRulesEngine.class);
 

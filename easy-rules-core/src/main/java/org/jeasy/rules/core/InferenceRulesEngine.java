@@ -38,7 +38,7 @@ import java.util.*;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public final class InferenceRulesEngine extends AbstractRuleEngine {
+public final class InferenceRulesEngine extends AbstractRulesEngine {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InferenceRulesEngine.class);
 
@@ -68,7 +68,7 @@ public final class InferenceRulesEngine extends AbstractRuleEngine {
             LOGGER.debug("Selecting candidate rules based on the following facts: {}", facts);
             selectedRules = selectCandidates(rules, facts);
             if(!selectedRules.isEmpty()) {
-                delegate.doFire(new Rules(selectedRules), facts);
+                delegate.doFire(new Rules(selectedRules), facts); // FIXME doFire ? should call fire to invoke listeners..
             } else {
                 LOGGER.debug("No candidate rules found for facts: {}", facts);
             }
