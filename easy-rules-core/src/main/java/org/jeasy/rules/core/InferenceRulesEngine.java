@@ -68,7 +68,7 @@ public final class InferenceRulesEngine extends AbstractRulesEngine {
             LOGGER.debug("Selecting candidate rules based on the following facts: {}", facts);
             selectedRules = selectCandidates(rules, facts);
             if(!selectedRules.isEmpty()) {
-                delegate.doFire(new Rules(selectedRules), facts); // FIXME doFire ? should call fire to invoke listeners..
+                delegate.fire(new Rules(selectedRules), facts);
             } else {
                 LOGGER.debug("No candidate rules found for facts: {}", facts);
             }

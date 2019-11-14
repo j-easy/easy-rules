@@ -27,6 +27,7 @@ import org.jeasy.rules.annotation.*;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.api.RulesEngineListener;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -69,6 +70,51 @@ public class InferenceRulesEngineTest {
         assertThat(dummyRule.isExecuted()).isTrue();
         assertThat(anotherDummyRule.isExecuted()).isTrue();
         assertThat(dummyRule.getTimestamp()).isLessThanOrEqualTo(anotherDummyRule.getTimestamp());
+    }
+
+    @Test
+    public void testRulesEngineListener() {
+        // Given
+        class StubRulesEngineListener implements RulesEngineListener {
+
+            private boolean executedBeforeEvaluate;
+            private boolean executedAfterExecute;
+
+            @Override
+            public void beforeEvaluate(Rules rules, Facts facts) {
+                executedBeforeEvaluate = true;
+            }
+
+            @Override
+            public void afterExecute(Rules rules, Facts facts) {
+                executedAfterExecute = true;
+            }
+
+            private boolean isExecutedBeforeEvaluate() {
+                return executedBeforeEvaluate;
+            }
+
+            private boolean isExecutedAfterExecute() {
+                return executedAfterExecute;
+            }
+        }
+
+        Facts facts = new Facts();
+        facts.put("foo", true);
+        DummyRule rule = new DummyRule();
+        Rules rules = new Rules(rule);
+        StubRulesEngineListener rulesEngineListener = new StubRulesEngineListener();
+
+        // When
+        InferenceRulesEngine rulesEngine = new InferenceRulesEngine();
+        rulesEngine.registerRulesEngineListener(rulesEngineListener);
+        rulesEngine.fire(rules, facts);
+
+        // Then
+        // Rules engine listener should be invoked
+        assertThat(rulesEngineListener.isExecutedBeforeEvaluate()).isTrue();
+        assertThat(rulesEngineListener.isExecutedAfterExecute()).isTrue();
+        assertThat(rule.isExecuted()).isTrue();
     }
 
     @Rule
