@@ -49,6 +49,15 @@ import static java.lang.String.format;
 public class RuleProxy implements InvocationHandler {
 
     private Object target;
+    private String name;
+    private String description;
+    private Integer priority;
+    private Method[] methods;
+    private Method conditionMethod;
+    private Set<ActionMethodOrderBean> actionMethods;
+    private Method compareToMethod;
+    private Method toStringMethod;
+    private org.jeasy.rules.annotation.Rule annotation;
 
     private static RuleDefinitionValidator ruleDefinitionValidator = new RuleDefinitionValidator();
 
@@ -130,6 +139,7 @@ public class RuleProxy implements InvocationHandler {
         }
         return null;
     }
+
     private Object compareToMethod(final Object[] args) throws Exception {
         Method compareToMethod = getCompareToMethod();
         if (compareToMethod != null) {
@@ -139,6 +149,7 @@ public class RuleProxy implements InvocationHandler {
             return compareTo(otherRule);
         }
     }
+
     private List<Object> getActualParameters(Method method, Facts facts) {
         List<Object> actualParameters = new ArrayList<>();
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
@@ -186,14 +197,26 @@ public class RuleProxy implements InvocationHandler {
         return result;
     }
 
-    private String toStringMethod() throws Exception {
-        Method[] methods = getMethods();
-        for (Method method : methods) {
-            if ("toString".equals(method.getName())) {
-                return (String) method.invoke(target);
+    private Method getToStringMethod() {
+        if (this.toStringMethod == null) {
+            Method[] methods = getMethods();
+            for (Method method : methods) {
+                if ("toString".equals(method.getName())) {
+                    this.toStringMethod = method;
+                    return this.toStringMethod;
+                }
             }
         }
-       return getRuleName();
+        return this.toStringMethod;
+    }
+
+    private String toStringMethod() throws Exception {
+        Method toStringMethod = getToStringMethod();
+        if (toStringMethod != null) {
+            return (String) toStringMethod.invoke(target);
+        } else {
+            return getRuleName();
+        }
     }
 
     private int compareTo(final Rule otherRule) throws Exception {
@@ -211,77 +234,99 @@ public class RuleProxy implements InvocationHandler {
     }
 
     private int getRulePriority() throws Exception {
-        int priority = Rule.DEFAULT_PRIORITY;
+        if (this.priority == null) {
+            int priority = Rule.DEFAULT_PRIORITY;
 
-        org.jeasy.rules.annotation.Rule rule = getRuleAnnotation();
-        if (rule.priority() != Rule.DEFAULT_PRIORITY) {
-            priority = rule.priority();
-        }
-
-        Method[] methods = getMethods();
-        for (Method method : methods) {
-            if (method.isAnnotationPresent(Priority.class)) {
-                priority = (int) method.invoke(target);
-                break;
+            org.jeasy.rules.annotation.Rule rule = getRuleAnnotation();
+            if (rule.priority() != Rule.DEFAULT_PRIORITY) {
+                priority = rule.priority();
             }
+
+            Method[] methods = getMethods();
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(Priority.class)) {
+                    priority = (int) method.invoke(target);
+                    break;
+                }
+            }
+            this.priority = priority;
         }
-        return priority;
+        return this.priority;
     }
 
     private Method getConditionMethod() {
-        Method[] methods = getMethods();
-        for (Method method : methods) {
-            if (method.isAnnotationPresent(Condition.class)) {
-                return method;
+        if (this.conditionMethod == null) {
+            Method[] methods = getMethods();
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(Condition.class)) {
+                    this.conditionMethod = method;
+                    return this.conditionMethod;
+                }
             }
         }
-        return null;
+        return this.conditionMethod;
     }
 
     private Set<ActionMethodOrderBean> getActionMethodBeans() {
-        Method[] methods = getMethods();
-        Set<ActionMethodOrderBean> actionMethodBeans = new TreeSet<>();
-        for (Method method : methods) {
-            if (method.isAnnotationPresent(Action.class)) {
-                Action actionAnnotation = method.getAnnotation(Action.class);
-                int order = actionAnnotation.order();
-                actionMethodBeans.add(new ActionMethodOrderBean(method, order));
+        if (this.actionMethods == null) {
+            this.actionMethods = new TreeSet<>();
+            Method[] methods = getMethods();
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(Action.class)) {
+                    Action actionAnnotation = method.getAnnotation(Action.class);
+                    int order = actionAnnotation.order();
+                    this.actionMethods.add(new ActionMethodOrderBean(method, order));
+                }
             }
         }
-        return actionMethodBeans;
+        return this.actionMethods;
     }
 
     private Method getCompareToMethod() {
-        Method[] methods = getMethods();
-        for (Method method : methods) {
-            if (method.getName().equals("compareTo")) {
-                return method;
+        if (this.compareToMethod == null) {
+            Method[] methods = getMethods();
+            for (Method method : methods) {
+                if (method.getName().equals("compareTo")) {
+                    this.compareToMethod = method;
+                    return this.compareToMethod;
+                }
             }
         }
-        return null;
+        return this.compareToMethod;
     }
 
     private Method[] getMethods() {
-        return getTargetClass().getMethods();
+        if (this.methods == null) {
+            this.methods = getTargetClass().getMethods();
+        }
+        return this.methods;
     }
 
     private org.jeasy.rules.annotation.Rule getRuleAnnotation() {
-        return Utils.findAnnotation(org.jeasy.rules.annotation.Rule.class, getTargetClass());
+        if (this.annotation == null) {
+            this.annotation = Utils.findAnnotation(org.jeasy.rules.annotation.Rule.class, getTargetClass());
+        }
+        return this.annotation;
     }
 
     private String getRuleName() {
-        org.jeasy.rules.annotation.Rule rule = getRuleAnnotation();
-        return rule.name().equals(Rule.DEFAULT_NAME) ? getTargetClass().getSimpleName() : rule.name();
+        if (this.name == null) {
+            org.jeasy.rules.annotation.Rule rule = getRuleAnnotation();
+            this.name = rule.name().equals(Rule.DEFAULT_NAME) ? getTargetClass().getSimpleName() : rule.name();
+        }
+        return this.name;
     }
 
     private String getRuleDescription() {
-        // Default description = "when " + conditionMethodName + " then " + comma separated actionMethodsNames
-        StringBuilder description = new StringBuilder();
-        appendConditionMethodName(description);
-        appendActionMethodsNames(description);
-
-        org.jeasy.rules.annotation.Rule rule = getRuleAnnotation();
-        return rule.description().equals(Rule.DEFAULT_DESCRIPTION) ? description.toString() : rule.description();
+        if (this.description == null) {
+            // Default description = "when " + conditionMethodName + " then " + comma separated actionMethodsNames
+            StringBuilder description = new StringBuilder();
+            appendConditionMethodName(description);
+            appendActionMethodsNames(description);
+            org.jeasy.rules.annotation.Rule rule = getRuleAnnotation();
+            this.description = rule.description().equals(Rule.DEFAULT_DESCRIPTION) ? description.toString() : rule.description();
+        }
+        return this.description;
     }
 
     private void appendConditionMethodName(StringBuilder description) {
