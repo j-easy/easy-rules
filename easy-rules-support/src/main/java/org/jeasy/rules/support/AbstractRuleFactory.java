@@ -24,6 +24,8 @@
 package org.jeasy.rules.support;
 
 import org.jeasy.rules.api.Rule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +38,8 @@ import java.util.List;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public abstract class AbstractRuleFactory<C> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRuleFactory.class);
 
     private static final List<String> ALLOWED_COMPOSITE_RULE_TYPES = Arrays.asList(
             UnitRuleGroup.class.getSimpleName(),
@@ -54,6 +58,20 @@ public abstract class AbstractRuleFactory<C> {
     protected abstract Rule createSimpleRule(RuleDefinition ruleDefinition, C parserContext);
 
     protected Rule createCompositeRule(RuleDefinition ruleDefinition, C parserContext) {
+        if (ruleDefinition.getCondition() != null) {
+            LOGGER.warn(
+                    "Condition '{}' in composite rule '{}' of type {} will be ignored.",
+                    ruleDefinition.getCondition(),
+                    ruleDefinition.getName(),
+                    ruleDefinition.getCompositeRuleType());
+        }
+        if (ruleDefinition.getActions() != null && !ruleDefinition.getActions().isEmpty()) {
+            LOGGER.warn(
+                    "Actions '{}' in composite rule '{}' of type {} will be ignored.",
+                    ruleDefinition.getActions(),
+                    ruleDefinition.getName(),
+                    ruleDefinition.getCompositeRuleType());
+        }
         CompositeRule compositeRule;
         String name = ruleDefinition.getName();
         switch (ruleDefinition.getCompositeRuleType()) {
