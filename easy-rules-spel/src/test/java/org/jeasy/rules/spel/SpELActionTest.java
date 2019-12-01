@@ -71,7 +71,7 @@ public class SpELActionTest {
     }
 
     @Test
-    public void testMVELActionExecutionWithFailure() throws Exception {
+    public void testSpELActionExecutionWithFailure() throws Exception {
         // given
         expectedException.expect(Exception.class);
         expectedException.expectMessage("EL1004E: Method call: Method setBlah(java.lang.Boolean) cannot be found on type org.jeasy.rules.spel.Person");
@@ -88,7 +88,7 @@ public class SpELActionTest {
     }
 
     @Test
-    public void testMVELActionWithExpressionAndParserContext() throws Exception {
+    public void testSpELActionWithExpressionAndParserContext() throws Exception {
         // given
         ParserContext context = new TemplateParserContext();
         Action printAction = new SpELAction("#{ T(org.jeasy.rules.spel.Person).sayHello() }", context);
