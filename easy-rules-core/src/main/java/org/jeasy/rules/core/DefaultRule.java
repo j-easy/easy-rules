@@ -33,12 +33,12 @@ import java.util.List;
 class DefaultRule extends BasicRule {
 
     private Condition condition = Condition.FALSE;
-    private List<Action> actions = new ArrayList<>();
+    private Action action;
 
-    DefaultRule(String name, String description, int priority, Condition condition, List<Action> actions) {
+    DefaultRule(String name, String description, int priority, Condition condition, Action action) {
         super(name, description, priority);
         this.condition = condition;
-        this.actions = actions;
+        this.action = action;
     }
 
     @Override
@@ -47,10 +47,8 @@ class DefaultRule extends BasicRule {
     }
 
     @Override
-    public void execute(Facts facts) throws Exception {
-        for (Action action : actions) {
-            action.execute(facts);
-        }
+    public Object execute(Facts facts) throws Exception {
+        return action.execute(facts);
     }
 
 }

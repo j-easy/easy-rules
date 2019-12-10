@@ -62,17 +62,19 @@ public final class InferenceRulesEngine extends AbstractRulesEngine {
     }
 
     @Override
-    public void fire(Rules rules, Facts facts) {
+    public List<Object> fire(Rules rules, Facts facts) {
+        List<Object> objects = new ArrayList<>();
         Set<Rule> selectedRules;
         do {
             LOGGER.debug("Selecting candidate rules based on the following facts: {}", facts);
             selectedRules = selectCandidates(rules, facts);
             if(!selectedRules.isEmpty()) {
-                delegate.fire(new Rules(selectedRules), facts);
+                objects.add(delegate.fire(new Rules(selectedRules), facts));
             } else {
                 LOGGER.debug("No candidate rules found for facts: {}", facts);
             }
         } while (!selectedRules.isEmpty());
+        return objects;
     }
 
     private Set<Rule> selectCandidates(Rules rules, Facts facts) {

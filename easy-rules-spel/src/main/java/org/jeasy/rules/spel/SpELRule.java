@@ -41,7 +41,7 @@ import java.util.List;
 public class SpELRule extends BasicRule {
 
     private Condition condition = Condition.FALSE;
-    private List<Action> actions = new ArrayList<>();
+    private Action action;
 
     /**
      * Create a new SpEL rule.
@@ -110,7 +110,7 @@ public class SpELRule extends BasicRule {
      * @return this rule
      */
     public SpELRule then(String action) {
-        this.actions.add(new SpELAction(action));
+        this.action = new SpELAction(action);
         return this;
     }
 
@@ -121,7 +121,7 @@ public class SpELRule extends BasicRule {
      * @return this rule
      */
     public SpELRule then(String action, ParserContext parserContext) {
-        this.actions.add(new SpELAction(action, parserContext));
+        this.action = new SpELAction(action, parserContext);
         return this;
     }
 
@@ -131,9 +131,7 @@ public class SpELRule extends BasicRule {
     }
 
     @Override
-    public void execute(Facts facts) throws Exception {
-        for (Action action : actions) {
-            action.execute(facts);
-        }
+    public Object execute(Facts facts) throws Exception {
+        return action.execute(facts);
     }
 }

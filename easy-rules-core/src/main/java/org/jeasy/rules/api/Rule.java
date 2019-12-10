@@ -68,15 +68,17 @@ public interface Rule extends Comparable<Rule> {
     /**
      * Rule conditions abstraction : this method encapsulates the rule's conditions.
      * <strong>Implementations should handle any runtime exception and return true/false accordingly</strong>
-     *
+     * @param facts
      * @return true if the rule should be applied given the provided facts, false otherwise
      */
     boolean evaluate(Facts facts);
 
     /**
      * Rule actions abstraction : this method encapsulates the rule's actions.
+     * @param facts
+     * @return the result of the rule execute.
      * @throws Exception thrown if an exception occurs during actions performing
      */
-    void execute(Facts facts) throws Exception;
+    Object execute(Facts facts) throws Exception;
 
 }

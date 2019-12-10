@@ -90,7 +90,7 @@ public abstract class CompositeRule extends BasicRule {
     public abstract boolean evaluate(Facts facts);
 
     @Override
-    public abstract void execute(Facts facts) throws Exception;
+    public abstract Object execute(Facts facts) throws Exception;
 
     /**
      * Add a rule to the composite rule.

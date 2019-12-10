@@ -27,7 +27,9 @@ import org.jeasy.rules.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,16 +62,18 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
     }
 
     @Override
-    public void fire(Rules rules, Facts facts) {
+    public List<Object> fire(Rules rules, Facts facts) {
         triggerListenersBeforeRules(rules, facts);
-        doFire(rules, facts);
+        List<Object> objects = doFire(rules, facts);
         triggerListenersAfterRules(rules, facts);
+        return objects;
     }
 
-    void doFire(Rules rules, Facts facts) {
+    List<Object> doFire(Rules rules, Facts facts) {
+        List<Object> objects = new ArrayList<>();
         if (rules.isEmpty()) {
             LOGGER.warn("No rules registered! Nothing to apply");
-            return;
+            return objects;
         }
         logEngineParameters();
         log(rules);
@@ -93,7 +97,7 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
                 triggerListenersAfterEvaluate(rule, facts, true);
                 try {
                     triggerListenersBeforeExecute(rule, facts);
-                    rule.execute(facts);
+                    objects.add(rule.execute(facts));
                     LOGGER.debug("Rule '{}' performed successfully", name);
                     triggerListenersOnSuccess(rule, facts);
                     if (parameters.isSkipOnFirstAppliedRule()) {
@@ -117,6 +121,7 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
                 }
             }
         }
+        return objects;
     }
 
     private void logEngineParameters() {

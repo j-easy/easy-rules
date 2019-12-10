@@ -34,7 +34,8 @@ public interface Action {
      * Execute the action when the rule evaluates to true.
      *
      * @param facts known at the time of execution of the action
+     * @return the result of execution of the action
      * @throws Exception when unable to execute the action
      */
-    void execute(Facts facts) throws Exception;
+    Object execute(Facts facts) throws Exception;
 }

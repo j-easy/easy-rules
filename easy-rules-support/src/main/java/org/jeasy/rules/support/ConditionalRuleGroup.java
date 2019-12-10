@@ -109,11 +109,13 @@ public class ConditionalRuleGroup extends CompositeRule {
      * @throws Exception thrown if an exception occurs during actions performing
      */
     @Override
-    public void execute(Facts facts) throws Exception {
+    public Object execute(Facts facts) throws Exception {
         conditionalRule.execute(facts);
         for (Rule rule : sort(successfulEvaluations)) {
             rule.execute(facts);
         }
+        // TODO handle the return
+        return null;
     }
 
     private Rule getRuleWithHighestPriority() {

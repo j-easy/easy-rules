@@ -328,9 +328,10 @@ public class ConditionalRuleGroupTest {
         }
 
         @Override
-        public void execute(Facts facts) {
+        public Object execute(Facts facts) {
             this.executed = true;
             actions.add(name);
+            return null;
         }
 
         boolean isExecuted() {

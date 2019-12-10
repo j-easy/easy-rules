@@ -90,9 +90,11 @@ public class ActivationRuleGroup extends CompositeRule {
     }
 
     @Override
-    public void execute(Facts facts) throws Exception {
+    public Object execute(Facts facts) throws Exception {
         if (selectedRule != null) {
             selectedRule.execute(facts);
         }
+        // TODO handle the return
+        return null;
     }
 }

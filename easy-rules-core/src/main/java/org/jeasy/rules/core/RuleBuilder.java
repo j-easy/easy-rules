@@ -42,7 +42,7 @@ public class RuleBuilder {
     private int priority = Rule.DEFAULT_PRIORITY;
 
     private Condition condition = Condition.FALSE;
-    private List<Action> actions = new ArrayList<>();
+    private Action action;
 
     /**
      * Set rule name.
@@ -95,7 +95,7 @@ public class RuleBuilder {
      * @return the builder instance
      */
     public RuleBuilder then(Action action) {
-        this.actions.add(action);
+        this.action = action;
         return this;
     }
 
@@ -105,6 +105,6 @@ public class RuleBuilder {
      * @return a new rule instance
      */
     public Rule build() {
-        return new DefaultRule(name, description, priority, condition, actions);
+        return new DefaultRule(name, description, priority, condition, action);
     }
 }

@@ -41,7 +41,7 @@ import java.util.List;
 public class MVELRule extends BasicRule {
 
     private Condition condition = Condition.FALSE;
-    private List<Action> actions = new ArrayList<>();
+    private Action action;
 
     /**
      * Create a new MVEL rule.
@@ -119,7 +119,7 @@ public class MVELRule extends BasicRule {
      * @return this rule
      */
     public MVELRule then(String action, ParserContext parserContext) {
-        this.actions.add(new MVELAction(action, parserContext));
+        this.action = new MVELAction(action, parserContext);
         return this;
     }
 
@@ -129,9 +129,7 @@ public class MVELRule extends BasicRule {
     }
 
     @Override
-    public void execute(Facts facts) throws Exception {
-        for (Action action : actions) {
-            action.execute(facts);
-        }
+    public Object execute(Facts facts) throws Exception {
+        return action.execute(facts);
     }
 }

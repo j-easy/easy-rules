@@ -80,9 +80,11 @@ public class UnitRuleGroup extends CompositeRule {
     }
 
     @Override
-    public void execute(Facts facts) throws Exception {
+    public Object execute(Facts facts) throws Exception {
         for (Rule rule : rules) {
             rule.execute(facts);
         }
+        // TODO handle the return.
+        return null;
     }
 }

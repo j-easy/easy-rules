@@ -73,12 +73,12 @@ public class SpELAction implements Action {
     }
 
     @Override
-    public void execute(Facts facts) {
+    public Object execute(Facts facts) {
         try {
             StandardEvaluationContext context = new StandardEvaluationContext();
             context.setRootObject(facts.asMap());
             context.setVariables(facts.asMap());
-            compiledExpression.getValue(context);
+            return compiledExpression.getValue(context);
         } catch (Exception e) {
             LOGGER.error("Unable to evaluate expression: '" + expression + "' on facts: " + facts, e);
             throw e;

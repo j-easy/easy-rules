@@ -38,15 +38,15 @@ import java.util.List;
  */
 public abstract class AbstractRulesEngine implements RulesEngine {
 
-    RulesEngineParameters parameters;
-    List<RuleListener> ruleListeners;
-    List<RulesEngineListener> rulesEngineListeners;
+    public RulesEngineParameters parameters;
+    public List<RuleListener> ruleListeners;
+    public List<RulesEngineListener> rulesEngineListeners;
 
-    AbstractRulesEngine() {
+    public AbstractRulesEngine() {
         this(new RulesEngineParameters());
     }
 
-    AbstractRulesEngine(final RulesEngineParameters parameters) {
+    public AbstractRulesEngine(final RulesEngineParameters parameters) {
         this.parameters = parameters;
         this.ruleListeners = new ArrayList<>();
         this.rulesEngineListeners = new ArrayList<>();

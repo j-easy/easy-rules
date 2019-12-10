@@ -66,9 +66,9 @@ public class MVELAction implements Action {
     }
 
     @Override
-    public void execute(Facts facts) {
+    public Object execute(Facts facts) {
         try {
-            MVEL.executeExpression(compiledExpression, facts.asMap());
+            return MVEL.executeExpression(compiledExpression, facts.asMap());
         } catch (Exception e) {
             LOGGER.error("Unable to evaluate expression: '" + expression + "' on facts: " + facts, e);
             throw e;

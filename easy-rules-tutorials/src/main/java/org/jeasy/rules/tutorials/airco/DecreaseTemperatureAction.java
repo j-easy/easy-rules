@@ -10,9 +10,10 @@ public class DecreaseTemperatureAction implements Action {
     }
 
     @Override
-    public void execute(Facts facts) throws Exception {
+    public Object execute(Facts facts) throws Exception {
         System.out.println("It is hot! cooling air..");
         Integer temperature = facts.get("temperature");
         facts.put("temperature", temperature - 1);
+        return null;
     }
 }

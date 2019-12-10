@@ -100,8 +100,9 @@ public class BasicRule implements Rule {
     /**
      * {@inheritDoc}
      */
-    public void execute(Facts facts) throws Exception {
+    public Object execute(Facts facts) throws Exception {
         // no op
+        return null;
     }
 
     public String getName() {
