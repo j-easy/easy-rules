@@ -62,7 +62,7 @@ public class Rules implements Iterable<Rule> {
      */
     public Rules(Object... rules ) {
         for (Object rule : rules) {
-            this.register(RuleProxy.asRule(rule));
+            this.register(rule);
         }
     }
 
