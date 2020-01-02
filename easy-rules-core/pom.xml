@@ -95,7 +95,7 @@
                 <configuration>
                     <header>${project.basedir}/licence-header-template.txt</header>
                     <properties>
-                        <currentYear>2019</currentYear>
+                        <currentYear>2020</currentYear>
                     </properties>
                     <strictCheck>true</strictCheck>
                     <includes>
