@@ -35,7 +35,7 @@
         <mockito.version>2.27.0</mockito.version>
         <system-rules.version>1.19.0</system-rules.version>
         <slf4j-api.version>1.7.26</slf4j-api.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.10.1</jackson.version>
         <maven-cobertura-plugin.version>2.7</maven-cobertura-plugin.version>
         <maven-coveralls-plugin.version>4.3.0</maven-coveralls-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
