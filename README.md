@@ -169,6 +169,12 @@ Thank you all for your contributions!
 * [EasyRulesGroovy](https://github.com/will-gilbert/easyrules-tutorials-groovy) : A port of EasyRules tutorials to Groovy by [@will-gilbert](https://github.com/will-gilbert)
 * [EasyRulesCsharp](https://github.com/feldrim/EasyRulesCsharp) : A port of EasyRules to CSharp (WIP) by [@feldrim](https://github.com/feldrim)
 
+## Who is using Easy Rules?
+
+* [Apache Nifi](https://nifi.apache.org) (see [Nifi EasyRules Bundle](https://github.com/apache/nifi/tree/master/nifi-nar-bundles/nifi-easyrules-bundle))
+* [Open Remote](https://openremote.io) (see [build.gradle](https://github.com/openremote/openremote/blob/master/model/build.gradle#L27))
+* [Open Smart Register Platform](http://smartregister.org) (see [build.gradle](https://github.com/OpenSRP/opensrp-client-anc/blob/master/opensrp-anc/build.gradle#L205))
+
 ## Credits
 
 ![YourKit Java Profiler](https://www.yourkit.com/images/yklogo.png)
