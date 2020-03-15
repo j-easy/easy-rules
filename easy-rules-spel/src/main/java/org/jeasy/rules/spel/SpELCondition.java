@@ -27,6 +27,8 @@ import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.springframework.expression.BeanResolver;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.ParserContext;
@@ -50,6 +52,7 @@ public class SpELCondition implements Condition {
 
     private String expression;
     private Expression compiledExpression;
+    private BeanResolver beanResolver;
 
     /**
      * Create a new {@link SpELCondition}.
@@ -65,10 +68,35 @@ public class SpELCondition implements Condition {
      * Create a new {@link SpELCondition}.
      *
      * @param expression    the condition written in expression language
+     * @param beanResolver  the bean resolver used to resolve bean references
+     */
+    public SpELCondition(String expression, BeanResolver beanResolver) {
+        this.expression = expression;
+        this.beanResolver = beanResolver;
+        compiledExpression = parser.parseExpression(expression);
+    }
+
+    /**
+     * Create a new {@link SpELCondition}.
+     *
+     * @param expression    the condition written in expression language
      * @param parserContext the SpEL parser context
      */
     public SpELCondition(String expression, ParserContext parserContext) {
         this.expression = expression;
+        compiledExpression = parser.parseExpression(expression, parserContext);
+    }
+
+    /**
+     * Create a new {@link SpELCondition}.
+     *
+     * @param expression    the condition written in expression language
+     * @param beanResolver  the bean resolver used to resolve bean references
+     * @param parserContext the SpEL parser context
+     */
+    public SpELCondition(String expression, ParserContext parserContext, BeanResolver beanResolver) {
+        this.expression = expression;
+        this.beanResolver = beanResolver;
         compiledExpression = parser.parseExpression(expression, parserContext);
     }
 
@@ -78,6 +106,9 @@ public class SpELCondition implements Condition {
             StandardEvaluationContext context = new StandardEvaluationContext();
             context.setRootObject(facts.asMap());
             context.setVariables(facts.asMap());
+            if (beanResolver != null) {
+                context.setBeanResolver(beanResolver);
+            }
             return  compiledExpression.getValue(context, Boolean.class);
         } catch (Exception e) {
             LOGGER.error("Unable to evaluate expression: '" + expression + "' on facts: " + facts, e);

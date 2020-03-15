@@ -26,6 +26,8 @@ package org.jeasy.rules.spel;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.support.*;
+
+import org.springframework.expression.BeanResolver;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.common.TemplateParserContext;
 
@@ -40,6 +42,7 @@ import java.util.List;
 public class SpELRuleFactory extends AbstractRuleFactory<ParserContext> {
 
     private RuleDefinitionReader reader;
+    private BeanResolver beanResolver;
 
     /**
      * Create a new {@link SpELRuleFactory} with a given reader.
@@ -50,6 +53,19 @@ public class SpELRuleFactory extends AbstractRuleFactory<ParserContext> {
      */
     public SpELRuleFactory(RuleDefinitionReader reader) {
         this.reader = reader;
+    }
+
+    /**
+     * Create a new {@link SpELRuleFactory} with a given reader.
+     *
+     * @param reader to use to read rule definitions
+     * @param beanResolver to use to resolve bean references
+     * @see YamlRuleDefinitionReader
+     * @see JsonRuleDefinitionReader
+     */
+    public SpELRuleFactory(RuleDefinitionReader reader, BeanResolver beanResolver) {
+        this(reader);
+        this.beanResolver = beanResolver;
     }
 
     /**
@@ -110,10 +126,17 @@ public class SpELRuleFactory extends AbstractRuleFactory<ParserContext> {
         SpELRule spELRule = new SpELRule()
                 .name(ruleDefinition.getName())
                 .description(ruleDefinition.getDescription())
-                .priority(ruleDefinition.getPriority())
-                .when(ruleDefinition.getCondition(), parserContext);
-        for (String action : ruleDefinition.getActions()) {
-            spELRule.then(action, parserContext);
+                .priority(ruleDefinition.getPriority());
+        if (beanResolver != null) {
+            spELRule.when(ruleDefinition.getCondition(), parserContext, beanResolver);
+            for (String action : ruleDefinition.getActions()) {
+                spELRule.then(action, parserContext, beanResolver);
+            }
+        } else {
+            spELRule.when(ruleDefinition.getCondition(), parserContext);
+            for (String action : ruleDefinition.getActions()) {
+                spELRule.then(action, parserContext);
+            }
         }
         return spELRule;
     }
