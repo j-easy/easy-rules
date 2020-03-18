@@ -26,8 +26,11 @@ package org.jeasy.rules.spel;
 import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
 import org.junit.Test;
+import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.common.TemplateParserContext;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -72,5 +75,33 @@ public class SpELConditionTest {
 
         // then
         assertThat(evaluationResult).isTrue();
+    }
+
+    @Test
+    public void testSpELConditionWithExpressionAndParserContextAndBeanResolver() {
+        StandardEvaluationContext stdContext = new StandardEvaluationContext();
+        ExpressionParser parser = new SpelExpressionParser();
+
+        // set beanResolver
+        stdContext.setBeanResolver(new SimpleBeanResolver());
+
+        // Invokes resolve(context, "one") on SimpleBeanResolver during evaluation
+        Person person = parser.parseExpression("@one").getValue(stdContext, Person.class);
+        System.out.println(person);
+
+        // given
+        Facts facts = new Facts();
+        facts.put("person", person);
+        Condition spELCondition = new SpELCondition("#person.age > 18");
+
+        // when
+        boolean evaluationResult = spELCondition.evaluate(facts);
+
+        // then
+        if (evaluationResult) {
+            person.setAdult(true);
+        }
+        System.out.println(person);
+
     }
 }
