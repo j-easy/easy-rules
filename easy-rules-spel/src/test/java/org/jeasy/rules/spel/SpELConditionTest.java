@@ -23,9 +23,14 @@
  */
 package org.jeasy.rules.spel;
 
+import org.assertj.core.api.Assertions;
 import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.SystemOutRule;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.expression.BeanResolver;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.common.TemplateParserContext;
 
@@ -39,7 +44,6 @@ public class SpELConditionTest {
         Condition isAdult = new SpELCondition("#person.age > 18");
         Facts facts = new Facts();
         facts.put("person", new Person("foo", 20));
-
         // when
         boolean evaluationResult = isAdult.evaluate(facts);
 
@@ -72,5 +76,33 @@ public class SpELConditionTest {
 
         // then
         assertThat(evaluationResult).isTrue();
+    }
+
+    @org.junit.Rule
+    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+
+    @Test
+    public void testSpELConditionWithExpressionAndParserContextAndBeanResolver() throws Exception {
+
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MySpringAppConfig.class);
+        BeanResolver beanResolver = new SimpleBeanResolver(applicationContext);
+
+        SpELRule spELRule = new SpELRule();
+        // setting an condition to be evaluated
+        spELRule.when("#person.age >= 18");
+        // provided an bean resolver that can resolve "myGreeter"
+        spELRule.then("@myGreeter.greeting(#person.name)", beanResolver);
+
+        // given
+        Facts facts = new Facts();
+        facts.put("person", new Person("jack", 19));
+
+        // then
+        boolean evaluationResult = spELRule.evaluate(facts);
+        Assertions.assertThat(evaluationResult).isTrue();
+
+        spELRule.execute(facts);
+        Assertions.assertThat(systemOutRule.getLog()).contains("Bonjour jack!");
+
     }
 }
