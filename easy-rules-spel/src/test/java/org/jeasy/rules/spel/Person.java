@@ -61,4 +61,13 @@ public class Person {
     public static void sayHello() {
         System.out.println("hello");
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", isAdult=" + isAdult +
+                '}';
+    }
 }
