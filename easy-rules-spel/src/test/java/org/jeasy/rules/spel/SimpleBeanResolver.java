@@ -23,22 +23,22 @@
  */
 package org.jeasy.rules.spel;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.expression.AccessException;
 import org.springframework.expression.BeanResolver;
 import org.springframework.expression.EvaluationContext;
-import org.springframework.util.StringUtils;
-
-import java.util.Random;
 
 public class SimpleBeanResolver implements BeanResolver {
-    private static Random RAND = new Random();
+
+    private ApplicationContext applicationContext;
+
+    public SimpleBeanResolver(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
     @Override
     public Object resolve(EvaluationContext context, String beanName) throws AccessException {
-        int age = Math.abs(RAND.nextInt(40));
-        String name = StringUtils.hasText(beanName) ? beanName.toUpperCase() : "None";
-        Person person = new Person(name, age);
-        return person;
+        return applicationContext.getBean(beanName);
     }
 
 }
