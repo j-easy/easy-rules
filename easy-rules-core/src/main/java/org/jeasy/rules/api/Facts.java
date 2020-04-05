@@ -93,6 +93,13 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
         return facts.entrySet().iterator();
     }
 
+    /**
+     * Clear facts.
+     */
+    public void clear() {
+        facts.clear();
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("[");

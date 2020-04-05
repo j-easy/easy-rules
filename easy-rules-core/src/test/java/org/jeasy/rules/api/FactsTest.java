@@ -81,6 +81,14 @@ public class FactsTest {
         assertThat(o instanceof HashMap).isTrue();
     }
 
+    @Test
+    public void testClear() {
+        Facts facts = new Facts();
+        facts.put("foo", "bar");
+        facts.clear();
+        assertThat(facts.asMap()).isEmpty();
+    }
+
     @Test(expected = NullPointerException.class)
     public void whenPutNullFact_thenShouldThrowNullPointerException() throws Exception {
         facts.put(null, "foo");
