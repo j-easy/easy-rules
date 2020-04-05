@@ -81,29 +81,21 @@ public class RuleProxyTest {
         Rule proxy1 = RuleProxy.asRule(rule);
         Rule proxy2 = RuleProxy.asRule(proxy1);
         Rule proxy3 = RuleProxy.asRule(proxy2);
-        /**
-         * @see Object#equals(Object) reflexive
-         */
+        // @see Object#equals(Object) reflexive
         assertEquals(rule,rule);
         assertEquals(proxy1, proxy1);
         assertEquals(proxy2, proxy2);
         assertEquals(proxy3, proxy3);
-        /**
-         * @see Object#equals(Object) symmetric
-         */
+        // @see Object#equals(Object) symmetric
         assertNotEquals(rule, proxy1);
         assertNotEquals(proxy1, rule);
         assertEquals(proxy1, proxy2);
         assertEquals(proxy2, proxy1);
-        /**
-         * @see Object#equals(Object) transitive consistent
-         */
+        // @see Object#equals(Object) transitive consistent
         assertEquals(proxy1, proxy2);
         assertEquals(proxy2, proxy3);
         assertEquals(proxy3, proxy1);
-        /**
-         * @see Object#equals(Object) non-null
-         */
+        // @see Object#equals(Object) non-null
         assertNotEquals(rule, null);
         assertNotEquals(proxy1, null);
         assertNotEquals(proxy2, null);
@@ -117,18 +109,12 @@ public class RuleProxyTest {
         Object rule = new DummyRule();
         Rule proxy1 = RuleProxy.asRule(rule);
         Rule proxy2 = RuleProxy.asRule(proxy1);
-        /**
-         * @see Object#hashCode rule1
-         */
+        // @see Object#hashCode rule1
         assertEquals(proxy1.hashCode(), proxy1.hashCode());
-        /**
-         * @see Object#hashCode rule2
-         */
+        // @see Object#hashCode rule2
         assertEquals(proxy1, proxy2);
         assertEquals(proxy1.hashCode(), proxy2.hashCode());
-        /**
-         * @see Object#hashCode rule3
-         */
+        // @see Object#hashCode rule3
         assertNotEquals(rule, proxy1);
         assertNotEquals(rule.hashCode(), proxy1.hashCode());
     }
