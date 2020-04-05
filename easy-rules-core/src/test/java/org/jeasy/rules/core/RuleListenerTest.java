@@ -46,7 +46,7 @@ public class RuleListenerTest extends AbstractTest {
     }
 
     @Test
-    public void whenTheRuleExecutesSuccessfully_thenOnSuccessShouldBeExecuted() throws Exception {
+    public void whenTheRuleExecutesSuccessfully_thenOnSuccessShouldBeExecuted() {
         // Given
         when(rule1.evaluate(facts)).thenReturn(true);
         rules.register(rule1);
@@ -82,7 +82,7 @@ public class RuleListenerTest extends AbstractTest {
     }
 
     @Test
-    public void whenListenerBeforeEvaluateReturnsFalse_thenTheRuleShouldBeSkippedBeforeBeingEvaluated() throws Exception {
+    public void whenListenerBeforeEvaluateReturnsFalse_thenTheRuleShouldBeSkippedBeforeBeingEvaluated() {
         // Given
         when(ruleListener1.beforeEvaluate(rule1, facts)).thenReturn(false);
         rules.register(rule1);
@@ -95,7 +95,7 @@ public class RuleListenerTest extends AbstractTest {
     }
 
     @Test
-    public void whenListenerBeforeEvaluateReturnsTrue_thenTheRuleShouldBeEvaluated() throws Exception {
+    public void whenListenerBeforeEvaluateReturnsTrue_thenTheRuleShouldBeEvaluated() {
         // Given
         when(ruleListener1.beforeEvaluate(rule1, facts)).thenReturn(true);
         rules.register(rule1);
@@ -108,7 +108,7 @@ public class RuleListenerTest extends AbstractTest {
     }
 
     @Test
-    public void whenTheRuleEvaluatesToTrue_thenTheListenerShouldBeInvoked() throws Exception {
+    public void whenTheRuleEvaluatesToTrue_thenTheListenerShouldBeInvoked() {
         // Given
         when(rule1.evaluate(facts)).thenReturn(true);
         rules.register(rule1);
@@ -121,7 +121,7 @@ public class RuleListenerTest extends AbstractTest {
     }
 
     @Test
-    public void whenTheRuleEvaluatesToFalse_thenTheListenerShouldBeInvoked() throws Exception {
+    public void whenTheRuleEvaluatesToFalse_thenTheListenerShouldBeInvoked() {
         // Given
         when(rule1.evaluate(facts)).thenReturn(false);
         rules.register(rule1);

@@ -74,7 +74,7 @@ public class MVELJsonRuleFactoryTest {
     }
 
     @Test
-    public void testRuleCreationFromFileReader() throws Exception{
+    public void testRuleCreationFromFileReader() throws Exception {
         // given
         Reader adultRuleDescriptorAsReader = new FileReader("src/test/resources/adult-rule.json");
 
@@ -88,7 +88,7 @@ public class MVELJsonRuleFactoryTest {
     }
 
     @Test
-    public void testRuleCreationFromStringReader() throws Exception{
+    public void testRuleCreationFromStringReader() throws Exception {
         // given
         Reader adultRuleDescriptorAsReader = new StringReader(new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.json"))));
 

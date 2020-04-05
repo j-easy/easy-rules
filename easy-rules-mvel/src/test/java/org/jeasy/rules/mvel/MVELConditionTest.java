@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MVELConditionTest {
 
     @Test
-    public void testMVELExpressionEvaluation() throws Exception {
+    public void testMVELExpressionEvaluation() {
         // given
         Condition isAdult = new MVELCondition("person.age > 18");
         Facts facts = new Facts();
@@ -47,7 +47,7 @@ public class MVELConditionTest {
     }
 
     @Test
-    public void whenDeclaredFactIsNotPresent_thenShouldReturnFalse() throws Exception {
+    public void whenDeclaredFactIsNotPresent_thenShouldReturnFalse() {
         // given
         Condition isHot = new MVELCondition("temperature > 30");
         Facts facts = new Facts();

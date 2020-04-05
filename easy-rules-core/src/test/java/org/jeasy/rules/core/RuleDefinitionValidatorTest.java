@@ -47,7 +47,7 @@ public class RuleDefinitionValidatorTest {
     }
 
     @Test
-    public void withCustomAnnotationThatIsItselfAnnotatedWithTheRuleAnnotation() throws Throwable {
+    public void withCustomAnnotationThatIsItselfAnnotatedWithTheRuleAnnotation() {
         ruleDefinitionValidator.validateRuleDefinition(new AnnotatedRuleWithMetaRuleAnnotation());
     }
 

@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BasicRuleTest extends AbstractTest {
 
     @Test
-    public void basicRuleEvaluateShouldReturnFalse() throws Exception {
+    public void basicRuleEvaluateShouldReturnFalse() {
         BasicRule basicRule = new BasicRule();
         assertThat(basicRule.evaluate(facts)).isFalse();
     }

@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class InferenceRulesEngineTest {
 
     @Test
-    public void testCandidateSelection() throws Exception {
+    public void testCandidateSelection() {
         // Given
         Facts facts = new Facts();
         facts.put("foo", true);
@@ -53,7 +53,7 @@ public class InferenceRulesEngineTest {
     }
 
     @Test
-    public void testCandidateOrdering() throws Exception {
+    public void testCandidateOrdering() {
         // Given
         Facts facts = new Facts();
         facts.put("foo", true);

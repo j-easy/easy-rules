@@ -31,7 +31,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -43,7 +42,7 @@ public class RuleBuilderTest {
     private Action action1, action2;
 
     @Test
-    public void testDefaultRuleCreationWithDefaultValues() throws Exception {
+    public void testDefaultRuleCreationWithDefaultValues() {
         // when
         Rule rule = new RuleBuilder().build();
 
@@ -55,7 +54,7 @@ public class RuleBuilderTest {
     }
 
     @Test
-    public void testDefaultRuleCreationWithCustomValues() throws Exception {
+    public void testDefaultRuleCreationWithCustomValues() {
         // when
         Rule rule = new RuleBuilder()
                 .name("myRule")

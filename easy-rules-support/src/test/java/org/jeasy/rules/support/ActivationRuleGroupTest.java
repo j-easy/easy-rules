@@ -83,7 +83,7 @@ public class ActivationRuleGroupTest {
     }
 
     @Test
-    public void whenNoSelectedRule_thenNothingShouldHappen(){
+    public void whenNoSelectedRule_thenNothingShouldHappen() {
         // given
         Rule4 rule4 = new Rule4();
         ActivationRuleGroup activationRuleGroup = new ActivationRuleGroup("my activation rule", "rule4");

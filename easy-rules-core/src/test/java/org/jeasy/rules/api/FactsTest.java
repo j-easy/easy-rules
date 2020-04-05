@@ -34,7 +34,7 @@ public class FactsTest {
     private Facts facts = new Facts();
 
     @Test
-    public void factsMustHaveUniqueName() throws Exception {
+    public void factsMustHaveUniqueName() {
         facts.put("foo", 1);
         facts.put("foo", 2);
 
@@ -92,17 +92,17 @@ public class FactsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void whenPutNullFact_thenShouldThrowNullPointerException() throws Exception {
+    public void whenPutNullFact_thenShouldThrowNullPointerException() {
         facts.put(null, "foo");
     }
 
     @Test(expected = NullPointerException.class)
-    public void whenRemoveNullFact_thenShouldThrowNullPointerException() throws Exception {
+    public void whenRemoveNullFact_thenShouldThrowNullPointerException() {
         facts.remove(null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void whenGetNullFact_thenShouldThrowNullPointerException() throws Exception {
+    public void whenGetNullFact_thenShouldThrowNullPointerException() {
         facts.get(null);
     }
 }

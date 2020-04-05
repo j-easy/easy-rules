@@ -112,7 +112,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
     }
 
     @Test
-    public void rulesMustBeCheckedInTheirNaturalOrder() throws Exception {
+    public void rulesMustBeCheckedInTheirNaturalOrder() {
         // Given
         when(rule1.evaluate(facts)).thenReturn(true);
         when(rule2.evaluate(facts)).thenReturn(true);
@@ -157,19 +157,19 @@ public class DefaultRulesEngineTest extends AbstractTest {
     }
 
     @Test
-    public void whenRuleNameIsNotSpecified_thenItShouldBeEqualToClassNameByDefault() throws Exception {
+    public void whenRuleNameIsNotSpecified_thenItShouldBeEqualToClassNameByDefault() {
         org.jeasy.rules.api.Rule rule = RuleProxy.asRule(new DummyRule());
         assertThat(rule.getName()).isEqualTo("DummyRule");
     }
 
     @Test
-    public void whenRuleDescriptionIsNotSpecified_thenItShouldBeEqualToConditionNameFollowedByActionsNames() throws Exception {
+    public void whenRuleDescriptionIsNotSpecified_thenItShouldBeEqualToConditionNameFollowedByActionsNames() {
         org.jeasy.rules.api.Rule rule = RuleProxy.asRule(new DummyRule());
         assertThat(rule.getDescription()).isEqualTo("when condition then action1,action2");
     }
 
     @Test
-    public void testCheckRules() throws Exception {
+    public void testCheckRules() {
         // Given
         when(rule1.evaluate(facts)).thenReturn(true);
         rules.register(rule1);
@@ -186,7 +186,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
     }
 
     @Test
-    public void listenerShouldBeInvokedBeforeCheckingRules() throws Exception {
+    public void listenerShouldBeInvokedBeforeCheckingRules() {
         // Given
         when(rule1.evaluate(facts)).thenReturn(true);
         when(ruleListener.beforeEvaluate(rule1, facts)).thenReturn(true);
@@ -236,7 +236,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
     }
 
     @Test
-    public void testGetRuleListeners() throws Exception {
+    public void testGetRuleListeners() {
         // Given
         DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.registerRuleListener(ruleListener);
@@ -264,7 +264,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
     }
 
     @Test
-    public void testGetRulesEngineListeners() throws Exception {
+    public void testGetRulesEngineListeners() {
         // Given
         DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.registerRulesEngineListener(rulesEngineListener);
@@ -309,17 +309,17 @@ public class DefaultRulesEngineTest extends AbstractTest {
         }
 
         @Action
-        public void then0() throws Exception {
+        public void then0() {
             actionSequence += "0";
         }
 
         @Action(order = 1)
-        public void then1() throws Exception {
+        public void then1() {
             actionSequence += "1";
         }
 
         @Action(order = 2)
-        public void then2() throws Exception {
+        public void then2() {
             actionSequence += "2";
             executed = true;
         }
@@ -348,12 +348,12 @@ public class DefaultRulesEngineTest extends AbstractTest {
         }
 
         @Action(order = 1)
-        public void action1() throws Exception {
+        public void action1() {
             // no op
         }
 
         @Action(order = 2)
-        public void action2() throws Exception {
+        public void action2() {
             // no op
         }
     }

@@ -63,7 +63,7 @@ public class RulesEngineListenerTest extends AbstractTest {
     }
 
     @Test
-    public void rulesEngineListenersShouldBeCalledInOrderWhenCheckingRules() throws Exception {
+    public void rulesEngineListenersShouldBeCalledInOrderWhenCheckingRules() {
         // Given
         when(rule1.evaluate(facts)).thenReturn(true);
         rules.register(rule1);

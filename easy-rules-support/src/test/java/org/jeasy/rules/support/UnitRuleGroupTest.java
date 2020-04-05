@@ -135,7 +135,7 @@ public class UnitRuleGroupTest {
     }
 
     @Test
-    public void testCompositeRuleWithAnnotatedComposingRules() throws Exception {
+    public void testCompositeRuleWithAnnotatedComposingRules() {
         // Given
         MyRule rule = new MyRule();
         unitRuleGroup = new UnitRuleGroup();
@@ -150,7 +150,7 @@ public class UnitRuleGroupTest {
     }
 
     @Test
-    public void whenAnnotatedRuleIsRemoved_thenItsProxyShouldBeRetrieved() throws Exception {
+    public void whenAnnotatedRuleIsRemoved_thenItsProxyShouldBeRetrieved() {
         // Given
         MyRule rule = new MyRule();
         MyAnnotatedRule annotatedRule = new MyAnnotatedRule();

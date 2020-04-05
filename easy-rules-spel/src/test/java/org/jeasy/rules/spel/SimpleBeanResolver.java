@@ -37,7 +37,7 @@ public class SimpleBeanResolver implements BeanResolver {
     }
 
     @Override
-    public Object resolve(EvaluationContext context, String beanName) throws AccessException {
+    public Object resolve(EvaluationContext context, String beanName) {
         return applicationContext.getBean(beanName);
     }
 

@@ -38,14 +38,14 @@ public class RulesTest {
     private Rules rules = new Rules();
 
     @Test
-    public void register() throws Exception {
+    public void register() {
         rules.register(new DummyRule());
 
         assertThat(rules).hasSize(1);
     }
 
     @Test
-    public void rulesMustHaveUniqueName() throws Exception {
+    public void rulesMustHaveUniqueName() {
         Rule r1 = new BasicRule("rule");
         Rule r2 = new BasicRule("rule");
         Set<Rule> ruleSet = new HashSet<>();
@@ -58,7 +58,7 @@ public class RulesTest {
     }
 
     @Test
-    public void unregister() throws Exception {
+    public void unregister() {
         DummyRule rule = new DummyRule();
         rules.register(rule);
         rules.unregister(rule);
@@ -67,7 +67,7 @@ public class RulesTest {
     }
 
     @Test
-    public void unregisterByName() throws Exception {
+    public void unregisterByName() {
         Rule r1 = new BasicRule("rule1");
         Rule r2 = new BasicRule("rule2");
         Set<Rule> ruleSet = new HashSet<>();
@@ -81,7 +81,7 @@ public class RulesTest {
     }
     
     @Test
-    public void unregisterByNameNonExistingRule() throws Exception {
+    public void unregisterByNameNonExistingRule() {
         Rule r1 = new BasicRule("rule1");
         Set<Rule> ruleSet = new HashSet<>();
         ruleSet.add(r1);
@@ -93,12 +93,12 @@ public class RulesTest {
     }
 
     @Test
-    public void isEmpty() throws Exception {
+    public void isEmpty() {
         assertThat(rules.isEmpty()).isTrue();
     }
 
     @Test
-    public void clear() throws Exception {
+    public void clear() {
         rules.register(new DummyRule());
         rules.clear();
 
@@ -106,7 +106,7 @@ public class RulesTest {
     }
 
     @Test
-    public void sort() throws Exception {
+    public void sort() {
         Rule r1 = new BasicRule("rule", "", 1);
         Rule r2 = new BasicRule("rule", "", Integer.MAX_VALUE);
         DummyRule r3 = new DummyRule();
@@ -119,12 +119,12 @@ public class RulesTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void whenRegisterNullRule_thenShouldThrowNullPointerException() throws Exception {
+    public void whenRegisterNullRule_thenShouldThrowNullPointerException() {
         rules.register(null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void whenUnregisterNullRule_thenShouldThrowNullPointerException() throws Exception {
+    public void whenUnregisterNullRule_thenShouldThrowNullPointerException() {
         rules.unregister(null);
     }
 

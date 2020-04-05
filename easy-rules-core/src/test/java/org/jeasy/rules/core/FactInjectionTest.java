@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FactInjectionTest {
 
     @Test
-    public void declaredFactsShouldBeCorrectlyInjectedByNameOrType() throws Exception {
+    public void declaredFactsShouldBeCorrectlyInjectedByNameOrType() {
         // Given
         Object fact1 = new Object();
         Object fact2 = new Object();
@@ -62,7 +62,7 @@ public class FactInjectionTest {
     }
 
     @Test
-    public void rulesShouldBeExecutedWhenFactsAreCorrectlyInjected() throws Exception {
+    public void rulesShouldBeExecutedWhenFactsAreCorrectlyInjected() {
         // Given
         Facts facts = new Facts();
         facts.put("rain", true);
@@ -82,7 +82,7 @@ public class FactInjectionTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void whenFactTypeDoesNotMatchParameterType_thenShouldThrowRuntimeException() throws Exception {
+    public void whenFactTypeDoesNotMatchParameterType_thenShouldThrowRuntimeException() {
         // Given
         Facts facts = new Facts();
         facts.put("age", "foo");
@@ -97,7 +97,7 @@ public class FactInjectionTest {
     }
 
     @Test
-    public void whenADeclaredFactIsMissingInEvaluateMethod_thenTheRuleShouldNotBeExecuted() throws Exception {
+    public void whenADeclaredFactIsMissingInEvaluateMethod_thenTheRuleShouldNotBeExecuted() {
         // Given
         Facts facts = new Facts();
         AgeRule ageRule = new AgeRule();
@@ -112,7 +112,7 @@ public class FactInjectionTest {
     }
 
     @Test
-    public void whenADeclaredFactIsMissingInExecuteMethod_thenTheRuleShouldNotBeExecuted() throws Exception {
+    public void whenADeclaredFactIsMissingInExecuteMethod_thenTheRuleShouldNotBeExecuted() {
         // Given
         Facts facts = new Facts();
         AnotherDummyRule rule = new AnotherDummyRule();
