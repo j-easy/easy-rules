@@ -48,7 +48,7 @@ public class AnnotationInheritanceTest extends AbstractTest {
     }
 
     @Rule
-    class MyBaseRule {
+	static class MyBaseRule {
         protected boolean executed;
         @Condition
         public boolean when() {

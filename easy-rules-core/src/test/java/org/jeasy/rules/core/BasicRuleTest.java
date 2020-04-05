@@ -58,7 +58,7 @@ public class BasicRuleTest extends AbstractTest {
         assertThat(rules).containsSequence(rule1, rule3, rule2);
     }
 
-    class FirstRule extends BasicRule {
+    static class FirstRule extends BasicRule {
         @Override
         public int getPriority() {
             return 1;
@@ -75,7 +75,7 @@ public class BasicRuleTest extends AbstractTest {
         }
     }
 
-    class SecondRule extends BasicRule {
+    static class SecondRule extends BasicRule {
         @Override
         public int getPriority() {
             return 3;
@@ -92,7 +92,7 @@ public class BasicRuleTest extends AbstractTest {
         }
     }
 
-    class ThirdRule extends BasicRule {
+    static class ThirdRule extends BasicRule {
         @Override
         public int getPriority() {
             return 2;

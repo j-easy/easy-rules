@@ -100,7 +100,7 @@ public class ActivationRuleGroupTest {
     }
 
     @org.jeasy.rules.annotation.Rule(priority = 1)
-    public class Rule1 {
+    public static class Rule1 {
         private boolean executed;
 
         @Condition
@@ -113,7 +113,7 @@ public class ActivationRuleGroupTest {
     }
 
     @org.jeasy.rules.annotation.Rule(priority = 2)
-    public class Rule2 {
+    public static class Rule2 {
         private boolean executed;
 
         @Condition
@@ -126,7 +126,7 @@ public class ActivationRuleGroupTest {
     }
 
     @org.jeasy.rules.annotation.Rule(priority = 2)
-    public class Rule3 {
+    public static class Rule3 {
         private boolean executed;
 
         @Condition
@@ -139,7 +139,7 @@ public class ActivationRuleGroupTest {
     }
 
     @org.jeasy.rules.annotation.Rule(priority = 1)
-    public class Rule4 {
+    public static class Rule4 {
 
         private boolean executed;
 

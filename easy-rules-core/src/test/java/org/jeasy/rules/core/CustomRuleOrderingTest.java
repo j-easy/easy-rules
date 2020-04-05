@@ -69,7 +69,7 @@ public class CustomRuleOrderingTest extends AbstractTest {
 
     }
 
-    class MyRule extends BasicRule {
+    static class MyRule extends BasicRule {
 
         @Override
         public int compareTo(Rule rule) {

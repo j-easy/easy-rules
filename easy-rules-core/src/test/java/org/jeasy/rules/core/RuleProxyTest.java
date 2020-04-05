@@ -222,7 +222,7 @@ public class RuleProxyTest {
     }
 
     @org.jeasy.rules.annotation.Rule
-    class DummyRule {
+	static class DummyRule {
         @Condition
         public boolean when() { return true; }
 

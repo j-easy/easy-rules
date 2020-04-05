@@ -169,7 +169,7 @@ public class UnitRuleGroupTest {
     }
 
     @org.jeasy.rules.annotation.Rule
-    public class MyRule {
+    public static class MyRule {
         boolean executed;
         @Condition
         public boolean when() {

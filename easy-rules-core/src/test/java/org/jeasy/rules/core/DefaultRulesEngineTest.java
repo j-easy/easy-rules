@@ -297,7 +297,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
     }
 
     @org.jeasy.rules.annotation.Rule(name = "myRule", description = "my rule description")
-    public class AnnotatedRule {
+    public static class AnnotatedRule {
 
         private boolean executed;
 
@@ -340,7 +340,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
     }
 
     @org.jeasy.rules.annotation.Rule
-    public class DummyRule {
+    public static class DummyRule {
 
         @Condition
         public boolean condition() {

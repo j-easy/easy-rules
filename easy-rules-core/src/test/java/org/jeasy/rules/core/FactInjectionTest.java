@@ -127,7 +127,7 @@ public class FactInjectionTest {
     }
 
     @Rule
-    class DummyRule {
+	static class DummyRule {
 
         private Object fact1, fact2;
         private Facts facts;
@@ -158,7 +158,7 @@ public class FactInjectionTest {
     }
 
     @Rule
-    class AnotherDummyRule {
+	static class AnotherDummyRule {
 
         private boolean isExecuted;
 
@@ -179,7 +179,7 @@ public class FactInjectionTest {
     }
 
     @Rule
-    class AgeRule {
+	static class AgeRule {
 
         private boolean isExecuted;
 
@@ -200,7 +200,7 @@ public class FactInjectionTest {
     }
 
     @Rule
-    class WeatherRule {
+	static class WeatherRule {
 
         private boolean isExecuted;
 

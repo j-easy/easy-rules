@@ -71,7 +71,7 @@ public class NullFactAnnotationParameterTest extends AbstractTest {
     }
 
     @Rule
-    public class AnnotatedParametersRule {
+    public static class AnnotatedParametersRule {
 
         @Condition
         public boolean when(@Fact("fact1") Object fact1, @Fact("fact2") Object fact2) {

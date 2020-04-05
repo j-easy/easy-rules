@@ -213,7 +213,7 @@ public class ConditionalRuleGroupTest {
     }
 
     @org.jeasy.rules.annotation.Rule
-    public class MyRule {
+    public static class MyRule {
         boolean executed;
 
         @Condition
@@ -262,7 +262,7 @@ public class ConditionalRuleGroupTest {
     }
 
     @org.jeasy.rules.annotation.Rule
-    public class MyOtherRule {
+    public static class MyOtherRule {
         boolean executed;
         private int priority;
 
@@ -292,7 +292,7 @@ public class ConditionalRuleGroupTest {
     }
 
     @org.jeasy.rules.annotation.Rule
-    public class UnprioritizedRule {
+    public static class UnprioritizedRule {
         boolean executed;
 
         @Condition
@@ -312,7 +312,7 @@ public class ConditionalRuleGroupTest {
 
     }
 
-    public class TestRule extends BasicRule {
+    public static class TestRule extends BasicRule {
 
         boolean executed;
         boolean evaluationResult;

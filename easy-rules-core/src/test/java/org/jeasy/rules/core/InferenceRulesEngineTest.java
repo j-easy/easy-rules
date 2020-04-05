@@ -118,7 +118,7 @@ public class InferenceRulesEngineTest {
     }
 
     @Rule
-    class DummyRule {
+	static class DummyRule {
 
         private boolean isExecuted;
         private long timestamp;
@@ -150,7 +150,7 @@ public class InferenceRulesEngineTest {
     }
 
     @Rule
-    class AnotherDummyRule {
+	static class AnotherDummyRule {
 
         private boolean isExecuted;
         private long timestamp;
