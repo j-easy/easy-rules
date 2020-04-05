@@ -185,7 +185,7 @@ public class RuleProxy implements InvocationHandler {
         }
         String otherDescription = otherRule.getDescription();
         String description =  getRuleDescription();
-        return !(!Objects.equals(description, otherDescription));
+        return Objects.equals(description, otherDescription);
     }
 
     private int hashCodeMethod() throws Exception {

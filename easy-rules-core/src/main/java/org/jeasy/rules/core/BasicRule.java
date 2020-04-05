@@ -143,7 +143,7 @@ public class BasicRule implements Rule {
             return false;
         if (!name.equals(basicRule.name))
             return false;
-        return !(!Objects.equals(description, basicRule.description));
+        return Objects.equals(description, basicRule.description);
 
     }
 
