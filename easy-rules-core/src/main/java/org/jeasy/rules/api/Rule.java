@@ -51,19 +51,25 @@ public interface Rule extends Comparable<Rule> {
      * Getter for rule name.
      * @return the rule name
      */
-    String getName();
+    default String getName() {
+        return DEFAULT_NAME;
+    }
 
     /**
      * Getter for rule description.
      * @return rule description
      */
-    String getDescription();
+    default String getDescription() {
+        return DEFAULT_DESCRIPTION;
+    }
 
     /**
      * Getter for rule priority.
      * @return rule priority
      */
-    int getPriority();
+    default int getPriority() {
+        return DEFAULT_PRIORITY;
+    }
 
     /**
      * Rule conditions abstraction : this method encapsulates the rule's conditions.

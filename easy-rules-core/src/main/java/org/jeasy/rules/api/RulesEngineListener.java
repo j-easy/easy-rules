@@ -39,7 +39,7 @@ public interface RulesEngineListener {
      * @param rules to fire
      * @param facts present before firing rules
      */
-    void beforeEvaluate(Rules rules, Facts facts);
+    default void beforeEvaluate(Rules rules, Facts facts) { }
 
     /**
      * Triggered after executing the rule set
@@ -48,5 +48,5 @@ public interface RulesEngineListener {
      * @param rules fired
      * @param facts present after firing rules
      */
-    void afterExecute(Rules rules, Facts facts);
+    default void afterExecute(Rules rules, Facts facts) { }
 }

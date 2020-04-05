@@ -23,6 +23,7 @@
  */
 package org.jeasy.rules.api;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -47,14 +48,18 @@ public interface RulesEngine {
      *
      * @return the list of registered rule listeners
      */
-    List<RuleListener> getRuleListeners();
+    default List<RuleListener> getRuleListeners() {
+        return Collections.emptyList();
+    }
 
     /**
      * Return the list of registered rules engine listeners.
      *
      * @return the list of registered rules engine listeners
      */
-    List<RulesEngineListener> getRulesEngineListeners();
+    default List<RulesEngineListener> getRulesEngineListeners() {
+        return Collections.emptyList();
+    }
 
     /**
      * Fire all registered rules on given facts.
@@ -65,5 +70,7 @@ public interface RulesEngine {
      * Check rules without firing them.
      * @return a map with the result of evaluation of each rule
      */
-    Map<Rule, Boolean> check(Rules rules, Facts facts);
+    default Map<Rule, Boolean> check(Rules rules, Facts facts) {
+        return Collections.emptyMap();
+    }
 }
