@@ -23,6 +23,8 @@
  */
 package org.jeasy.rules.core;
 
+import java.util.Objects;
+
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 
@@ -141,7 +143,7 @@ public class BasicRule implements Rule {
             return false;
         if (!name.equals(basicRule.name))
             return false;
-        return !(description != null ? !description.equals(basicRule.description) : basicRule.description != null);
+        return !(!Objects.equals(description, basicRule.description));
 
     }
 
