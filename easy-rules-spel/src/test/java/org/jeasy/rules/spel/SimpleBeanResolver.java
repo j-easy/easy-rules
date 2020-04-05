@@ -24,7 +24,6 @@
 package org.jeasy.rules.spel;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.expression.AccessException;
 import org.springframework.expression.BeanResolver;
 import org.springframework.expression.EvaluationContext;
 
