@@ -99,7 +99,7 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
         List<Map.Entry<String, Object>> entries = new ArrayList<>(facts.entrySet());
         for (int i = 0; i < entries.size(); i++) {
             Map.Entry<String, Object> entry = entries.get(i);
-            stringBuilder.append(format(" { %s : %s } ", entry.getKey(), String.valueOf(entry.getValue())));
+            stringBuilder.append(format(" { %s : %s } ", entry.getKey(), entry.getValue()));
             if (i < entries.size() - 1) {
                 stringBuilder.append(",");
             }
