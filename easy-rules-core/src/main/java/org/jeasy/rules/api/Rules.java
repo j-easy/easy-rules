@@ -121,10 +121,9 @@ public class Rules implements Iterable<Rule> {
     }
 
     private Rule findRuleByName(String ruleName){
-        for(Rule rule : rules){
-            if(rule.getName().equalsIgnoreCase(ruleName))
-                return rule;
-        }
-        return null;
+        return rules.stream()
+                .filter(rule -> rule.getName().equalsIgnoreCase(ruleName))
+                .findFirst()
+                .orElse(null);
     }
 }

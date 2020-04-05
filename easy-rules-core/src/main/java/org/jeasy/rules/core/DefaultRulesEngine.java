@@ -159,48 +159,31 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
     }
 
     private void triggerListenersOnFailure(final Rule rule, final Exception exception, Facts facts) {
-        for (RuleListener ruleListener : ruleListeners) {
-            ruleListener.onFailure(rule, facts, exception);
-        }
+        ruleListeners.forEach(ruleListener -> ruleListener.onFailure(rule, facts, exception));
     }
 
     private void triggerListenersOnSuccess(final Rule rule, Facts facts) {
-        for (RuleListener ruleListener : ruleListeners) {
-            ruleListener.onSuccess(rule, facts);
-        }
+        ruleListeners.forEach(ruleListener -> ruleListener.onSuccess(rule, facts));
     }
 
     private void triggerListenersBeforeExecute(final Rule rule, Facts facts) {
-        for (RuleListener ruleListener : ruleListeners) {
-            ruleListener.beforeExecute(rule, facts);
-        }
+        ruleListeners.forEach(ruleListener -> ruleListener.beforeExecute(rule, facts));
     }
 
     private boolean triggerListenersBeforeEvaluate(Rule rule, Facts facts) {
-        for (RuleListener ruleListener : ruleListeners) {
-            if (!ruleListener.beforeEvaluate(rule, facts)) {
-                return false;
-            }
-        }
-        return true;
+        return ruleListeners.stream().allMatch(ruleListener -> ruleListener.beforeEvaluate(rule, facts));
     }
 
     private void triggerListenersAfterEvaluate(Rule rule, Facts facts, boolean evaluationResult) {
-        for (RuleListener ruleListener : ruleListeners) {
-            ruleListener.afterEvaluate(rule, facts, evaluationResult);
-        }
+        ruleListeners.forEach(ruleListener -> ruleListener.afterEvaluate(rule, facts, evaluationResult));
     }
 
     private void triggerListenersBeforeRules(Rules rule, Facts facts) {
-        for (RulesEngineListener rulesEngineListener : rulesEngineListeners) {
-            rulesEngineListener.beforeEvaluate(rule, facts);
-        }
+        rulesEngineListeners.forEach(rulesEngineListener -> rulesEngineListener.beforeEvaluate(rule, facts));
     }
 
     private void triggerListenersAfterRules(Rules rule, Facts facts) {
-        for (RulesEngineListener rulesEngineListener : rulesEngineListeners) {
-            rulesEngineListener.afterExecute(rule, facts);
-        }
+        rulesEngineListeners.forEach(rulesEngineListener -> rulesEngineListener.afterExecute(rule, facts));
     }
 
     private boolean shouldBeEvaluated(Rule rule, Facts facts) {
