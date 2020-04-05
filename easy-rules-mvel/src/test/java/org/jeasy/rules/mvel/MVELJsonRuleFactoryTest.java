@@ -124,7 +124,7 @@ public class MVELJsonRuleFactoryTest {
         assertThat(rule).isNotNull();
         assertThat(rule.getName()).isEqualTo("weather rule");
         assertThat(rule.getDescription()).isEqualTo("when it rains, then take an umbrella");
-        assertThat(rule.getPriority()).isEqualTo(1);;
+        assertThat(rule.getPriority()).isEqualTo(1);
     }
 
     @Test
