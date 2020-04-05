@@ -34,7 +34,7 @@ public class AnnotatedRuleWithActionMethodHavingOneArgumentOfTypeFacts {
     }
 
     @Action
-    public void then(Facts facts) throws Exception {
+    public void then(Facts facts) {
     }
 
 }

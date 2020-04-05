@@ -34,7 +34,7 @@ public class AnnotatedRuleWithNonPublicConditionMethod {
     }
 
     @Action
-    public void then() throws Exception {
+    public void then() {
         executed = true;
     }
 

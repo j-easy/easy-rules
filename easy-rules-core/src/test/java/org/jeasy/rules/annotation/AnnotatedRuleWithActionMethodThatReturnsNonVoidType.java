@@ -34,7 +34,7 @@ public class AnnotatedRuleWithActionMethodThatReturnsNonVoidType {
     }
 
     @Action
-    private int then() throws Exception {
+    private int then() {
         executed = true;
         return 0;
     }

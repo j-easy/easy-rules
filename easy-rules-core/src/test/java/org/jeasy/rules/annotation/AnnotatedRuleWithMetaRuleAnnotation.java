@@ -32,6 +32,6 @@ public class AnnotatedRuleWithMetaRuleAnnotation {
     }
 
     @Action
-    public void then() throws Exception {
+    public void then() {
     }
 }

@@ -53,7 +53,7 @@ public class FactsTest {
     }
 
     @Test
-    public void remove() throws Exception {
+    public void remove() {
         facts.put("foo", 1);
         facts.remove("foo");
 
@@ -71,7 +71,7 @@ public class FactsTest {
     }
 
     @Test
-    public void get() throws Exception {
+    public void get() {
         facts.put("foo", 1);
         Object foo = facts.get("foo");
         assertThat(foo).isEqualTo(1);

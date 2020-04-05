@@ -33,7 +33,7 @@ public class AnnotatedRuleWithoutConditionMethod {
     }
 
     @Action
-    public void then() throws Exception {
+    public void then() {
         executed = true;
     }
 

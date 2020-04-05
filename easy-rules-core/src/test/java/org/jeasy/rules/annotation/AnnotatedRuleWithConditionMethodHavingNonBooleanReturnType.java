@@ -34,7 +34,7 @@ public class AnnotatedRuleWithConditionMethodHavingNonBooleanReturnType {
     }
 
     @Action
-    public void then() throws Exception {
+    public void then() {
         executed = true;
     }
 

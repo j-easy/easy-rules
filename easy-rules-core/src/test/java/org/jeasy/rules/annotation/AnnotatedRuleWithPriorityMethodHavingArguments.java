@@ -34,7 +34,7 @@ public class AnnotatedRuleWithPriorityMethodHavingArguments {
     }
 
     @Action
-    private void then() throws Exception {
+    private void then() {
         executed = true;
     }
 

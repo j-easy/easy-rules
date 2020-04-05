@@ -55,7 +55,7 @@ public class UnitRuleGroupTest {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         when(rule1.evaluate(facts)).thenReturn(true);
         when(rule2.evaluate(facts)).thenReturn(true);
         when(rule2.compareTo(rule1)).thenReturn(1);

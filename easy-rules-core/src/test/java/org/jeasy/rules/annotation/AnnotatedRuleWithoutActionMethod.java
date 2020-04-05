@@ -33,7 +33,7 @@ public class AnnotatedRuleWithoutActionMethod {
         return true;
     }
 
-    public void then() throws Exception {
+    public void then() {
         executed = true;
     }
 

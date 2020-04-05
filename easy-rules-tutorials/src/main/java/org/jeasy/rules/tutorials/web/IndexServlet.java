@@ -36,7 +36,7 @@ import static org.jeasy.rules.tutorials.web.SuspiciousRequestRule.SUSPICIOUS;
 @WebServlet("/index")
 public class IndexServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
         if (isSuspicious(request)) {

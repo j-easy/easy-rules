@@ -44,7 +44,7 @@ public class SuspiciousRequestFilter implements Filter {
     private RulesEngine rulesEngine;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         rulesEngine = new DefaultRulesEngine();
         rules = new Rules();
         rules.register(new SuspiciousRequestRule());

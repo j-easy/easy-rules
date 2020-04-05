@@ -36,7 +36,7 @@ public class HelloWorldRule {
     }
 
     @Action
-    public void then() throws Exception {
+    public void then() {
         System.out.println("hello world");
     }
 
