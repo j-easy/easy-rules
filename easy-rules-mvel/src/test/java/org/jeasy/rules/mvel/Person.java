@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License
  *
  *  Copyright (c) 2020, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
