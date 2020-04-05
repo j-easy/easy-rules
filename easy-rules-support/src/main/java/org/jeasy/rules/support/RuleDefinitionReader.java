@@ -34,6 +34,7 @@ import java.util.List;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@FunctionalInterface
 public interface RuleDefinitionReader {
 
     /**

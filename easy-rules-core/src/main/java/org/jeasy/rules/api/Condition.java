@@ -28,6 +28,7 @@ package org.jeasy.rules.api;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@FunctionalInterface
 public interface Condition {
 
     /**
