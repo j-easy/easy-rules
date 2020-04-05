@@ -43,20 +43,10 @@ public interface Condition {
     /**
      * A NoOp {@link Condition} that always returns false.
      */
-    Condition FALSE = new Condition() {
-        @Override
-        public boolean evaluate(Facts facts) {
-            return false;
-        }
-    };
+    Condition FALSE = facts -> false;
 
     /**
      * A NoOp {@link Condition} that always returns true.
      */
-    Condition TRUE = new Condition() {
-        @Override
-        public boolean evaluate(Facts facts) {
-            return true;
-        }
-    };
+    Condition TRUE = facts -> true;
 }
