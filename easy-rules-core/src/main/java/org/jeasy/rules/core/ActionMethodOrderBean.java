@@ -68,9 +68,7 @@ class ActionMethodOrderBean implements Comparable<ActionMethodOrderBean> {
         ActionMethodOrderBean that = (ActionMethodOrderBean) o;
 
         if (order != that.order) return false;
-        if (!method.equals(that.method)) return false;
-
-        return true;
+        return method.equals(that.method);
     }
 
     @Override
