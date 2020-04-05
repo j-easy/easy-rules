@@ -91,10 +91,10 @@ public class Rules implements Iterable<Rule> {
      *
      * @param ruleName the name of the rule to unregister
      */
-    public void unregister(final String ruleName){
+    public void unregister(final String ruleName) {
         Objects.requireNonNull(ruleName);
         Rule rule = findRuleByName(ruleName);
-        if(rule != null) {
+        if (rule != null) {
             unregister(rule);
         }
     }
@@ -120,7 +120,7 @@ public class Rules implements Iterable<Rule> {
         return rules.iterator();
     }
 
-    private Rule findRuleByName(String ruleName){
+    private Rule findRuleByName(String ruleName) {
         return rules.stream()
                 .filter(rule -> rule.getName().equalsIgnoreCase(ruleName))
                 .findFirst()

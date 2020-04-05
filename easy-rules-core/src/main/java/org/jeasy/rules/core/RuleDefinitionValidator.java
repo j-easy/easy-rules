@@ -119,19 +119,19 @@ class RuleDefinitionValidator {
     private boolean validParameters(final Method method) {
         int notAnnotatedParameterCount = 0;
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-        for(Annotation[] annotations : parameterAnnotations){
-            if(annotations.length == 0){
+        for (Annotation[] annotations : parameterAnnotations) {
+            if (annotations.length == 0) {
                 notAnnotatedParameterCount += 1;
             } else {
                 //Annotation types has to be Fact
-                for(Annotation annotation : annotations){
-                    if(!annotation.annotationType().equals(Fact.class)){
+                for (Annotation annotation : annotations) {
+                    if (!annotation.annotationType().equals(Fact.class)) {
                         return false;
                     }
                 }
             }
         }
-        if(notAnnotatedParameterCount > 1){
+        if (notAnnotatedParameterCount > 1) {
             return false;
         }
         if (notAnnotatedParameterCount == 1) {

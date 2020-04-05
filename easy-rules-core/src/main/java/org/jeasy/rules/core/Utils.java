@@ -27,12 +27,9 @@ import java.lang.annotation.Annotation;
 
 final class Utils {
 
-    private Utils() {
-
-    }
+    private Utils() { }
 
     static <A extends Annotation> A findAnnotation(final Class<A> targetAnnotation, final Class<?> annotatedType) {
-
         A foundAnnotation = annotatedType.getAnnotation(targetAnnotation);
         if (foundAnnotation == null) {
             for (Annotation annotation : annotatedType.getAnnotations()) {

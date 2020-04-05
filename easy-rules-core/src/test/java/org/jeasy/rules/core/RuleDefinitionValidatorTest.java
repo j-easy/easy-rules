@@ -34,7 +34,7 @@ public class RuleDefinitionValidatorTest {
     private RuleDefinitionValidator ruleDefinitionValidator;
 
     @Before
-    public void setup(){
+    public void setup() {
         ruleDefinitionValidator = new RuleDefinitionValidator();
     }
 

@@ -67,7 +67,7 @@ public final class InferenceRulesEngine extends AbstractRulesEngine {
         do {
             LOGGER.debug("Selecting candidate rules based on the following facts: {}", facts);
             selectedRules = selectCandidates(rules, facts);
-            if(!selectedRules.isEmpty()) {
+            if (!selectedRules.isEmpty()) {
                 delegate.fire(new Rules(selectedRules), facts);
             } else {
                 LOGGER.debug("No candidate rules found for facts: {}", facts);

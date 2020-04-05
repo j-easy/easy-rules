@@ -94,7 +94,7 @@ public abstract class AbstractRuleDefinitionReader implements RuleDefinitionRead
             throw new IllegalArgumentException("Composite rules must have composing rules specified");
         } else if (composingRules != null) {
             List<RuleDefinition> composingRuleDefinitions = new ArrayList<>();
-            for (Object rule : composingRules){
+            for (Object rule : composingRules) {
                 Map<String, Object> composingRuleMap = (Map<String, Object>) rule;
                 composingRuleDefinitions.add(createRuleDefinition(composingRuleMap));
             }
