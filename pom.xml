@@ -19,6 +19,7 @@
         <module>easy-rules-mvel</module>
         <module>easy-rules-support</module>
         <module>easy-rules-spel</module>
+        <module>easy-rules-jexl</module>
     </modules>
 
     <packaging>pom</packaging>

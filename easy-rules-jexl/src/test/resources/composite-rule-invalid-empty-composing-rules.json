@@ -1,0 +1,8 @@
+[
+  {
+    "name": "invalid rule",
+    "compositeRuleType": "UnitRuleGroup",
+    "priority": 1,
+    "composingRules": []
+  }
+]
