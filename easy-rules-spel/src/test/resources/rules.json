@@ -3,9 +3,9 @@
     "name": "adult rule",
     "description": "when age is greater then 18, then mark as adult",
     "priority": 1,
-    "condition": "person.age > 18",
+    "condition": "#{ ['person'].age > 18 }",
     "actions": [
-      "person.setAdult(true);"
+      "#{ ['person'].setAdult(true) }"
     ]
   },
   {

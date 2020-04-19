@@ -74,8 +74,8 @@ public class SpELActionTest {
     public void testSpELActionExecutionWithFailure() throws Exception {
         // given
         expectedException.expect(Exception.class);
-        expectedException.expectMessage("EL1004E: Method call: Method setBlah(java.lang.Boolean) cannot be found on type org.jeasy.rules.spel.Person");
-        Action action = new SpELAction("#person.setBlah(true)");
+        expectedException.expectMessage("EL1004E: Method call: Method sayHi() cannot be found on type org.jeasy.rules.spel.Person");
+        Action action = new SpELAction("T(org.jeasy.rules.spel.Person).sayHi()");
         Facts facts = new Facts();
         Person foo = new Person("foo", 20);
         facts.put("person", foo);
