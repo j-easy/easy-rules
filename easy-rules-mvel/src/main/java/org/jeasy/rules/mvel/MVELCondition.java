@@ -60,6 +60,7 @@ public class MVELCondition implements Condition {
 
     @Override
     public boolean evaluate(Facts facts) {
+        // MVEL.evalToBoolean does not accept compiled expressions..
         return (boolean) MVEL.executeExpression(compiledExpression, facts.asMap());
     }
 }
