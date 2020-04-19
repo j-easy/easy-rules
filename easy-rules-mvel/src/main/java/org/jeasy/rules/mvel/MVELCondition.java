@@ -27,8 +27,6 @@ import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
 import org.mvel2.MVEL;
 import org.mvel2.ParserContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 
@@ -39,9 +37,6 @@ import java.io.Serializable;
  */
 public class MVELCondition implements Condition {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MVELCondition.class);
-
-    private String expression;
     private Serializable compiledExpression;
 
     /**
@@ -50,7 +45,6 @@ public class MVELCondition implements Condition {
      * @param expression the condition written in expression language
      */
     public MVELCondition(String expression) {
-        this.expression = expression;
         compiledExpression = MVEL.compileExpression(expression);
     }
 
@@ -61,17 +55,11 @@ public class MVELCondition implements Condition {
      * @param parserContext the MVEL parser context
      */
     public MVELCondition(String expression, ParserContext parserContext) {
-        this.expression = expression;
         compiledExpression = MVEL.compileExpression(expression, parserContext);
     }
 
     @Override
     public boolean evaluate(Facts facts) {
-        try {
-            return (boolean) MVEL.executeExpression(compiledExpression, facts.asMap());
-        } catch (Exception e) {
-            LOGGER.error("Unable to evaluate expression: '" + expression + "' on facts: " + facts, e);
-            return false;
-        }
+        return (boolean) MVEL.executeExpression(compiledExpression, facts.asMap());
     }
 }

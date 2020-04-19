@@ -46,8 +46,9 @@ public class MVELConditionTest {
         assertThat(evaluationResult).isTrue();
     }
 
-    @Test
-    public void whenDeclaredFactIsNotPresent_thenShouldReturnFalse() {
+    // Note this behaviour is different in SpEL, where a missing fact is silently ignored and returns false
+    @Test(expected = RuntimeException.class)
+    public void whenDeclaredFactIsNotPresent_thenShouldThrowRuntimeException() {
         // given
         Condition isHot = new MVELCondition("temperature > 30");
         Facts facts = new Facts();
@@ -56,7 +57,7 @@ public class MVELConditionTest {
         boolean evaluationResult = isHot.evaluate(facts);
 
         // then
-        assertThat(evaluationResult).isFalse();
+        // expected exception
     }
 
     @Test

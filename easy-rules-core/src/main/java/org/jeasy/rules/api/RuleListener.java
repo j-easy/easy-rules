@@ -51,6 +51,15 @@ public interface RuleListener {
     default void afterEvaluate(Rule rule, Facts facts, boolean evaluationResult) { }
 
     /**
+     * Triggered on condition evaluation error due to any runtime exception.
+     *
+     * @param rule that has been evaluated
+     * @param facts known while evaluating the rule
+     * @param exception that happened while attempting to evaluate the condition.
+     */
+    default void onEvaluationError(Rule rule, Facts facts, Exception exception) { }
+
+    /**
      * Triggered before the execution of a rule.
      *
      * @param rule the current rule

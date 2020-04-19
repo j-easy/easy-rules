@@ -167,7 +167,7 @@ public class ConditionalRuleGroupTest {
         conditionalRuleGroup.addRule(new MyOtherRule(0));// same priority as conditionalRule
         conditionalRuleGroup.addRule(new MyOtherRule(1));
         conditionalRuleGroup.addRule(new MyRule());
-        rulesEngine.fire(rules, facts);
+        conditionalRuleGroup.evaluate(facts);
     }
 
     @Test

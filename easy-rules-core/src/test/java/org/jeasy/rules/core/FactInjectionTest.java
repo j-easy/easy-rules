@@ -81,19 +81,20 @@ public class FactInjectionTest {
         assertThat(weatherRule.isExecuted()).isTrue();
     }
 
-    @Test(expected = RuntimeException.class)
-    public void whenFactTypeDoesNotMatchParameterType_thenShouldThrowRuntimeException() {
+    @Test
+    public void whenFactTypeDoesNotMatchParameterType_thenTheRuleShouldNotBeExecuted() {
         // Given
         Facts facts = new Facts();
         facts.put("age", "foo");
-        Rules rules = new Rules(new AgeRule());
+        AgeRule ageRule = new AgeRule();
+        Rules rules = new Rules(ageRule);
         RulesEngine rulesEngine = new DefaultRulesEngine();
 
         // When
         rulesEngine.fire(rules, facts);
 
         // Then
-        // expected exception
+        assertThat(ageRule.isExecuted()).isFalse();
     }
 
     @Test

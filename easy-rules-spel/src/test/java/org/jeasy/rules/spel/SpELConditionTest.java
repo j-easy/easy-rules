@@ -51,6 +51,7 @@ public class SpELConditionTest {
         assertThat(evaluationResult).isTrue();
     }
 
+    // Note this behaviour is different in MVEL, where a missing fact yields an exception
     @Test
     public void whenDeclaredFactIsNotPresent_thenShouldReturnFalse() {
         // given

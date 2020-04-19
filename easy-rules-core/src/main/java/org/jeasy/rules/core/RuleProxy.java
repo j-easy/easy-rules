@@ -121,12 +121,13 @@ public class RuleProxy implements InvocationHandler {
             List<Object> actualParameters = getActualParameters(conditionMethod, facts);
             return conditionMethod.invoke(target, actualParameters.toArray()); // validated upfront
         } catch (NoSuchFactException e) {
-            LOGGER.error("Rule '{}' has been evaluated to false due to a declared but missing fact '{}' in {}",
+            LOGGER.warn("Rule '{}' has been evaluated to false due to a declared but missing fact '{}' in {}",
                     getTargetClass().getName(), e.getMissingFact(), facts);
             return false;
         } catch (IllegalArgumentException e) {
-            String error = "Types of injected facts in method '%s' in rule '%s' do not match parameters types";
-            throw new RuntimeException(format(error, conditionMethod.getName(), getTargetClass().getName()), e);
+            LOGGER.warn("Types of injected facts in method '{}' in rule '{}' do not match parameters types",
+                    conditionMethod.getName(), getTargetClass().getName(), e);
+            return false;
         }
     }
 

@@ -88,7 +88,19 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
                     name);
                 continue;
             }
-            if (rule.evaluate(facts)) {
+            boolean evaluationResult = false;
+            try {
+                evaluationResult = rule.evaluate(facts);
+            } catch (RuntimeException exception) {
+                LOGGER.error("Rule '" + name + "' evaluated with error", exception);
+                triggerListenersOnEvaluationError(rule, facts, exception);
+                // give the option to either skip next rules on evaluation error or continue by considering the evaluation error as false
+                if (parameters.isSkipOnFirstNonTriggeredRule()) {
+                    LOGGER.debug("Next rules will be skipped since parameter skipOnFirstNonTriggeredRule is set");
+                    break;
+                }
+            }
+            if (evaluationResult) {
                 LOGGER.debug("Rule '{}' triggered", name);
                 triggerListenersAfterEvaluate(rule, facts, true);
                 try {
@@ -176,6 +188,10 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
 
     private void triggerListenersAfterEvaluate(Rule rule, Facts facts, boolean evaluationResult) {
         ruleListeners.forEach(ruleListener -> ruleListener.afterEvaluate(rule, facts, evaluationResult));
+    }
+
+    private void triggerListenersOnEvaluationError(Rule rule, Facts facts, Exception exception) {
+        ruleListeners.forEach(ruleListener -> ruleListener.onEvaluationError(rule, facts, exception));
     }
 
     private void triggerListenersBeforeRules(Rules rule, Facts facts) {
