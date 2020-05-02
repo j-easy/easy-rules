@@ -50,8 +50,8 @@ public class SpELAction implements Action {
 
     private final ExpressionParser parser = new SpelExpressionParser();
 
-    private String expression;
-    private Expression compiledExpression;
+    private final String expression;
+    private final Expression compiledExpression;
     private BeanResolver beanResolver;
 
     /**
@@ -60,8 +60,7 @@ public class SpELAction implements Action {
      * @param expression the action written in expression language
      */
     public SpELAction(String expression) {
-        this.expression = expression;
-        compiledExpression = parser.parseExpression(expression);
+        this(expression, ParserContext.TEMPLATE_EXPRESSION);
     }
 
     /**
@@ -71,9 +70,7 @@ public class SpELAction implements Action {
      * @param beanResolver  the bean resolver used to resolve bean references
      */
     public SpELAction(String expression, BeanResolver beanResolver) {
-        this.expression = expression;
-        this.beanResolver = beanResolver;
-        compiledExpression = parser.parseExpression(expression);
+        this(expression, ParserContext.TEMPLATE_EXPRESSION, beanResolver);
     }
 
     /**

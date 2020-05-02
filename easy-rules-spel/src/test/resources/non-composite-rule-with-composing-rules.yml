@@ -2,17 +2,17 @@ name: Movie id rule
 priority: 1
 condition: "true"
 actions:
-  - "System.out.println();"
+  - "#{ T(System).out.println() }"
 composingRules:
   - name: Time is evening
     description: If it's later than 7pm
     priority: 1
-    condition: "day.hour > 19"
+    condition: "#{ ['day'].hour > 19 }"
     actions:
-      - "person.shouldProvideId(true);"
+      - "#{ ['person'].shouldProvideId(true); }"
   - name: Movie is rated R
     description: If the movie is rated R
     priority: 1
-    condition: "movie.rating == R"
+    condition: "#{ ['movie'].rating == R }"
     actions:
-      - "person.shouldProvideId(true);"
+      - "#{ ['person'].shouldProvideId(true); }"

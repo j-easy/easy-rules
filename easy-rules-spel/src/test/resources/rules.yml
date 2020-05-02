@@ -9,6 +9,6 @@ actions:
 name: weather rule
 description: when it rains, then take an umbrella
 priority: 2
-condition: "rain == true"
+condition: "#{ ['rain'] == true }"
 actions:
-  - "System.out.println(\"It rains, take an umbrella!\");"
+  - "#{ T(System).out.println(\"It rains, take an umbrella!\") }"

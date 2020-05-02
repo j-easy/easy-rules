@@ -46,7 +46,7 @@ public class SpELCondition implements Condition {
 
     private final ExpressionParser parser = new SpelExpressionParser();
 
-    private Expression compiledExpression;
+    private final Expression compiledExpression;
     private BeanResolver beanResolver;
 
     /**
@@ -55,7 +55,7 @@ public class SpELCondition implements Condition {
      * @param expression the condition written in expression language
      */
     public SpELCondition(String expression) {
-        compiledExpression = parser.parseExpression(expression);
+        this(expression, ParserContext.TEMPLATE_EXPRESSION);
     }
 
     /**
@@ -65,8 +65,7 @@ public class SpELCondition implements Condition {
      * @param beanResolver  the bean resolver used to resolve bean references
      */
     public SpELCondition(String expression, BeanResolver beanResolver) {
-        this.beanResolver = beanResolver;
-        compiledExpression = parser.parseExpression(expression);
+        this(expression, ParserContext.TEMPLATE_EXPRESSION, beanResolver);
     }
 
     /**

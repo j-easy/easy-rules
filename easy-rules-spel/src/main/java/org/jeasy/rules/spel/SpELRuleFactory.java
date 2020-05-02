@@ -75,7 +75,7 @@ public class SpELRuleFactory extends AbstractRuleFactory<ParserContext> {
      * @return a new rule
      */
     public Rule createRule(Reader ruleDescriptor) throws Exception {
-        return createRule(ruleDescriptor, new TemplateParserContext());
+        return createRule(ruleDescriptor, ParserContext.TEMPLATE_EXPRESSION);
     }
 
     /**
@@ -104,7 +104,7 @@ public class SpELRuleFactory extends AbstractRuleFactory<ParserContext> {
      * @return a set of rules
      */
     public Rules createRules(Reader rulesDescriptor) throws Exception {
-        return createRules(rulesDescriptor, new TemplateParserContext());
+        return createRules(rulesDescriptor, ParserContext.TEMPLATE_EXPRESSION);
     }
 
     /**

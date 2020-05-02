@@ -45,7 +45,7 @@ public class SpELActionTest {
     @Test
     public void testSpELActionExecution() throws Exception {
         // given
-        Action markAsAdult = new SpELAction("#person.setAdult(true)");
+        Action markAsAdult = new SpELAction("#{ ['person'].setAdult(true) }");
         Facts facts = new Facts();
         Person foo = new Person("foo", 20);
         facts.put("person", foo);
@@ -60,7 +60,7 @@ public class SpELActionTest {
     @Test
     public void testSpELFunctionExecution() throws Exception {
         // given
-        Action printAction = new SpELAction("T(org.jeasy.rules.spel.Person).sayHello()");
+        Action printAction = new SpELAction("#{ T(org.jeasy.rules.spel.Person).sayHello() }");
         Facts facts = new Facts();
 
         // when
@@ -75,7 +75,7 @@ public class SpELActionTest {
         // given
         expectedException.expect(Exception.class);
         expectedException.expectMessage("EL1004E: Method call: Method sayHi() cannot be found on type org.jeasy.rules.spel.Person");
-        Action action = new SpELAction("T(org.jeasy.rules.spel.Person).sayHi()");
+        Action action = new SpELAction("#{ T(org.jeasy.rules.spel.Person).sayHi() }");
         Facts facts = new Facts();
         Person foo = new Person("foo", 20);
         facts.put("person", foo);
@@ -90,8 +90,8 @@ public class SpELActionTest {
     @Test
     public void testSpELActionWithExpressionAndParserContext() throws Exception {
         // given
-        ParserContext context = new TemplateParserContext();
-        Action printAction = new SpELAction("#{ T(org.jeasy.rules.spel.Person).sayHello() }", context);
+        ParserContext context = new TemplateParserContext("%{", "}");
+        Action printAction = new SpELAction("%{ T(org.jeasy.rules.spel.Person).sayHello() }", context);
         Facts facts = new Facts();
 
         // when

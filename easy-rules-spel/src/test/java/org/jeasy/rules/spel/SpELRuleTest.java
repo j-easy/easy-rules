@@ -38,8 +38,8 @@ public class SpELRuleTest {
     public void setUp() {
         facts = new Facts();
         spelRule = new SpELRule().name("spel rule").description("rule using SpEL").priority(1)
-                .when("#person.age > 18")
-                .then("#person.setAdult(true)");
+                .when("#{ ['person'].age > 18 }")
+                .then("#{ ['person'].setAdult(true) }");
     }
 
     @Test
@@ -74,8 +74,8 @@ public class SpELRuleTest {
         Person foo = new Person("foo", 20);
         facts.put("person", foo);
         spelRule = new SpELRule().name("rn").description("rd").priority(1)
-                .when("#root['person'].age > 18")
-                .then("#root['person'].setAdult(true)");
+                .when("#{ #root['person'].age > 18 }")
+                .then("#{ #root['person'].setAdult(true) }");
 
         // when
         spelRule.execute(facts);

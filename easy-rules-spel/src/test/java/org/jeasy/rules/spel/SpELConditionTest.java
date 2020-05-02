@@ -26,6 +26,7 @@ package org.jeasy.rules.spel;
 import org.assertj.core.api.Assertions;
 import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.springframework.context.ApplicationContext;
@@ -41,7 +42,7 @@ public class SpELConditionTest {
     @Test
     public void testSpELExpressionEvaluation() {
         // given
-        Condition isAdult = new SpELCondition("#person.age > 18");
+        Condition isAdult = new SpELCondition("#{ ['person'].age > 18 }");
         Facts facts = new Facts();
         facts.put("person", new Person("foo", 20));
         // when
@@ -55,7 +56,7 @@ public class SpELConditionTest {
     @Test
     public void whenDeclaredFactIsNotPresent_thenShouldReturnFalse() {
         // given
-        Condition isHot = new SpELCondition("#temperature > 30");
+        Condition isHot = new SpELCondition("#{ ['temperature'] > 30 }");
         Facts facts = new Facts();
 
         // when
@@ -79,7 +80,7 @@ public class SpELConditionTest {
         assertThat(evaluationResult).isTrue();
     }
 
-    @org.junit.Rule
+    @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
     @Test
@@ -90,9 +91,9 @@ public class SpELConditionTest {
 
         SpELRule spELRule = new SpELRule();
         // setting an condition to be evaluated
-        spELRule.when("#person.age >= 18");
+        spELRule.when("#{ ['person'].age >= 18 }");
         // provided an bean resolver that can resolve "myGreeter"
-        spELRule.then("@myGreeter.greeting(#person.name)", beanResolver);
+        spELRule.then("#{ @myGreeter.greeting(#person.name) }", beanResolver);
 
         // given
         Facts facts = new Facts();

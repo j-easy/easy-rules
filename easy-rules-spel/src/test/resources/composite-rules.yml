@@ -5,19 +5,19 @@ composingRules:
   - name: Time is evening
     description: If it's later than 7pm
     priority: 1
-    condition: "day.hour > 19"
+    condition: "#{ ['day'].hour > 19 }"
     actions:
-      - "person.shouldProvideId(true);"
+      - "#{ ['person'].shouldProvideId(true) }"
   - name: Movie is rated R
     description: If the movie is rated R
     priority: 1
-    condition: "movie.rating == R"
+    condition: "#{ ['movie'].rating == R }"
     actions:
-      - "person.shouldProvideId(true);"
+      - "#{ ['person'].shouldProvideId(true) }"
 ---
 name: weather rule
 description: when it rains, then take an umbrella
 priority: 1
-condition: "rain == True"
+condition: "#{ ['rain'] == true }"
 actions:
-  - "System.out.println(\"It rains, take an umbrella!\");"
+  - "#{ T(System).out.println(\"It rains, take an umbrella!\") }"
