@@ -54,7 +54,7 @@ public class JsonRuleDefinitionReaderTest {
         RuleDefinition adultRuleDefinition = ruleDefinitions.get(0);
         assertThat(adultRuleDefinition).isNotNull();
         assertThat(adultRuleDefinition.getName()).isEqualTo("adult rule");
-        assertThat(adultRuleDefinition.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(adultRuleDefinition.getDescription()).isEqualTo("when age is greater than 18, then mark as adult");
         assertThat(adultRuleDefinition.getPriority()).isEqualTo(1);
         assertThat(adultRuleDefinition.getCondition()).isEqualTo("person.age > 18");
         assertThat(adultRuleDefinition.getActions()).isEqualTo(Collections.singletonList("person.setAdult(true);"));
@@ -73,7 +73,7 @@ public class JsonRuleDefinitionReaderTest {
         RuleDefinition adultRuleDefinition = ruleDefinitions.get(0);
         assertThat(adultRuleDefinition).isNotNull();
         assertThat(adultRuleDefinition.getName()).isEqualTo("adult rule");
-        assertThat(adultRuleDefinition.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(adultRuleDefinition.getDescription()).isEqualTo("when age is greater than 18, then mark as adult");
         assertThat(adultRuleDefinition.getPriority()).isEqualTo(1);
         assertThat(adultRuleDefinition.getCondition()).isEqualTo("person.age > 18");
         assertThat(adultRuleDefinition.getActions()).isEqualTo(Collections.singletonList("person.setAdult(true);"));
@@ -135,7 +135,7 @@ public class JsonRuleDefinitionReaderTest {
         RuleDefinition ruleDefinition = ruleDefinitions.get(0);
         assertThat(ruleDefinition).isNotNull();
         assertThat(ruleDefinition.getName()).isEqualTo("adult rule");
-        assertThat(ruleDefinition.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(ruleDefinition.getDescription()).isEqualTo("when age is greater than 18, then mark as adult");
         assertThat(ruleDefinition.getPriority()).isEqualTo(1);
         assertThat(ruleDefinition.getCondition()).isEqualTo("person.age > 18");
         assertThat(ruleDefinition.getActions()).isEqualTo(Collections.singletonList("person.setAdult(true);"));

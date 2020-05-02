@@ -63,7 +63,7 @@ public class SpELYamlRuleFactoryTest {
         Rule rule = iterator.next();
         assertThat(rule).isNotNull();
         assertThat(rule.getName()).isEqualTo("adult rule");
-        assertThat(rule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(rule.getDescription()).isEqualTo("when age is greater than 18, then mark as adult");
         assertThat(rule.getPriority()).isEqualTo(1);
 
         rule = iterator.next();
@@ -83,7 +83,7 @@ public class SpELYamlRuleFactoryTest {
 
         // then
         assertThat(adultRule.getName()).isEqualTo("adult rule");
-        assertThat(adultRule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(adultRule.getDescription()).isEqualTo("when age is greater than 18, then mark as adult");
         assertThat(adultRule.getPriority()).isEqualTo(1);
     }
 
@@ -97,7 +97,7 @@ public class SpELYamlRuleFactoryTest {
 
         // then
         assertThat(adultRule.getName()).isEqualTo("adult rule");
-        assertThat(adultRule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(adultRule.getDescription()).isEqualTo("when age is greater than 18, then mark as adult");
         assertThat(adultRule.getPriority()).isEqualTo(1);
     }
 
