@@ -35,6 +35,10 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.core.BasicRule;
 
+/**
+ * @author Lauri Kimmel
+ * @author Mahmoud Ben Hassine
+ */
 public class JexlRule extends BasicRule {
 
     static final JexlEngine DEFAULT_JEXL = new JexlBuilder().create();
@@ -69,24 +73,12 @@ public class JexlRule extends BasicRule {
 
     public JexlRule when(String condition) {
         Objects.requireNonNull(condition, "condition cannot be null");
-        return when(condition, jexl);
-    }
-
-    public JexlRule when(String condition, JexlEngine jexl) {
-        Objects.requireNonNull(condition, "condition cannot be null");
-        Objects.requireNonNull(jexl, "jexl cannot be null");
         this.condition = new JexlCondition(condition, jexl);
         return this;
     }
 
     public JexlRule then(String action) {
         Objects.requireNonNull(action, "action cannot be null");
-        return then(action, jexl);
-    }
-
-    public JexlRule then(String action, JexlEngine jexl) {
-        Objects.requireNonNull(action, "action cannot be null");
-        Objects.requireNonNull(jexl, "jexl cannot be null");
         this.actions.add(new JexlAction(action, jexl));
         return this;
     }

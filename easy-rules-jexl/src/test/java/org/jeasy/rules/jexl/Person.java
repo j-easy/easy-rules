@@ -23,6 +23,10 @@
  */
 package org.jeasy.rules.jexl;
 
+/**
+ * @author Lauri Kimmel
+ * @author Mahmoud Ben Hassine
+ */
 public class Person {
 
     private String name;

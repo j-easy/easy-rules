@@ -1,6 +1,6 @@
 ---
 name: adult rule
-description: when age is greater then 18, then mark as adult
+description: when age is greater than 18, then mark as adult
 priority: 1
 condition: "person.age > 18"
 actions:
@@ -11,4 +11,4 @@ description: when it rains, then take an umbrella
 priority: 2
 condition: "rain == true"
 actions:
-  - "System.out.println(\"It rains, take an umbrella!\");"
+  - "sout:println(\"It rains, take an umbrella!\");"

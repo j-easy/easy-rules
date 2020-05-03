@@ -20,4 +20,4 @@ description: when it rains, then take an umbrella
 priority: 1
 condition: "rain == True"
 actions:
-  - "System.out.println(\"It rains, take an umbrella!\");"
+  - "sout:println(\"It rains, take an umbrella!\");"

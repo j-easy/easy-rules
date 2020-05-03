@@ -8,14 +8,14 @@
         "name": "rule1",
         "condition": "true",
         "actions": [
-          "System.out.println();"
+          "sout:println();"
         ]
       },
       {
         "name": "rule2",
         "condition": "false",
         "actions": [
-          "System.out.println();"
+          "sout:println();"
         ]
       }
     ]

@@ -148,6 +148,7 @@ For any question, you can use [StackOverflow](https://stackoverflow.com/question
 * [kayeight](https://github.com/kayeight)
 * [khandelwalankit](https://github.com/khandelwalankit)
 * [lranasingha](https://github.com/lranasingha)
+* [laurikimmel](https://github.com/laurikimmel)
 * [mrcritical](https://github.com/mrcritical)
 * [paulbrejla](https://github.com/paulbrejla)
 * [richdouglasevans](https://github.com/richdouglasevans)

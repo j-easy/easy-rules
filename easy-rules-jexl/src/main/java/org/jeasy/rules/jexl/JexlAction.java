@@ -34,6 +34,10 @@ import org.jeasy.rules.api.Facts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author Lauri Kimmel
+ * @author Mahmoud Ben Hassine
+ */
 public class JexlAction implements Action {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JexlAction.class);
@@ -53,13 +57,13 @@ public class JexlAction implements Action {
     }
 
     @Override
-    public void execute(Facts facts) throws Exception {
+    public void execute(Facts facts) {
         Objects.requireNonNull(facts, "facts cannot be null");
         MapContext ctx = new MapContext(facts.asMap());
         try {
             compiledScript.execute(ctx);
         } catch (JexlException e) {
-            LOGGER.error("Unable to evaluate expression: '" + expression + "' on facts: " + facts, e);
+            LOGGER.error("Unable to execute expression: '" + expression + "' on facts: " + facts, e);
             throw e;
         }
     }

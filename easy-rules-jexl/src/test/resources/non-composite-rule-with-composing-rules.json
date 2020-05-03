@@ -4,7 +4,7 @@
     "priority": 1,
     "condition": "true",
     "actions": [
-      "System.out.println();"
+      "sout:println();"
     ],
     "composingRules": [
       {

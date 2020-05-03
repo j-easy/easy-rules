@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.jeasy</groupId>
         <artifactId>easy-rules</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>easy-rules-jexl</artifactId>
@@ -29,8 +29,8 @@
     </issueManagement>
 
     <ciManagement>
-        <system>Travis CI</system>
-        <url>https://travis-ci.org/j-easy/easy-rules</url>
+        <system>Github Actions</system>
+        <url>https://github.com/j-easy/easy-rules/actions</url>
     </ciManagement>
 
     <developers>
@@ -53,21 +53,23 @@
     </licenses>
 
     <dependencies>
+        <!-- production dependencies -->
         <dependency>
             <groupId>org.jeasy</groupId>
             <artifactId>easy-rules-support</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-jexl3</artifactId>
+            <version>${jexl.version}</version>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j-api.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-jexl3</artifactId>
-          <version>${jexl.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -77,12 +79,6 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.stefanbirkner</groupId>
-            <artifactId>system-rules</artifactId>
-            <version>${system-rules.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -25,12 +25,20 @@ package org.jeasy.rules.jexl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
+import org.apache.commons.jexl3.JexlBuilder;
+import org.apache.commons.jexl3.JexlEngine;
 import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
 import org.junit.Test;
 
+/**
+ * @author Lauri Kimmel
+ * @author Mahmoud Ben Hassine
+ */
 public class JexlConditionTest {
 
     @Test
@@ -47,8 +55,10 @@ public class JexlConditionTest {
         assertThat(evaluationResult).isTrue();
     }
 
-    @Test
-    public void whenDeclaredFactIsNotPresent_thenShouldReturnFalse() {
+    // Note this behaviour is different in SpEL, where a missing fact is silently ignored and returns false
+    // This behaviour is similar to MVEL though, where a missing fact results in an exception
+    @Test(expected = RuntimeException.class)
+    public void whenDeclaredFactIsNotPresent_thenShouldThrowRuntimeException() {
         // given
         Condition isHot = new JexlCondition("temperature > 30");
         Facts facts = new Facts();
@@ -57,15 +67,19 @@ public class JexlConditionTest {
         boolean evaluationResult = isHot.evaluate(facts);
 
         // then
-        assertThat(evaluationResult).isFalse();
+        // expected exception
     }
 
     @Test
-    public void testJexlConditionWithFacts() {
+    public void testJexlConditionWithNamespace() {
         // given
-        Condition condition = new JexlCondition("return rnd.nextBoolean();");
+        Map<String, Object> namespaces = new HashMap<>();
+        namespaces.put("rnd", new Random(123));
+        JexlEngine jexlEngine = new JexlBuilder()
+                .namespaces(namespaces)
+                .create();
+        Condition condition = new JexlCondition("return rnd:nextBoolean();", jexlEngine);
         Facts facts = new Facts();
-        facts.put("rnd", new Random(123));
 
         // when
         boolean evaluationResult = condition.evaluate(facts);

@@ -29,10 +29,14 @@ import org.jeasy.rules.api.Facts;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author Lauri Kimmel
+ * @author Mahmoud Ben Hassine
+ */
 public class JexlRuleTest {
 
-    private Facts facts = new Facts();
-    private JexlRule jexlRule = new JexlRule().name("name").description("description").priority(1);
+    private final Facts facts = new Facts();
+    private final JexlRule jexlRule = new JexlRule();
 
     @Before
     public void setUp() {

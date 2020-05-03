@@ -33,13 +33,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
+import org.apache.commons.jexl3.JexlBuilder;
+import org.apache.commons.jexl3.JexlEngine;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.support.JsonRuleDefinitionReader;
-import org.jeasy.rules.support.UnitRuleGroup;
-import org.jeasy.rules.support.YamlRuleDefinitionReader;
+import org.jeasy.rules.support.reader.JsonRuleDefinitionReader;
+import org.jeasy.rules.support.composite.UnitRuleGroup;
+import org.jeasy.rules.support.reader.YamlRuleDefinitionReader;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
@@ -47,18 +51,27 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+/**
+ * @author Lauri Kimmel
+ * @author Mahmoud Ben Hassine
+ */
 @RunWith(Parameterized.class)
 public class JexlRuleFactoryTest {
 
     @Parameters
     public static Collection<Object[]> params() {
+        Map<String, Object> namespaces = new HashMap<>();
+        namespaces.put("sout", System.out);
+        JexlEngine jexlEngine = new JexlBuilder()
+                .namespaces(namespaces)
+                .strict(false)
+                .create();
         return Arrays.asList(new Object[][] {
-                { new JexlRuleFactory(new YamlRuleDefinitionReader()), "yml" },
-                { new JexlRuleFactory(new JsonRuleDefinitionReader()), "json" },
+                { new JexlRuleFactory(new YamlRuleDefinitionReader(), jexlEngine), "yml" },
+                { new JexlRuleFactory(new JsonRuleDefinitionReader(), jexlEngine), "json" },
         });
     }
 
-    @SuppressWarnings("deprecation")
     @org.junit.Rule
     public ExpectedException expectedException = ExpectedException.none();
 
@@ -83,7 +96,7 @@ public class JexlRuleFactoryTest {
         Rule rule = iterator.next();
         assertThat(rule).isNotNull();
         assertThat(rule.getName()).isEqualTo("adult rule");
-        assertThat(rule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(rule.getDescription()).isEqualTo("when age is greater than 18, then mark as adult");
         assertThat(rule.getPriority()).isEqualTo(1);
 
         rule = iterator.next();
@@ -103,7 +116,7 @@ public class JexlRuleFactoryTest {
 
         // then
         assertThat(adultRule.getName()).isEqualTo("adult rule");
-        assertThat(adultRule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(adultRule.getDescription()).isEqualTo("when age is greater than 18, then mark as adult");
         assertThat(adultRule.getPriority()).isEqualTo(1);
     }
 
@@ -117,7 +130,7 @@ public class JexlRuleFactoryTest {
 
         // then
         assertThat(adultRule.getName()).isEqualTo("adult rule");
-        assertThat(adultRule.getDescription()).isEqualTo("when age is greater then 18, then mark as adult");
+        assertThat(adultRule.getDescription()).isEqualTo("when age is greater than 18, then mark as adult");
         assertThat(adultRule.getPriority()).isEqualTo(1);
     }
 

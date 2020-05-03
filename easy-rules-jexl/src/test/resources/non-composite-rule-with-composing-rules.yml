@@ -2,7 +2,7 @@ name: Movie id rule
 priority: 1
 condition: "true"
 actions:
-  - "System.out.println();"
+  - "sout:println();"
 composingRules:
   - name: Time is evening
     description: If it's later than 7pm
