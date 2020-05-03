@@ -25,58 +25,98 @@ package org.jeasy.rules.api;
 
 import java.util.*;
 
-import static java.lang.String.format;
-
 /**
- * Represents a set of named facts. Facts have unique name within a <code>Facts</code> object.
+ * Represents a set of named facts. Facts have unique names within a <code>Facts</code> object.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class Facts implements Iterable<Map.Entry<String, Object>> {
+public class Facts implements Iterable<Fact<?>> {
 
-    private Map<String, Object> facts = new HashMap<>();
+    private final Set<Fact<?>> facts = new HashSet<>();
 
     /**
-     * Put a fact in the working memory.
-     * This will replace any fact having the same name.
+     * Add a fact, replacing any fact with the same name.
      *
-     * @param name fact name
-     * @param fact object to put in the working memory
-     * @return the previous value associated with <tt>name</tt>, or
-     *         <tt>null</tt> if there was no mapping for <tt>name</tt>.
-     *         (A <tt>null</tt> return can also indicate that the map
-     *         previously associated <tt>null</tt> with <tt>name</tt>.)
+     * @param name of the fact to add
+     * @param value of the fact to add
      */
-    public Object put(String name, Object fact) {
-        Objects.requireNonNull(name);
-        return facts.put(name, fact);
+    public <T> void put(String name, T value) {
+        Objects.requireNonNull(name, "fact name must not be null");
+        Objects.requireNonNull(value, "fact value must not be null");
+        Fact<?> retrievedFact = getFact(name);
+        if (retrievedFact != null) {
+            remove(retrievedFact);
+        }
+        add(new Fact<>(name, value));
+    }
+    
+    /**
+     * Add a fact, replacing any fact with the same name.
+     * 
+     * @param fact to add
+     */
+    public <T> void add(Fact<T> fact) {
+        Objects.requireNonNull(fact, "fact must not be null");
+        Fact<?> retrievedFact = getFact(fact.getName());
+        if (retrievedFact != null) {
+            remove(retrievedFact);
+        }
+        facts.add(fact);
     }
 
     /**
-     * Remove fact.
+     * Remove a fact by name.
      *
-     * @param name of fact to remove
-     * @return the previous value associated with <tt>name</tt>, or
-     *         <tt>null</tt> if there was no mapping for <tt>name</tt>.
-     *         (A <tt>null</tt> return can also indicate that the map
-     *         previously associated <tt>null</tt> with <tt>name</tt>.)
+     * @param factName name of the fact to remove
      */
-    public Object remove(String name) {
-        Objects.requireNonNull(name);
-        return facts.remove(name);
+    public void remove(String factName) {
+        Objects.requireNonNull(factName, "fact name must not be null");
+        Fact<?> fact = getFact(factName);
+        if (fact != null) {
+            remove(fact);
+        }
     }
 
+    /**
+     * Remove a fact.
+     *
+     * @param fact to remove
+     */
+    public <T> void remove(Fact<T> fact) {
+        Objects.requireNonNull(fact, "fact must not be null");
+        facts.remove(fact);
+    }
+
+    /**
+     * Get the value of a fact by its name. This is a convenience method provided
+     * as a short version of {@code getFact(factName).getValue()}.
+     *
+     * @param factName name of the fact
+     * @param <T> type of the fact's value
+     * @return the value of the fact having the given name, or {@code null} if there is no fact with the given name
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T get(String factName) {
+        Objects.requireNonNull(factName, "fact name must not be null");
+        Fact<?> fact = getFact(factName);
+        if (fact != null) {
+            return (T) fact.getValue();
+        }
+        return null;
+    }
+    
     /**
      * Get a fact by name.
      *
-     * @param name of the fact
-     * @param <T> type of the fact
-     * @return the fact having the given name, or null if there is no fact with the given name
+     * @param factName name of the fact
+     * @return the fact having the given name, or {@code null} if there is no fact with the given name
      */
-    @SuppressWarnings("unchecked")
-    public <T> T get(String name) {
-        Objects.requireNonNull(name);
-        return (T) facts.get(name);
+    public Fact<?> getFact(String factName) {
+        Objects.requireNonNull(factName, "fact name must not be null");
+        return facts.stream()
+                .filter(fact -> fact.getName().equals(factName))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -86,7 +126,11 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
      * @return a copy of the current facts as a {@link HashMap}
      */
     public Map<String, Object> asMap() {
-        return new HashMap<>(facts);
+        Map<String, Object> map = new HashMap<>();
+        for (Fact<?> fact : facts) {
+            map.put(fact.getName(), fact.getValue());
+        }
+        return map;
     }
 
     /**
@@ -96,8 +140,8 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
      * @return an iterator on the set of facts
      */
     @Override
-    public Iterator<Map.Entry<String, Object>> iterator() {
-        return facts.entrySet().iterator();
+    public Iterator<Fact<?>> iterator() {
+        return facts.iterator();
     }
 
     /**
@@ -109,16 +153,15 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
 
     @Override
     public String toString() {
+        Iterator<Fact<?>> iterator = facts.iterator();
         StringBuilder stringBuilder = new StringBuilder("[");
-        List<Map.Entry<String, Object>> entries = new ArrayList<>(facts.entrySet());
-        for (int i = 0; i < entries.size(); i++) {
-            Map.Entry<String, Object> entry = entries.get(i);
-            stringBuilder.append(format(" { %s : %s } ", entry.getKey(), entry.getValue()));
-            if (i < entries.size() - 1) {
+        while (iterator.hasNext()) {
+            stringBuilder.append(iterator.next().toString());
+            if (iterator.hasNext()) {
                 stringBuilder.append(",");
             }
         }
         stringBuilder.append("]");
-        return  stringBuilder.toString();
+        return stringBuilder.toString();
     }
 }

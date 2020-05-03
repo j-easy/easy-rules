@@ -23,87 +23,97 @@
  */
 package org.jeasy.rules.api;
 
-import org.junit.Test;
+import java.util.Map;
 
-import java.util.HashMap;
+import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FactsTest {
 
-    private Facts facts = new Facts();
+    private final Facts facts = new Facts();
 
     @Test
     public void factsMustHaveUniqueName() {
-        facts.put("foo", 1);
-        facts.put("foo", 2);
+        facts.add(new Fact<>("foo", 1));
+        facts.add(new Fact<>("foo", 2));
 
         assertThat(facts).hasSize(1);
-        Object foo = facts.get("foo");
-        assertThat(foo).isEqualTo(2);
+        Fact<?> fact = facts.getFact("foo");
+        assertThat(fact.getValue()).isEqualTo(2);
     }
 
     @Test
-    public void returnOfPut() {
-        Object o1 = facts.put("foo", 1);
-        Object o2 = facts.put("foo", 2);
+    public void testAdd() {
+        Fact<Integer> fact1 = new Fact<>("foo", 1);
+        Fact<Integer> fact2 = new Fact<>("bar", 2);
+        facts.add(fact1);
+        facts.add(fact2);
 
-        assertThat(o1).isEqualTo(null);
-        assertThat(o2).isEqualTo(1);
+        assertThat(facts).contains(fact1);
+        assertThat(facts).contains(fact2);
     }
 
     @Test
-    public void remove() {
+    public void testPut() {
         facts.put("foo", 1);
+        facts.put("bar", 2);
+
+        assertThat(facts).contains(new Fact<>("foo", 1));
+        assertThat(facts).contains(new Fact<>("bar", 2));
+    }
+
+    @Test
+    public void testRemove() {
+        Fact<Integer> foo = new Fact<>("foo", 1);
+        facts.add(foo);
+        facts.remove(foo);
+
+        assertThat(facts).isEmpty();
+    }
+
+    @Test
+    public void testRemoveByName() {
+        Fact<Integer> foo = new Fact<>("foo", 1);
+        facts.add(foo);
         facts.remove("foo");
 
         assertThat(facts).isEmpty();
     }
 
     @Test
-    public void returnOfRemove() {
-        facts.put("foo", 1);
-        Object o1 = facts.remove("foo");
-        Object o2 = facts.remove("bar");
-
-        assertThat(o1).isEqualTo(1);
-        assertThat(o2).isEqualTo(null);
+    public void testGet() {
+        Fact<Integer> fact = new Fact<>("foo", 1);
+        facts.add(fact);
+        Integer value = facts.get("foo");
+        assertThat(value).isEqualTo(1);
     }
 
     @Test
-    public void get() {
-        facts.put("foo", 1);
-        Object foo = facts.get("foo");
-        assertThat(foo).isEqualTo(1);
+    public void testGetFact() {
+        Fact<Integer> fact = new Fact<>("foo", 1);
+        facts.add(fact);
+        Fact<?> retrievedFact = facts.getFact("foo");
+        assertThat(retrievedFact).isEqualTo(fact);
     }
 
     @Test
-    public void asMap() {
-        Object o = facts.asMap();
-        assertThat(o instanceof HashMap).isTrue();
-        assertThat(o).isNotEqualTo(facts);
+    public void testAsMap() {
+        Fact<Integer> fact1 = new Fact<>("foo", 1);
+        Fact<Integer> fact2 = new Fact<>("bar", 2);
+        facts.add(fact1);
+        facts.add(fact2);
+        Map<String, Object> map = facts.asMap();
+        assertThat(map).containsKeys("foo", "bar");
+        assertThat(map).containsValues(1, 2);
     }
 
     @Test
     public void testClear() {
         Facts facts = new Facts();
-        facts.put("foo", "bar");
+        facts.add(new Fact<>("foo", 1));
         facts.clear();
-        assertThat(facts.asMap()).isEmpty();
+        assertThat(facts).isEmpty();
     }
 
-    @Test(expected = NullPointerException.class)
-    public void whenPutNullFact_thenShouldThrowNullPointerException() {
-        facts.put(null, "foo");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void whenRemoveNullFact_thenShouldThrowNullPointerException() {
-        facts.remove(null);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void whenGetNullFact_thenShouldThrowNullPointerException() {
-        facts.get(null);
-    }
 }

@@ -145,9 +145,8 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
 
     private void log(Facts facts) {
         LOGGER.debug("Known facts:");
-        for (Map.Entry<String, Object> fact : facts) {
-            LOGGER.debug("Fact { {} : {} }",
-                    fact.getKey(), fact.getValue());
+        for (Fact<?> fact : facts) {
+            LOGGER.debug(fact.toString());
         }
     }
 

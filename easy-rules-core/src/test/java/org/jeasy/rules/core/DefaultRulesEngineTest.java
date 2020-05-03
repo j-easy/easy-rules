@@ -36,6 +36,7 @@ import org.assertj.core.api.Assertions;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Priority;
+import org.jeasy.rules.api.Fact;
 import org.jeasy.rules.api.RuleListener;
 import org.jeasy.rules.api.RulesEngineListener;
 import org.junit.After;
@@ -199,22 +200,6 @@ public class DefaultRulesEngineTest extends AbstractTest {
 
         // Then
         verify(ruleListener).beforeEvaluate(rule1, facts);
-    }
-
-    @Test
-    public void nullFactsShouldNotCrashTheEngine() {
-        // Given
-        facts.put("foo", null);
-
-        // When
-        try {
-            rulesEngine.fire(rules, facts);
-        } catch (Exception e) {
-            Assertions.fail("Unable to fire rules on known facts", e);
-        }
-
-        // Then
-        // Should not throw exception
     }
 
     @Test

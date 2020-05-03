@@ -35,25 +35,9 @@ import org.junit.Test;
 import java.util.Map;
 
 /**
- * Null value in facts must be accepted, this is not same thing that fact missing
+ * Null facts are not accepted by design, a declared fact can be missing though.
  */
-public class NullFactAnnotationParameterTest extends AbstractTest {
-
-    @Test
-    public void testNullFact() {
-        Rules rules = new Rules();
-        rules.register(new AnnotatedParametersRule());
-
-        Facts facts = new Facts();
-        facts.put("fact1", new Object());
-        facts.put("fact2", null);
-
-        Map<org.jeasy.rules.api.Rule, Boolean> results = rulesEngine.check(rules, facts);
-
-        for (boolean b : results.values()) {
-            Assert.assertTrue(b);
-        }
-    }
+public class MissingFactAnnotationParameterTest extends AbstractTest {
 
     @Test
     public void testMissingFact() {
