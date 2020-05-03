@@ -80,12 +80,13 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
     }
 
     /**
-     * Return facts as a map.
+     * Return a copy of the facts as a map. It is not intended to manipulate
+     * facts outside of the rules engine (aka other than manipulating them through rules).
      *
-     * @return the current facts as a {@link HashMap}
+     * @return a copy of the current facts as a {@link HashMap}
      */
     public Map<String, Object> asMap() {
-        return facts;
+        return new HashMap<>(facts);
     }
 
     @Override

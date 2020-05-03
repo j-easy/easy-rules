@@ -81,6 +81,7 @@ public class FactsTest {
     public void asMap() {
         Object o = facts.asMap();
         assertThat(o instanceof HashMap).isTrue();
+        assertThat(o).isNotEqualTo(facts);
     }
 
     @Test
