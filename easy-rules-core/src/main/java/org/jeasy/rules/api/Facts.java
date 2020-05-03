@@ -89,6 +89,12 @@ public class Facts implements Iterable<Map.Entry<String, Object>> {
         return new HashMap<>(facts);
     }
 
+    /**
+     * Return an iterator on the set of facts. It is not intended to remove
+     * facts using this iterator outside of the rules engine (aka other than doing it through rules)
+     * 
+     * @return an iterator on the set of facts
+     */
     @Override
     public Iterator<Map.Entry<String, Object>> iterator() {
         return facts.entrySet().iterator();
