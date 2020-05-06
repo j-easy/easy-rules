@@ -29,7 +29,6 @@ import org.jeasy.rules.support.*;
 
 import org.springframework.expression.BeanResolver;
 import org.springframework.expression.ParserContext;
-import org.springframework.expression.common.TemplateParserContext;
 
 import java.io.Reader;
 import java.util.List;
@@ -39,62 +38,80 @@ import java.util.List;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class SpELRuleFactory extends AbstractRuleFactory<ParserContext> {
+public class SpELRuleFactory extends AbstractRuleFactory {
 
-    private RuleDefinitionReader reader;
+    private final RuleDefinitionReader reader;
     private BeanResolver beanResolver;
+    private ParserContext parserContext;
 
     /**
      * Create a new {@link SpELRuleFactory} with a given reader.
      *
-     * @param reader to use to read rule definitions
+     * @param reader used to read rule definitions
      * @see YamlRuleDefinitionReader
      * @see JsonRuleDefinitionReader
      */
     public SpELRuleFactory(RuleDefinitionReader reader) {
-        this.reader = reader;
+        this(reader, ParserContext.TEMPLATE_EXPRESSION);
     }
 
     /**
      * Create a new {@link SpELRuleFactory} with a given reader.
      *
-     * @param reader to use to read rule definitions
-     * @param beanResolver to use to resolve bean references
+     * @param reader used to read rule definitions
+     * @param parserContext used to parse SpEL expressions
+     * @see YamlRuleDefinitionReader
+     * @see JsonRuleDefinitionReader
+     */
+    public SpELRuleFactory(RuleDefinitionReader reader, ParserContext parserContext) {
+        this.reader = reader;
+        this.parserContext = parserContext;
+    }
+
+    /**
+     * Create a new {@link SpELRuleFactory} with a given reader.
+     *
+     * @param reader used to read rule definitions
+     * @param beanResolver used to resolve bean references in SpEL expressions
      * @see YamlRuleDefinitionReader
      * @see JsonRuleDefinitionReader
      */
     public SpELRuleFactory(RuleDefinitionReader reader, BeanResolver beanResolver) {
-        this(reader);
+        this.reader = reader;
         this.beanResolver = beanResolver;
     }
 
     /**
-     * Create a new {@link SpELRule} from a Reader.
+     * Create a new {@link SpELRuleFactory} with a given reader.
      *
-     * @param ruleDescriptor as a Reader
-     * @return a new rule
+     * @param reader used to read rule definitions
+     * @param parserContext used to parse SpEL expressions
+     * @param beanResolver used to resolve bean references in SpEL expressions
+     * @see YamlRuleDefinitionReader
+     * @see JsonRuleDefinitionReader
      */
-    public Rule createRule(Reader ruleDescriptor) throws Exception {
-        return createRule(ruleDescriptor, ParserContext.TEMPLATE_EXPRESSION);
+    public SpELRuleFactory(RuleDefinitionReader reader, ParserContext parserContext, BeanResolver beanResolver) {
+        this.reader = reader;
+        this.parserContext = parserContext;
+        this.beanResolver = beanResolver;
     }
 
     /**
-     * Create a new {@link SpELRule} from a Reader.
-     *
+     * Create a new {@link SpELRule from a Reader.
+     * 
      * The rule descriptor should contain a single rule definition.
      * If no rule definitions are found, a {@link IllegalArgumentException} will be thrown.
      * If more than a rule is defined in the descriptor, the first rule will be returned.
      *
      * @param ruleDescriptor as a Reader
-     * @param parserContext the SpEL parser context
      * @return a new rule
      */
-    public Rule createRule(Reader ruleDescriptor, ParserContext parserContext) throws Exception {
+    public Rule createRule(Reader ruleDescriptor) throws Exception {
         List<RuleDefinition> ruleDefinitions = reader.read(ruleDescriptor);
         if (ruleDefinitions.isEmpty()) {
             throw new IllegalArgumentException("rule descriptor is empty");
         }
-        return createRule(ruleDefinitions.get(0), parserContext);
+        return createRule(ruleDefinitions.get(0));
     }
 
     /**
@@ -104,39 +121,22 @@ public class SpELRuleFactory extends AbstractRuleFactory<ParserContext> {
      * @return a set of rules
      */
     public Rules createRules(Reader rulesDescriptor) throws Exception {
-        return createRules(rulesDescriptor, ParserContext.TEMPLATE_EXPRESSION);
-    }
-
-    /**
-     * Create a set of {@link SpELRule} from a Reader.
-     *
-     * @param rulesDescriptor as a Reader
-     * @return a set of rules
-     */
-    public Rules createRules(Reader rulesDescriptor, ParserContext parserContext) throws Exception {
         Rules rules = new Rules();
         List<RuleDefinition> ruleDefinitions = reader.read(rulesDescriptor);
         for (RuleDefinition ruleDefinition : ruleDefinitions) {
-            rules.register(createRule(ruleDefinition, parserContext));
+            rules.register(createRule(ruleDefinition));
         }
         return rules;
     }
 
-    protected Rule createSimpleRule(RuleDefinition ruleDefinition, ParserContext parserContext) {
-        SpELRule spELRule = new SpELRule()
+    protected Rule createSimpleRule(RuleDefinition ruleDefinition) {
+        SpELRule spELRule = new SpELRule(parserContext, beanResolver)
                 .name(ruleDefinition.getName())
                 .description(ruleDefinition.getDescription())
-                .priority(ruleDefinition.getPriority());
-        if (beanResolver != null) {
-            spELRule.when(ruleDefinition.getCondition(), parserContext, beanResolver);
-            for (String action : ruleDefinition.getActions()) {
-                spELRule.then(action, parserContext, beanResolver);
-            }
-        } else {
-            spELRule.when(ruleDefinition.getCondition(), parserContext);
-            for (String action : ruleDefinition.getActions()) {
-                spELRule.then(action, parserContext);
-            }
+                .priority(ruleDefinition.getPriority())
+                .when(ruleDefinition.getCondition());
+        for (String action : ruleDefinition.getActions()) {
+            spELRule.then(action);
         }
         return spELRule;
     }

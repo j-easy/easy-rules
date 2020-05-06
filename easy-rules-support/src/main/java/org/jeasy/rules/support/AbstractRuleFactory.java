@@ -33,11 +33,9 @@ import java.util.List;
 /**
  * Base class for rule factories.
  *
- * @param <C> parser context type
- *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public abstract class AbstractRuleFactory<C> {
+public abstract class AbstractRuleFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRuleFactory.class);
 
@@ -47,17 +45,17 @@ public abstract class AbstractRuleFactory<C> {
             ActivationRuleGroup.class.getSimpleName()
     );
 
-    protected Rule createRule(RuleDefinition ruleDefinition, C context) {
+    protected Rule createRule(RuleDefinition ruleDefinition) {
         if (ruleDefinition.isCompositeRule()) {
-            return createCompositeRule(ruleDefinition, context);
+            return createCompositeRule(ruleDefinition);
         } else {
-            return createSimpleRule(ruleDefinition, context);
+            return createSimpleRule(ruleDefinition);
         }
     }
 
-    protected abstract Rule createSimpleRule(RuleDefinition ruleDefinition, C parserContext);
+    protected abstract Rule createSimpleRule(RuleDefinition ruleDefinition);
 
-    protected Rule createCompositeRule(RuleDefinition ruleDefinition, C parserContext) {
+    protected Rule createCompositeRule(RuleDefinition ruleDefinition) {
         if (ruleDefinition.getCondition() != null) {
             LOGGER.warn(
                     "Condition '{}' in composite rule '{}' of type {} will be ignored.",
@@ -91,7 +89,7 @@ public abstract class AbstractRuleFactory<C> {
         compositeRule.setPriority(ruleDefinition.getPriority());
 
         for (RuleDefinition composingRuleDefinition : ruleDefinition.getComposingRules()) {
-            compositeRule.addRule(createRule(composingRuleDefinition, parserContext));
+            compositeRule.addRule(createRule(composingRuleDefinition));
         }
 
         return compositeRule;

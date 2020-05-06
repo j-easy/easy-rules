@@ -42,12 +42,23 @@ public class MVELRule extends BasicRule {
 
     private Condition condition = Condition.FALSE;
     private List<Action> actions = new ArrayList<>();
+    private final ParserContext parserContext;
 
     /**
      * Create a new MVEL rule.
      */
     public MVELRule() {
+        this(new ParserContext());
+    }
+
+    /**
+     * Create a new MVEL rule.
+     * 
+     * @param parserContext used to parse condition/action expressions
+     */
+    public MVELRule(ParserContext parserContext) {
         super(Rule.DEFAULT_NAME, Rule.DEFAULT_DESCRIPTION, Rule.DEFAULT_PRIORITY);
+        this.parserContext = parserContext;
     }
 
     /**
@@ -89,16 +100,6 @@ public class MVELRule extends BasicRule {
      * @return this rule
      */
     public MVELRule when(String condition) {
-        return this.when(condition, new ParserContext());
-    }
-
-    /**
-     * Specify the rule's condition as MVEL expression.
-     * @param condition of the rule
-     * @param parserContext the MVEL parser context
-     * @return this rule
-     */
-    public MVELRule when(String condition, ParserContext parserContext) {
         this.condition = new MVELCondition(condition, parserContext);
         return this;
     }
@@ -109,16 +110,6 @@ public class MVELRule extends BasicRule {
      * @return this rule
      */
     public MVELRule then(String action) {
-        return this.then(action, new ParserContext());
-    }
-
-    /**
-     * Add an action specified as an MVEL expression to the rule.
-     * @param action to add to the rule
-     * @param parserContext the MVEL parser context
-     * @return this rule
-     */
-    public MVELRule then(String action, ParserContext parserContext) {
         this.actions.add(new MVELAction(action, parserContext));
         return this;
     }

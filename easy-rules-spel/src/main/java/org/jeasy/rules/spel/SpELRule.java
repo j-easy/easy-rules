@@ -44,12 +44,47 @@ public class SpELRule extends BasicRule {
 
     private Condition condition = Condition.FALSE;
     private List<Action> actions = new ArrayList<>();
+    private final ParserContext parserContext;
+    private BeanResolver beanResolver;
 
     /**
      * Create a new SpEL rule.
      */
     public SpELRule() {
+        this(ParserContext.TEMPLATE_EXPRESSION);
+    }
+
+    /**
+     * Create a new SpEL rule.
+     * 
+     * @param parserContext used when parsing expressions
+     */
+    public SpELRule(ParserContext parserContext) {
         super(Rule.DEFAULT_NAME, Rule.DEFAULT_DESCRIPTION, Rule.DEFAULT_PRIORITY);
+        this.parserContext = parserContext;
+    }
+
+    /**
+     * Create a new SpEL rule.
+     *
+     * @param beanResolver used to resolve bean references in expressions
+     */
+    public SpELRule(BeanResolver beanResolver) {
+        super(Rule.DEFAULT_NAME, Rule.DEFAULT_DESCRIPTION, Rule.DEFAULT_PRIORITY);
+        this.parserContext = ParserContext.TEMPLATE_EXPRESSION;
+        this.beanResolver = beanResolver;
+    }
+
+    /**
+     * Create a new SpEL rule.
+     *
+     * @param parserContext used when parsing expressions
+     * @param beanResolver used to resolve bean references in expressions
+     */
+    public SpELRule(ParserContext parserContext, BeanResolver beanResolver) {
+        super(Rule.DEFAULT_NAME, Rule.DEFAULT_DESCRIPTION, Rule.DEFAULT_PRIORITY);
+        this.parserContext = parserContext;
+        this.beanResolver = beanResolver;
     }
 
     /**
@@ -91,40 +126,6 @@ public class SpELRule extends BasicRule {
      * @return this rule
      */
     public SpELRule when(String condition) {
-        this.condition = new SpELCondition(condition);
-        return this;
-    }
-
-    /**
-     * Specify the rule's condition as SpEL expression.
-     * @param condition of the rule
-     * @param beanResolver to use to resolve bean references
-     * @return this rule
-     */
-    public SpELRule when(String condition, BeanResolver beanResolver) {
-        this.condition = new SpELCondition(condition, beanResolver);
-        return this;
-    }
-
-    /**
-     * Specify the rule's condition as SpEL expression.
-     * @param condition of the rule
-     * @param parserContext the SpEL parser context
-     * @return this rule
-     */
-    public SpELRule when(String condition, ParserContext parserContext) {
-        this.condition = new SpELCondition(condition, parserContext);
-        return this;
-    }
-
-    /**
-     * Specify the rule's condition as SpEL expression.
-     * @param condition of the rule
-     * @param parserContext the SpEL parser context
-     * @param beanResolver to use to resolve bean references
-     * @return this rule
-     */
-    public SpELRule when(String condition, ParserContext parserContext, BeanResolver beanResolver) {
         this.condition = new SpELCondition(condition, parserContext, beanResolver);
         return this;
     }
@@ -135,44 +136,9 @@ public class SpELRule extends BasicRule {
      * @return this rule
      */
     public SpELRule then(String action) {
-        this.actions.add(new SpELAction(action));
-        return this;
-    }
-
-    /**
-     * Add an action specified as an SpEL expression to the rule.
-     * @param action to add to the rule
-     * @param beanResolver to use to resolve bean references
-     * @return this rule
-     */
-    public SpELRule then(String action, BeanResolver beanResolver) {
-        this.actions.add(new SpELAction(action, beanResolver));
-        return this;
-    }
-
-    /**
-     * Add an action specified as an SpEL expression to the rule.
-     * @param action to add to the rule
-     * @param parserContext the SpEL parser context
-     * @return this rule
-     */
-    public SpELRule then(String action, ParserContext parserContext) {
-        this.actions.add(new SpELAction(action, parserContext));
-        return this;
-    }
-
-    /**
-     * Add an action specified as an SpEL expression to the rule.
-     * @param action to add to the rule
-     * @param parserContext the SpEL parser context
-     * @param beanResolver to use to resolve bean references
-     * @return this rule
-     */
-    public SpELRule then(String action, ParserContext parserContext, BeanResolver beanResolver) {
         this.actions.add(new SpELAction(action, parserContext, beanResolver));
         return this;
     }
-
 
     @Override
     public boolean evaluate(Facts facts) {

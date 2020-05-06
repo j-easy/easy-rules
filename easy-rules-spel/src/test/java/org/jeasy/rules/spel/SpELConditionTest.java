@@ -89,11 +89,11 @@ public class SpELConditionTest {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MySpringAppConfig.class);
         BeanResolver beanResolver = new SimpleBeanResolver(applicationContext);
 
-        SpELRule spELRule = new SpELRule();
+        SpELRule spELRule = new SpELRule(beanResolver);
         // setting an condition to be evaluated
         spELRule.when("#{ ['person'].age >= 18 }");
         // provided an bean resolver that can resolve "myGreeter"
-        spELRule.then("#{ @myGreeter.greeting(#person.name) }", beanResolver);
+        spELRule.then("#{ @myGreeter.greeting(#person.name) }");
 
         // given
         Facts facts = new Facts();
