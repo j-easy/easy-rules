@@ -36,8 +36,8 @@
     </issueManagement>
 
     <ciManagement>
-        <system>Travis CI</system>
-        <url>https://travis-ci.org/j-easy/easy-rules</url>
+        <system>Github Actions</system>
+        <url>https://github.com/j-easy/easy-rules/actions</url>
     </ciManagement>
 
     <licenses>
