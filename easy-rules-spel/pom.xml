@@ -13,7 +13,7 @@
     <description>Spring Expression Language integration module</description>
 
     <properties>
-        <spring.version>4.3.24.RELEASE</spring.version>
+        <spring.version>5.2.6.RELEASE</spring.version>
     </properties>
 
     <scm>
@@ -72,7 +72,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j-api.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

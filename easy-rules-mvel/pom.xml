@@ -13,7 +13,7 @@
     <description>MVEL integration module</description>
 
     <properties>
-        <mvel2.version>2.4.3.Final</mvel2.version>
+        <mvel2.version>2.4.7.Final</mvel2.version>
     </properties>
 
     <scm>
@@ -59,11 +59,9 @@
             <version>${project.version}</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j-api.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
