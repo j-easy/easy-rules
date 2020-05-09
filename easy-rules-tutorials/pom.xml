@@ -219,6 +219,9 @@
                         <version>${maven-exec-plugin.version}</version>
                         <configuration>
                             <mainClass>org.jeasy.rules.tutorials.shop.Launcher</mainClass>
+                            <arguments>
+                                <argument>${project.basedir}/src/main/java/org/jeasy/rules/tutorials/shop/alcohol-rule.yml</argument>
+                            </arguments>
                         </configuration>
                     </plugin>
                 </plugins>
