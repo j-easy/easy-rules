@@ -39,9 +39,9 @@ public class IndexServlet extends HttpServlet {
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
         if (isSuspicious(request)) {
-            out.print("Access denied");
+            out.print("Access denied\n");
         } else {
-            out.print("Welcome!");
+            out.print("Welcome!\n");
         }
     }
     
