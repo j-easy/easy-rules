@@ -44,7 +44,7 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 public class JsonRuleDefinitionReader extends AbstractRuleDefinitionReader {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     /**
      * Create a new {@link JsonRuleDefinitionReader}.

@@ -37,7 +37,7 @@ import java.io.Serializable;
  */
 public class MVELCondition implements Condition {
 
-    private Serializable compiledExpression;
+    private final Serializable compiledExpression;
 
     /**
      * Create a new {@link MVELCondition}.

@@ -41,8 +41,8 @@ public class MVELAction implements Action {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MVELAction.class);
 
-    private String expression;
-    private Serializable compiledExpression;
+    private final String expression;
+    private final Serializable compiledExpression;
 
     /**
      * Create a new {@link MVELAction}.

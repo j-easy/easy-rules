@@ -41,7 +41,7 @@ import java.util.List;
 public class MVELRule extends BasicRule {
 
     private Condition condition = Condition.FALSE;
-    private List<Action> actions = new ArrayList<>();
+    private final List<Action> actions = new ArrayList<>();
     private final ParserContext parserContext;
 
     /**

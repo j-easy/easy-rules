@@ -27,13 +27,12 @@ import org.jeasy.rules.api.Action;
 import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class DefaultRule extends BasicRule {
 
-    private Condition condition = Condition.FALSE;
-    private List<Action> actions = new ArrayList<>();
+    private final Condition condition;
+    private final List<Action> actions;
 
     DefaultRule(String name, String description, int priority, Condition condition, List<Action> actions) {
         super(name, description, priority);

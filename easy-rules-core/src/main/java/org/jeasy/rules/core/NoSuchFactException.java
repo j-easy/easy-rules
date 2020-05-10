@@ -25,7 +25,7 @@ package org.jeasy.rules.core;
 
 class NoSuchFactException extends RuntimeException {
 
-    private String missingFact;
+    private final String missingFact;
 
     public NoSuchFactException(String message, String missingFact) {
         super(message);

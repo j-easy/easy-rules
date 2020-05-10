@@ -32,9 +32,9 @@ import java.lang.reflect.Method;
  */
 class ActionMethodOrderBean implements Comparable<ActionMethodOrderBean> {
 
-    private Method method;
+    private final Method method;
 
-    private int order;
+    private final int order;
 
     ActionMethodOrderBean(final Method method, final int order) {
         this.method = method;

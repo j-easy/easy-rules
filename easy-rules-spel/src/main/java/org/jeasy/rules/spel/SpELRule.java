@@ -43,7 +43,7 @@ import java.util.List;
 public class SpELRule extends BasicRule {
 
     private Condition condition = Condition.FALSE;
-    private List<Action> actions = new ArrayList<>();
+    private final List<Action> actions = new ArrayList<>();
     private final ParserContext parserContext;
     private BeanResolver beanResolver;
 

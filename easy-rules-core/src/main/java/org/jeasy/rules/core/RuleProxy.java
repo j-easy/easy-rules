@@ -48,7 +48,7 @@ import static java.lang.String.format;
  */
 public class RuleProxy implements InvocationHandler {
 
-    private Object target;
+    private final Object target;
     private String name;
     private String description;
     private Integer priority;
@@ -59,7 +59,7 @@ public class RuleProxy implements InvocationHandler {
     private Method toStringMethod;
     private org.jeasy.rules.annotation.Rule annotation;
 
-    private static RuleDefinitionValidator ruleDefinitionValidator = new RuleDefinitionValidator();
+    private static final RuleDefinitionValidator ruleDefinitionValidator = new RuleDefinitionValidator();
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuleProxy.class);
 

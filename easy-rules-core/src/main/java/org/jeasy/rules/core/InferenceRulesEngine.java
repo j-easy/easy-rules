@@ -42,7 +42,7 @@ public final class InferenceRulesEngine extends AbstractRulesEngine {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InferenceRulesEngine.class);
 
-    private DefaultRulesEngine delegate;
+    private final DefaultRulesEngine delegate;
 
     /**
      * Create a new inference rules engine with default parameters.

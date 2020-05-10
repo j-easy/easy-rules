@@ -42,7 +42,7 @@ public class RuleBuilder {
     private int priority = Rule.DEFAULT_PRIORITY;
 
     private Condition condition = Condition.FALSE;
-    private List<Action> actions = new ArrayList<>();
+    private final List<Action> actions = new ArrayList<>();
 
     /**
      * Set rule name.

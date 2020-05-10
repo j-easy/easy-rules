@@ -45,7 +45,7 @@ public abstract class CompositeRule extends BasicRule {
      */
     protected Set<Rule> rules;
 
-    private Map<Object, Rule> proxyRules;
+    private final Map<Object, Rule> proxyRules;
 
     /**
      * Create a new {@link CompositeRule}.

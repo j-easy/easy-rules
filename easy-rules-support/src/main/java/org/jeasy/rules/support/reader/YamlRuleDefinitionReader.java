@@ -46,7 +46,7 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 public class YamlRuleDefinitionReader extends AbstractRuleDefinitionReader {
 
-    private Yaml yaml;
+    private final Yaml yaml;
 
     /**
      * Create a new {@link YamlRuleDefinitionReader}.
