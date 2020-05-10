@@ -21,37 +21,55 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.spel;
-
-import org.jeasy.rules.api.Rule;
-import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.support.reader.JsonRuleDefinitionReader;
-import org.jeasy.rules.support.composite.UnitRuleGroup;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+package org.jeasy.rules.mvel;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
+
+import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.support.composite.UnitRuleGroup;
+import org.jeasy.rules.support.reader.JsonRuleDefinitionReader;
+import org.jeasy.rules.support.reader.YamlRuleDefinitionReader;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO use parametrized test to merge this test class with SpELYamlRuleFactoryTest
-public class SpELJsonRuleFactoryTest {
+@RunWith(Parameterized.class)
+public class MVELRuleFactoryTest {
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> parameters() {
+        return Arrays.asList(new Object[][] {
+                { new MVELRuleFactory(new YamlRuleDefinitionReader()), "yml" },
+                { new MVELRuleFactory(new JsonRuleDefinitionReader()), "json" },
+        });
+    }
 
     @org.junit.Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    private SpELRuleFactory factory = new SpELRuleFactory(new JsonRuleDefinitionReader());
+    @Parameterized.Parameter(0)
+    public MVELRuleFactory factory;
+
+    @Parameterized.Parameter(1)
+    public String fileExtension;
 
     @Test
     public void testRulesCreation() throws Exception {
         // given
-        File rulesDescriptor = new File("src/test/resources/rules.json");
+        File rulesDescriptor = new File("src/test/resources/rules." + fileExtension);
 
         // when
         Rules rules = factory.createRules(new FileReader(rulesDescriptor));
@@ -76,7 +94,7 @@ public class SpELJsonRuleFactoryTest {
     @Test
     public void testRuleCreationFromFileReader() throws Exception {
         // given
-        Reader adultRuleDescriptorAsReader = new FileReader("src/test/resources/adult-rule.json");
+        Reader adultRuleDescriptorAsReader = new FileReader("src/test/resources/adult-rule." + fileExtension);
 
         // when
         Rule adultRule = factory.createRule(adultRuleDescriptorAsReader);
@@ -90,7 +108,8 @@ public class SpELJsonRuleFactoryTest {
     @Test
     public void testRuleCreationFromStringReader() throws Exception {
         // given
-        Reader adultRuleDescriptorAsReader = new StringReader(new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.json"))));
+        Path ruleDescriptor = Paths.get("src/test/resources/adult-rule." + fileExtension);
+        Reader adultRuleDescriptorAsReader = new StringReader(new String(Files.readAllBytes(ruleDescriptor)));
 
         // when
         Rule adultRule = factory.createRule(adultRuleDescriptorAsReader);
@@ -104,7 +123,7 @@ public class SpELJsonRuleFactoryTest {
     @Test
     public void testRuleCreationFromFileReader_withCompositeRules() throws Exception {
         // given
-        File rulesDescriptor = new File("src/test/resources/composite-rules.json");
+        File rulesDescriptor = new File("src/test/resources/composite-rules." + fileExtension);
 
         // when
         Rules rules = factory.createRules(new FileReader(rulesDescriptor));
@@ -132,7 +151,7 @@ public class SpELJsonRuleFactoryTest {
         // given
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Invalid composite rule type, must be one of [UnitRuleGroup, ConditionalRuleGroup, ActivationRuleGroup]");
-        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-composite-rule-type.json");
+        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-composite-rule-type." + fileExtension);
 
         // when
         Rule rule = factory.createRule(new FileReader(rulesDescriptor));
@@ -146,7 +165,7 @@ public class SpELJsonRuleFactoryTest {
         // given
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Composite rules must have composing rules specified");
-        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-empty-composing-rules.json");
+        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-empty-composing-rules." + fileExtension);
 
         // when
         Rule rule = factory.createRule(new FileReader(rulesDescriptor));
@@ -160,7 +179,7 @@ public class SpELJsonRuleFactoryTest {
         // given
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Non-composite rules cannot have composing rules");
-        File rulesDescriptor = new File("src/test/resources/non-composite-rule-with-composing-rules.json");
+        File rulesDescriptor = new File("src/test/resources/non-composite-rule-with-composing-rules." + fileExtension);
 
         // when
         Rule rule = factory.createRule(new FileReader(rulesDescriptor));

@@ -23,35 +23,53 @@
  */
 package org.jeasy.rules.spel;
 
-import org.jeasy.rules.api.Rule;
-import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.support.composite.UnitRuleGroup;
-import org.jeasy.rules.support.reader.YamlRuleDefinitionReader;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
+
+import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.support.composite.UnitRuleGroup;
+import org.jeasy.rules.support.reader.JsonRuleDefinitionReader;
+import org.jeasy.rules.support.reader.YamlRuleDefinitionReader;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO use parametrized test to merge this test class with SpELJsonRuleFactoryTest
-public class SpELYamlRuleFactoryTest {
+@RunWith(Parameterized.class)
+public class SpELRuleFactoryTest {
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> parameters() {
+        return Arrays.asList(new Object[][] {
+                { new SpELRuleFactory(new YamlRuleDefinitionReader()), "yml" },
+                { new SpELRuleFactory(new JsonRuleDefinitionReader()), "json" },
+        });
+    }
 
     @org.junit.Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    private SpELRuleFactory factory = new SpELRuleFactory(new YamlRuleDefinitionReader());
+    @Parameterized.Parameter(0)
+    public SpELRuleFactory factory;
+
+    @Parameterized.Parameter(1)
+    public String fileExtension;
 
     @Test
     public void testRulesCreation() throws Exception {
         // given
-        File rulesDescriptor = new File("src/test/resources/rules.yml");
+        File rulesDescriptor = new File("src/test/resources/rules." + fileExtension);
 
         // when
         Rules rules = factory.createRules(new FileReader(rulesDescriptor));
@@ -76,7 +94,7 @@ public class SpELYamlRuleFactoryTest {
     @Test
     public void testRuleCreationFromFileReader() throws Exception {
         // given
-        Reader adultRuleDescriptorAsReader = new FileReader("src/test/resources/adult-rule.yml");
+        Reader adultRuleDescriptorAsReader = new FileReader("src/test/resources/adult-rule." + fileExtension);
 
         // when
         Rule adultRule = factory.createRule(adultRuleDescriptorAsReader);
@@ -90,7 +108,8 @@ public class SpELYamlRuleFactoryTest {
     @Test
     public void testRuleCreationFromStringReader() throws Exception {
         // given
-        Reader adultRuleDescriptorAsReader = new StringReader(new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.yml"))));
+        Path ruleDescriptor = Paths.get("src/test/resources/adult-rule." + fileExtension);
+        Reader adultRuleDescriptorAsReader = new StringReader(new String(Files.readAllBytes(ruleDescriptor)));
 
         // when
         Rule adultRule = factory.createRule(adultRuleDescriptorAsReader);
@@ -104,7 +123,7 @@ public class SpELYamlRuleFactoryTest {
     @Test
     public void testRuleCreationFromFileReader_withCompositeRules() throws Exception {
         // given
-        File rulesDescriptor = new File("src/test/resources/composite-rules.yml");
+        File rulesDescriptor = new File("src/test/resources/composite-rules." + fileExtension);
 
         // when
         Rules rules = factory.createRules(new FileReader(rulesDescriptor));
@@ -132,7 +151,7 @@ public class SpELYamlRuleFactoryTest {
         // given
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Invalid composite rule type, must be one of [UnitRuleGroup, ConditionalRuleGroup, ActivationRuleGroup]");
-        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-composite-rule-type.yml");
+        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-composite-rule-type." + fileExtension);
 
         // when
         Rule rule = factory.createRule(new FileReader(rulesDescriptor));
@@ -146,7 +165,7 @@ public class SpELYamlRuleFactoryTest {
         // given
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Composite rules must have composing rules specified");
-        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-empty-composing-rules.yml");
+        File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-empty-composing-rules." + fileExtension);
 
         // when
         Rule rule = factory.createRule(new FileReader(rulesDescriptor));
@@ -160,7 +179,7 @@ public class SpELYamlRuleFactoryTest {
         // given
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Non-composite rules cannot have composing rules");
-        File rulesDescriptor = new File("src/test/resources/non-composite-rule-with-composing-rules.yml");
+        File rulesDescriptor = new File("src/test/resources/non-composite-rule-with-composing-rules." + fileExtension);
 
         // when
         Rule rule = factory.createRule(new FileReader(rulesDescriptor));
