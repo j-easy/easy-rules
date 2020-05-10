@@ -34,13 +34,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.assertj.core.api.Assertions;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.support.composite.UnitRuleGroup;
 import org.jeasy.rules.support.reader.JsonRuleDefinitionReader;
 import org.jeasy.rules.support.reader.YamlRuleDefinitionReader;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -56,9 +56,6 @@ public class SpELRuleFactoryTest {
                 { new SpELRuleFactory(new JsonRuleDefinitionReader()), "json" },
         });
     }
-
-    @org.junit.Rule
-    public ExpectedException expectedException = ExpectedException.none();
 
     @Parameterized.Parameter(0)
     public SpELRuleFactory factory;
@@ -147,44 +144,38 @@ public class SpELRuleFactoryTest {
     }
 
     @Test
-    public void testRuleCreationFromFileReader_withInvalidCompositeRuleType() throws Exception {
+    public void testRuleCreationFromFileReader_withInvalidCompositeRuleType() {
         // given
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Invalid composite rule type, must be one of [UnitRuleGroup, ConditionalRuleGroup, ActivationRuleGroup]");
         File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-composite-rule-type." + fileExtension);
 
         // when
-        Rule rule = factory.createRule(new FileReader(rulesDescriptor));
-
-        // then
-        // expected exception
+        Assertions.assertThatThrownBy(() -> factory.createRule(new FileReader(rulesDescriptor)))
+                // then
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Invalid composite rule type, must be one of [UnitRuleGroup, ConditionalRuleGroup, ActivationRuleGroup]");
     }
 
     @Test
-    public void testRuleCreationFromFileReader_withEmptyComposingRules() throws Exception {
+    public void testRuleCreationFromFileReader_withEmptyComposingRules() {
         // given
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Composite rules must have composing rules specified");
         File rulesDescriptor = new File("src/test/resources/composite-rule-invalid-empty-composing-rules." + fileExtension);
 
         // when
-        Rule rule = factory.createRule(new FileReader(rulesDescriptor));
-
-        // then
-        // expected exception
+        Assertions.assertThatThrownBy(() -> factory.createRule(new FileReader(rulesDescriptor)))
+                // then
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Composite rules must have composing rules specified");
     }
 
     @Test
-    public void testRuleCreationFromFileReader_withNonCompositeRuleDeclaresComposingRules() throws Exception {
+    public void testRuleCreationFromFileReader_withNonCompositeRuleDeclaresComposingRules() {
         // given
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Non-composite rules cannot have composing rules");
         File rulesDescriptor = new File("src/test/resources/non-composite-rule-with-composing-rules." + fileExtension);
 
         // when
-        Rule rule = factory.createRule(new FileReader(rulesDescriptor));
-
-        // then
-        // expected exception
+        Assertions.assertThatThrownBy(() -> factory.createRule(new FileReader(rulesDescriptor)))
+                // then
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Non-composite rules cannot have composing rules");
     }
 }

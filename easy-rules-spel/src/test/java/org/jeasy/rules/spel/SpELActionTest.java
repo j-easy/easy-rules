@@ -28,19 +28,16 @@ import org.jeasy.rules.api.Facts;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
-import org.junit.rules.ExpectedException;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.common.TemplateParserContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class SpELActionTest {
 
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-
-    @Rule
-    public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void testSpELActionExecution() throws Exception {
@@ -71,20 +68,18 @@ public class SpELActionTest {
     }
 
     @Test
-    public void testSpELActionExecutionWithFailure() throws Exception {
+    public void testSpELActionExecutionWithFailure() {
         // given
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("EL1004E: Method call: Method sayHi() cannot be found on type org.jeasy.rules.spel.Person");
         Action action = new SpELAction("#{ T(org.jeasy.rules.spel.Person).sayHi() }");
         Facts facts = new Facts();
         Person foo = new Person("foo", 20);
         facts.put("person", foo);
 
         // when
-        action.execute(facts);
-
-        // then
-        // excepted exception
+        assertThatThrownBy(() -> action.execute(facts))
+                // then
+                .isInstanceOf(Exception.class)
+                .hasMessage("EL1004E: Method call: Method sayHi() cannot be found on type org.jeasy.rules.spel.Person");
     }
 
     @Test

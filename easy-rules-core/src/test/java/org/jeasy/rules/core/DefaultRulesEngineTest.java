@@ -24,6 +24,7 @@
 package org.jeasy.rules.core;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
@@ -36,21 +37,15 @@ import org.assertj.core.api.Assertions;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Priority;
-import org.jeasy.rules.api.Fact;
 import org.jeasy.rules.api.RuleListener;
 import org.jeasy.rules.api.RulesEngineListener;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 
 public class DefaultRulesEngineTest extends AbstractTest {
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
 
     @Mock
     private RuleListener ruleListener;
@@ -236,16 +231,14 @@ public class DefaultRulesEngineTest extends AbstractTest {
     @Test
     public void getRuleListenersShouldReturnAnUnmodifiableList() {
         // Given
-        expectedException.expect(UnsupportedOperationException.class);
         DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.registerRuleListener(ruleListener);
 
         // When
         List<RuleListener> ruleListeners = rulesEngine.getRuleListeners();
-        ruleListeners.clear();
 
         // Then
-        // expected exception
+        assertThatThrownBy(ruleListeners::clear).isInstanceOf(UnsupportedOperationException.class);
     }
 
     @Test
@@ -264,16 +257,14 @@ public class DefaultRulesEngineTest extends AbstractTest {
     @Test
     public void getRulesEngineListenersShouldReturnAnUnmodifiableList() {
         // Given
-        expectedException.expect(UnsupportedOperationException.class);
         DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
         rulesEngine.registerRulesEngineListener(rulesEngineListener);
 
         // When
         List<RulesEngineListener> rulesEngineListeners = rulesEngine.getRulesEngineListeners();
-        rulesEngineListeners.clear();
 
         // Then
-        // excepted exception
+        assertThatThrownBy(rulesEngineListeners::clear).isInstanceOf(UnsupportedOperationException.class);
     }
 
     @After
