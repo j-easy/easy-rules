@@ -23,7 +23,7 @@
  */
 package org.jeasy.rules.tutorials.fizzbuzz;
 
-import org.jeasy.rules.support.UnitRuleGroup;
+import org.jeasy.rules.support.composite.UnitRuleGroup;
 
 public class FizzBuzzRule extends UnitRuleGroup {
 

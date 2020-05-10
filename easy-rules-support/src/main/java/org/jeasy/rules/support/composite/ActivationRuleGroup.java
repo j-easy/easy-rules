@@ -21,68 +21,78 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.support;
+package org.jeasy.rules.support.composite;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 
+import java.util.TreeSet;
+
 /**
- * A unit rule group is a composite rule that acts as a unit: Either all rules are applied or nothing is applied.
+ * An activation rule group is a composite rule that fires the first applicable rule and ignores other rules in
+ * the group (XOR logic). Rules are first sorted by their natural order (priority by default) within the group.
  *
- *  @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class UnitRuleGroup extends CompositeRule {
+public class ActivationRuleGroup extends CompositeRule {
+
+    private Rule selectedRule;
 
     /**
-     * Create a unit rule group.
+     * Create an activation rule group.
      */
-    public UnitRuleGroup() {
+    public ActivationRuleGroup() {
+        rules = new TreeSet<>(rules);
     }
 
     /**
-     * Create a unit rule group.
-     * @param name of the composite rule
+     * Create an activation rule group.
+     *
+     * @param name of the activation rule group
      */
-    public UnitRuleGroup(String name) {
+    public ActivationRuleGroup(String name) {
         super(name);
+        rules = new TreeSet<>(rules);
     }
 
     /**
-     * Create a unit rule group.
-     * @param name of the composite rule
-     * @param description of the composite rule
+     * Create a conditional rule group.
+     *
+     * @param name        of the activation rule group
+     * @param description of the activation rule group
      */
-    public UnitRuleGroup(String name, String description) {
+    public ActivationRuleGroup(String name, String description) {
         super(name, description);
+        rules = new TreeSet<>(rules);
     }
 
     /**
-     * Create a unit rule group.
-     * @param name of the composite rule
-     * @param description of the composite rule
-     * @param priority of the composite rule
+     * Create an activation rule group.
+     *
+     * @param name        of the activation rule group
+     * @param description of the activation rule group
+     * @param priority    of the activation rule group
      */
-    public UnitRuleGroup(String name, String description, int priority) {
+    public ActivationRuleGroup(String name, String description, int priority) {
         super(name, description, priority);
+        rules = new TreeSet<>(rules);
     }
 
     @Override
     public boolean evaluate(Facts facts) {
-        if (!rules.isEmpty()) {
-            for (Rule rule : rules) {
-                if (!rule.evaluate(facts)) {
-                    return false;
-                }
+        for (Rule rule : rules) {
+            if (rule.evaluate(facts)) {
+                selectedRule = rule;
+                return true;
             }
-            return true;
         }
         return false;
     }
 
     @Override
     public void execute(Facts facts) throws Exception {
-        for (Rule rule : rules) {
-            rule.execute(facts);
+        if (selectedRule != null) {
+            selectedRule.execute(facts);
         }
     }
 }

@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.support;
+package org.jeasy.rules.support.composite;
 
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
@@ -51,7 +51,7 @@ public class UnitRuleGroupTest {
 
     private DefaultRulesEngine rulesEngine = new DefaultRulesEngine();
 
-    private org.jeasy.rules.support.UnitRuleGroup unitRuleGroup;
+    private UnitRuleGroup unitRuleGroup;
 
 
     @Before
