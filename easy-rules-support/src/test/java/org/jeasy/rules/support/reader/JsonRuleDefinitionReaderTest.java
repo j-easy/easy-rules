@@ -21,9 +21,10 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.support;
+package org.jeasy.rules.support.reader;
 
 import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.support.RuleDefinition;
 import org.junit.Test;
 
 import java.io.File;
@@ -36,15 +37,15 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO use parametrized test to merge this test class with JsonRuleDefinitionReaderTest
-public class YamlRuleDefinitionReaderTest {
+// TODO use parametrized test to merge this test class with YamlRuleDefinitionReaderTest.
+public class JsonRuleDefinitionReaderTest {
 
-    private RuleDefinitionReader ruleDefinitionReader = new YamlRuleDefinitionReader();
+    private RuleDefinitionReader ruleDefinitionReader = new JsonRuleDefinitionReader();
 
     @Test
     public void testRuleDefinitionReadingFromFile() throws Exception {
         // given
-        File adultRuleDescriptor = new File("src/test/resources/adult-rule.yml");
+        File adultRuleDescriptor = new File("src/test/resources/adult-rule.json");
 
         // when
         List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
@@ -63,7 +64,7 @@ public class YamlRuleDefinitionReaderTest {
     @Test
     public void testRuleDefinitionReadingFromString() throws Exception {
         // given
-        String adultRuleDescriptor = new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.yml")));
+        String adultRuleDescriptor = new String(Files.readAllBytes(Paths.get("src/test/resources/adult-rule.json")));
 
         // when
         List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new StringReader(adultRuleDescriptor));
@@ -82,7 +83,7 @@ public class YamlRuleDefinitionReaderTest {
     @Test
     public void testRuleDefinitionReading_withDefaultValues() throws Exception {
         // given
-        File adultRuleDescriptor = new File("src/test/resources/adult-rule-with-default-values.yml");
+        File adultRuleDescriptor = new File("src/test/resources/adult-rule-with-default-values.json");
 
         // when
         List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
@@ -101,7 +102,7 @@ public class YamlRuleDefinitionReaderTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidRuleDefinitionReading_whenNoCondition() throws Exception {
         // given
-        File adultRuleDescriptor = new File("src/test/resources/adult-rule-without-condition.yml");
+        File adultRuleDescriptor = new File("src/test/resources/adult-rule-without-condition.json");
 
         // when
         List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
@@ -113,7 +114,7 @@ public class YamlRuleDefinitionReaderTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidRuleDefinitionReading_whenNoActions() throws Exception {
         // given
-        File adultRuleDescriptor = new File("src/test/resources/adult-rule-without-actions.yml");
+        File adultRuleDescriptor = new File("src/test/resources/adult-rule-without-actions.json");
 
         // when
         List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(adultRuleDescriptor));
@@ -125,7 +126,7 @@ public class YamlRuleDefinitionReaderTest {
     @Test
     public void testRulesDefinitionReading() throws Exception {
         // given
-        File rulesDescriptor = new File("src/test/resources/rules.yml");
+        File rulesDescriptor = new File("src/test/resources/rules.json");
 
         // when
         List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(rulesDescriptor));
@@ -152,7 +153,7 @@ public class YamlRuleDefinitionReaderTest {
     @Test
     public void testEmptyRulesDefinitionReading() throws Exception {
         // given
-        File rulesDescriptor = new File("src/test/resources/rules-empty.yml");
+        File rulesDescriptor = new File("src/test/resources/rules-empty.json");
 
         // when
         List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(rulesDescriptor));
@@ -164,7 +165,7 @@ public class YamlRuleDefinitionReaderTest {
     @Test
     public void testRuleDefinitionReading_withCompositeAndBasicRules() throws Exception {
         // given
-        File compositeRuleDescriptor = new File("src/test/resources/composite-rules.yml");
+        File compositeRuleDescriptor = new File("src/test/resources/composite-rules.json");
 
         // when
         List<RuleDefinition> ruleDefinitions = ruleDefinitionReader.read(new FileReader(compositeRuleDescriptor));

@@ -21,9 +21,10 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.support;
+package org.jeasy.rules.support.reader;
 
 import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.support.RuleDefinition;
 
 import java.io.Reader;
 import java.util.ArrayList;

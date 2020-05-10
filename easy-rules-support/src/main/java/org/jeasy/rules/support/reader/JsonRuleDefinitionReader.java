@@ -21,32 +21,55 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.support;
+package org.jeasy.rules.support.reader;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
- * Strategy interface for {@link RuleDefinition} readers.
+ * Rule definition reader based on <a href="https://github.com/FasterXML/jackson">Jackson</a>.
  *
- * @see JsonRuleDefinitionReader
- * @see YamlRuleDefinitionReader
+ * This reader expects an array of rule definitions as input even for a single rule. For example:
+ *
+ * <pre>
+ *     [{rule1}, {rule2}]
+ * </pre>
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-@FunctionalInterface
-public interface RuleDefinitionReader {
+@SuppressWarnings("unchecked")
+public class JsonRuleDefinitionReader extends AbstractRuleDefinitionReader {
+
+    private ObjectMapper objectMapper;
 
     /**
-     * Read a list of rule definitions from a rule descriptor.
-     *
-     * <strong> The descriptor is expected to contain a collection of rule definitions
-     * even for a single rule.</strong>
-     *
-     * @param reader of the rules descriptor
-     * @return a list of rule definitions
-     * @throws Exception if a problem occurs during rule definition reading
+     * Create a new {@link JsonRuleDefinitionReader}.
      */
-    List<RuleDefinition> read(Reader reader) throws Exception;
+    public JsonRuleDefinitionReader() {
+        this(new ObjectMapper());
+    }
+
+    /**
+     * Create a new {@link JsonRuleDefinitionReader}.
+     *
+     * @param objectMapper to use to read rule definitions
+     */
+    public JsonRuleDefinitionReader(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    @Override
+    protected Iterable<Map<String, Object>> loadRules(Reader reader) throws Exception {
+        List<Map<String, Object>> rulesList = new ArrayList<>();
+        Object[] rules = objectMapper.readValue(reader, Object[].class);
+        for (Object rule : rules) {
+            rulesList.add((Map<String, Object>) rule);
+        }
+        return rulesList;
+    }
 
 }

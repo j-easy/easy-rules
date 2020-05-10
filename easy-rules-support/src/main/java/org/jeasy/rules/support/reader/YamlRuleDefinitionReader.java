@@ -21,9 +21,9 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.support;
+package org.jeasy.rules.support.reader;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.Reader;
 import java.util.ArrayList;
@@ -31,45 +31,46 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Rule definition reader based on <a href="https://github.com/FasterXML/jackson">Jackson</a>.
+ * Rule definition reader based on <a href="https://github.com/FasterXML/jackson-dataformats-text/tree/master/yaml">Jackson Yaml</a>.
  *
- * This reader expects an array of rule definitions as input even for a single rule. For example:
+ * This reader expects a collection of rule definitions as input even for a single rule. For example:
  *
  * <pre>
- *     [{rule1}, {rule2}]
+ *     rule1
+ *     ---
+ *     rule2
  * </pre>
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @SuppressWarnings("unchecked")
-public class JsonRuleDefinitionReader extends AbstractRuleDefinitionReader {
+public class YamlRuleDefinitionReader extends AbstractRuleDefinitionReader {
 
-    private ObjectMapper objectMapper;
+    private Yaml yaml;
 
     /**
-     * Create a new {@link JsonRuleDefinitionReader}.
+     * Create a new {@link YamlRuleDefinitionReader}.
      */
-    public JsonRuleDefinitionReader() {
-        this(new ObjectMapper());
+    public YamlRuleDefinitionReader() {
+        this(new Yaml());
     }
 
     /**
-     * Create a new {@link JsonRuleDefinitionReader}.
+     * Create a new {@link YamlRuleDefinitionReader}.
      *
-     * @param objectMapper to use to read rule definitions
+     * @param yaml to use to read rule definitions
      */
-    public JsonRuleDefinitionReader(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public YamlRuleDefinitionReader(Yaml yaml) {
+        this.yaml = yaml;
     }
 
     @Override
-    protected Iterable<Map<String, Object>> loadRules(Reader reader) throws Exception {
+    protected Iterable<Map<String, Object>> loadRules(Reader reader) {
         List<Map<String, Object>> rulesList = new ArrayList<>();
-        Object[] rules = objectMapper.readValue(reader, Object[].class);
+        Iterable<Object> rules = yaml.loadAll(reader);
         for (Object rule : rules) {
             rulesList.add((Map<String, Object>) rule);
         }
         return rulesList;
     }
-
 }

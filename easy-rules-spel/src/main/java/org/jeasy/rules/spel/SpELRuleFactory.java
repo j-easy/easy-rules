@@ -25,7 +25,11 @@ package org.jeasy.rules.spel;
 
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.support.*;
+import org.jeasy.rules.support.AbstractRuleFactory;
+import org.jeasy.rules.support.RuleDefinition;
+import org.jeasy.rules.support.reader.JsonRuleDefinitionReader;
+import org.jeasy.rules.support.reader.RuleDefinitionReader;
+import org.jeasy.rules.support.reader.YamlRuleDefinitionReader;
 
 import org.springframework.expression.BeanResolver;
 import org.springframework.expression.ParserContext;

@@ -21,56 +21,34 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.support;
-
-import org.yaml.snakeyaml.Yaml;
+package org.jeasy.rules.support.reader;
 
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import org.jeasy.rules.support.RuleDefinition;
 
 /**
- * Rule definition reader based on <a href="https://github.com/FasterXML/jackson-dataformats-text/tree/master/yaml">Jackson Yaml</a>.
+ * Strategy interface for {@link RuleDefinition} readers.
  *
- * This reader expects a collection of rule definitions as input even for a single rule. For example:
- *
- * <pre>
- *     rule1
- *     ---
- *     rule2
- * </pre>
+ * @see JsonRuleDefinitionReader
+ * @see YamlRuleDefinitionReader
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-@SuppressWarnings("unchecked")
-public class YamlRuleDefinitionReader extends AbstractRuleDefinitionReader {
-
-    private Yaml yaml;
+@FunctionalInterface
+public interface RuleDefinitionReader {
 
     /**
-     * Create a new {@link YamlRuleDefinitionReader}.
-     */
-    public YamlRuleDefinitionReader() {
-        this(new Yaml());
-    }
-
-    /**
-     * Create a new {@link YamlRuleDefinitionReader}.
+     * Read a list of rule definitions from a rule descriptor.
      *
-     * @param yaml to use to read rule definitions
+     * <strong> The descriptor is expected to contain a collection of rule definitions
+     * even for a single rule.</strong>
+     *
+     * @param reader of the rules descriptor
+     * @return a list of rule definitions
+     * @throws Exception if a problem occurs during rule definition reading
      */
-    public YamlRuleDefinitionReader(Yaml yaml) {
-        this.yaml = yaml;
-    }
+    List<RuleDefinition> read(Reader reader) throws Exception;
 
-    @Override
-    protected Iterable<Map<String, Object>> loadRules(Reader reader) {
-        List<Map<String, Object>> rulesList = new ArrayList<>();
-        Iterable<Object> rules = yaml.loadAll(reader);
-        for (Object rule : rules) {
-            rulesList.add((Map<String, Object>) rule);
-        }
-        return rulesList;
-    }
 }

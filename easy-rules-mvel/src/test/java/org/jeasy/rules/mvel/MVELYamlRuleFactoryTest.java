@@ -25,7 +25,7 @@ package org.jeasy.rules.mvel;
 
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.support.YamlRuleDefinitionReader;
+import org.jeasy.rules.support.reader.YamlRuleDefinitionReader;
 import org.jeasy.rules.support.UnitRuleGroup;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

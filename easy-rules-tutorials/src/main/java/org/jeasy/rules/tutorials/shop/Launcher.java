@@ -30,7 +30,7 @@ import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
-import org.jeasy.rules.support.YamlRuleDefinitionReader;
+import org.jeasy.rules.support.reader.YamlRuleDefinitionReader;
 
 import java.io.FileReader;
 
