@@ -28,6 +28,7 @@ import static java.lang.String.format;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import org.jeasy.rules.annotation.Action;
@@ -135,23 +136,22 @@ class RuleDefinitionValidator {
             return false;
         }
         if (notAnnotatedParameterCount == 1) {
-            Class<?>[] parameterTypes = method.getParameterTypes();
-            int index = getIndexOfParameterOfTypeFacts(method); // TODO use method.getParameters when moving to Java 8
-            return Facts.class.isAssignableFrom(parameterTypes[index]);
+            Parameter notAnnotatedParameter = getNotAnnotatedParameter(method);
+            if (notAnnotatedParameter != null) {
+                return Facts.class.isAssignableFrom(notAnnotatedParameter.getType());
+            }
         }
         return true;
     }
 
-    private int getIndexOfParameterOfTypeFacts(Method method) {
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        int index = 0;
-        for (Class<?> parameterType : parameterTypes) {
-            if (Facts.class.isAssignableFrom(parameterType)) {
-                return index;
+    private Parameter getNotAnnotatedParameter(Method method) {
+        Parameter[] parameters = method.getParameters();
+        for (Parameter parameter : parameters) {
+            if (parameter.getAnnotations().length == 0) {
+                return parameter;
             }
-            index++;
         }
-        return 0;
+        return null;
     }
 
     private boolean isActionMethodWellDefined(final Method method) {
