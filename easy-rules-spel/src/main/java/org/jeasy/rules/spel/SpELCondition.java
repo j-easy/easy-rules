@@ -47,7 +47,6 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 public class SpELCondition implements Condition {
 
     private final ExpressionParser parser = new SpelExpressionParser();
-
     private final Expression compiledExpression;
     private BeanResolver beanResolver;
 

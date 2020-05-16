@@ -51,7 +51,6 @@ public class SpELAction implements Action {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpELAction.class);
 
     private final ExpressionParser parser = new SpelExpressionParser();
-
     private final String expression;
     private final Expression compiledExpression;
     private BeanResolver beanResolver;

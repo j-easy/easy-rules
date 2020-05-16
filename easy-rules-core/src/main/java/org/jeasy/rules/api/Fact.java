@@ -35,7 +35,6 @@ import java.util.Objects;
 public class Fact<T> {
 	
 	private final String name;
-	
 	private final T value;
 
 	/**

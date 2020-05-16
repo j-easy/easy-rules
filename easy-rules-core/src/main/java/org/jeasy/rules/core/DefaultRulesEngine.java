@@ -89,8 +89,7 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
                 break;
             }
             if (!shouldBeEvaluated(rule, facts)) {
-                LOGGER.debug("Rule '{}' has been skipped before being evaluated",
-                    name);
+                LOGGER.debug("Rule '{}' has been skipped before being evaluated", name);
                 continue;
             }
             boolean evaluationResult = false;
