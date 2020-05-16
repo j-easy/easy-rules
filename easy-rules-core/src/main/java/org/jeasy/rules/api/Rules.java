@@ -25,7 +25,11 @@ package org.jeasy.rules.api;
 
 import org.jeasy.rules.core.RuleProxy;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * This class encapsulates a set of rules and represents a rules namespace.

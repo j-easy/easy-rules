@@ -23,7 +23,12 @@
  */
 package org.jeasy.rules.api;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * This class encapsulates a set of facts and represents a facts namespace.

@@ -23,7 +23,12 @@
  */
 package org.jeasy.rules.core;
 
-import org.jeasy.rules.api.*;
+import org.jeasy.rules.api.Fact;
+import org.jeasy.rules.api.Facts;
+import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.api.RulesEngineParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

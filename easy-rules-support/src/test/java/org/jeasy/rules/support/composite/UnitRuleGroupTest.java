@@ -28,7 +28,7 @@ import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.core.*;
+import org.jeasy.rules.core.DefaultRulesEngine;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

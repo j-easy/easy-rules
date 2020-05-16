@@ -30,7 +30,8 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 
 import static java.util.Arrays.asList;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.when;
 
 public class RulesEngineListenerTest extends AbstractTest {
 
