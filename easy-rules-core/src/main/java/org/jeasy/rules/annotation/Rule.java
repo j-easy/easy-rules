@@ -30,14 +30,13 @@ import java.lang.annotation.*;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Rule {
 
     /**
-     * The rule name which must be unique within an rules registry.
+     * The rule name which must be unique within a rules registry.
      * @return The rule name
      */
     String name() default org.jeasy.rules.api.Rule.DEFAULT_NAME;

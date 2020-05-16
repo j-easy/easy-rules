@@ -33,9 +33,9 @@ import java.util.Map;
 /**
  * Default {@link RulesEngine} implementation.
  *
- * This implementation handles a set of rules with unique names.
- *
  * Rules are fired according to their natural order which is priority by default.
+ * This implementation iterates over the sorted set of rules, evaluates the condition
+ * of each rule and executes its actions if the condition evaluates to true.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */

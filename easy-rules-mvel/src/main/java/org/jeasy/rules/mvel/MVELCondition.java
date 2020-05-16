@@ -31,7 +31,8 @@ import org.mvel2.ParserContext;
 import java.io.Serializable;
 
 /**
- * This class is an implementation of {@link Condition} that uses <a href="https://github.com/mvel/mvel">MVEL</a> to evaluate the condition.
+ * This class is an implementation of {@link Condition} that uses
+ * <a href="https://github.com/mvel/mvel">MVEL</a> to evaluate the condition.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
@@ -51,7 +52,7 @@ public class MVELCondition implements Condition {
     /**
      * Create a new {@link MVELCondition}.
      *
-     * @param expression    the condition written in expression language
+     * @param expression the condition written in expression language
      * @param parserContext the MVEL parser context
      */
     public MVELCondition(String expression, ParserContext parserContext) {

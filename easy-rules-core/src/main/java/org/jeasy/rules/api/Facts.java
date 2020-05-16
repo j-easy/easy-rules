@@ -26,7 +26,8 @@ package org.jeasy.rules.api;
 import java.util.*;
 
 /**
- * Represents a set of named facts. Facts have unique names within a <code>Facts</code> object.
+ * This class encapsulates a set of facts and represents a facts namespace.
+ * Facts have unique names within a <code>Facts</code> object.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
@@ -37,8 +38,8 @@ public class Facts implements Iterable<Fact<?>> {
     /**
      * Add a fact, replacing any fact with the same name.
      *
-     * @param name of the fact to add
-     * @param value of the fact to add
+     * @param name of the fact to add, must not be null
+     * @param value of the fact to add, must not be null
      */
     public <T> void put(String name, T value) {
         Objects.requireNonNull(name, "fact name must not be null");
@@ -53,7 +54,7 @@ public class Facts implements Iterable<Fact<?>> {
     /**
      * Add a fact, replacing any fact with the same name.
      * 
-     * @param fact to add
+     * @param fact to add, must not be null
      */
     public <T> void add(Fact<T> fact) {
         Objects.requireNonNull(fact, "fact must not be null");
@@ -67,7 +68,7 @@ public class Facts implements Iterable<Fact<?>> {
     /**
      * Remove a fact by name.
      *
-     * @param factName name of the fact to remove
+     * @param factName name of the fact to remove, must not be null
      */
     public void remove(String factName) {
         Objects.requireNonNull(factName, "fact name must not be null");
@@ -80,7 +81,7 @@ public class Facts implements Iterable<Fact<?>> {
     /**
      * Remove a fact.
      *
-     * @param fact to remove
+     * @param fact to remove, must not be null
      */
     public <T> void remove(Fact<T> fact) {
         Objects.requireNonNull(fact, "fact must not be null");
@@ -91,9 +92,10 @@ public class Facts implements Iterable<Fact<?>> {
      * Get the value of a fact by its name. This is a convenience method provided
      * as a short version of {@code getFact(factName).getValue()}.
      *
-     * @param factName name of the fact
+     * @param factName name of the fact, must not be null
      * @param <T> type of the fact's value
-     * @return the value of the fact having the given name, or {@code null} if there is no fact with the given name
+     * @return the value of the fact having the given name, or null if there is
+     * no fact with the given name
      */
     @SuppressWarnings("unchecked")
     public <T> T get(String factName) {
@@ -108,8 +110,8 @@ public class Facts implements Iterable<Fact<?>> {
     /**
      * Get a fact by name.
      *
-     * @param factName name of the fact
-     * @return the fact having the given name, or {@code null} if there is no fact with the given name
+     * @param factName name of the fact, must not be null
+     * @return the fact having the given name, or null if there is no fact with the given name
      */
     public Fact<?> getFact(String factName) {
         Objects.requireNonNull(factName, "fact name must not be null");

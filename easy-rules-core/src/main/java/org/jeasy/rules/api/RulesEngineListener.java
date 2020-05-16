@@ -34,7 +34,9 @@ public interface RulesEngineListener {
 
     /**
      * Triggered before evaluating the rule set.
-     * <strong>When this listener is used with a {@link InferenceRulesEngine}, this method will be triggered before the evaluation of each candidate rule set in each iteration.</strong>
+     * <strong>When this listener is used with a {@link InferenceRulesEngine},
+     * this method will be triggered before the evaluation of each candidate rule
+     * set in each iteration.</strong>
      *
      * @param rules to fire
      * @param facts present before firing rules
@@ -43,7 +45,9 @@ public interface RulesEngineListener {
 
     /**
      * Triggered after executing the rule set
-     * <strong>When this listener is used with a {@link InferenceRulesEngine}, this method will be triggered after the execution of each candidate rule set in each iteration.</strong>
+     * <strong>When this listener is used with a {@link InferenceRulesEngine},
+     * this method will be triggered after the execution of each candidate rule
+     * set in each iteration.</strong>
      *
      * @param rules fired
      * @param facts present after firing rules

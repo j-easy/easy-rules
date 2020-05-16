@@ -27,7 +27,8 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 
 /**
- * A unit rule group is a composite rule that acts as a unit: Either all rules are applied or nothing is applied.
+ * A unit rule group is a composite rule that acts as a unit: Either all rules are
+ * applied or nothing is applied (all or nothing semantic).
  *
  *  @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */

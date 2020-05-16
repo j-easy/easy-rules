@@ -69,7 +69,7 @@ public class Rules implements Iterable<Rule> {
     /**
      * Register a new rule.
      *
-     * @param rule to register
+     * @param rule to register, must not be null
      */
     public void register(Object rule) {
         Objects.requireNonNull(rule);
@@ -79,7 +79,7 @@ public class Rules implements Iterable<Rule> {
     /**
      * Unregister a rule.
      *
-     * @param rule to unregister
+     * @param rule to unregister, must not be null
      */
     public void unregister(Object rule) {
         Objects.requireNonNull(rule);
@@ -89,7 +89,7 @@ public class Rules implements Iterable<Rule> {
     /**
      * Unregister a rule by name.
      *
-     * @param ruleName the name of the rule to unregister
+     * @param ruleName name of the rule to unregister, must not be null
      */
     public void unregister(final String ruleName) {
         Objects.requireNonNull(ruleName);
@@ -115,6 +115,11 @@ public class Rules implements Iterable<Rule> {
         rules.clear();
     }
 
+    /**
+     * Return an iterator on the rules set. It is not intended to remove rules
+     * using this iterator.
+     * @return an iterator on the rules set
+     */
     @Override
     public Iterator<Rule> iterator() {
         return rules.iterator();

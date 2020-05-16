@@ -34,7 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A {@link org.jeasy.rules.api.Rule} implementation that uses <a href="https://github.com/mvel/mvel">MVEL</a> to evaluate and execute the rule.
+ * A {@link org.jeasy.rules.api.Rule} implementation that uses
+ * <a href="https://github.com/mvel/mvel">MVEL</a> to evaluate and execute the rule.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */

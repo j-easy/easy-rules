@@ -24,7 +24,7 @@
 package org.jeasy.rules.api;
 
 /**
- * A listener for rules execution events.
+ * A listener for rule execution events.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
@@ -78,7 +78,7 @@ public interface RuleListener {
     /**
      * Triggered after a rule has failed.
      *
-     * @param rule      the current rule
+     * @param rule the current rule
      * @param facts known facts after executing the rule
      * @param exception the exception thrown when attempting to execute the rule
      */

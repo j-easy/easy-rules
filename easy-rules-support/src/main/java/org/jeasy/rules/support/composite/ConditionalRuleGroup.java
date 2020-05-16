@@ -33,9 +33,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * A conditional rule group is a composite rule where the rule with the highest priority acts as a condition:
- * if the rule with the highest priority evaluates to true, then we try to evaluate the rest of the rules
- * and execute the ones that evaluate to true.
+ * A conditional rule group is a composite rule where the rule with the highest 
+ * priority acts as a condition: if the rule with the highest priority evaluates
+ * to true, then we try to evaluate the rest of the rules and execute the ones
+ * that evaluate to true.
  *
  * @author Dag Framstad (dagframstad@gmail.com)
  */
@@ -81,9 +82,11 @@ public class ConditionalRuleGroup extends CompositeRule {
     }
 
     /**
-     * A path rule will trigger all it's rules if the path rule's condition is true.
+     * A conditional rule group will trigger all its composing rules if the condition
+     * of the rule with highest priority evaluates to true.
+     * 
      * @param facts The facts.
-     * @return true if the path rules condition is true.
+     * @return true if the conditions of all composing rules evaluate to true
      */
     @Override
     public boolean evaluate(Facts facts) {
@@ -101,8 +104,9 @@ public class ConditionalRuleGroup extends CompositeRule {
     }
 
     /**
-     * When a conditional rule group is applied, all rules that evaluated to true are performed
-     * in their natural order, but with the conditional rule (the one with the highest priority) first.
+     * When a conditional rule group is executed, all rules that evaluated to true
+     * are performed in their natural order, but with the conditional rule 
+     * (the one with the highest priority) first.
      *
      * @param facts The facts.
      *
@@ -118,7 +122,7 @@ public class ConditionalRuleGroup extends CompositeRule {
 
     private Rule getRuleWithHighestPriority() {
         List<Rule> copy = sort(rules);
-        // make sure that we only have one rule with the highest priority
+        // make sure we only have one rule with the highest priority
         Rule highest = copy.get(0);
         if (copy.size() > 1 && copy.get(1).getPriority() == highest.getPriority()) {
            throw new IllegalArgumentException("Only one rule can have highest priority");

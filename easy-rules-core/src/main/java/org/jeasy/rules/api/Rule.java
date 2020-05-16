@@ -24,9 +24,10 @@
 package org.jeasy.rules.api;
 
 /**
- * Abstraction for a rule that can be fired by the rules engine.
+ * Abstraction for a rule that can be fired by a rules engine.
  *
- * Rules are registered in a rule set of type <code>Rules</code> in which they must have a <strong>unique</strong> name.
+ * Rules are registered in a namespace of rule of type {@link Rules}
+ * in which they must have a <strong>unique</strong> name.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
@@ -72,7 +73,7 @@ public interface Rule extends Comparable<Rule> {
     }
 
     /**
-     * Rule conditions abstraction : this method encapsulates the rule's conditions.
+     * This method implements the rule's condition(s).
      * <strong>Implementations should handle any runtime exception and return true/false accordingly</strong>
      *
      * @return true if the rule should be applied given the provided facts, false otherwise
@@ -80,8 +81,8 @@ public interface Rule extends Comparable<Rule> {
     boolean evaluate(Facts facts);
 
     /**
-     * Rule actions abstraction : this method encapsulates the rule's actions.
-     * @throws Exception thrown if an exception occurs during actions performing
+     * This method implements the rule's action(s).
+     * @throws Exception thrown if an exception occurs when performing action(s)
      */
     void execute(Facts facts) throws Exception;
 

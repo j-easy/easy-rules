@@ -32,9 +32,9 @@ import java.util.*;
 /**
  * Inference {@link RulesEngine} implementation.
  *
- * Rules are selected based on given facts and fired according to their natural order which is priority by default.
- *
- * The engine continuously selects and fires rules until no more rules are applicable.
+ * Rules are selected based on given facts and fired according to their natural
+ * order which is priority by default. This implementation continuously selects
+ * and fires rules until no more rules are applicable.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */

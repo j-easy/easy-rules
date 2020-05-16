@@ -32,7 +32,7 @@ package org.jeasy.rules.api;
 public interface Action {
 
     /**
-     * Execute the action when the rule evaluates to true.
+     * Execute the action when the rule's condition evaluates to true.
      *
      * @param facts known at the time of execution of the action
      * @throws Exception when unable to execute the action

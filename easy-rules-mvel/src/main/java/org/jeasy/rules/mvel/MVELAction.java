@@ -33,7 +33,8 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 
 /**
- * This class is an implementation of {@link Action} that uses <a href="https://github.com/mvel/mvel">MVEL</a> to execute the action.
+ * This class is an implementation of {@link Action} that uses
+ * <a href="https://github.com/mvel/mvel">MVEL</a> to execute the action.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */

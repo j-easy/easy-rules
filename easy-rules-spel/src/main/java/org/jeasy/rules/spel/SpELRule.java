@@ -36,7 +36,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A {@link Rule} implementation that uses <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#expressions">SpEL</a> to evaluate and execute the rule.
+ * A {@link Rule} implementation that uses 
+ * <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#expressions">SpEL</a>
+ * to evaluate and execute the rule.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */

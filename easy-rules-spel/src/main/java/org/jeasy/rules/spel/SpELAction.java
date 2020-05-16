@@ -36,7 +36,9 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 /**
- * This class is an implementation of {@link Action} that uses <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#expressions">SpEL</a> to execute the action.
+ * This class is an implementation of {@link Action} that uses
+ * <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#expressions">SpEL</a>
+ * to execute the action.
  *
  * Each fact is set as a variable in the {@link org.springframework.expression.EvaluationContext}.
  *

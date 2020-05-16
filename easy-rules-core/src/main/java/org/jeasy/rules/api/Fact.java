@@ -38,6 +38,11 @@ public class Fact<T> {
 	
 	private final T value;
 
+	/**
+	 * Create a new fact.
+	 * @param name of the fact
+	 * @param value of the fact
+	 */
 	public Fact(String name, T value) {
 		Objects.requireNonNull(name, "name must not be null");
 		Objects.requireNonNull(value, "value must not be null");
@@ -45,10 +50,18 @@ public class Fact<T> {
 		this.value = value;
 	}
 
+	/**
+	 * Get the fact name.
+	 * @return fact name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Get the fact value.
+	 * @return fact value
+	 */
 	public T getValue() {
 		return value;
 	}

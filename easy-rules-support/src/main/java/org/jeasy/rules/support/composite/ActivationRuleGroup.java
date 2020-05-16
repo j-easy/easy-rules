@@ -29,8 +29,9 @@ import org.jeasy.rules.api.Rule;
 import java.util.TreeSet;
 
 /**
- * An activation rule group is a composite rule that fires the first applicable rule and ignores other rules in
- * the group (XOR logic). Rules are first sorted by their natural order (priority by default) within the group.
+ * An activation rule group is a composite rule that fires the first applicable 
+ * rule and ignores other rules in the group (XOR logic).
+ * Rules are first sorted by their natural order (priority by default) within the group.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
