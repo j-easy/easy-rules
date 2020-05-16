@@ -27,8 +27,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.jeasy.rules.core.RulesEngineParameters;
-
 /**
  * Rules engine interface.
  *

@@ -21,7 +21,10 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.core;
+package org.jeasy.rules.api;
+
+import org.jeasy.rules.core.DefaultRulesEngine;
+import org.jeasy.rules.core.InferenceRulesEngine;
 
 /**
  * Parameters of a rules engine.

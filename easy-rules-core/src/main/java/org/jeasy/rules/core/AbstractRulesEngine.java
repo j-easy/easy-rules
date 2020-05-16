@@ -26,6 +26,7 @@ package org.jeasy.rules.core;
 import org.jeasy.rules.api.RuleListener;
 import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.api.RulesEngineListener;
+import org.jeasy.rules.api.RulesEngineParameters;
 
 import java.util.ArrayList;
 import java.util.Collections;

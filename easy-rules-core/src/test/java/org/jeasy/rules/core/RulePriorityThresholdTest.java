@@ -23,6 +23,7 @@
  */
 package org.jeasy.rules.core;
 
+import org.jeasy.rules.api.RulesEngineParameters;
 import org.junit.Before;
 import org.junit.Test;
 

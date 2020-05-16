@@ -39,6 +39,7 @@ import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Priority;
 import org.jeasy.rules.api.RuleListener;
 import org.jeasy.rules.api.RulesEngineListener;
+import org.jeasy.rules.api.RulesEngineParameters;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
