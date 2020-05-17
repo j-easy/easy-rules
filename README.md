@@ -10,7 +10,7 @@
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
 [![Coverage](https://coveralls.io/repos/j-easy/easy-rules/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/j-easy/easy-rules?branch=master)
 [![Build Status](https://github.com/j-easy/easy-rules/workflows/Java%20CI/badge.svg)](https://github.com/j-easy/easy-rules/actions)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jeasy/easy-rules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.jeasy|easy-rules-core|3.4.0|)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jeasy/easy-rules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.jeasy|easy-rules-core|4.0.0|)
 [![Javadoc](https://www.javadoc.io/badge/org.jeasy/easy-rules-core.svg)](http://www.javadoc.io/doc/org.jeasy/easy-rules-core)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/j-easy/easy-rules)
 
@@ -20,9 +20,8 @@
 
 ## Latest news
 
-* 08/12/2019: Version 3.4.0 is out with a few enhancements and bug fixes. Checkout the release notes [here](https://github.com/j-easy/easy-rules/releases).
-* 25/04/2019: Version 3.3.0 is out with JSON and SpEL support! Checkout what's new [here](https://github.com/j-easy/easy-rules/releases).
-* 09/04/2018: Version 3.2.0 is out with new features and bug fixes. Checkout what's new [here](https://github.com/j-easy/easy-rules/releases).
+* 17/05/2020: Version 4.0.0 is now released with a lot of new features and enhancements! Check out what's new [here](https://github.com/j-easy/easy-rules/releases).
+* 08/12/2019: Version 3.4.0 is out with a few enhancements and bug fixes. Check out the release notes [here](https://github.com/j-easy/easy-rules/releases).
 
 ## What is Easy Rules?
 
@@ -35,7 +34,7 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
 ## Core features
 
  * Lightweight library and easy to learn API
- * POJO based development with annotation programming model
+ * POJO based development with an annotation programming model
  * Useful abstractions to define business rules and apply them easily with Java
  * The ability to create composite rules from primitive ones
  * The ability to define rules using an Expression Language (Like MVEL and SpEL)
@@ -127,9 +126,9 @@ This is the hello world of Easy Rules. You can find other examples like the [Sho
 
 You are welcome to contribute to the project with pull requests on GitHub.
 
-If you found a bug or want to request a feature, please use the [issue tracker](https://github.com/j-easy/easy-rules/issues).
+If you find a bug or want to request a feature, please use the [issue tracker](https://github.com/j-easy/easy-rules/issues).
 
-For any further question, you can use the [Gitter](https://gitter.im/j-easy/easy-rules) channel of the project.
+For any question, you can use [StackOverflow](https://stackoverflow.com/questions/tagged/easy-rules) or [Gitter](https://gitter.im/j-easy/easy-rules).
 
 ## Awesome contributors
 
@@ -182,6 +181,7 @@ Thank you all for your contributions!
 Many thanks to [YourKit, LLC](https://www.yourkit.com/) for providing a free license of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/index.jsp) to support the development of Easy Rules.
 
 ## License
+
 Easy Rules is released under the terms of the MIT license:
 
 ```
