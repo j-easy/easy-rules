@@ -120,6 +120,15 @@ public class Rules implements Iterable<Rule> {
     }
 
     /**
+     * Check how many rules are currently registered
+     *
+     * @return the number of rules currently registered
+     */
+    public int rulesCount() {
+        return rules.size();
+    }
+
+    /**
      * Return an iterator on the rules set. It is not intended to remove rules
      * using this iterator.
      * @return an iterator on the rules set
