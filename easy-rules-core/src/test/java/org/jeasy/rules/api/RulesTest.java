@@ -118,6 +118,17 @@ public class RulesTest {
         assertThat(rules).startsWith(r1).endsWith(r2);
     }
 
+    @Test
+    public void rulesCount() {
+        assertThat(rules.rulesCount()).isEqualTo(0);
+
+        rules.register(new DummyRule());
+        assertThat(rules.rulesCount()).isEqualTo(1);
+
+        rules.unregister(new DummyRule());
+        assertThat(rules.rulesCount()).isEqualTo(0);
+    }
+
     @Test(expected = NullPointerException.class)
     public void whenRegisterNullRule_thenShouldThrowNullPointerException() {
         rules.register(null);
