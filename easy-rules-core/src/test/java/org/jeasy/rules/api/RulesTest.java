@@ -119,14 +119,14 @@ public class RulesTest {
     }
 
     @Test
-    public void rulesCount() {
-        assertThat(rules.rulesCount()).isEqualTo(0);
+    public void size() {
+        assertThat(rules.size()).isEqualTo(0);
 
         rules.register(new DummyRule());
-        assertThat(rules.rulesCount()).isEqualTo(1);
+        assertThat(rules.size()).isEqualTo(1);
 
         rules.unregister(new DummyRule());
-        assertThat(rules.rulesCount()).isEqualTo(0);
+        assertThat(rules.size()).isEqualTo(0);
     }
 
     @Test(expected = NullPointerException.class)

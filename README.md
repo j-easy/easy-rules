@@ -139,6 +139,7 @@ For any question, you can use [StackOverflow](https://stackoverflow.com/question
 * [cemo](https://github.com/cemo)
 * [dagframstad](https://github.com/dagframstad)
 * [danrivcap](https://github.com/danrivcap)
+* [Desislav-Petrov](https://github.com/Desislav-Petrov)
 * [drem-darios](https://github.com/drem-darios)
 * [gs-spadmanabhan](https://github.com/gs-spadmanabhan)
 * [JurMarky](https://github.com/JurMarky)
