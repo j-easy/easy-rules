@@ -129,14 +129,33 @@ public class RulesTest {
         assertThat(rules.size()).isEqualTo(0);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void whenRegisterNullRule_thenShouldThrowNullPointerException() {
-        rules.register(null);
+    @Test
+    public void register_multiple() {
+        rules.register(new BasicRule("ruleA"), new BasicRule("ruleB"));
+        assertThat(rules.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void unregister_noneLeft() {
+        rules.register(new BasicRule("ruleA"), new BasicRule("ruleB"));
+        assertThat(rules.size()).isEqualTo(2);
+
+        rules.unregister(new BasicRule("ruleA"), new BasicRule("ruleB"));
+        assertThat(rules.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void unregisterAll_oneLeft() {
+        rules.register(new BasicRule("ruleA"), new BasicRule("ruleB"));
+        assertThat(rules.size()).isEqualTo(2);
+
+        rules.unregister(new BasicRule("ruleA"));
+        assertThat(rules.size()).isEqualTo(1);
     }
 
     @Test(expected = NullPointerException.class)
-    public void whenUnregisterNullRule_thenShouldThrowNullPointerException() {
-        rules.unregister(null);
+    public void whenRegisterNullRule_thenShouldThrowNullPointerException() {
+        rules.register(null);
     }
 
     @org.jeasy.rules.annotation.Rule
@@ -147,5 +166,4 @@ public class RulesTest {
         @Action
         public void then() { }
     }
-
 }
