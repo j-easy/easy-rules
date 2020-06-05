@@ -81,6 +81,16 @@ public class Rules implements Iterable<Rule> {
     }
 
     /**
+     * Register a new set of rule.
+     *
+     * @param rulesSet to register, must not be null
+     */
+    public void registerAll(Set<?> rulesSet) {
+        Objects.requireNonNull(rulesSet);
+        rulesSet.forEach(this::register);
+    }
+
+    /**
      * Unregister a rule.
      *
      * @param rule to unregister, must not be null
@@ -88,6 +98,16 @@ public class Rules implements Iterable<Rule> {
     public void unregister(Object rule) {
         Objects.requireNonNull(rule);
         rules.remove(RuleProxy.asRule(rule));
+    }
+
+    /**
+     * Unregister a set of rules.
+     *
+     * @param rulesSet set to unregister, must not be null
+     */
+    public void unregisterAll(Set<?> rulesSet) {
+        Objects.requireNonNull(rulesSet);
+        rulesSet.forEach(this::unregister);
     }
 
     /**

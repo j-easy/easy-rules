@@ -129,6 +129,45 @@ public class RulesTest {
         assertThat(rules.size()).isEqualTo(0);
     }
 
+    @Test
+    public void registerAll() {
+        Set<Rule> rulesSet = new HashSet<>();
+        rulesSet.add(new BasicRule("ruleA"));
+        rulesSet.add(new BasicRule("ruleB"));
+
+        rules.registerAll(rulesSet);
+
+        assertThat(rules.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void unregisterAll_noneLeft() {
+        Set<Rule> rulesSet = new HashSet<>();
+        rulesSet.add(new BasicRule("ruleA"));
+        rulesSet.add(new BasicRule("ruleB"));
+
+        rules.registerAll(rulesSet);
+        assertThat(rules.size()).isEqualTo(2);
+
+        rules.unregisterAll(rulesSet);
+        assertThat(rules.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void unregisterAll_oneLeft() {
+        Set<Rule> initialRulesSet = new HashSet<>();
+        initialRulesSet.add(new BasicRule("ruleA"));
+        initialRulesSet.add(new BasicRule("ruleB"));
+
+        rules.registerAll(initialRulesSet);
+        assertThat(rules.size()).isEqualTo(2);
+
+        Set<Rule> deleteRulesSet = new HashSet<>();
+        deleteRulesSet.add(new BasicRule("ruleA"));
+        rules.unregisterAll(deleteRulesSet);
+        assertThat(rules.size()).isEqualTo(1);
+    }
+
     @Test(expected = NullPointerException.class)
     public void whenRegisterNullRule_thenShouldThrowNullPointerException() {
         rules.register(null);
