@@ -55,7 +55,7 @@ public class Rules implements Iterable<Rule> {
      *
      * @param rules to register
      */
-    public Rules(Rule... rules ) {
+    public Rules(Rule... rules) {
         Collections.addAll(this.rules, rules);
     }
 
@@ -64,7 +64,7 @@ public class Rules implements Iterable<Rule> {
      *
      * @param rules to register
      */
-    public Rules(Object... rules ) {
+    public Rules(Object... rules) {
         for (Object rule : rules) {
             this.register(rule);
         }
