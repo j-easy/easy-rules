@@ -136,7 +136,7 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
     }
 
     private void logEngineParameters() {
-        LOGGER.debug(parameters.toString());
+        LOGGER.debug("{}", parameters);
     }
 
     private void log(Rules rules) {
@@ -150,7 +150,7 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
     private void log(Facts facts) {
         LOGGER.debug("Known facts:");
         for (Fact<?> fact : facts) {
-            LOGGER.debug(fact.toString());
+            LOGGER.debug("{}", fact);
         }
     }
 
