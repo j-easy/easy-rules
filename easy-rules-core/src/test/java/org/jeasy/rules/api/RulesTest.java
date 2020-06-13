@@ -145,7 +145,7 @@ public class RulesTest {
     }
 
     @Test
-    public void unregisterAll_oneLeft() {
+    public void unregister_oneLeft() {
         rules.register(new BasicRule("ruleA"), new BasicRule("ruleB"));
         assertThat(rules.size()).isEqualTo(2);
 
