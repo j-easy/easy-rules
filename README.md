@@ -133,6 +133,7 @@ For any question, you can use [StackOverflow](https://stackoverflow.com/question
 ## Awesome contributors
 
 * [andersonkyle](https://github.com/andersonkyle)
+* [avakimov](https://github.com/avakimov)
 * [beccagaspard](https://github.com/beccagaspard)
 * [bpoussin](https://github.com/bpoussin)
 * [cgonul](https://github.com/cgonul)
