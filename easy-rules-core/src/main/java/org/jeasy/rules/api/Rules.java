@@ -65,39 +65,33 @@ public class Rules implements Iterable<Rule> {
      * @param rules to register
      */
     public Rules(Object... rules) {
-        for (Object rule : rules) {
-            this.register(rule);
-        }
+        this.register(rules);
     }
 
     /**
      * Register a new rule.
      *
-     * @param rule to register, must not be null
+     * @param rules to register, must not be null
      */
-    public void register(Object rule) {
-        Objects.requireNonNull(rule);
-        rules.add(RuleProxy.asRule(rule));
-    }
-
-    /**
-     * Register a new set of rule.
-     *
-     * @param rulesSet to register, must not be null
-     */
-    public void registerAll(Set<?> rulesSet) {
-        Objects.requireNonNull(rulesSet);
-        rulesSet.forEach(this::register);
+    public void register(Object... rules) {
+        Objects.requireNonNull(rules);
+        for (Object rule : rules) {
+            Objects.requireNonNull(rule);
+            this.rules.add(RuleProxy.asRule(rule));
+        }
     }
 
     /**
      * Unregister a rule.
      *
-     * @param rule to unregister, must not be null
+     * @param rules to unregister, must not be null
      */
-    public void unregister(Object rule) {
-        Objects.requireNonNull(rule);
-        rules.remove(RuleProxy.asRule(rule));
+    public void unregister(Object... rules) {
+        Objects.requireNonNull(rules);
+        for (Object rule : rules) {
+            Objects.requireNonNull(rule);
+            this.rules.remove(RuleProxy.asRule(rule));
+        }
     }
 
     /**

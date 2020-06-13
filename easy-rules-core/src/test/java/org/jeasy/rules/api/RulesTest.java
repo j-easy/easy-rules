@@ -130,52 +130,32 @@ public class RulesTest {
     }
 
     @Test
-    public void registerAll() {
-        Set<Rule> rulesSet = new HashSet<>();
-        rulesSet.add(new BasicRule("ruleA"));
-        rulesSet.add(new BasicRule("ruleB"));
-
-        rules.registerAll(rulesSet);
-
+    public void register_multiple() {
+        rules.register(new BasicRule("ruleA"), new BasicRule("ruleB"));
         assertThat(rules.size()).isEqualTo(2);
     }
 
     @Test
-    public void unregisterAll_noneLeft() {
-        Set<Rule> rulesSet = new HashSet<>();
-        rulesSet.add(new BasicRule("ruleA"));
-        rulesSet.add(new BasicRule("ruleB"));
-
-        rules.registerAll(rulesSet);
+    public void unregister_noneLeft() {
+        rules.register(new BasicRule("ruleA"), new BasicRule("ruleB"));
         assertThat(rules.size()).isEqualTo(2);
 
-        rules.unregisterAll(rulesSet);
+        rules.unregister(new BasicRule("ruleA"), new BasicRule("ruleB"));
         assertThat(rules.size()).isEqualTo(0);
     }
 
     @Test
     public void unregisterAll_oneLeft() {
-        Set<Rule> initialRulesSet = new HashSet<>();
-        initialRulesSet.add(new BasicRule("ruleA"));
-        initialRulesSet.add(new BasicRule("ruleB"));
-
-        rules.registerAll(initialRulesSet);
+        rules.register(new BasicRule("ruleA"), new BasicRule("ruleB"));
         assertThat(rules.size()).isEqualTo(2);
 
-        Set<Rule> deleteRulesSet = new HashSet<>();
-        deleteRulesSet.add(new BasicRule("ruleA"));
-        rules.unregisterAll(deleteRulesSet);
+        rules.unregister(new BasicRule("ruleA"));
         assertThat(rules.size()).isEqualTo(1);
     }
 
     @Test(expected = NullPointerException.class)
     public void whenRegisterNullRule_thenShouldThrowNullPointerException() {
         rules.register(null);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void whenUnregisterNullRule_thenShouldThrowNullPointerException() {
-        rules.unregister(null);
     }
 
     @org.jeasy.rules.annotation.Rule
@@ -186,5 +166,4 @@ public class RulesTest {
         @Action
         public void then() { }
     }
-
 }
