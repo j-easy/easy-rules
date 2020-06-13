@@ -46,7 +46,7 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
 #### Either in a declarative way using annotations:
 
 ```java
-@Rule(name = "weather rule", description = "if it rains then take an umbrella" )
+@Rule(name = "weather rule", description = "if it rains then take an umbrella")
 public class WeatherRule {
 
     @Condition
