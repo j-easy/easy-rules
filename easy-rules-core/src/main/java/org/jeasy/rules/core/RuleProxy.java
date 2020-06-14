@@ -33,10 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -147,7 +144,7 @@ public class RuleProxy implements InvocationHandler {
 
     private Object compareToMethod(final Object[] args) throws Exception {
         Method compareToMethod = getCompareToMethod();
-        if (compareToMethod != null && !Comparable.class.isAssignableFrom(compareToMethod.getDeclaringClass())) {
+        if (compareToMethod != null && !(args[0] instanceof Rule)) {
             return compareToMethod.invoke(target, args);
         } else {
             Rule otherRule = (Rule) args[0];

@@ -30,8 +30,6 @@ import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
