@@ -147,7 +147,7 @@ public class RuleProxy implements InvocationHandler {
 
     private Object compareToMethod(final Object[] args) throws Exception {
         Method compareToMethod = getCompareToMethod();
-        if (compareToMethod != null) {
+        if (compareToMethod != null && !Comparable.class.isAssignableFrom(compareToMethod.getDeclaringClass())) {
             return compareToMethod.invoke(target, args);
         } else {
             Rule otherRule = (Rule) args[0];
@@ -189,12 +189,12 @@ public class RuleProxy implements InvocationHandler {
             return false;
         }
         String otherDescription = otherRule.getDescription();
-        String description =  getRuleDescription();
+        String description = getRuleDescription();
         return Objects.equals(description, otherDescription);
     }
 
     private int hashCodeMethod() throws Exception {
-        int result   = getRuleName().hashCode();
+        int result = getRuleName().hashCode();
         int priority = getRulePriority();
         String description = getRuleDescription();
         result = 31 * result + (description != null ? description.hashCode() : 0);

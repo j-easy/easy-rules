@@ -30,6 +30,8 @@ import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -79,13 +81,13 @@ public class RulesTest {
 
         assertThat(rules).hasSize(1).containsExactly(r1);
     }
-    
+
     @Test
     public void unregisterByNameNonExistingRule() {
         Rule r1 = new BasicRule("rule1");
         Set<Rule> ruleSet = new HashSet<>();
         ruleSet.add(r1);
-        
+
         rules = new Rules(ruleSet);
         rules.unregister("rule2");
 
@@ -153,17 +155,50 @@ public class RulesTest {
         assertThat(rules.size()).isEqualTo(1);
     }
 
+    @Test
+    public void rulesDoesNotSupportComparable() {
+        rules.register(new ComparableDummyRule(1));
+
+        assertThat(rules.size()).isEqualTo(1);
+    }
+
     @Test(expected = NullPointerException.class)
     public void whenRegisterNullRule_thenShouldThrowNullPointerException() {
         rules.register(null);
     }
 
     @org.jeasy.rules.annotation.Rule
-	static class DummyRule {
+    static class DummyRule {
         @Condition
-        public boolean when() { return true; }
+        public boolean when() {
+            return true;
+        }
 
         @Action
-        public void then() { }
+        public void then() {
+        }
+    }
+
+    @org.jeasy.rules.annotation.Rule
+    public static class ComparableDummyRule implements Comparable<ComparableDummyRule> {
+        private final int awesomeness;
+
+        ComparableDummyRule(int awesomeness) {
+            this.awesomeness = awesomeness;
+        }
+
+        @Condition
+        public boolean when() {
+            return true;
+        }
+
+        @Action
+        public void then() {
+        }
+
+        @Override
+        public int compareTo(ComparableDummyRule comparableDummyRule) {
+            return Integer.compare(awesomeness, comparableDummyRule.awesomeness);
+        }
     }
 }
