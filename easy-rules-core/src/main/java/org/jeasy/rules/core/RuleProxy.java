@@ -147,11 +147,15 @@ public class RuleProxy implements InvocationHandler {
 
     private Object compareToMethod(final Object[] args) throws Exception {
         Method compareToMethod = getCompareToMethod();
-        if (compareToMethod != null) {
-            return compareToMethod.invoke(target, args);
+        Object otherRule = args[0]; // validated upfront
+        if (compareToMethod != null && Proxy.isProxyClass(otherRule.getClass())) {
+            if (compareToMethod.getParameters().length != 1) {
+                throw new IllegalArgumentException("compareTo method must have a single argument");
+            }
+            RuleProxy ruleProxy = (RuleProxy) Proxy.getInvocationHandler(otherRule);
+            return compareToMethod.invoke(target, ruleProxy.getTarget());
         } else {
-            Rule otherRule = (Rule) args[0];
-            return compareTo(otherRule);
+            return compareTo((Rule) otherRule);
         }
     }
 
@@ -351,6 +355,10 @@ public class RuleProxy implements InvocationHandler {
                 description.append(",");
             }
         }
+    }
+    
+    public Object getTarget() {
+        return target;
     }
 
     private Class<?> getTargetClass() {
