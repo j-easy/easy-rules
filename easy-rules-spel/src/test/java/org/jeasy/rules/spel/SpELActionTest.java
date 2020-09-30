@@ -25,19 +25,15 @@ package org.jeasy.rules.spel;
 
 import org.jeasy.rules.api.Action;
 import org.jeasy.rules.api.Facts;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.common.TemplateParserContext;
 
+import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOutNormalized;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class SpELActionTest {
-
-    @Rule
-    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
     @Test
     public void testSpELActionExecution() throws Exception {
@@ -61,10 +57,11 @@ public class SpELActionTest {
         Facts facts = new Facts();
 
         // when
-        printAction.execute(facts);
+        String output = tapSystemOutNormalized(
+                () -> printAction.execute(facts));
 
         // then
-        assertThat(systemOutRule.getLog()).contains("hello");
+        assertThat(output).isEqualTo("hello\n");
     }
 
     @Test
@@ -90,10 +87,11 @@ public class SpELActionTest {
         Facts facts = new Facts();
 
         // when
-        printAction.execute(facts);
+        String output = tapSystemOutNormalized(
+                () -> printAction.execute(facts));
 
         // then
-        assertThat(systemOutRule.getLog()).contains("hello");
+        assertThat(output).isEqualTo("hello\n");
 
     }
 }
