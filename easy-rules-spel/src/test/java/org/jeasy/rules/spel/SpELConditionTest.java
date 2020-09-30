@@ -26,15 +26,14 @@ package org.jeasy.rules.spel;
 import org.assertj.core.api.Assertions;
 import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.expression.BeanResolver;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.common.TemplateParserContext;
 
+import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOutNormalized;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SpELConditionTest {
@@ -80,9 +79,6 @@ public class SpELConditionTest {
         assertThat(evaluationResult).isTrue();
     }
 
-    @Rule
-    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-
     @Test
     public void testSpELConditionWithExpressionAndParserContextAndBeanResolver() throws Exception {
 
@@ -103,8 +99,9 @@ public class SpELConditionTest {
         boolean evaluationResult = spELRule.evaluate(facts);
         Assertions.assertThat(evaluationResult).isTrue();
 
-        spELRule.execute(facts);
-        Assertions.assertThat(systemOutRule.getLog()).contains("Bonjour jack!");
+        String output = tapSystemOutNormalized(
+                () -> spELRule.execute(facts));
+        assertThat(output).isEqualTo("Bonjour jack!\n");
 
     }
 }

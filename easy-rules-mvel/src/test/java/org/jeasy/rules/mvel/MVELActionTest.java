@@ -25,18 +25,14 @@ package org.jeasy.rules.mvel;
 
 import org.jeasy.rules.api.Action;
 import org.jeasy.rules.api.Facts;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.mvel2.ParserContext;
 
+import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOutNormalized;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class MVELActionTest {
-
-    @Rule
-    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
     @Test
     public void testMVELActionExecution() throws Exception {
@@ -60,10 +56,11 @@ public class MVELActionTest {
         Facts facts = new Facts();
 
         // when
-        printAction.execute(facts);
+        String output = tapSystemOutNormalized(
+                () -> printAction.execute(facts));
 
         // then
-        assertThat(systemOutRule.getLog()).contains("Hello from MVEL!");
+        assertThat(output).isEqualTo("Hello from MVEL!\n");
     }
 
     @Test
@@ -90,10 +87,11 @@ public class MVELActionTest {
         Facts facts = new Facts();
 
         // when
-        printAction.execute(facts);
+        String output = tapSystemOutNormalized(
+                () -> printAction.execute(facts));
 
         // then
-        assertThat(systemOutRule.getLog()).contains("Random from MVEL = 2");
+        assertThat(output).isEqualTo("Random from MVEL = 2\n");
 
     }
 }
