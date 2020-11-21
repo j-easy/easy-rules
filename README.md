@@ -131,6 +131,7 @@ For any question, you can use [StackOverflow](https://stackoverflow.com/question
 
 ## Awesome contributors
 
+* [Alexey1Gavrilov](https://github.com/Alexey1Gavrilov)
 * [andersonkyle](https://github.com/andersonkyle)
 * [avakimov](https://github.com/avakimov)
 * [beccagaspard](https://github.com/beccagaspard)
