@@ -13,7 +13,7 @@
     <description>Spring Expression Language integration module</description>
 
     <properties>
-        <spring.version>5.2.6.RELEASE</spring.version>
+        <spring.version>5.3.1</spring.version>
     </properties>
 
     <scm>
