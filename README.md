@@ -153,6 +153,7 @@ For any question, you can use [StackOverflow](https://stackoverflow.com/question
 * [richdouglasevans](https://github.com/richdouglasevans)
 * [ruanjiehui](https://github.com/ruanjiehui)
 * [spearway](https://github.com/spearway)
+* [stefanbirkner](https://github.com/stefanbirkner)
 * [toudidel](https://github.com/toudidel)
 * [vinoct6](https://github.com/vinoct6)
 * [wg1j](https://github.com/wg1j)
