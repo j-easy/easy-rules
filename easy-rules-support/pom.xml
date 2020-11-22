@@ -49,6 +49,7 @@
     </licenses>
 
     <dependencies>
+        <!-- production dependencies -->
         <dependency>
             <groupId>org.jeasy</groupId>
             <artifactId>easy-rules-core</artifactId>
@@ -65,6 +66,7 @@
             <version>${jackson.version}</version>
         </dependency>
 
+        <!-- test dependencies -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
