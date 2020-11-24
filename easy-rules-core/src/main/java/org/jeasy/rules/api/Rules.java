@@ -34,6 +34,10 @@ import java.util.TreeSet;
 /**
  * This class encapsulates a set of rules and represents a rules namespace.
  * Rules must have a unique name within a rules namespace.
+ * 
+ * Rules will be compared to each other based on {@link Rule#compareTo(Object)}
+ * method, so {@link Rule}'s implementations are expected to correctly implement
+ * {@code compareTo} to ensure unique rule names within a single namespace.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
