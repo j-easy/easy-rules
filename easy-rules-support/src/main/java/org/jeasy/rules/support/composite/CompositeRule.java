@@ -35,6 +35,9 @@ import java.util.TreeSet;
 
 /**
  * Base class representing a composite rule composed of a set of rules.
+ * 
+ * <strong>This class is not thread-safe.
+ * Sub-classes are inherently not thread-safe.</strong>
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */

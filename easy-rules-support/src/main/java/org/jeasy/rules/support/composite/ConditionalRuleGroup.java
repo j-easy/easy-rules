@@ -37,6 +37,8 @@ import java.util.Set;
  * priority acts as a condition: if the rule with the highest priority evaluates
  * to true, then we try to evaluate the rest of the rules and execute the ones
  * that evaluate to true.
+ * 
+ * <strong>This class is not thread-safe.</strong>
  *
  * @author Dag Framstad (dagframstad@gmail.com)
  */

@@ -33,6 +33,8 @@ import java.util.TreeSet;
  * rule and ignores other rules in the group (XOR logic).
  * Rules are first sorted by their natural order (priority by default) within the group.
  *
+ * <strong>This class is not thread-safe.</strong>
+ * 
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class ActivationRuleGroup extends CompositeRule {
