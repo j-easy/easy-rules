@@ -9,18 +9,22 @@
 
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/j-easy/easy-rules/workflows/Java%20CI/badge.svg)](https://github.com/j-easy/easy-rules/actions)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jeasy/easy-rules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.jeasy|easy-rules-core|4.0.0|)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jeasy/easy-rules-core/badge.svg?style=flat)](http://search.maven.org/#artifactdetails|org.jeasy|easy-rules-core|4.1.0|)
 [![Javadoc](https://www.javadoc.io/badge/org.jeasy/easy-rules-core.svg)](http://www.javadoc.io/doc/org.jeasy/easy-rules-core)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/j-easy/easy-rules)
+[![Project status](https://img.shields.io/badge/Project%20status-Maintenance-orange.svg)](https://img.shields.io/badge/Project%20status-Maintenance-orange.svg)
 
 </div>
 
 ***
 
+## Project status
+
+As of December 2020, Easy Rules is in maintenance mode. This means only bug fixes will be addressed from now on.
+Version 4.1.x is the only supported version. Please consider upgrading to this version at your earliest convenience.
+
 ## Latest news
 
-* 17/05/2020: Version 4.0.0 is now released with a lot of new features and enhancements! Check out what's new [here](https://github.com/j-easy/easy-rules/releases).
-* 08/12/2019: Version 3.4.0 is out with a few enhancements and bug fixes. Check out the release notes [here](https://github.com/j-easy/easy-rules/releases).
+* 06/12/2020: Version 4.1 is out with a new module to support [Apache JEXL](https://commons.apache.org/proper/commons-jexl/) as an additional supported expression language! You can find all details about other changes in the [release notes](https://github.com/j-easy/easy-rules/releases).
 
 ## What is Easy Rules?
 
@@ -36,7 +40,7 @@ This is exactly what Easy Rules does, it provides the `Rule` abstraction to crea
  * POJO based development with an annotation programming model
  * Useful abstractions to define business rules and apply them easily with Java
  * The ability to create composite rules from primitive ones
- * The ability to define rules using an Expression Language (Like MVEL and SpEL)
+ * The ability to define rules using an Expression Language (Like MVEL, SpEL and JEXL)
 
 ## Example
 
@@ -124,10 +128,10 @@ This is the hello world of Easy Rules. You can find other examples like the [Sho
 ## Contribution
 
 You are welcome to contribute to the project with pull requests on GitHub.
+Please note that Easy Rules is in [maintenance mode](https://github.com/j-easy/easy-rules#project-status),
+which means only pull requests for bug fixes will be considered.
 
-If you find a bug or want to request a feature, please use the [issue tracker](https://github.com/j-easy/easy-rules/issues).
-
-For any question, you can use [StackOverflow](https://stackoverflow.com/questions/tagged/easy-rules) or [Gitter](https://gitter.im/j-easy/easy-rules).
+If you believe you found a bug or have any question, please use the [issue tracker](https://github.com/j-easy/easy-rules/issues).
 
 ## Awesome contributors
 
@@ -174,9 +178,9 @@ Thank you all for your contributions!
 
 ## Who is using Easy Rules?
 
-* [Apache Nifi](https://nifi.apache.org) (see [Nifi EasyRules Bundle](https://github.com/apache/nifi/tree/master/nifi-nar-bundles/nifi-easyrules-bundle))
-* [Open Remote](https://openremote.io) (see [build.gradle](https://github.com/openremote/openremote/blob/master/model/build.gradle#L27))
-* [Open Smart Register Platform](http://smartregister.org) (see [build.gradle](https://github.com/OpenSRP/opensrp-client-anc/blob/master/opensrp-anc/build.gradle#L205))
+* [Apache Nifi](https://nifi.apache.org) (see [Nifi EasyRules Bundle](https://github.com/apache/nifi/tree/rel/nifi-1.12.1/nifi-nar-bundles/nifi-easyrules-bundle))
+* [Open Remote](https://openremote.io) (see [build.gradle](https://github.com/openremote/openremote/blob/v1.0.4/model/build.gradle#L27))
+* [Open Smart Register Platform](http://smartregister.org) (see [build.gradle](https://github.com/OpenSRP/opensrp-client-anc/blob/v1.5.0/opensrp-anc/build.gradle#L196))
 
 ## Credits
 
