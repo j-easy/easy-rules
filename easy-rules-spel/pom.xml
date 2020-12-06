@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.jeasy</groupId>
         <artifactId>easy-rules</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.1.0</version>
     </parent>
 
     <artifactId>easy-rules-spel</artifactId>
@@ -20,7 +20,7 @@
         <url>git@github.com:j-easy/easy-rules.git</url>
         <connection>scm:git:git@github.com:j-easy/easy-rules.git</connection>
         <developerConnection>scm:git:git@github.com:j-easy/easy-rules.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>easy-rules-4.1.0</tag>
     </scm>
 
     <issueManagement>
