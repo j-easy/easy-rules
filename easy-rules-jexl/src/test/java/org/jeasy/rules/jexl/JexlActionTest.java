@@ -36,11 +36,10 @@ import org.apache.commons.jexl3.JexlBuilder;
 import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JexlException;
 import org.apache.commons.jexl3.introspection.JexlSandbox;
+import org.assertj.core.api.Assertions;
 import org.jeasy.rules.api.Action;
 import org.jeasy.rules.api.Facts;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * @author Lauri Kimmel
@@ -48,8 +47,6 @@ import org.junit.rules.ExpectedException;
  */
 public class JexlActionTest {
 
-    @Rule
-    public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void testJexlActionExecution() throws Exception {
@@ -89,17 +86,17 @@ public class JexlActionTest {
     }
 
     @Test
-    public void testJexlActionExecutionWithFailure() throws Exception {
+    public void testJexlActionExecutionWithFailure() {
         // given
-        expectedException.expect(JexlException.Method.class);
-        expectedException.expectMessage("org.jeasy.rules.jexl.JexlAction.<init>@1:7 unsolvable function/method 'setBlah'");
         Action action = new JexlAction("person.setBlah(true);");
         Facts facts = new Facts();
         Person foo = new Person("foo", 20);
         facts.put("person", foo);
 
         // when
-        action.execute(facts);
+        Assertions.assertThatThrownBy(() -> action.execute(facts))
+                .isInstanceOf(JexlException.Method.class)
+                .hasMessage("org.jeasy.rules.jexl.JexlAction.<init>@1:7 unsolvable function/method 'setBlah'");
 
         // then
         // excepted exception

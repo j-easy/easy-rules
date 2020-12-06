@@ -213,7 +213,7 @@ public class DefaultRulesEngineTest extends AbstractTest {
 
         // Then
         Assertions.assertThat(engineParameters).isNotSameAs(parameters);
-        Assertions.assertThat(engineParameters).isEqualToComparingFieldByField(parameters);
+        Assertions.assertThat(engineParameters).usingRecursiveComparison().isEqualTo(parameters);
     }
 
     @Test
