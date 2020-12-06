@@ -10,7 +10,7 @@
 
     <groupId>org.jeasy</groupId>
     <artifactId>easy-rules</artifactId>
-    <version>4.1.0</version>
+    <version>4.1.1-SNAPSHOT</version>
 
     <modules>
         <module>easy-rules-archetype</module>
@@ -49,7 +49,7 @@
         <url>git@github.com:j-easy/easy-rules.git</url>
         <connection>scm:git:git@github.com:j-easy/easy-rules.git</connection>
         <developerConnection>scm:git:git@github.com:j-easy/easy-rules.git</developerConnection>
-        <tag>easy-rules-4.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
