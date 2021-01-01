@@ -27,7 +27,9 @@ import org.jeasy.rules.api.Action;
 import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
 
+import java.util.Arrays;
 import java.util.List;
+
 
 class DefaultRule extends BasicRule {
 
@@ -38,6 +40,12 @@ class DefaultRule extends BasicRule {
         super(name, description, priority);
         this.condition = condition;
         this.actions = actions;
+    }
+    
+    DefaultRule(String name, String description, int priority, Condition condition, Action action) {
+        super(name, description, priority);
+        this.condition = condition;
+        this.actions = Arrays.asList(action);
     }
 
     @Override
