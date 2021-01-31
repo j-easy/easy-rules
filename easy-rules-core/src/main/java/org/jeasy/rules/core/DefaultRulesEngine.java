@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Default {@link RulesEngine} implementation.
@@ -149,6 +150,12 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
 
     private void log(Facts facts) {
         LOGGER.debug("Known facts:");
+
+        if (Objects.isNull(facts)){
+            LOGGER.debug("facts is null");
+            return;
+        }
+
         for (Fact<?> fact : facts) {
             LOGGER.debug("{}", fact);
         }
