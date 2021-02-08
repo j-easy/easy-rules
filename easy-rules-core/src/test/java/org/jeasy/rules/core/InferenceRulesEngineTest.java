@@ -38,6 +38,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class InferenceRulesEngineTest {
 
+    @Test(expected = NullPointerException.class)
+    public void whenFireRules_thenNullRulesShouldNotBeAccepted() {
+        InferenceRulesEngine engine = new InferenceRulesEngine();
+        engine.fire(null, new Facts());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenFireRules_thenNullFactsShouldNotBeAccepted() {
+        InferenceRulesEngine engine = new InferenceRulesEngine();
+        engine.fire(new Rules(), null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenCheckRules_thenNullRulesShouldNotBeAccepted() {
+        InferenceRulesEngine engine = new InferenceRulesEngine();
+        engine.check(null, new Facts());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenCheckRules_thenNullFactsShouldNotBeAccepted() {
+        InferenceRulesEngine engine = new InferenceRulesEngine();
+        engine.check(new Rules(), null);
+    }
+
     @Test
     public void testCandidateSelection() {
         // Given

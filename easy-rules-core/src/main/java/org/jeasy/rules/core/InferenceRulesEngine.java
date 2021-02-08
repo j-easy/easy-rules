@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -72,6 +73,8 @@ public final class InferenceRulesEngine extends AbstractRulesEngine {
 
     @Override
     public void fire(Rules rules, Facts facts) {
+        Objects.requireNonNull(rules, "Rules must not be null");
+        Objects.requireNonNull(facts, "Facts must not be null");
         Set<Rule> selectedRules;
         do {
             LOGGER.debug("Selecting candidate rules based on the following facts: {}", facts);
@@ -96,6 +99,8 @@ public final class InferenceRulesEngine extends AbstractRulesEngine {
 
     @Override
     public Map<Rule, Boolean> check(Rules rules, Facts facts) {
+        Objects.requireNonNull(rules, "Rules must not be null");
+        Objects.requireNonNull(facts, "Facts must not be null");
         return delegate.check(rules, facts);
     }
 
