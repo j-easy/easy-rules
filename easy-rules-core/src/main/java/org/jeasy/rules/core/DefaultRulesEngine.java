@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Default {@link RulesEngine} implementation.
@@ -66,6 +67,9 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
 
     @Override
     public void fire(Rules rules, Facts facts) {
+        rules = Objects.requireNonNull(rules);
+        facts = Objects.requireNonNull(facts);
+
         triggerListenersBeforeRules(rules, facts);
         doFire(rules, facts);
         triggerListenersAfterRules(rules, facts);
@@ -156,6 +160,9 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
 
     @Override
     public Map<Rule, Boolean> check(Rules rules, Facts facts) {
+        rules = Objects.requireNonNull(rules);
+        facts = Objects.requireNonNull(facts);
+
         triggerListenersBeforeRules(rules, facts);
         Map<Rule, Boolean> result = doCheck(rules, facts);
         triggerListenersAfterRules(rules, facts);

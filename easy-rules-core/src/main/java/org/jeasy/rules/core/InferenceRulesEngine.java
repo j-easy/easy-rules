@@ -33,10 +33,7 @@ import org.jeasy.rules.api.RulesEngineParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Inference {@link RulesEngine} implementation.
@@ -72,6 +69,9 @@ public final class InferenceRulesEngine extends AbstractRulesEngine {
 
     @Override
     public void fire(Rules rules, Facts facts) {
+        rules = Objects.requireNonNull(rules);
+        facts = Objects.requireNonNull(facts);
+
         Set<Rule> selectedRules;
         do {
             LOGGER.debug("Selecting candidate rules based on the following facts: {}", facts);
