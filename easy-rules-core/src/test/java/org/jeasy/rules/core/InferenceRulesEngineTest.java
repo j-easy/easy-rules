@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2020, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ *  Copyright (c) 2021, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,30 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class InferenceRulesEngineTest {
+
+    @Test(expected = NullPointerException.class)
+    public void whenFireRules_thenNullRulesShouldNotBeAccepted() {
+        InferenceRulesEngine engine = new InferenceRulesEngine();
+        engine.fire(null, new Facts());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenFireRules_thenNullFactsShouldNotBeAccepted() {
+        InferenceRulesEngine engine = new InferenceRulesEngine();
+        engine.fire(new Rules(), null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenCheckRules_thenNullRulesShouldNotBeAccepted() {
+        InferenceRulesEngine engine = new InferenceRulesEngine();
+        engine.check(null, new Facts());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenCheckRules_thenNullFactsShouldNotBeAccepted() {
+        InferenceRulesEngine engine = new InferenceRulesEngine();
+        engine.check(new Rules(), null);
+    }
 
     @Test
     public void testCandidateSelection() {

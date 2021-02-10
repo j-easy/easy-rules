@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2020, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ *  Copyright (c) 2021, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -67,9 +67,8 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
 
     @Override
     public void fire(Rules rules, Facts facts) {
-        rules = Objects.requireNonNull(rules);
-        facts = Objects.requireNonNull(facts);
-
+        Objects.requireNonNull(rules, "Rules must not be null");
+        Objects.requireNonNull(facts, "Facts must not be null");
         triggerListenersBeforeRules(rules, facts);
         doFire(rules, facts);
         triggerListenersAfterRules(rules, facts);
@@ -160,9 +159,8 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
 
     @Override
     public Map<Rule, Boolean> check(Rules rules, Facts facts) {
-        rules = Objects.requireNonNull(rules);
-        facts = Objects.requireNonNull(facts);
-
+        Objects.requireNonNull(rules, "Rules must not be null");
+        Objects.requireNonNull(facts, "Facts must not be null");
         triggerListenersBeforeRules(rules, facts);
         Map<Rule, Boolean> result = doCheck(rules, facts);
         triggerListenersAfterRules(rules, facts);

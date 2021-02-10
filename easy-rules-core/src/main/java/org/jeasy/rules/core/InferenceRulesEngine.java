@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2020, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ *  Copyright (c) 2021, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,11 @@ import org.jeasy.rules.api.RulesEngineParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Inference {@link RulesEngine} implementation.
@@ -69,9 +73,8 @@ public final class InferenceRulesEngine extends AbstractRulesEngine {
 
     @Override
     public void fire(Rules rules, Facts facts) {
-        rules = Objects.requireNonNull(rules);
-        facts = Objects.requireNonNull(facts);
-
+        Objects.requireNonNull(rules, "Rules must not be null");
+        Objects.requireNonNull(facts, "Facts must not be null");
         Set<Rule> selectedRules;
         do {
             LOGGER.debug("Selecting candidate rules based on the following facts: {}", facts);
@@ -96,6 +99,8 @@ public final class InferenceRulesEngine extends AbstractRulesEngine {
 
     @Override
     public Map<Rule, Boolean> check(Rules rules, Facts facts) {
+        Objects.requireNonNull(rules, "Rules must not be null");
+        Objects.requireNonNull(facts, "Facts must not be null");
         return delegate.check(rules, facts);
     }
 
