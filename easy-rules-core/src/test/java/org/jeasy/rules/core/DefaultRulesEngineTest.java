@@ -37,7 +37,9 @@ import org.assertj.core.api.Assertions;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Priority;
+import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.RuleListener;
+import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngineListener;
 import org.jeasy.rules.api.RulesEngineParameters;
 import org.junit.After;
@@ -62,6 +64,26 @@ public class DefaultRulesEngineTest extends AbstractTest {
         when(rule1.getName()).thenReturn("r");
         when(rule1.getPriority()).thenReturn(1);
         annotatedRule = new AnnotatedRule();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenFireRules_thenNullRulesShouldNotBeAccepted() {
+        rulesEngine.fire(null, new Facts());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenFireRules_thenNullFactsShouldNotBeAccepted() {
+        rulesEngine.fire(new Rules(), null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenCheckRules_thenNullRulesShouldNotBeAccepted() {
+        rulesEngine.check(null, new Facts());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenCheckRules_thenNullFactsShouldNotBeAccepted() {
+        rulesEngine.check(new Rules(), null);
     }
 
     @Test
