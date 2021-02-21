@@ -137,6 +137,7 @@ If you believe you found a bug or have any question, please use the [issue track
 
 * [Alexey1Gavrilov](https://github.com/Alexey1Gavrilov)
 * [andersonkyle](https://github.com/andersonkyle)
+* [aston2016](https://github.com/aston2016)
 * [avakimov](https://github.com/avakimov)
 * [beccagaspard](https://github.com/beccagaspard)
 * [bpoussin](https://github.com/bpoussin)
