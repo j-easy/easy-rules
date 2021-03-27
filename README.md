@@ -182,6 +182,8 @@ Thank you all for your contributions!
 * [Apache Nifi](https://nifi.apache.org) (see [Nifi EasyRules Bundle](https://github.com/apache/nifi/tree/rel/nifi-1.12.1/nifi-nar-bundles/nifi-easyrules-bundle))
 * [Open Remote](https://openremote.io) (see [build.gradle](https://github.com/openremote/openremote/blob/v1.0.4/model/build.gradle#L27))
 * [Open Smart Register Platform](http://smartregister.org) (see [build.gradle](https://github.com/OpenSRP/opensrp-client-anc/blob/v1.5.0/opensrp-anc/build.gradle#L196))
+* [Toad Edge by Quest](https://support.quest.com/fr-fr/technical-documents/toad-edge/2.1/user-guide/14)
+* [Extreme Networks](https://cloud.kapostcontent.net/pub/c4c24aae-b82d-44e4-8d86-01c235e4b40f/open-source-declaration-for-extr-xmc-8-dot-5)
 
 ## Credits
 
