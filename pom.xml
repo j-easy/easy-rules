@@ -168,7 +168,7 @@
                     <version>${maven-license-plugin.version}</version>
                     <configuration>
                         <properties>
-                            <currentYear>2020</currentYear>
+                            <currentYear>2021</currentYear>
                         </properties>
                         <strictCheck>true</strictCheck>
                         <includes>
