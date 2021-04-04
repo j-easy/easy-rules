@@ -23,6 +23,7 @@
  */
 package org.jeasy.rules.support.composite;
 
+import java.util.Collection;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 
@@ -132,7 +133,7 @@ public class ConditionalRuleGroup extends CompositeRule {
         return highest;
     }
 
-    private List<Rule> sort(Set<Rule> rules) {
+    private List<Rule> sort(Collection<Rule> rules) {
         return new ArrayList<>(new TreeSet<>(rules));
     }
 

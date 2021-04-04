@@ -24,14 +24,10 @@
 
 package org.jeasy.rules.support;
 
-import java.util.Arrays;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.jeasy.rules.api.Rule;
-import org.jeasy.rules.support.composite.ActivationRuleGroup;
 import org.jeasy.rules.support.composite.CompositeRule;
-import org.jeasy.rules.support.composite.ConditionalRuleGroup;
-import org.jeasy.rules.support.composite.UnitRuleGroup;
+import org.jeasy.rules.support.composite.CompositeRuleType;
 
 /**
  * Base class for rule factories.
@@ -40,12 +36,6 @@ import org.jeasy.rules.support.composite.UnitRuleGroup;
  */
 @Slf4j
 public abstract class AbstractRuleFactory {
-    
-  private static final List<String> ALLOWED_COMPOSITE_RULE_TYPES = Arrays.asList(
-      UnitRuleGroup.class.getSimpleName(),
-      ConditionalRuleGroup.class.getSimpleName(),
-      ActivationRuleGroup.class.getSimpleName()
-  );
 
   protected Rule createRule(RuleDefinition ruleDefinition) {
     if (ruleDefinition.isCompositeRule()) {
@@ -74,20 +64,10 @@ public abstract class AbstractRuleFactory {
     }
     CompositeRule compositeRule;
     String name = ruleDefinition.getName();
-    switch (ruleDefinition.getCompositeRuleType()) {
-      case "UnitRuleGroup":
-        compositeRule = new UnitRuleGroup(name);
-        break;
-      case "ActivationRuleGroup":
-        compositeRule = new ActivationRuleGroup(name);
-        break;
-      case "ConditionalRuleGroup":
-        compositeRule = new ConditionalRuleGroup(name);
-        break;
-      default:
-        throw new IllegalArgumentException(
-            "Invalid composite rule type, must be one of " + ALLOWED_COMPOSITE_RULE_TYPES);
-    }
+    CompositeRuleType compositeRuleType = CompositeRuleType
+        .fromTypeName(ruleDefinition.getCompositeRuleType());
+
+    compositeRule = compositeRuleType.newInstance(name);
     compositeRule.setDescription(ruleDefinition.getDescription());
     compositeRule.setPriority(ruleDefinition.getPriority());
 

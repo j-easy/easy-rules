@@ -26,12 +26,8 @@ package org.jeasy.rules.support.composite;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
-import org.jeasy.rules.core.BasicRule;
-import org.jeasy.rules.core.RuleProxy;
 
 /**
  * Base class representing a composite rule composed of a list of rules that are executed in their
@@ -42,54 +38,21 @@ import org.jeasy.rules.core.RuleProxy;
  *
  * @author Jaylee Ibrahim (mcaibai-std@yahoo.com)
  */
-public class SequentialRuleGroup extends BasicRule {
+public class SequentialRuleGroup extends CompositeRule {
 
-  /**
-   * The list of comprised rules.
-   */
-  protected Collection<Rule> rules;
-  private final Map<Object, Rule> proxyRules;
-
-  /**
-   * Create a new {@link SequentialRuleGroup}.
-   */
-  public SequentialRuleGroup() {
-    this(Rule.DEFAULT_NAME, Rule.DEFAULT_DESCRIPTION, Rule.DEFAULT_PRIORITY);
+  public SequentialRuleGroup(String name) {
+    super(name);
   }
 
-  /**
-   * Create a new {@link SequentialRuleGroup}.
-   *
-   * @param name rule name
-   */
-  public SequentialRuleGroup(final String name) {
-    this(name, Rule.DEFAULT_DESCRIPTION, Rule.DEFAULT_PRIORITY);
+  public SequentialRuleGroup(String name, String description) {
+    super(name, description);
   }
 
-  /**
-   * Create a new {@link SequentialRuleGroup}.
-   *
-   * @param name        rule name
-   * @param description rule description
-   */
-  public SequentialRuleGroup(final String name, final String description) {
-    this(name, description, Rule.DEFAULT_PRIORITY);
-  }
-
-  /**
-   * Create a new {@link SequentialRuleGroup}.
-   *
-   * @param name        rule name
-   * @param description rule description
-   * @param priority    rule priority
-   */
-  public SequentialRuleGroup(final String name, final String description, final int priority) {
+  public SequentialRuleGroup(String name, String description, int priority) {
     super(name, description, priority);
-    rules = getCollectionStore();
-    proxyRules = new HashMap<>();
   }
 
-  protected Collection getCollectionStore() {
+  protected Collection getSubRuleStorageImpl() {
     return new ArrayList<>();
   }
 
@@ -104,29 +67,6 @@ public class SequentialRuleGroup extends BasicRule {
       if (rule.evaluate(facts)) {
         rule.execute(facts);
       }
-    }
-  }
-
-  /**
-   * Add a rule to the composite rule.
-   *
-   * @param rule the rule to add
-   */
-  public void addRule(final Object rule) {
-    Rule proxy = RuleProxy.asRule(rule);
-    rules.add(proxy);
-    proxyRules.put(rule, proxy);
-  }
-
-  /**
-   * Remove a rule from the composite rule.
-   *
-   * @param rule the rule to remove
-   */
-  public void removeRule(final Object rule) {
-    Rule proxy = proxyRules.get(rule);
-    if (proxy != null) {
-      rules.remove(proxy);
     }
   }
 

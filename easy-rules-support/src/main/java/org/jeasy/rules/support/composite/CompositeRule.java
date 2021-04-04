@@ -23,6 +23,7 @@
  */
 package org.jeasy.rules.support.composite;
 
+import java.util.Collection;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.core.BasicRule;
@@ -30,7 +31,6 @@ import org.jeasy.rules.core.RuleProxy;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -46,7 +46,7 @@ public abstract class CompositeRule extends BasicRule {
     /**
      * The set of composing rules.
      */
-    protected Set<Rule> rules;
+    protected Collection<Rule> rules;
     private final Map<Object, Rule> proxyRules;
 
     /**
@@ -84,8 +84,12 @@ public abstract class CompositeRule extends BasicRule {
      */
     public CompositeRule(final String name, final String description, final int priority) {
         super(name, description, priority);
-        rules = new TreeSet<>();
+        rules = getSubRuleStorageImpl();
         proxyRules = new HashMap<>();
+    }
+
+    protected Collection getSubRuleStorageImpl() {
+        return new TreeSet();
     }
 
     @Override

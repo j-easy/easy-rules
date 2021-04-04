@@ -152,7 +152,7 @@ public class SpELRuleFactoryTest {
         Assertions.assertThatThrownBy(() -> factory.createRule(new FileReader(rulesDescriptor)))
                 // then
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Invalid composite rule type, must be one of [UnitRuleGroup, ConditionalRuleGroup, ActivationRuleGroup]");
+                .hasMessageContaining("Invalid composite rule type, must be one of");
     }
 
     @Test

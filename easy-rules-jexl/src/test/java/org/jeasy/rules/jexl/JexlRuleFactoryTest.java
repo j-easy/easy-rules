@@ -165,7 +165,7 @@ public class JexlRuleFactoryTest {
         // when
         Assertions.assertThatThrownBy(() -> factory.createRule(new FileReader(rulesDescriptor)))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Invalid composite rule type, must be one of [UnitRuleGroup, ConditionalRuleGroup, ActivationRuleGroup]");
+                .hasMessageContaining("Invalid composite rule type, must be one of");
 
         // then
         // expected exception
