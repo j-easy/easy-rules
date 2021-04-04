@@ -47,7 +47,7 @@ import java.util.TreeSet;
 import static java.lang.String.format;
 
 /**
- * Main class to create rule proxies from annotated objects.
+ * Main class to create rule proxies from <b>annotated</b> objects.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
