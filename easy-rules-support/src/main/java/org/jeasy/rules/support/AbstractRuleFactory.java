@@ -21,82 +21,81 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+
 package org.jeasy.rules.support;
 
+import java.util.Arrays;
+import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.support.composite.ActivationRuleGroup;
 import org.jeasy.rules.support.composite.CompositeRule;
 import org.jeasy.rules.support.composite.ConditionalRuleGroup;
 import org.jeasy.rules.support.composite.UnitRuleGroup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Base class for rule factories.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
+@Slf4j
 public abstract class AbstractRuleFactory {
+    
+  private static final List<String> ALLOWED_COMPOSITE_RULE_TYPES = Arrays.asList(
+      UnitRuleGroup.class.getSimpleName(),
+      ConditionalRuleGroup.class.getSimpleName(),
+      ActivationRuleGroup.class.getSimpleName()
+  );
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRuleFactory.class);
+  protected Rule createRule(RuleDefinition ruleDefinition) {
+    if (ruleDefinition.isCompositeRule()) {
+      return createCompositeRule(ruleDefinition);
+    } else {
+      return createSimpleRule(ruleDefinition);
+    }
+  }
 
-    private static final List<String> ALLOWED_COMPOSITE_RULE_TYPES = Arrays.asList(
-            UnitRuleGroup.class.getSimpleName(),
-            ConditionalRuleGroup.class.getSimpleName(),
-            ActivationRuleGroup.class.getSimpleName()
-    );
+  protected abstract Rule createSimpleRule(RuleDefinition ruleDefinition);
 
-    protected Rule createRule(RuleDefinition ruleDefinition) {
-        if (ruleDefinition.isCompositeRule()) {
-            return createCompositeRule(ruleDefinition);
-        } else {
-            return createSimpleRule(ruleDefinition);
-        }
+  protected Rule createCompositeRule(RuleDefinition ruleDefinition) {
+    if (ruleDefinition.getCondition() != null) {
+      log.warn(
+          "Condition '{}' in composite rule '{}' of type {} will be ignored.",
+          ruleDefinition.getCondition(),
+          ruleDefinition.getName(),
+          ruleDefinition.getCompositeRuleType());
+    }
+    if (ruleDefinition.getActions() != null && !ruleDefinition.getActions().isEmpty()) {
+      log.warn(
+          "Actions '{}' in composite rule '{}' of type {} will be ignored.",
+          ruleDefinition.getActions(),
+          ruleDefinition.getName(),
+          ruleDefinition.getCompositeRuleType());
+    }
+    CompositeRule compositeRule;
+    String name = ruleDefinition.getName();
+    switch (ruleDefinition.getCompositeRuleType()) {
+      case "UnitRuleGroup":
+        compositeRule = new UnitRuleGroup(name);
+        break;
+      case "ActivationRuleGroup":
+        compositeRule = new ActivationRuleGroup(name);
+        break;
+      case "ConditionalRuleGroup":
+        compositeRule = new ConditionalRuleGroup(name);
+        break;
+      default:
+        throw new IllegalArgumentException(
+            "Invalid composite rule type, must be one of " + ALLOWED_COMPOSITE_RULE_TYPES);
+    }
+    compositeRule.setDescription(ruleDefinition.getDescription());
+    compositeRule.setPriority(ruleDefinition.getPriority());
+
+    for (RuleDefinition composingRuleDefinition : ruleDefinition.getComposingRules()) {
+      compositeRule.addRule(createRule(composingRuleDefinition));
     }
 
-    protected abstract Rule createSimpleRule(RuleDefinition ruleDefinition);
-
-    protected Rule createCompositeRule(RuleDefinition ruleDefinition) {
-        if (ruleDefinition.getCondition() != null) {
-            LOGGER.warn(
-                    "Condition '{}' in composite rule '{}' of type {} will be ignored.",
-                    ruleDefinition.getCondition(),
-                    ruleDefinition.getName(),
-                    ruleDefinition.getCompositeRuleType());
-        }
-        if (ruleDefinition.getActions() != null && !ruleDefinition.getActions().isEmpty()) {
-            LOGGER.warn(
-                    "Actions '{}' in composite rule '{}' of type {} will be ignored.",
-                    ruleDefinition.getActions(),
-                    ruleDefinition.getName(),
-                    ruleDefinition.getCompositeRuleType());
-        }
-        CompositeRule compositeRule;
-        String name = ruleDefinition.getName();
-        switch (ruleDefinition.getCompositeRuleType()) {
-            case "UnitRuleGroup":
-                compositeRule = new UnitRuleGroup(name);
-                break;
-            case "ActivationRuleGroup":
-                compositeRule = new ActivationRuleGroup(name);
-                break;
-            case "ConditionalRuleGroup":
-                compositeRule = new ConditionalRuleGroup(name);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid composite rule type, must be one of " + ALLOWED_COMPOSITE_RULE_TYPES);
-        }
-        compositeRule.setDescription(ruleDefinition.getDescription());
-        compositeRule.setPriority(ruleDefinition.getPriority());
-
-        for (RuleDefinition composingRuleDefinition : ruleDefinition.getComposingRules()) {
-            compositeRule.addRule(createRule(composingRuleDefinition));
-        }
-
-        return compositeRule;
-    }
+    return compositeRule;
+  }
 
 }

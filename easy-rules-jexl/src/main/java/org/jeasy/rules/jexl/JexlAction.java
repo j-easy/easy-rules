@@ -21,50 +21,49 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+
 package org.jeasy.rules.jexl;
 
 import java.util.Objects;
-
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JexlException;
 import org.apache.commons.jexl3.JexlScript;
 import org.apache.commons.jexl3.MapContext;
 import org.jeasy.rules.api.Action;
 import org.jeasy.rules.api.Facts;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Lauri Kimmel
  * @author Mahmoud Ben Hassine
  */
+@Slf4j
 public class JexlAction implements Action {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JexlAction.class);
+  private final JexlScript compiledScript;
+  private final String expression;
 
-    private final JexlScript compiledScript;
-    private final String expression;
+  public JexlAction(String expression) {
+    this.expression = Objects.requireNonNull(expression, "expression cannot be null");
+    this.compiledScript = JexlRule.DEFAULT_JEXL.createScript(expression);
+  }
 
-    public JexlAction(String expression) {
-        this.expression = Objects.requireNonNull(expression, "expression cannot be null");
-        this.compiledScript = JexlRule.DEFAULT_JEXL.createScript(expression);
+  public JexlAction(String expression, JexlEngine jexl) {
+    this.expression = Objects.requireNonNull(expression, "expression cannot be null");
+    Objects.requireNonNull(jexl, "jexl cannot be null");
+    this.compiledScript = jexl.createScript(expression);
+  }
+
+  @Override
+  public void execute(Facts facts) {
+    Objects.requireNonNull(facts, "facts cannot be null");
+    MapContext ctx = new MapContext(facts.asMap());
+    try {
+      compiledScript.execute(ctx);
+    } catch (JexlException e) {
+      log.error("Unable to execute expression: '" + expression + "' on facts: " + facts, e);
+      throw e;
     }
+  }
 
-    public JexlAction(String expression, JexlEngine jexl) {
-        this.expression = Objects.requireNonNull(expression, "expression cannot be null");
-        Objects.requireNonNull(jexl, "jexl cannot be null");
-        this.compiledScript = jexl.createScript(expression);
-    }
-
-    @Override
-    public void execute(Facts facts) {
-        Objects.requireNonNull(facts, "facts cannot be null");
-        MapContext ctx = new MapContext(facts.asMap());
-        try {
-            compiledScript.execute(ctx);
-        } catch (JexlException e) {
-            LOGGER.error("Unable to execute expression: '" + expression + "' on facts: " + facts, e);
-            throw e;
-        }
-    }
 }
