@@ -1,0 +1,17 @@
+@Value:
+-------
+read only but will generate a public AllArgsConstructor which you use to instantiate instances.
+equivalent to:
+final @ToString @EqualsAndHashCode @AllArgsConstructor @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE) @Getter
+
+@Builder:
+---------
+once built, the resulting instance is immutable. Often combined with @Getter to be able to read the values.
+Auto generates a private constructor so no need to include @xxxConstructor annotations.
+
+above statement NOT entirely correct. It is still possible to modify the object using reflection for example.
+to be fully immutable, the fields should be made final.
+@Accessor:
+----------
+allows you to specify a chain option for fluency. Often combined with @Getter and @Setter.
+The instantiated object is mutable.

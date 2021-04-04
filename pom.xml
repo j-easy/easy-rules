@@ -37,6 +37,7 @@
         <system-lambda.version>1.1.1</system-lambda.version>
         <slf4j.version>1.7.30</slf4j.version>
         <jackson.version>2.11.3</jackson.version>
+        <lombok.version>1.18.20</lombok.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -92,6 +93,11 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
                 <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
 
             <dependency>

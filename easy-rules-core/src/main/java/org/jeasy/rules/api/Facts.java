@@ -34,6 +34,14 @@ import java.util.Set;
  * This class encapsulates a set of facts and represents a facts namespace.
  * Facts have unique names within a <code>Facts</code> object.
  *
+ * todo
+ * This is the equivalent of FactBook.
+ * Requirement:
+ * 1. when putting a value [either dynamically or via facts definitions] we need to associate
+ * the fact with a type, once, at fact definition time. From this point on, getting a fact by name
+ * should automatically know what type to return. So the fact types should be stored in a registry
+ * of sort.
+ *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class Facts implements Iterable<Fact<?>> {
