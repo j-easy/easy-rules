@@ -21,10 +21,8 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.jeasy.rules.support.composite;
 
-import java.util.Collection;
-import java.util.TreeSet;
+package org.jeasy.rules.support.composite;
 
 /**
  * Base class representing a composite rule composed of a list of rules that are executed in order.
@@ -36,6 +34,9 @@ import java.util.TreeSet;
  * @author Jaylee Ibrahim (mcaibai-std@yahoo.com)
  */
 public class SequentialSortedRuleGroup extends SequentialRuleGroup {
+
+  public SequentialSortedRuleGroup() {
+  }
 
   public SequentialSortedRuleGroup(String name) {
     super(name);
@@ -50,8 +51,8 @@ public class SequentialSortedRuleGroup extends SequentialRuleGroup {
   }
 
   @Override
-  protected Collection getSubRuleStorageImpl() {
-    return new TreeSet();
+  public boolean isSortable() {
+    return true;
   }
 
 }

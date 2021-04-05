@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.jeasy.rules.support.AbstractRuleFactory;
 
 @AllArgsConstructor
 @Getter

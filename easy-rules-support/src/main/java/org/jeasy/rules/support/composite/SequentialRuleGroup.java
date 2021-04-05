@@ -24,8 +24,6 @@
 
 package org.jeasy.rules.support.composite;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 
@@ -40,6 +38,9 @@ import org.jeasy.rules.api.Rule;
  */
 public class SequentialRuleGroup extends CompositeRule {
 
+  public SequentialRuleGroup() {
+  }
+
   public SequentialRuleGroup(String name) {
     super(name);
   }
@@ -52,13 +53,14 @@ public class SequentialRuleGroup extends CompositeRule {
     super(name, description, priority);
   }
 
-  protected Collection getSubRuleStorageImpl() {
-    return new ArrayList<>();
-  }
-
   @Override
   public boolean evaluate(Facts facts) {
     return true;
+  }
+
+  @Override
+  public boolean isSortable() {
+    return false;
   }
 
   @Override
