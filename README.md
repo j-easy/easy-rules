@@ -175,6 +175,7 @@ Thank you all for your contributions!
 
 * [EasyRulesGo](https://github.com/CrowdStrike/easyrulesgo) : A port of EasyRules to Golang by [@jiminoc](https://github.com/jiminoc)
 * [EasyRulesGroovy](https://github.com/will-gilbert/easyrules-tutorials-groovy) : A port of EasyRules tutorials to Groovy by [@will-gilbert](https://github.com/will-gilbert)
+* [Easy-Rules-.NET](https://github.com/skuehlshelby/Easy-Rules-.NET) : A port of EasyRules to .NET Core by [@skuehlshelby](https://github.com/skuehlshelby)
 * [EasyRulesCsharp](https://github.com/feldrim/EasyRulesCsharp) : A port of EasyRules to CSharp (WIP) by [@feldrim](https://github.com/feldrim)
 
 ## Who is using Easy Rules?
