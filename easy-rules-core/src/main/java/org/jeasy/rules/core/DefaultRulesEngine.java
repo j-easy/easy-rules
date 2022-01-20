@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2021, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ *  Copyright (c) 2020, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -172,7 +172,9 @@ public final class DefaultRulesEngine extends AbstractRulesEngine {
         Map<Rule, Boolean> result = new HashMap<>();
         for (Rule rule : rules) {
             if (shouldBeEvaluated(rule, facts)) {
-                result.put(rule, rule.evaluate(facts));
+                boolean res =  rule.evaluate(facts);
+            	result.put(rule, res);
+            	triggerListenersAfterEvaluate(rule, facts, res);
             }
         }
         return result;
