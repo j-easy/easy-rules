@@ -10,7 +10,7 @@
 
     <groupId>org.jeasy</groupId>
     <artifactId>easy-rules</artifactId>
-    <version>4.1.1-SNAPSHOT</version>
+    <version>4.1.2-SNAPSHOT</version>
 
     <modules>
         <module>easy-rules-archetype</module>
@@ -168,7 +168,7 @@
                     <version>${maven-license-plugin.version}</version>
                     <configuration>
                         <properties>
-                            <currentYear>2020</currentYear>
+                            <currentYear>2022</currentYear>
                         </properties>
                         <strictCheck>true</strictCheck>
                         <includes>

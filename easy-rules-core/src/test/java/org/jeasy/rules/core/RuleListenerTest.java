@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2021, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+ *  Copyright (c) 2022, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -136,5 +136,31 @@ public class RuleListenerTest extends AbstractTest {
         // Then
         verify(ruleListener1).afterEvaluate(rule1, facts, false);
     }
+    
+    @Test
+    public void whenTheRuleEvaluatesToFalseInDoCheck_thenTheListenerShouldBeInvoked() {
+        // Given
+        when(rule1.evaluate(facts)).thenReturn(false);
+        rules.register(rule1);
 
+        // When
+        rulesEngine.check(rules, facts);
+
+        // Then
+        verify(ruleListener1).afterEvaluate(rule1, facts, false);
+    }
+    
+    @Test
+    public void whenTheRuleEvaluatesToTrueInDoCheck_thenTheListenerShouldBeInvoked() {
+        // Given
+        when(rule1.evaluate(facts)).thenReturn(true);
+        rules.register(rule1);
+
+        // When
+        rulesEngine.check(rules, facts);
+
+        // Then
+        verify(ruleListener1).afterEvaluate(rule1, facts, true);
+    }
+    
 }
