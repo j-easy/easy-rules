@@ -37,6 +37,7 @@
         <system-lambda.version>1.1.1</system-lambda.version>
         <slf4j.version>1.7.30</slf4j.version>
         <jackson.version>2.11.3</jackson.version>
+        <jsr305.version>3.0.2</jsr305.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -110,6 +111,12 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${jsr305.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
