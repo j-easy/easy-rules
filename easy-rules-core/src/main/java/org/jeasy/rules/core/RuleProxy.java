@@ -163,15 +163,23 @@ public class RuleProxy implements InvocationHandler {
         List<Object> actualParameters = new ArrayList<>();
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
         for (Annotation[] annotations : parameterAnnotations) {
-            if (annotations.length == 1) {
-                String factName = ((Fact) (annotations[0])).value(); //validated upfront.
-                Object fact = facts.get(factName);
-                if (fact == null && !facts.asMap().containsKey(factName)) {
+            String factName = null;
+            boolean annotatedAsNullable = false;
+            for (Annotation annotation : annotations) {
+                if (annotation.annotationType().equals(Fact.class)) {
+                    factName = ((Fact) annotation).value();
+                } else if ("javax.annotation.Nullable".equals(annotation.annotationType().getCanonicalName())) {
+                    annotatedAsNullable = true;
+                }
+            }
+            if (factName != null) {
+                Object fact = facts.get(factName); //validated upfront.
+                if (fact == null && !facts.asMap().containsKey(factName) && !annotatedAsNullable) {
                     throw new NoSuchFactException(format("No fact named '%s' found in known facts: %n%s", factName, facts), factName);
                 }
                 actualParameters.add(fact);
             } else {
-                actualParameters.add(facts); //validated upfront, there may be only one parameter not annotated and which is of type Facts.class
+                actualParameters.add(facts); //validated upfront, there may be only one parameter not annotated as Fact and which is of type Facts.class
             }
         }
         return actualParameters;
