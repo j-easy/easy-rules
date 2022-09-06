@@ -25,12 +25,14 @@ package org.jeasy.rules.api;
 
 import org.jeasy.rules.core.InferenceRulesEngine;
 
+import java.io.Serializable;
+
 /**
  * A listener for rules engine execution events.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public interface RulesEngineListener {
+public interface RulesEngineListener extends Serializable {
 
     /**
      * Triggered before evaluating the rule set.

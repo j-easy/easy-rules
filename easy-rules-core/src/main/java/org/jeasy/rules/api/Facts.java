@@ -23,6 +23,7 @@
  */
 package org.jeasy.rules.api;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -36,7 +37,7 @@ import java.util.Set;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class Facts implements Iterable<Fact<?>> {
+public class Facts implements Iterable<Fact<?>>, Serializable {
 
     private final Set<Fact<?>> facts = new HashSet<>();
 

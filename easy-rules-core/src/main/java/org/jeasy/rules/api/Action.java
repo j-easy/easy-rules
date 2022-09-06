@@ -23,13 +23,15 @@
  */
 package org.jeasy.rules.api;
 
+import java.io.Serializable;
+
 /**
  * This interface represents a rule's action.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @FunctionalInterface
-public interface Action {
+public interface Action extends Serializable {
 
     /**
      * Execute the action when the rule's condition evaluates to true.

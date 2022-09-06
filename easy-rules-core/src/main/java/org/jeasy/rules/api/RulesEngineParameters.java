@@ -26,6 +26,8 @@ package org.jeasy.rules.api;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.core.InferenceRulesEngine;
 
+import java.io.Serializable;
+
 /**
  * Parameters of a rules engine.
  *
@@ -36,13 +38,13 @@ import org.jeasy.rules.core.InferenceRulesEngine;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class RulesEngineParameters {
+public class RulesEngineParameters implements Serializable {
 
     /**
      * Default rule priority threshold.
      */
     public static final int DEFAULT_RULE_PRIORITY_THRESHOLD = Integer.MAX_VALUE;
-    
+
     /**
      * Parameter to skip next applicable rules when a rule is applied.
      */
@@ -73,10 +75,10 @@ public class RulesEngineParameters {
     /**
      * Create a new {@link RulesEngineParameters}.
      *
-     * @param skipOnFirstAppliedRule parameter to skip next applicable rules on first applied rule.
-     * @param skipOnFirstFailedRule parameter to skip next applicable rules on first failed rule.
+     * @param skipOnFirstAppliedRule      parameter to skip next applicable rules on first applied rule.
+     * @param skipOnFirstFailedRule       parameter to skip next applicable rules on first failed rule.
      * @param skipOnFirstNonTriggeredRule parameter to skip next applicable rules on first non triggered rule.
-     * @param priorityThreshold threshold after which rules should be skipped.
+     * @param priorityThreshold           threshold after which rules should be skipped.
      */
     public RulesEngineParameters(final boolean skipOnFirstAppliedRule, final boolean skipOnFirstFailedRule, final boolean skipOnFirstNonTriggeredRule, final int priorityThreshold) {
         this.skipOnFirstAppliedRule = skipOnFirstAppliedRule;

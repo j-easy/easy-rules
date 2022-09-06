@@ -23,6 +23,8 @@
  */
 package org.jeasy.rules.api;
 
+import java.io.Serializable;
+
 /**
  * Abstraction for a rule that can be fired by a rules engine.
  *
@@ -31,7 +33,7 @@ package org.jeasy.rules.api;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public interface Rule extends Comparable<Rule> {
+public interface Rule extends Comparable<Rule>, Serializable {
 
     /**
      * Default rule name.

@@ -23,12 +23,14 @@
  */
 package org.jeasy.rules.api;
 
+import java.io.Serializable;
+
 /**
  * A listener for rule execution events.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public interface RuleListener {
+public interface RuleListener extends Serializable {
 
     /**
      * Triggered before the evaluation of a rule.

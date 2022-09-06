@@ -25,6 +25,7 @@ package org.jeasy.rules.api;
 
 import org.jeasy.rules.core.RuleProxy;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Objects;
@@ -41,7 +42,7 @@ import java.util.TreeSet;
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
-public class Rules implements Iterable<Rule> {
+public class Rules implements Iterable<Rule>, Serializable {
 
     private Set<Rule> rules = new TreeSet<>();
 

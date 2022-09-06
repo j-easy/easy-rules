@@ -23,13 +23,15 @@
  */
 package org.jeasy.rules.api;
 
+import java.io.Serializable;
+
 /**
  * This interface represents a rule's condition.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @FunctionalInterface
-public interface Condition {
+public interface Condition  extends Serializable {
 
     /**
      * Evaluate the condition according to the known facts.
