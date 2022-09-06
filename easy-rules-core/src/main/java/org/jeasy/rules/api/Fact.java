@@ -23,6 +23,7 @@
  */
 package org.jeasy.rules.api;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -32,7 +33,7 @@ import java.util.Objects;
  * @param <T> type of the fact
  * @author Mahmoud Ben Hassine
  */
-public class Fact<T> {
+public class Fact<T> implements Serializable {
 	
 	private final String name;
 	private final T value;
