@@ -42,7 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import static java.lang.String.format;
 
@@ -278,7 +278,7 @@ public class RuleProxy implements InvocationHandler {
 
     private Set<ActionMethodOrderBean> getActionMethodBeans() {
         if (this.actionMethods == null) {
-            this.actionMethods = new TreeSet<>();
+            this.actionMethods = new ConcurrentSkipListSet<>();
             Method[] methods = getMethods();
             for (Method method : methods) {
                 if (method.isAnnotationPresent(Action.class)) {
