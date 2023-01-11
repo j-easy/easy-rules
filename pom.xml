@@ -20,6 +20,7 @@
         <module>easy-rules-support</module>
         <module>easy-rules-spel</module>
         <module>easy-rules-jexl</module>
+        <module>balance-rules-benchmarks</module>
     </modules>
 
     <packaging>pom</packaging>
