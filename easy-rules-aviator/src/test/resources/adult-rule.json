@@ -1,0 +1,11 @@
+[
+  {
+    "name": "adult rule",
+    "description": "when age is greater than 18, then mark as adult",
+    "priority": 1,
+    "condition": "person.age > 18",
+    "actions": [
+      "setAdult(person, true);"
+    ]
+  }
+]

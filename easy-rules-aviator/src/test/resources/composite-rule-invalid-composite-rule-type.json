@@ -1,0 +1,23 @@
+[
+  {
+    "name": "invalid rule",
+    "compositeRuleType": "foo",
+    "priority": 1,
+    "composingRules": [
+      {
+        "name": "rule1",
+        "condition": "true",
+        "actions": [
+          "p(\"\");"
+        ]
+      },
+      {
+        "name": "rule2",
+        "condition": "false",
+        "actions": [
+          "p(\"\");"
+        ]
+      }
+    ]
+  }
+]
